@@ -21,7 +21,7 @@ public class DisplayHelper {
             screenshotsDir.mkdirs();
         }
 
-        String dateFormatted = (String) DateFormat.format("yyyy-MM-dd_hh:mm:ss", Calendar.getInstance());
+        String dateFormatted = (String) DateFormat.format("yyyy-MM-dd_HH:mm:ss", Calendar.getInstance());
         String fileName = "Screenshot_" + dateFormatted + ".png";
         File screenshotFile = new File(screenshotsDir, fileName);
         Log.i(DisplayHelper.class.getName(), "screenshotFile: " + screenshotFile);
