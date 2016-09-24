@@ -45,7 +45,7 @@ public class MainActivity extends Activity {
                 });
                 Log.i(getClass().getName(), "isRootPermissionGranted: " + isRootPermissionGranted);
                 if (!isRootPermissionGranted) {
-                    Toast.makeText(getApplicationContext(), "Root permission was not granted. Please restart application.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Root permission was not granted. Please see log for details.", Toast.LENGTH_LONG).show();
                 } else {
                     Toast.makeText(getApplicationContext(), "Root permission was granted. Starting background job...", Toast.LENGTH_LONG).show();
 

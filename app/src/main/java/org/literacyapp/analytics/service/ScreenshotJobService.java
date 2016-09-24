@@ -9,6 +9,8 @@ import android.view.Display;
 
 import org.literacyapp.analytics.util.DisplayHelper;
 
+import java.io.File;
+
 /**
  * Service responsible for recording screenshots when the screen in switched on.
  */
@@ -23,7 +25,12 @@ public class ScreenshotJobService extends JobService {
         for (Display display : displayManager.getDisplays()) {
             if (display.getState() != Display.STATE_OFF) {
                 Log.i(getClass().getName(), "display.getState(): " + display.getState());
-                DisplayHelper.captureScreenshot(this);
+                File screenshotFile = DisplayHelper.captureScreenshot(this);
+                Log.i(getClass().getName(), "screenshotFile.exists(): " + screenshotFile.exists());
+                if (screenshotFile.exists()) {
+                    // Reduce image size
+                    // TODO
+                }
             }
         }
 

@@ -1,6 +1,6 @@
 package org.literacyapp.analytics.util;
 
-import android.content.Context;
+import android.os.Environment;
 import android.text.format.DateFormat;
 import android.util.Log;
 
@@ -9,9 +9,13 @@ import java.util.Calendar;
 
 public class DisplayHelper {
 
-    public static void captureScreenshot(Context context) {
+    /**
+     * Captures screenshot and stores it on the SD card.
+     */
+    public static File captureScreenshot() {
         Log.i(DisplayHelper.class.getName(), "captureScreenshot");
-        String screenshotsPath = context.getFilesDir() + File.separator + "screenshots";
+
+        String screenshotsPath = Environment.getExternalStorageDirectory() + File.separator + ".literacyapp-analytics" + File.separator + "screenshots";
         File screenshotsDir = new File(screenshotsPath);
         if (!screenshotsDir.exists()) {
             screenshotsDir.mkdir();
@@ -26,9 +30,6 @@ public class DisplayHelper {
                 "screencap " + screenshotFile.getAbsolutePath() + "\n"
         });
         Log.i(DisplayHelper.class.getName(), "isScreencapSuccess: " + isScreencapSuccess);
-        Log.i(DisplayHelper.class.getName(), "screenshotFile.exists(): " + screenshotFile.exists());
-
-        // Reduce image size
-        // TODO
+        return screenshotFile;
     }
 }
