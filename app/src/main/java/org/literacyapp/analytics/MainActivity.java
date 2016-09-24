@@ -1,11 +1,16 @@
 package org.literacyapp.analytics;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +20,8 @@ import org.literacyapp.analytics.service.ScreenshotJobService;
 import org.literacyapp.analytics.util.RootHelper;
 
 public class MainActivity extends Activity {
+
+    public static final int PERMISSION_REQUEST_WRITE_EXTERNAL_STORAGE = 0;
 
     private Button mMainButton;
 
@@ -32,6 +39,13 @@ public class MainActivity extends Activity {
     protected void onStart() {
         Log.i(getClass().getName(), "onStart");
         super.onStart();
+
+        // Ask for permissions
+        int permissionCheckWriteExternalStorage = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if (permissionCheckWriteExternalStorage != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_REQUEST_WRITE_EXTERNAL_STORAGE);
+            return;
+        }
 
         mMainButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,5 +76,26 @@ public class MainActivity extends Activity {
                 finish();
             }
         });
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == PERMISSION_REQUEST_WRITE_EXTERNAL_STORAGE) {
+            if ((grantResults.length > 0) && (grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                // Permission granted
+
+                // Restart application
+                Intent intent = getBaseContext().getPackageManager().getLaunchIntentForPackage( getBaseContext().getPackageName());
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            } else {
+                // Permission denied
+
+                // Close application
+                finish();
+            }
+        }
     }
 }
