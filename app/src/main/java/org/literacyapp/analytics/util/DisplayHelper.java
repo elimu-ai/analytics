@@ -18,7 +18,7 @@ public class DisplayHelper {
         String screenshotsPath = Environment.getExternalStorageDirectory() + File.separator + ".literacyapp-analytics" + File.separator + "screenshots";
         File screenshotsDir = new File(screenshotsPath);
         if (!screenshotsDir.exists()) {
-            screenshotsDir.mkdir();
+            screenshotsDir.mkdirs();
         }
 
         String dateFormatted = (String) DateFormat.format("yyyy-MM-dd_hh:mm:ss", Calendar.getInstance());

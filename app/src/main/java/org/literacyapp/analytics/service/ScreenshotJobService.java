@@ -25,7 +25,7 @@ public class ScreenshotJobService extends JobService {
         for (Display display : displayManager.getDisplays()) {
             if (display.getState() != Display.STATE_OFF) {
                 Log.i(getClass().getName(), "display.getState(): " + display.getState());
-                File screenshotFile = DisplayHelper.captureScreenshot(this);
+                File screenshotFile = DisplayHelper.captureScreenshot();
                 Log.i(getClass().getName(), "screenshotFile.exists(): " + screenshotFile.exists());
                 if (screenshotFile.exists()) {
                     // Reduce image size
