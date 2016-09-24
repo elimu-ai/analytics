@@ -23,8 +23,7 @@ public class DisplayHelper {
     public static File captureScreenshot() {
         Log.i(DisplayHelper.class.getName(), "captureScreenshot");
 
-//        String screenshotsPath = Environment.getExternalStorageDirectory() + File.separator + ".literacyapp-analytics" + File.separator + "screenshots";
-        String screenshotsPath = Environment.getExternalStorageDirectory() + File.separator + "literacyapp-analytics" + File.separator + "screenshots";
+        String screenshotsPath = Environment.getExternalStorageDirectory() + File.separator + ".literacyapp-analytics" + File.separator + "screenshots";
         File screenshotsDir = new File(screenshotsPath);
         if (!screenshotsDir.exists()) {
             screenshotsDir.mkdirs();
