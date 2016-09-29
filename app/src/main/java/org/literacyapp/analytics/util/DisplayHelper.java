@@ -1,10 +1,15 @@
 package org.literacyapp.analytics.util;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Environment;
 import android.text.format.DateFormat;
 import android.util.Log;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Calendar;
 
 public class DisplayHelper {
@@ -31,5 +36,38 @@ public class DisplayHelper {
         });
         Log.i(DisplayHelper.class.getName(), "isScreencapSuccess: " + isScreencapSuccess);
         return screenshotFile;
+    }
+
+    public static File resizeBitmap(File screenshotFile, int maxImageSize, boolean filter) {
+        Log.i(DisplayHelper.class.getName(), "resizeBitmap");
+
+        Bitmap bitmapOriginal = BitmapFactory.decodeFile(screenshotFile.getAbsolutePath());
+        Log.i(DisplayHelper.class.getName(), "bitmapOriginal: " + bitmapOriginal.getWidth() + "px x " + bitmapOriginal.getHeight() + "px");
+
+        float ratio = Math.min(
+                (float) maxImageSize / bitmapOriginal.getWidth(),
+                (float) maxImageSize / bitmapOriginal.getHeight()
+        );
+        int width = Math.round(ratio * bitmapOriginal.getWidth());
+        int height = Math.round(ratio * bitmapOriginal.getHeight());
+
+        Bitmap bitmapScaled = Bitmap.createScaledBitmap(bitmapOriginal, width, height, filter);
+        Log.i(DisplayHelper.class.getName(), "bitmapScaled: " + bitmapScaled.getWidth() + "px x " + bitmapScaled.getHeight() + "px");
+
+        // Save scaled bitmap as file
+        String scaledScreenshotPath = screenshotFile.getAbsolutePath();
+        scaledScreenshotPath = scaledScreenshotPath.replace(".png", "_" + maxImageSize + ".png");
+        Log.i(DisplayHelper.class.getName(), "scaledScreenshotPath: " + scaledScreenshotPath);
+        File scaledScreenshotFile = new File(scaledScreenshotPath);
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream(scaledScreenshotFile);
+            bitmapScaled.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream);
+            fileOutputStream.close();
+        } catch (FileNotFoundException e) {
+            Log.e(DisplayHelper.class.getName(), null, e);
+        } catch (IOException e) {
+            Log.e(DisplayHelper.class.getName(), null, e);
+        }
+        return scaledScreenshotFile;
     }
 }
