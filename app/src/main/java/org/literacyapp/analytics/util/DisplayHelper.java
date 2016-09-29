@@ -6,9 +6,6 @@ import android.os.Environment;
 import android.text.format.DateFormat;
 import android.util.Log;
 
-import org.apache.commons.io.IOUtils;
-
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -62,13 +59,9 @@ public class DisplayHelper {
         scaledScreenshotPath = scaledScreenshotPath.replace(".png", "_" + maxImageSize + ".png");
         Log.i(DisplayHelper.class.getName(), "scaledScreenshotPath: " + scaledScreenshotPath);
         File scaledScreenshotFile = new File(scaledScreenshotPath);
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmapScaled.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-        byte[] bytes = byteArrayOutputStream.toByteArray();
-        Log.i(DisplayHelper.class.getName(), "bytes.length: " + bytes.length);
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(scaledScreenshotFile);
-            IOUtils.write(bytes, fileOutputStream);
+            bitmapScaled.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream);
             fileOutputStream.close();
         } catch (FileNotFoundException e) {
             Log.e(DisplayHelper.class.getName(), null, e);
