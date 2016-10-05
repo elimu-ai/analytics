@@ -32,7 +32,7 @@ public class ScreenshotJobService extends JobService {
                 Log.i(getClass().getName(), "screenshotFile.exists(): " + screenshotFile.exists());
                 if (screenshotFile.exists()) {
                     // Reduce image size
-                    File resizedScreenshotFile = DisplayHelper.resizeBitmap(screenshotFile, 320, false);
+                    File resizedScreenshotFile = DisplayHelper.resizeBitmap(screenshotFile, 640, false);
                     Log.i(getClass().getName(), "resizedScreenshotFile.exists(): " + resizedScreenshotFile.exists());
                 }
 

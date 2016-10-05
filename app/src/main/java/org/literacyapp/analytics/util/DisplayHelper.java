@@ -26,7 +26,7 @@ public class DisplayHelper {
             screenshotsDir.mkdirs();
         }
 
-        String dateFormatted = (String) DateFormat.format("yyyy-MM-dd_HH:mm:ss", Calendar.getInstance());
+        String dateFormatted = (String) DateFormat.format("yyyy-MM-dd_HHmmss", Calendar.getInstance());
         String fileName = dateFormatted + "_screenshot.png";
         File screenshotFile = new File(screenshotsDir, fileName);
         Log.i(DisplayHelper.class.getName(), "screenshotFile: " + screenshotFile);
@@ -56,7 +56,6 @@ public class DisplayHelper {
 
         // Save scaled bitmap as file
         String scaledScreenshotPath = screenshotFile.getAbsolutePath();
-        scaledScreenshotPath = scaledScreenshotPath.replace(".png", "_" + maxImageSize + ".png");
         Log.i(DisplayHelper.class.getName(), "scaledScreenshotPath: " + scaledScreenshotPath);
         File scaledScreenshotFile = new File(scaledScreenshotPath);
         try {
