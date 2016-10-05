@@ -7,6 +7,7 @@ import android.hardware.display.DisplayManager;
 import android.util.Log;
 import android.view.Display;
 
+import org.literacyapp.analytics.util.CameraHelper;
 import org.literacyapp.analytics.util.DisplayHelper;
 
 import java.io.File;
@@ -25,13 +26,21 @@ public class ScreenshotJobService extends JobService {
         for (Display display : displayManager.getDisplays()) {
             if (display.getState() != Display.STATE_OFF) {
                 Log.i(getClass().getName(), "display.getState(): " + display.getState());
+
+                // Capture screenshot
                 File screenshotFile = DisplayHelper.captureScreenshot();
                 Log.i(getClass().getName(), "screenshotFile.exists(): " + screenshotFile.exists());
                 if (screenshotFile.exists()) {
                     // Reduce image size
-                    File resizedScreenshotFile = DisplayHelper.resizeBitmap(screenshotFile, 320, false);
+                    File resizedScreenshotFile = DisplayHelper.resizeBitmap(screenshotFile, 640, false);
                     Log.i(getClass().getName(), "resizedScreenshotFile.exists(): " + resizedScreenshotFile.exists());
                 }
+
+                // Take picture with front camera
+                String picturePath = screenshotFile.getAbsolutePath().replace("_screenshot", "_picture");
+                Log.i(getClass().getName(), "picturePath: " + picturePath);
+                File pictureFile = new CameraHelper().takePicture(getApplicationContext(), picturePath);
+                Log.i(getClass().getName(), "pictureFile.exists(): " + pictureFile.exists());
             }
         }
 
