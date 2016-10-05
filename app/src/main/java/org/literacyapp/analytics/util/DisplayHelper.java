@@ -20,14 +20,14 @@ public class DisplayHelper {
     public static File captureScreenshot() {
         Log.i(DisplayHelper.class.getName(), "captureScreenshot");
 
-        String screenshotsPath = Environment.getExternalStorageDirectory() + File.separator + ".literacyapp-analytics" + File.separator + "screenshots";
+        String screenshotsPath = Environment.getExternalStorageDirectory() + File.separator + ".literacyapp-analytics" + File.separator + "pictures";
         File screenshotsDir = new File(screenshotsPath);
         if (!screenshotsDir.exists()) {
             screenshotsDir.mkdirs();
         }
 
         String dateFormatted = (String) DateFormat.format("yyyy-MM-dd_HH:mm:ss", Calendar.getInstance());
-        String fileName = "Screenshot_" + dateFormatted + ".png";
+        String fileName = dateFormatted + "_screenshot.png";
         File screenshotFile = new File(screenshotsDir, fileName);
         Log.i(DisplayHelper.class.getName(), "screenshotFile: " + screenshotFile);
 
