@@ -1,6 +1,6 @@
 # literacyapp-analytics
 
-# Initiate JobService
+## Initiate JobService
 
 To initiate the ScreenshotJobService, use the following command:
 
