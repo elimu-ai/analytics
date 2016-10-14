@@ -9,10 +9,10 @@
     <application
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name">
-
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -25,8 +25,19 @@
 
         <service
             android:name=".service.ScreenshotJobService"
-            android:permission="android.permission.BIND_JOB_SERVICE"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+
+        <receiver
+            android:name=".receiver.UsageEventReceiver"
+            android:enabled="true"
+            android:exported="true">
+
+            <intent-filter>
+                <action android:name="literacyapp.intent.action.USAGE_ACTIVITY" />
+            </intent-filter>
+        </receiver>
     </application>
+
 </manifest>
