@@ -35,7 +35,7 @@
             android:exported="true">
 
             <intent-filter>
-                <action android:name="literacyapp.intent.action.USAGE_ACTIVITY" />
+                <action android:name="literacyapp.intent.action.USAGE_EVENT" />
             </intent-filter>
         </receiver>
     </application>

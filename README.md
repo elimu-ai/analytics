@@ -17,7 +17,7 @@ To notify this application about usage activity in another application, there ar
 
     Intent intent = new Intent();
     intent.setPackage("org.literacyapp.analytics");
-    intent.setAction("literacyapp.intent.action.USAGE_ACTIVITY");
+    intent.setAction("literacyapp.intent.action.USAGE_EVENT");
     intent.putExtra("packageName", "org.package.name");
     intent.putExtra("literacySkill", "PHONEMIC_AWARENESS");
     sendBroadcast(intent);
@@ -26,7 +26,7 @@ To notify this application about usage activity in another application, there ar
 
     am broadcast 
         -n org.literacyapp.analytics
-        -a literacyapp.intent.action.USAGE_ACTIVITY
+        -a literacyapp.intent.action.USAGE_EVENT
         -e packageName org.package.name
         -e literacySkill PHONEMIC_AWARENESS
 
