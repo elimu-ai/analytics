@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.Display;
 
 import org.literacyapp.analytics.util.CameraHelper;
+import org.literacyapp.analytics.util.DeviceInfoHelper;
 import org.literacyapp.analytics.util.DisplayHelper;
 
 import java.io.File;
@@ -39,8 +40,12 @@ public class ScreenshotJobService extends JobService {
                 // Take picture with front camera
                 String picturePath = screenshotFile.getAbsolutePath().replace("_screenshot", "_picture");
                 Log.i(getClass().getName(), "picturePath: " + picturePath);
-                File pictureFile = new CameraHelper().takePicture(getApplicationContext(), picturePath);
-                Log.i(getClass().getName(), "pictureFile.exists(): " + pictureFile.exists());
+                if ("KFFOWI".equals(DeviceInfoHelper.getDeviceModel(getApplicationContext()))) {
+                    File pictureFile = new CameraHelper().takePicture(getApplicationContext(), picturePath);
+                    Log.i(getClass().getName(), "pictureFile.exists(): " + pictureFile.exists());
+                } else {
+                    // TODO
+                }
             }
         }
 

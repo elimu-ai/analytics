@@ -6,9 +6,9 @@ import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.util.Log;
 
 import org.greenrobot.greendao.AbstractDaoMaster;
-import org.greenrobot.greendao.database.StandardDatabase;
 import org.greenrobot.greendao.database.Database;
 import org.greenrobot.greendao.database.DatabaseOpenHelper;
+import org.greenrobot.greendao.database.StandardDatabase;
 import org.greenrobot.greendao.identityscope.IdentityScopeType;
 
 
@@ -16,7 +16,7 @@ import org.greenrobot.greendao.identityscope.IdentityScopeType;
 /**
  * Master of DAO (schema version 1000003): knows all DAOs.
  */
-public class DaoMaster extends AbstractDaoMaster {
+public class DaoMaster100003 extends AbstractDaoMaster {
     public static final int SCHEMA_VERSION = 1000003;
 
     /** Creates underlying database table using DAOs. */
@@ -35,15 +35,15 @@ public class DaoMaster extends AbstractDaoMaster {
      */
     public static DaoSession newDevSession(Context context, String name) {
         Database db = new DevOpenHelper(context, name).getWritableDb();
-        DaoMaster daoMaster = new DaoMaster(db);
+        DaoMaster100003 daoMaster = new DaoMaster100003(db);
         return daoMaster.newSession();
     }
 
-    public DaoMaster(SQLiteDatabase db) {
+    public DaoMaster100003(SQLiteDatabase db) {
         this(new StandardDatabase(db));
     }
 
-    public DaoMaster(Database db) {
+    public DaoMaster100003(Database db) {
         super(db, SCHEMA_VERSION);
         registerDaoClass(UsageEventDao.class);
     }
@@ -87,10 +87,10 @@ public class DaoMaster extends AbstractDaoMaster {
 
         @Override
         public void onUpgrade(Database db, int oldVersion, int newVersion) {
-            Log.i("greenDAO", "Upgrading schema from version " + oldVersion + " to " + newVersion + " by dropping all tables");
-            dropAllTables(db, true);
-            onCreate(db);
+            Log.i("greenDAO", "Upgrading schema from version " + oldVersion + " to " + newVersion);
+
+            // schemaVersion 1000003
+            DbMigrationHelper.migrate(db, UsageEventDao.class);
         }
     }
-
 }
