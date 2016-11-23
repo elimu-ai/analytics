@@ -6,6 +6,10 @@ import android.content.Intent;
 import android.text.TextUtils;
 import android.util.Log;
 
+import org.literacyapp.analytics.AnalyticsApplication;
+import org.literacyapp.analytics.dao.UsageEventDao;
+import org.literacyapp.analytics.model.UsageEvent;
+import org.literacyapp.analytics.util.DeviceInfoHelper;
 import org.literacyapp.model.enums.content.LiteracySkill;
 import org.literacyapp.model.enums.content.NumeracySkill;
 
@@ -27,13 +31,21 @@ public class UsageEventReceiver extends BroadcastReceiver {
 
         String numeracySkillExtra = intent.getStringExtra("numeracySkill");
         Log.i(getClass().getName(), "numeracySkillExtra: " + numeracySkillExtra);
-        if (!TextUtils.isEmpty(literacySkillExtra)) {
+        if (!TextUtils.isEmpty(numeracySkillExtra)) {
             NumeracySkill numeracySkill = NumeracySkill.valueOf(numeracySkillExtra);
             Log.i(getClass().getName(), "numeracySkill: " + numeracySkill);
         }
 
-        // TODO: content, task type, task result, etc.
+        // TODO: add content, task type, task result, duration, etc.
 
-        // TODO: store in database
+        // Store in database
+        UsageEvent usageEvent = new UsageEvent();
+        usageEvent.setDeviceId(DeviceInfoHelper.getDeviceId(context));
+        usageEvent.setPackageName(packageName);
+
+        AnalyticsApplication analyticsApplication = (AnalyticsApplication) context.getApplicationContext();
+        UsageEventDao usageEventDao = analyticsApplication.getDaoSession().getUsageEventDao();
+        long id = usageEventDao.insert(usageEvent);
+        Log.i(getClass().getName(), "UsageEvent saved in database with id " + id);
     }
 }
