@@ -15,8 +15,8 @@ android {
         applicationId "org.literacyapp.analytics"
         minSdkVersion 21
         targetSdkVersion 23
-        versionCode 1000002
-        versionName "1.0.2-SNAPSHOT"
+        versionCode 1000003
+        versionName "1.0.3"
     }
 
     buildTypes {
@@ -31,7 +31,7 @@ android {
 }
 
 greendao {
-    schemaVersion 1000002
+    schemaVersion 1000003
     daoPackage 'org.literacyapp.analytics.dao'
     targetGenDir '../app/src/main/java'
 }

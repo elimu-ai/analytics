@@ -29,17 +29,19 @@ public class UsageEventReceiver extends BroadcastReceiver {
         String packageName = intent.getStringExtra("packageName");
         Log.i(getClass().getName(), "packageName: " + packageName);
 
+        LiteracySkill literacySkill = null;
         String literacySkillExtra = intent.getStringExtra("literacySkill");
         Log.i(getClass().getName(), "literacySkillExtra: " + literacySkillExtra);
         if (!TextUtils.isEmpty(literacySkillExtra)) {
-            LiteracySkill literacySkill = LiteracySkill.valueOf(literacySkillExtra);
+            literacySkill = LiteracySkill.valueOf(literacySkillExtra);
             Log.i(getClass().getName(), "literacySkill: " + literacySkill);
         }
 
+        NumeracySkill numeracySkill = null;
         String numeracySkillExtra = intent.getStringExtra("numeracySkill");
         Log.i(getClass().getName(), "numeracySkillExtra: " + numeracySkillExtra);
         if (!TextUtils.isEmpty(numeracySkillExtra)) {
-            NumeracySkill numeracySkill = NumeracySkill.valueOf(numeracySkillExtra);
+            numeracySkill = NumeracySkill.valueOf(numeracySkillExtra);
             Log.i(getClass().getName(), "numeracySkill: " + numeracySkill);
         }
 
@@ -49,8 +51,11 @@ public class UsageEventReceiver extends BroadcastReceiver {
 
         // Store in database
         UsageEvent usageEvent = new UsageEvent();
+        usageEvent.setTime(Calendar.getInstance());
         usageEvent.setDeviceId(DeviceInfoHelper.getDeviceId(context));
         usageEvent.setPackageName(packageName);
+        usageEvent.setLiteracySkill(literacySkill);
+        usageEvent.setNumeracySkill(numeracySkill);
 
         AnalyticsApplication analyticsApplication = (AnalyticsApplication) context.getApplicationContext();
         UsageEventDao usageEventDao = analyticsApplication.getDaoSession().getUsageEventDao();
@@ -59,8 +64,14 @@ public class UsageEventReceiver extends BroadcastReceiver {
 
 
         // Store in log file
-        // Expected format: id|deviceId|packageName\n
-        String logLine = id + "|" + usageEvent.getDeviceId() + "|" + usageEvent.getPackageName() + "\n";
+        // Expected format: id|deviceId|time|packageName|literacySkill|numeracySkill
+        String logLine = id
+                + "|" + usageEvent.getDeviceId()
+                + "|" + usageEvent.getTime().getTimeInMillis()
+                + "|" + usageEvent.getPackageName()
+                + "|" + usageEvent.getLiteracySkill()
+                + "|" + usageEvent.getNumeracySkill()
+                + "\n";
         Log.i(getClass().getName(), "logLine: " + logLine);
 
         String logsPath = Environment.getExternalStorageDirectory() + "/.literacyapp-analytics/logs";
