@@ -27,12 +27,12 @@ public class UsageEventReceiver extends BroadcastReceiver {
 
         String numeracySkillExtra = intent.getStringExtra("numeracySkill");
         Log.i(getClass().getName(), "numeracySkillExtra: " + numeracySkillExtra);
-        if (!TextUtils.isEmpty(literacySkillExtra)) {
+        if (!TextUtils.isEmpty(numeracySkillExtra)) {
             NumeracySkill numeracySkill = NumeracySkill.valueOf(numeracySkillExtra);
             Log.i(getClass().getName(), "numeracySkill: " + numeracySkill);
         }
 
-        // TODO: content, task type, task result, etc.
+        // TODO: add content, task type, task result, duration, etc.
 
         // TODO: store in database
     }
