@@ -65,12 +65,17 @@ public class MainActivity extends Activity {
 
                     // Initiate background job for recording screenshots
                     ComponentName componentName = new ComponentName(getApplicationContext(), ScreenshotJobService.class);
-                    JobInfo.Builder builder = new JobInfo.Builder(0, componentName);
+                    JobInfo.Builder builder = new JobInfo.Builder(1, componentName);
                     builder.setPeriodic(5 * 60 * 1000); // Every 5 minutes
                     JobInfo screenshotJobInfo = builder.build();
 
                     JobScheduler jobScheduler = (JobScheduler) getSystemService(Context.JOB_SCHEDULER_SERVICE);
-                    jobScheduler.schedule(screenshotJobInfo);
+                    int resultId = jobScheduler.schedule(screenshotJobInfo);
+                    if (resultId > 0) {
+                        Log.i(getClass().getName(), "Job scheduled with id: " + resultId);
+                    } else {
+                        Log.w(getClass().getName(), "Job scheduling failed. Error id: " + resultId);
+                    }
                 }
 
                 finish();
