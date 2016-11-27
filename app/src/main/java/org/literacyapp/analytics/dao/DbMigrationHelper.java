@@ -15,7 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * See http://stackoverflow.com/a/38984100/354173
+ * Based on http://stackoverflow.com/a/38984100/354173
  */
 public final class DbMigrationHelper {
 
