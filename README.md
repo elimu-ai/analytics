@@ -20,15 +20,16 @@ To notify this application about usage activity in another application, there ar
     intent.setAction("literacyapp.intent.action.USAGE_EVENT");
     intent.putExtra("packageName", "org.package.name");
     intent.putExtra("literacySkill", "PHONEMIC_AWARENESS");
+    intent.putExtra("letter", "a");
     sendBroadcast(intent);
 
 ### Shell command example:
 
-    am broadcast 
-        -n org.literacyapp.analytics
+    am broadcast
         -a literacyapp.intent.action.USAGE_EVENT
         -e packageName org.package.name
         -e literacySkill PHONEMIC_AWARENESS
+        -e letter a
 
 ## Parameter names and values
 
@@ -43,3 +44,9 @@ For the `literacySkill` parameter, the following values are used for representin
 ### "numeracySkill"
 
 For the `numeracySkill` parameter, the following values are used for representing the Early Grade Mathematics Assessment (EGMA): https://github.com/literacyapp-org/literacyapp-model/blob/master/src/main/java/org/literacyapp/model/enums/content/NumeracySkill.java
+
+### "letter"
+
+### "number"
+
+### "word"
