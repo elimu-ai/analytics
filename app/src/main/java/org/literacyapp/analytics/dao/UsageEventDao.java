@@ -35,8 +35,12 @@ public class UsageEventDao extends AbstractDao<UsageEvent, Long> {
         public final static Property DeviceId = new Property(1, String.class, "deviceId", false, "DEVICE_ID");
         public final static Property Time = new Property(2, long.class, "time", false, "TIME");
         public final static Property PackageName = new Property(3, String.class, "packageName", false, "PACKAGE_NAME");
-        public final static Property LiteracySkill = new Property(4, String.class, "literacySkill", false, "LITERACY_SKILL");
-        public final static Property NumeracySkill = new Property(5, String.class, "numeracySkill", false, "NUMERACY_SKILL");
+        public final static Property StudentId = new Property(4, String.class, "studentId", false, "STUDENT_ID");
+        public final static Property LiteracySkill = new Property(5, String.class, "literacySkill", false, "LITERACY_SKILL");
+        public final static Property NumeracySkill = new Property(6, String.class, "numeracySkill", false, "NUMERACY_SKILL");
+        public final static Property Letter = new Property(7, String.class, "letter", false, "LETTER");
+        public final static Property Number = new Property(8, Integer.class, "number", false, "NUMBER");
+        public final static Property Word = new Property(9, String.class, "word", false, "WORD");
     }
 
     private final CalendarConverter timeConverter = new CalendarConverter();
@@ -59,8 +63,12 @@ public class UsageEventDao extends AbstractDao<UsageEvent, Long> {
                 "\"DEVICE_ID\" TEXT NOT NULL ," + // 1: deviceId
                 "\"TIME\" INTEGER NOT NULL ," + // 2: time
                 "\"PACKAGE_NAME\" TEXT NOT NULL ," + // 3: packageName
-                "\"LITERACY_SKILL\" TEXT," + // 4: literacySkill
-                "\"NUMERACY_SKILL\" TEXT);"); // 5: numeracySkill
+                "\"STUDENT_ID\" TEXT," + // 4: studentId
+                "\"LITERACY_SKILL\" TEXT," + // 5: literacySkill
+                "\"NUMERACY_SKILL\" TEXT," + // 6: numeracySkill
+                "\"LETTER\" TEXT," + // 7: letter
+                "\"NUMBER\" INTEGER," + // 8: number
+                "\"WORD\" TEXT);"); // 9: word
     }
 
     /** Drops the underlying database table. */
@@ -81,14 +89,34 @@ public class UsageEventDao extends AbstractDao<UsageEvent, Long> {
         stmt.bindLong(3, timeConverter.convertToDatabaseValue(entity.getTime()));
         stmt.bindString(4, entity.getPackageName());
  
+        String studentId = entity.getStudentId();
+        if (studentId != null) {
+            stmt.bindString(5, studentId);
+        }
+ 
         LiteracySkill literacySkill = entity.getLiteracySkill();
         if (literacySkill != null) {
-            stmt.bindString(5, literacySkillConverter.convertToDatabaseValue(literacySkill));
+            stmt.bindString(6, literacySkillConverter.convertToDatabaseValue(literacySkill));
         }
  
         NumeracySkill numeracySkill = entity.getNumeracySkill();
         if (numeracySkill != null) {
-            stmt.bindString(6, numeracySkillConverter.convertToDatabaseValue(numeracySkill));
+            stmt.bindString(7, numeracySkillConverter.convertToDatabaseValue(numeracySkill));
+        }
+ 
+        String letter = entity.getLetter();
+        if (letter != null) {
+            stmt.bindString(8, letter);
+        }
+ 
+        Integer number = entity.getNumber();
+        if (number != null) {
+            stmt.bindLong(9, number);
+        }
+ 
+        String word = entity.getWord();
+        if (word != null) {
+            stmt.bindString(10, word);
         }
     }
 
@@ -104,14 +132,34 @@ public class UsageEventDao extends AbstractDao<UsageEvent, Long> {
         stmt.bindLong(3, timeConverter.convertToDatabaseValue(entity.getTime()));
         stmt.bindString(4, entity.getPackageName());
  
+        String studentId = entity.getStudentId();
+        if (studentId != null) {
+            stmt.bindString(5, studentId);
+        }
+ 
         LiteracySkill literacySkill = entity.getLiteracySkill();
         if (literacySkill != null) {
-            stmt.bindString(5, literacySkillConverter.convertToDatabaseValue(literacySkill));
+            stmt.bindString(6, literacySkillConverter.convertToDatabaseValue(literacySkill));
         }
  
         NumeracySkill numeracySkill = entity.getNumeracySkill();
         if (numeracySkill != null) {
-            stmt.bindString(6, numeracySkillConverter.convertToDatabaseValue(numeracySkill));
+            stmt.bindString(7, numeracySkillConverter.convertToDatabaseValue(numeracySkill));
+        }
+ 
+        String letter = entity.getLetter();
+        if (letter != null) {
+            stmt.bindString(8, letter);
+        }
+ 
+        Integer number = entity.getNumber();
+        if (number != null) {
+            stmt.bindLong(9, number);
+        }
+ 
+        String word = entity.getWord();
+        if (word != null) {
+            stmt.bindString(10, word);
         }
     }
 
@@ -127,8 +175,12 @@ public class UsageEventDao extends AbstractDao<UsageEvent, Long> {
             cursor.getString(offset + 1), // deviceId
             timeConverter.convertToEntityProperty(cursor.getLong(offset + 2)), // time
             cursor.getString(offset + 3), // packageName
-            cursor.isNull(offset + 4) ? null : literacySkillConverter.convertToEntityProperty(cursor.getString(offset + 4)), // literacySkill
-            cursor.isNull(offset + 5) ? null : numeracySkillConverter.convertToEntityProperty(cursor.getString(offset + 5)) // numeracySkill
+            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // studentId
+            cursor.isNull(offset + 5) ? null : literacySkillConverter.convertToEntityProperty(cursor.getString(offset + 5)), // literacySkill
+            cursor.isNull(offset + 6) ? null : numeracySkillConverter.convertToEntityProperty(cursor.getString(offset + 6)), // numeracySkill
+            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // letter
+            cursor.isNull(offset + 8) ? null : cursor.getInt(offset + 8), // number
+            cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9) // word
         );
         return entity;
     }
@@ -139,8 +191,12 @@ public class UsageEventDao extends AbstractDao<UsageEvent, Long> {
         entity.setDeviceId(cursor.getString(offset + 1));
         entity.setTime(timeConverter.convertToEntityProperty(cursor.getLong(offset + 2)));
         entity.setPackageName(cursor.getString(offset + 3));
-        entity.setLiteracySkill(cursor.isNull(offset + 4) ? null : literacySkillConverter.convertToEntityProperty(cursor.getString(offset + 4)));
-        entity.setNumeracySkill(cursor.isNull(offset + 5) ? null : numeracySkillConverter.convertToEntityProperty(cursor.getString(offset + 5)));
+        entity.setStudentId(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
+        entity.setLiteracySkill(cursor.isNull(offset + 5) ? null : literacySkillConverter.convertToEntityProperty(cursor.getString(offset + 5)));
+        entity.setNumeracySkill(cursor.isNull(offset + 6) ? null : numeracySkillConverter.convertToEntityProperty(cursor.getString(offset + 6)));
+        entity.setLetter(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
+        entity.setNumber(cursor.isNull(offset + 8) ? null : cursor.getInt(offset + 8));
+        entity.setWord(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
      }
     
     @Override

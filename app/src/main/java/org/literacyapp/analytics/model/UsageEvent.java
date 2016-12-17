@@ -19,7 +19,7 @@ public class UsageEvent {
     @Id(autoincrement = true)
     private Long id;
 
-    // TODO: replace with Device
+    // TODO: replace with Device?
     @NotNull
     private String deviceId;
 
@@ -27,11 +27,12 @@ public class UsageEvent {
     @Convert(converter = CalendarConverter.class, columnType = Long.class)
     private Calendar time;
 
-    // TODO: replace with Application
+    // TODO: replace with Application?
     @NotNull
     private String packageName;
 
-    // TODO: Student
+    // TODO: replace with Student?
+    private String studentId;
 
     @Convert(converter = LiteracySkillConverter.class, columnType = String.class)
     private LiteracySkill literacySkill;
@@ -39,16 +40,30 @@ public class UsageEvent {
     @Convert(converter = NumeracySkillConverter.class, columnType = String.class)
     private NumeracySkill numeracySkill;
 
-    @Generated(hash = 1321395035)
+    // TODO: replace with Letter?
+    private String letter;
+
+    // TODO: replace with Number?
+    private Integer number;
+
+    // TODO: replace with Word?
+    private String word;
+
+    @Generated(hash = 1208691141)
     public UsageEvent(Long id, @NotNull String deviceId, @NotNull Calendar time,
-            @NotNull String packageName, LiteracySkill literacySkill,
-            NumeracySkill numeracySkill) {
+            @NotNull String packageName, String studentId,
+            LiteracySkill literacySkill, NumeracySkill numeracySkill, String letter,
+            Integer number, String word) {
         this.id = id;
         this.deviceId = deviceId;
         this.time = time;
         this.packageName = packageName;
+        this.studentId = studentId;
         this.literacySkill = literacySkill;
         this.numeracySkill = numeracySkill;
+        this.letter = letter;
+        this.number = number;
+        this.word = word;
     }
 
     @Generated(hash = 2057329387)
@@ -101,5 +116,37 @@ public class UsageEvent {
 
     public void setNumeracySkill(NumeracySkill numeracySkill) {
         this.numeracySkill = numeracySkill;
+    }
+
+    public String getStudentId() {
+        return this.studentId;
+    }
+
+    public void setStudentId(String studentId) {
+        this.studentId = studentId;
+    }
+
+    public String getLetter() {
+        return this.letter;
+    }
+
+    public void setLetter(String letter) {
+        this.letter = letter;
+    }
+
+    public Integer getNumber() {
+        return this.number;
+    }
+
+    public void setNumber(Integer number) {
+        this.number = number;
+    }
+
+    public String getWord() {
+        return this.word;
+    }
+
+    public void setWord(String word) {
+        this.word = word;
     }
 }
