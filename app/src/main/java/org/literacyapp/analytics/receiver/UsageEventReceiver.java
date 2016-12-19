@@ -3,7 +3,9 @@ package org.literacyapp.analytics.receiver;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.util.Log;
@@ -73,11 +75,15 @@ public class UsageEventReceiver extends BroadcastReceiver {
         // TODO: add task type, task result, duration, etc.
 
 
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        String studentId = sharedPreferences.getString(StudentUpdatedReceiver.PREF_STUDENT_ID, null);
+        Log.i(getClass().getName(), "studentId: " + studentId);
+
         // Store in database
         UsageEvent usageEvent = new UsageEvent();
         usageEvent.setTime(Calendar.getInstance());
         usageEvent.setDeviceId(DeviceInfoHelper.getDeviceId(context));
-        // TODO: studentId
+        usageEvent.setStudentId(studentId);
         usageEvent.setPackageName(packageName);
         usageEvent.setLiteracySkill(literacySkill);
         usageEvent.setNumeracySkill(numeracySkill);
