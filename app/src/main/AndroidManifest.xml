@@ -31,6 +31,16 @@
             android:permission="android.permission.BIND_JOB_SERVICE" />
 
         <receiver
+            android:name=".receiver.ApplicationOpenedEventReceiver"
+            android:enabled="true"
+            android:exported="true">
+
+            <intent-filter>
+                <action android:name="literacyapp.intent.action.APPLICATION_OPENED_EVENT" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
             android:name=".receiver.UsageEventReceiver"
             android:enabled="true"
             android:exported="true">
