@@ -15,7 +15,6 @@ import org.literacyapp.analytics.AnalyticsApplication;
 import org.literacyapp.analytics.dao.ApplicationOpenedEventDao;
 import org.literacyapp.analytics.model.ApplicationOpenedEvent;
 import org.literacyapp.analytics.util.DeviceInfoHelper;
-import org.literacyapp.analytics.util.VersionHelper;
 
 import java.io.File;
 import java.io.IOException;
