@@ -19,15 +19,25 @@ public class EventTracker {
         context.sendBroadcast(intent);
     }
 
-    @Deprecated
     public static void reportLetterLearningEvent(Context context, String letter) {
-        Log.i(EventTracker.class.getName(), "reportUsageEvent");
+        Log.i(EventTracker.class.getName(), "reportLetterLearningEvent");
 
         Intent intent = new Intent();
         intent.setPackage("org.literacyapp.analytics");
         intent.setAction("literacyapp.intent.action.LETTER_LEARNING_EVENT");
         intent.putExtra("packageName", context.getPackageName());
         intent.putExtra("letter", letter);
+        context.sendBroadcast(intent);
+    }
+
+    public static void reportNumberLearningEvent(Context context, Integer number) {
+        Log.i(EventTracker.class.getName(), "reportNumberLearningEvent");
+
+        Intent intent = new Intent();
+        intent.setPackage("org.literacyapp.analytics");
+        intent.setAction("literacyapp.intent.action.NUMBER_LEARNING_EVENT");
+        intent.putExtra("packageName", context.getPackageName());
+        intent.putExtra("number", number);
         context.sendBroadcast(intent);
     }
 
