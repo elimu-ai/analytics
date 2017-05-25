@@ -12,7 +12,9 @@ import android.util.Log;
 
 import org.apache.commons.io.FileUtils;
 import org.literacyapp.analytics.AnalyticsApplication;
+import org.literacyapp.analytics.dao.LetterLearningEventDao;
 import org.literacyapp.analytics.dao.UsageEventDao;
+import org.literacyapp.analytics.model.LetterLearningEvent;
 import org.literacyapp.analytics.model.UsageEvent;
 import org.literacyapp.analytics.util.DeviceInfoHelper;
 import org.literacyapp.analytics.util.VersionHelper;
@@ -23,7 +25,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Calendar;
 
-public class UsageEventReceiver extends BroadcastReceiver {
+public class LetterLearningEventReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -31,22 +33,6 @@ public class UsageEventReceiver extends BroadcastReceiver {
 
         String packageName = intent.getStringExtra("packageName");
         Log.i(getClass().getName(), "packageName: " + packageName);
-
-        LiteracySkill literacySkill = null;
-        String literacySkillExtra = intent.getStringExtra("literacySkill");
-        Log.i(getClass().getName(), "literacySkillExtra: " + literacySkillExtra);
-        if (!TextUtils.isEmpty(literacySkillExtra)) {
-            literacySkill = LiteracySkill.valueOf(literacySkillExtra);
-            Log.i(getClass().getName(), "literacySkill: " + literacySkill);
-        }
-
-        NumeracySkill numeracySkill = null;
-        String numeracySkillExtra = intent.getStringExtra("numeracySkill");
-        Log.i(getClass().getName(), "numeracySkillExtra: " + numeracySkillExtra);
-        if (!TextUtils.isEmpty(numeracySkillExtra)) {
-            numeracySkill = NumeracySkill.valueOf(numeracySkillExtra);
-            Log.i(getClass().getName(), "numeracySkill: " + numeracySkill);
-        }
 
         String letter = null;
         String letterExtra = intent.getStringExtra("letter");
@@ -56,70 +42,47 @@ public class UsageEventReceiver extends BroadcastReceiver {
             Log.i(getClass().getName(), "letter: " + letter);
         }
 
-        Integer number = null;
-        Integer numberIntExtra = intent.getIntExtra("number", Integer.MIN_VALUE);
-        Log.i(getClass().getName(), "numberIntExtra: " + numberIntExtra);
-        if (numberIntExtra > Integer.MIN_VALUE) {
-            number = numberIntExtra;
-            Log.i(getClass().getName(), "number: " + number);
-        }
-
-        String word = null;
-        String wordExtra = intent.getStringExtra("word");
-        Log.i(getClass().getName(), "wordExtra: " + wordExtra);
-        if (!TextUtils.isEmpty(wordExtra)) {
-            word = wordExtra;
-            Log.i(getClass().getName(), "word: " + word);
-        }
-
-        // TODO: add task type, task result, duration, etc.
-
-
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         String studentId = sharedPreferences.getString(StudentUpdatedReceiver.PREF_STUDENT_ID, null);
         Log.i(getClass().getName(), "studentId: " + studentId);
 
         // Store in database
-        UsageEvent usageEvent = new UsageEvent();
-        usageEvent.setTime(Calendar.getInstance());
-        usageEvent.setDeviceId(DeviceInfoHelper.getDeviceId(context));
-        usageEvent.setStudentId(studentId);
-        usageEvent.setPackageName(packageName);
-        usageEvent.setLiteracySkill(literacySkill);
-        usageEvent.setNumeracySkill(numeracySkill);
-        usageEvent.setLetter(letter);
-        usageEvent.setNumber(number);
-        usageEvent.setWord(word);
+        LetterLearningEvent letterLearningEvent = new LetterLearningEvent();
+        letterLearningEvent.setDeviceId(DeviceInfoHelper.getDeviceId(context));
+        letterLearningEvent.setTime(Calendar.getInstance());
+        letterLearningEvent.setPackageName(packageName);
+        letterLearningEvent.setStudentId(studentId);
+        letterLearningEvent.setLetter(letter);
 
         AnalyticsApplication analyticsApplication = (AnalyticsApplication) context.getApplicationContext();
-        UsageEventDao usageEventDao = analyticsApplication.getDaoSession().getUsageEventDao();
-        long id = usageEventDao.insert(usageEvent);
-        Log.i(getClass().getName(), "UsageEvent saved in database with id " + id);
-
+        LetterLearningEventDao letterLearningEventDao = analyticsApplication.getDaoSession().getLetterLearningEventDao();
+        long id = letterLearningEventDao.insert(letterLearningEvent);
+        Log.i(getClass().getName(), "LetterLearningEvent saved in database with id " + id);
 
         // Store in log file
-        // Expected format: id:1|deviceId:4113947bec18b7ad|time:1481916197273|packageName:org.literacyapp|literacySkill:LETTER_IDENTIFICATION|numeracySkill:null|letter:a|number:null|word:null
+        // Expected format: id:1|deviceId:4113947bec18b7ad|time:1481916197273|packageName:org.literacyapp|studentId:4113947bec18b7ad_1|letter:a
         String logLine = "id:" + id
-                + "|deviceId:" + usageEvent.getDeviceId()
-                + "|studentId:" + usageEvent.getStudentId()
-                + "|time:" + usageEvent.getTime().getTimeInMillis()
-                + "|packageName:" + usageEvent.getPackageName()
-                + "|literacySkill:" + usageEvent.getLiteracySkill()
-                + "|numeracySkill:" + usageEvent.getNumeracySkill()
-                + "|letter:" + usageEvent.getLetter()
-                + "|number:" + usageEvent.getNumber()
-                + "|word:" + usageEvent.getWord()
+                + "|deviceId:" + letterLearningEvent.getDeviceId()
+                + "|time:" + letterLearningEvent.getTime().getTimeInMillis()
+                + "|packageName:" + letterLearningEvent.getPackageName()
+                + "|studentId:" + letterLearningEvent.getStudentId()
+                + "|letter:" + letterLearningEvent.getLetter()
                 + "\n";
         Log.i(getClass().getName(), "logLine: " + logLine);
 
-        String logsPath = Environment.getExternalStorageDirectory() + "/.literacyapp-analytics/logs/" + VersionHelper.getAppVersionCode(context);
+        String logsPath = Environment.getExternalStorageDirectory() + "/.literacyapp-analytics/events/device_" + letterLearningEvent.getDeviceId();
         File logsDir = new File(logsPath);
+        Log.i(getClass().getName(), "logsDir: " + logsDir);
         if (!logsDir.exists()) {
             logsDir.mkdirs();
         }
 
+        if (!TextUtils.isEmpty(letterLearningEvent.getStudentId())) {
+            // TODO: create one subfolder per student id (if not null)?
+        }
+
         String dateFormatted = (String) DateFormat.format("yyyy-MM-dd", Calendar.getInstance());
-        String fileName = "usage_events_" + dateFormatted + ".log";
+        String fileName = "letter_learning_events_" + dateFormatted + ".log";
         File logFile = new File(logsDir, fileName);
         Log.i(getClass().getName(), "logFile: " + logFile);
         try {

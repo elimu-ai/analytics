@@ -4,18 +4,13 @@ import org.greenrobot.greendao.annotation.Convert;
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.NotNull;
-import org.greenrobot.greendao.annotation.Generated;
 import org.literacyapp.analytics.dao.converter.CalendarConverter;
-import org.literacyapp.analytics.dao.converter.LiteracySkillConverter;
-import org.literacyapp.analytics.dao.converter.NumeracySkillConverter;
-import org.literacyapp.model.enums.content.LiteracySkill;
-import org.literacyapp.model.enums.content.NumeracySkill;
 
 import java.util.Calendar;
+import org.greenrobot.greendao.annotation.Generated;
 
-@Deprecated
 @Entity
-public class UsageEvent {
+public class LetterLearningEvent {
 
     @Id(autoincrement = true)
     private Long id;
@@ -35,44 +30,27 @@ public class UsageEvent {
     // TODO: replace with Student?
     private String studentId;
 
-    @Convert(converter = LiteracySkillConverter.class, columnType = String.class)
-    private LiteracySkill literacySkill;
-
-    @Convert(converter = NumeracySkillConverter.class, columnType = String.class)
-    private NumeracySkill numeracySkill;
-
     // TODO: replace with Letter?
     private String letter;
 
-    // TODO: replace with Number?
-    private Integer number;
-
-    // TODO: replace with Word?
-    private String word;
-
-    @Generated(hash = 1208691141)
-    public UsageEvent(Long id, @NotNull String deviceId, @NotNull Calendar time,
-            @NotNull String packageName, String studentId,
-            LiteracySkill literacySkill, NumeracySkill numeracySkill, String letter,
-            Integer number, String word) {
+    @Generated(hash = 1587191339)
+    public LetterLearningEvent(Long id, @NotNull String deviceId,
+            @NotNull Calendar time, @NotNull String packageName, String studentId,
+            String letter) {
         this.id = id;
         this.deviceId = deviceId;
         this.time = time;
         this.packageName = packageName;
         this.studentId = studentId;
-        this.literacySkill = literacySkill;
-        this.numeracySkill = numeracySkill;
         this.letter = letter;
-        this.number = number;
-        this.word = word;
     }
 
-    @Generated(hash = 2057329387)
-    public UsageEvent() {
+    @Generated(hash = 2120429600)
+    public LetterLearningEvent() {
     }
 
     public Long getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(Long id) {
@@ -80,7 +58,7 @@ public class UsageEvent {
     }
 
     public String getDeviceId() {
-        return deviceId;
+        return this.deviceId;
     }
 
     public void setDeviceId(String deviceId) {
@@ -88,7 +66,7 @@ public class UsageEvent {
     }
 
     public Calendar getTime() {
-        return time;
+        return this.time;
     }
 
     public void setTime(Calendar time) {
@@ -96,27 +74,11 @@ public class UsageEvent {
     }
 
     public String getPackageName() {
-        return packageName;
+        return this.packageName;
     }
 
     public void setPackageName(String packageName) {
         this.packageName = packageName;
-    }
-
-    public LiteracySkill getLiteracySkill() {
-        return literacySkill;
-    }
-
-    public void setLiteracySkill(LiteracySkill literacySkill) {
-        this.literacySkill = literacySkill;
-    }
-
-    public NumeracySkill getNumeracySkill() {
-        return numeracySkill;
-    }
-
-    public void setNumeracySkill(NumeracySkill numeracySkill) {
-        this.numeracySkill = numeracySkill;
     }
 
     public String getStudentId() {
@@ -133,21 +95,5 @@ public class UsageEvent {
 
     public void setLetter(String letter) {
         this.letter = letter;
-    }
-
-    public Integer getNumber() {
-        return this.number;
-    }
-
-    public void setNumber(Integer number) {
-        this.number = number;
-    }
-
-    public String getWord() {
-        return this.word;
-    }
-
-    public void setWord(String word) {
-        this.word = word;
     }
 }

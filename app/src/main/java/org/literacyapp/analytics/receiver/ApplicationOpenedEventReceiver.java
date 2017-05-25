@@ -48,7 +48,7 @@ public class ApplicationOpenedEventReceiver extends BroadcastReceiver {
 
 
         // Store in log file
-        // Expected format: id:1|deviceId:4113947bec18b7ad|time:1481916197273|packageName:org.literacyapp|studentId:null
+        // Expected format: id:1|deviceId:4113947bec18b7ad|time:1481916197273|packageName:org.literacyapp|studentId:4113947bec18b7ad_1
         String logLine = "id:" + id
                 + "|deviceId:" + applicationOpenedEvent.getDeviceId()
                 + "|time:" + applicationOpenedEvent.getTime().getTimeInMillis()

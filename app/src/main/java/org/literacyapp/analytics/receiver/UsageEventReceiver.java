@@ -23,6 +23,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Calendar;
 
+@Deprecated
 public class UsageEventReceiver extends BroadcastReceiver {
 
     @Override
