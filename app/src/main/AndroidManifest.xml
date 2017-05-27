@@ -41,6 +41,26 @@
         </receiver>
 
         <receiver
+            android:name=".receiver.LetterLearningEventReceiver"
+            android:enabled="true"
+            android:exported="true">
+
+            <intent-filter>
+                <action android:name="literacyapp.intent.action.LETTER_LEARNING_EVENT" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name=".receiver.NumberLearningEventReceiver"
+            android:enabled="true"
+            android:exported="true">
+
+            <intent-filter>
+                <action android:name="literacyapp.intent.action.NUMBER_LEARNING_EVENT" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
             android:name=".receiver.UsageEventReceiver"
             android:enabled="true"
             android:exported="true">

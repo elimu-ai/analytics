@@ -16,7 +16,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 23
         versionCode 1000007
-        versionName "1.0.7-SNAPSHOT"
+        versionName "1.0.7"
     }
 
     buildTypes {

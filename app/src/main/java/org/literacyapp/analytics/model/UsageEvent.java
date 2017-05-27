@@ -13,6 +13,7 @@ import org.literacyapp.model.enums.content.NumeracySkill;
 
 import java.util.Calendar;
 
+@Deprecated
 @Entity
 public class UsageEvent {
 
