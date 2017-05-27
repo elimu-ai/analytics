@@ -12,15 +12,15 @@ import android.util.Log;
 
 import org.apache.commons.io.FileUtils;
 import org.literacyapp.analytics.AnalyticsApplication;
-import org.literacyapp.analytics.dao.LetterLearningEventDao;
-import org.literacyapp.analytics.model.LetterLearningEvent;
+import org.literacyapp.analytics.dao.VideoLearningEventDao;
+import org.literacyapp.analytics.model.VideoLearningEvent;
 import org.literacyapp.analytics.util.DeviceInfoHelper;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Calendar;
 
-public class LetterLearningEventReceiver extends BroadcastReceiver {
+public class VideoLearningEventReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -29,55 +29,50 @@ public class LetterLearningEventReceiver extends BroadcastReceiver {
         String packageName = intent.getStringExtra("packageName");
         Log.i(getClass().getName(), "packageName: " + packageName);
 
-        String letter = null;
-        String letterExtra = intent.getStringExtra("letter");
-        Log.i(getClass().getName(), "letterExtra: " + letterExtra);
-        if (!TextUtils.isEmpty(letterExtra)) {
-            letter = letterExtra;
-            Log.i(getClass().getName(), "letter: " + letter);
-        }
+        Long videoId = intent.getLongExtra("videoId", -1);
+        Log.i(getClass().getName(), "videoId: " + videoId);
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         String studentId = sharedPreferences.getString(StudentUpdatedReceiver.PREF_STUDENT_ID, null);
         Log.i(getClass().getName(), "studentId: " + studentId);
 
         // Store in database
-        LetterLearningEvent letterLearningEvent = new LetterLearningEvent();
-        letterLearningEvent.setDeviceId(DeviceInfoHelper.getDeviceId(context));
-        letterLearningEvent.setTime(Calendar.getInstance());
-        letterLearningEvent.setPackageName(packageName);
-        letterLearningEvent.setStudentId(studentId);
-        letterLearningEvent.setLetter(letter);
+        VideoLearningEvent videoLearningEvent = new VideoLearningEvent();
+        videoLearningEvent.setDeviceId(DeviceInfoHelper.getDeviceId(context));
+        videoLearningEvent.setTime(Calendar.getInstance());
+        videoLearningEvent.setPackageName(packageName);
+        videoLearningEvent.setStudentId(studentId);
+        videoLearningEvent.setVideoId(videoId);
 
         AnalyticsApplication analyticsApplication = (AnalyticsApplication) context.getApplicationContext();
-        LetterLearningEventDao letterLearningEventDao = analyticsApplication.getDaoSession().getLetterLearningEventDao();
-        long id = letterLearningEventDao.insert(letterLearningEvent);
-        Log.i(getClass().getName(), "LetterLearningEvent saved in database with id " + id);
+        VideoLearningEventDao videoLearningEventDao = analyticsApplication.getDaoSession().getVideoLearningEventDao();
+        long id = videoLearningEventDao.insert(videoLearningEvent);
+        Log.i(getClass().getName(), "VideoLearningEvent saved in database with id " + id);
 
         // Store in log file
-        // Expected format: id:1|deviceId:4113947bec18b7ad|time:1481916197273|packageName:org.literacyapp|studentId:4113947bec18b7ad_1|letter:a
+        // Expected format: id:1|deviceId:4113947bec18b7ad|time:1481916197273|packageName:org.literacyapp|studentId:4113947bec18b7ad_1|videoId:25
         String logLine = "id:" + id
-                + "|deviceId:" + letterLearningEvent.getDeviceId()
-                + "|time:" + letterLearningEvent.getTime().getTimeInMillis()
-                + "|packageName:" + letterLearningEvent.getPackageName()
-                + "|studentId:" + letterLearningEvent.getStudentId()
-                + "|letter:" + letterLearningEvent.getLetter()
+                + "|deviceId:" + videoLearningEvent.getDeviceId()
+                + "|time:" + videoLearningEvent.getTime().getTimeInMillis()
+                + "|packageName:" + videoLearningEvent.getPackageName()
+                + "|studentId:" + videoLearningEvent.getStudentId()
+                + "|videoId:" + videoLearningEvent.getVideoId()
                 + "\n";
         Log.i(getClass().getName(), "logLine: " + logLine);
 
-        String logsPath = Environment.getExternalStorageDirectory() + "/.literacyapp-analytics/events/device_" + letterLearningEvent.getDeviceId();
+        String logsPath = Environment.getExternalStorageDirectory() + "/.literacyapp-analytics/events/device_" + videoLearningEvent.getDeviceId();
         File logsDir = new File(logsPath);
         Log.i(getClass().getName(), "logsDir: " + logsDir);
         if (!logsDir.exists()) {
             logsDir.mkdirs();
         }
 
-        if (!TextUtils.isEmpty(letterLearningEvent.getStudentId())) {
+        if (!TextUtils.isEmpty(videoLearningEvent.getStudentId())) {
             // TODO: create one subfolder per student id (if not null)?
         }
 
         String dateFormatted = (String) DateFormat.format("yyyy-MM-dd", Calendar.getInstance());
-        String fileName = "letter_learning_events_" + dateFormatted + ".log";
+        String fileName = "video_learning_events_" + dateFormatted + ".log";
         File logFile = new File(logsDir, fileName);
         Log.i(getClass().getName(), "logFile: " + logFile);
         try {
