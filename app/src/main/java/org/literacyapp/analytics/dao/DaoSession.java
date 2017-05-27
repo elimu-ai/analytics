@@ -9,11 +9,13 @@ import org.greenrobot.greendao.identityscope.IdentityScopeType;
 import org.greenrobot.greendao.internal.DaoConfig;
 
 import org.literacyapp.analytics.model.ApplicationOpenedEvent;
+import org.literacyapp.analytics.model.BootCompletedEvent;
 import org.literacyapp.analytics.model.LetterLearningEvent;
 import org.literacyapp.analytics.model.NumberLearningEvent;
 import org.literacyapp.analytics.model.VideoLearningEvent;
 
 import org.literacyapp.analytics.dao.ApplicationOpenedEventDao;
+import org.literacyapp.analytics.dao.BootCompletedEventDao;
 import org.literacyapp.analytics.dao.LetterLearningEventDao;
 import org.literacyapp.analytics.dao.NumberLearningEventDao;
 import org.literacyapp.analytics.dao.VideoLearningEventDao;
@@ -28,11 +30,13 @@ import org.literacyapp.analytics.dao.VideoLearningEventDao;
 public class DaoSession extends AbstractDaoSession {
 
     private final DaoConfig applicationOpenedEventDaoConfig;
+    private final DaoConfig bootCompletedEventDaoConfig;
     private final DaoConfig letterLearningEventDaoConfig;
     private final DaoConfig numberLearningEventDaoConfig;
     private final DaoConfig videoLearningEventDaoConfig;
 
     private final ApplicationOpenedEventDao applicationOpenedEventDao;
+    private final BootCompletedEventDao bootCompletedEventDao;
     private final LetterLearningEventDao letterLearningEventDao;
     private final NumberLearningEventDao numberLearningEventDao;
     private final VideoLearningEventDao videoLearningEventDao;
@@ -44,6 +48,9 @@ public class DaoSession extends AbstractDaoSession {
         applicationOpenedEventDaoConfig = daoConfigMap.get(ApplicationOpenedEventDao.class).clone();
         applicationOpenedEventDaoConfig.initIdentityScope(type);
 
+        bootCompletedEventDaoConfig = daoConfigMap.get(BootCompletedEventDao.class).clone();
+        bootCompletedEventDaoConfig.initIdentityScope(type);
+
         letterLearningEventDaoConfig = daoConfigMap.get(LetterLearningEventDao.class).clone();
         letterLearningEventDaoConfig.initIdentityScope(type);
 
@@ -54,11 +61,13 @@ public class DaoSession extends AbstractDaoSession {
         videoLearningEventDaoConfig.initIdentityScope(type);
 
         applicationOpenedEventDao = new ApplicationOpenedEventDao(applicationOpenedEventDaoConfig, this);
+        bootCompletedEventDao = new BootCompletedEventDao(bootCompletedEventDaoConfig, this);
         letterLearningEventDao = new LetterLearningEventDao(letterLearningEventDaoConfig, this);
         numberLearningEventDao = new NumberLearningEventDao(numberLearningEventDaoConfig, this);
         videoLearningEventDao = new VideoLearningEventDao(videoLearningEventDaoConfig, this);
 
         registerDao(ApplicationOpenedEvent.class, applicationOpenedEventDao);
+        registerDao(BootCompletedEvent.class, bootCompletedEventDao);
         registerDao(LetterLearningEvent.class, letterLearningEventDao);
         registerDao(NumberLearningEvent.class, numberLearningEventDao);
         registerDao(VideoLearningEvent.class, videoLearningEventDao);
@@ -66,6 +75,7 @@ public class DaoSession extends AbstractDaoSession {
     
     public void clear() {
         applicationOpenedEventDaoConfig.clearIdentityScope();
+        bootCompletedEventDaoConfig.clearIdentityScope();
         letterLearningEventDaoConfig.clearIdentityScope();
         numberLearningEventDaoConfig.clearIdentityScope();
         videoLearningEventDaoConfig.clearIdentityScope();
@@ -73,6 +83,10 @@ public class DaoSession extends AbstractDaoSession {
 
     public ApplicationOpenedEventDao getApplicationOpenedEventDao() {
         return applicationOpenedEventDao;
+    }
+
+    public BootCompletedEventDao getBootCompletedEventDao() {
+        return bootCompletedEventDao;
     }
 
     public LetterLearningEventDao getLetterLearningEventDao() {

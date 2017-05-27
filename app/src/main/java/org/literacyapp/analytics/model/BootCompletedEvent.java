@@ -2,15 +2,15 @@ package org.literacyapp.analytics.model;
 
 import org.greenrobot.greendao.annotation.Convert;
 import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.NotNull;
 import org.literacyapp.analytics.dao.converter.CalendarConverter;
 
 import java.util.Calendar;
-import org.greenrobot.greendao.annotation.Generated;
 
 @Entity
-public class ApplicationOpenedEvent {
+public class BootCompletedEvent {
 
     @Id(autoincrement = true)
     private Long id;
@@ -23,24 +23,16 @@ public class ApplicationOpenedEvent {
     @Convert(converter = CalendarConverter.class, columnType = Long.class)
     private Calendar time;
 
-    @NotNull
-    private String packageName;
-
-    // TODO: replace with Student?
-    private String studentId;
-
-    @Generated(hash = 976610335)
-    public ApplicationOpenedEvent(Long id, @NotNull String deviceId,
-            @NotNull Calendar time, @NotNull String packageName, String studentId) {
+    @Generated(hash = 1698024943)
+    public BootCompletedEvent(Long id, @NotNull String deviceId,
+            @NotNull Calendar time) {
         this.id = id;
         this.deviceId = deviceId;
         this.time = time;
-        this.packageName = packageName;
-        this.studentId = studentId;
     }
 
-    @Generated(hash = 1804882542)
-    public ApplicationOpenedEvent() {
+    @Generated(hash = 447047454)
+    public BootCompletedEvent() {
     }
 
     public Long getId() {
@@ -65,21 +57,5 @@ public class ApplicationOpenedEvent {
 
     public void setTime(Calendar time) {
         this.time = time;
-    }
-
-    public String getPackageName() {
-        return this.packageName;
-    }
-
-    public void setPackageName(String packageName) {
-        this.packageName = packageName;
-    }
-
-    public String getStudentId() {
-        return this.studentId;
-    }
-
-    public void setStudentId(String studentId) {
-        this.studentId = studentId;
     }
 }

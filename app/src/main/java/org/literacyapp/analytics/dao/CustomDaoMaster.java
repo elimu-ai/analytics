@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import org.greenrobot.greendao.database.Database;
+import org.literacyapp.analytics.model.BootCompletedEvent;
 
 public class CustomDaoMaster extends DaoMaster {
 
@@ -30,7 +31,8 @@ public class CustomDaoMaster extends DaoMaster {
                 DbMigrationHelper.migrate(db,
                         LetterLearningEventDao.class,
                         NumberLearningEventDao.class,
-                        VideoLearningEventDao.class
+                        VideoLearningEventDao.class,
+                        BootCompletedEventDao.class
                 );
             }
         }
