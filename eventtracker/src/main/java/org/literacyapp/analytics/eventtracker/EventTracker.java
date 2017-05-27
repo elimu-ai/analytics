@@ -41,29 +41,14 @@ public class EventTracker {
         context.sendBroadcast(intent);
     }
 
-    @Deprecated
-    public static void reportUsageEvent(Context context, LiteracySkill literacySkill, String letter) {
-        Log.i(EventTracker.class.getName(), "reportUsageEvent");
+    public static void reportVideoLearningEvent(Context context, Long videoId) {
+        Log.i(EventTracker.class.getName(), "reportNumberLearningEvent");
 
         Intent intent = new Intent();
         intent.setPackage("org.literacyapp.analytics");
-        intent.setAction("literacyapp.intent.action.USAGE_EVENT");
+        intent.setAction("literacyapp.intent.action.VIDEO_LEARNING_EVENT");
         intent.putExtra("packageName", context.getPackageName());
-        intent.putExtra("literacySkill", literacySkill);
-        intent.putExtra("letter", letter);
-        context.sendBroadcast(intent);
-    }
-
-    @Deprecated
-    public static void reportUsageEvent(Context context, NumeracySkill numeracySkill, Integer number) {
-        Log.i(EventTracker.class.getName(), "reportUsageEvent");
-
-        Intent intent = new Intent();
-        intent.setPackage("org.literacyapp.analytics");
-        intent.setAction("literacyapp.intent.action.USAGE_EVENT");
-        intent.putExtra("packageName", context.getPackageName());
-        intent.putExtra("numeracySkill", numeracySkill);
-        intent.putExtra("number", number);
+        intent.putExtra("videoId", videoId);
         context.sendBroadcast(intent);
     }
 }

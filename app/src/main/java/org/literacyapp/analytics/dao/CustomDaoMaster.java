@@ -26,15 +26,11 @@ public class CustomDaoMaster extends DaoMaster {
         public void onUpgrade(Database db, int oldVersion, int newVersion) {
             Log.i(getClass().getName(), "Upgrading schema from version " + oldVersion + " to " + newVersion);
 
-            if (oldVersion < 1000003) {
+            if (oldVersion < 1000008) {
                 DbMigrationHelper.migrate(db,
-                        UsageEventDao.class
-                );
-            }
-
-            if (oldVersion < 1000004) {
-                DbMigrationHelper.migrate(db,
-                        UsageEventDao.class
+                        LetterLearningEventDao.class,
+                        NumberLearningEventDao.class,
+                        VideoLearningEventDao.class
                 );
             }
         }
