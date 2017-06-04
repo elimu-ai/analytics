@@ -10,7 +10,7 @@ import org.literacyapp.analytics.dao.converter.CalendarConverter;
 import java.util.Calendar;
 
 @Entity
-public class VideoLearningEvent {
+public class StoryBookLearningEvent {
 
     @Id(autoincrement = true)
     private Long id;
@@ -30,23 +30,23 @@ public class VideoLearningEvent {
     // TODO: replace with Student?
     private String studentId;
 
-    // TODO: replace with Video?
-    private Long videoId;
+    // TODO: replace with StoryBook?
+    private Long storyBookId;
 
-    @Generated(hash = 1150493777)
-    public VideoLearningEvent(Long id, @NotNull String deviceId,
+    @Generated(hash = 1450632809)
+    public StoryBookLearningEvent(Long id, @NotNull String deviceId,
             @NotNull Calendar time, @NotNull String packageName, String studentId,
-            Long videoId) {
+            Long storyBookId) {
         this.id = id;
         this.deviceId = deviceId;
         this.time = time;
         this.packageName = packageName;
         this.studentId = studentId;
-        this.videoId = videoId;
+        this.storyBookId = storyBookId;
     }
 
-    @Generated(hash = 934937089)
-    public VideoLearningEvent() {
+    @Generated(hash = 333305170)
+    public StoryBookLearningEvent() {
     }
 
     public Long getId() {
@@ -89,11 +89,11 @@ public class VideoLearningEvent {
         this.studentId = studentId;
     }
 
-    public Long getVideoId() {
-        return this.videoId;
+    public Long getStoryBookId() {
+        return this.storyBookId;
     }
 
-    public void setVideoId(Long videoId) {
-        this.videoId = videoId;
+    public void setStoryBookId(Long storyBookId) {
+        this.storyBookId = storyBookId;
     }
 }

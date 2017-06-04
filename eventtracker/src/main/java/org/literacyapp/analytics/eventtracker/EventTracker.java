@@ -42,13 +42,24 @@ public class EventTracker {
     }
 
     public static void reportVideoLearningEvent(Context context, Long videoId) {
-        Log.i(EventTracker.class.getName(), "reportNumberLearningEvent");
+        Log.i(EventTracker.class.getName(), "reportVideoLearningEvent");
 
         Intent intent = new Intent();
         intent.setPackage("org.literacyapp.analytics");
         intent.setAction("literacyapp.intent.action.VIDEO_LEARNING_EVENT");
         intent.putExtra("packageName", context.getPackageName());
         intent.putExtra("videoId", videoId);
+        context.sendBroadcast(intent);
+    }
+
+    public static void reportStoryBookLearningEvent(Context context, Long storyBookId) {
+        Log.i(EventTracker.class.getName(), "reportStoryBookLearningEvent");
+
+        Intent intent = new Intent();
+        intent.setPackage("org.literacyapp.analytics");
+        intent.setAction("literacyapp.intent.action.STORYBOOK_LEARNING_EVENT");
+        intent.putExtra("packageName", context.getPackageName());
+        intent.putExtra("storyBookId", storyBookId);
         context.sendBroadcast(intent);
     }
 }
