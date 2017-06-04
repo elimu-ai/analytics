@@ -31,6 +31,7 @@ public class StoryBookLearningEvent {
     private String studentId;
 
     // TODO: replace with StoryBook?
+    // TODO: add @NotNull
     private Long storyBookId;
 
     @Generated(hash = 1450632809)

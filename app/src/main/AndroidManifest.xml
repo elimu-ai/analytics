@@ -31,6 +31,16 @@
             android:permission="android.permission.BIND_JOB_SERVICE" />
 
         <receiver
+            android:name=".receiver.StudentUpdatedReceiver"
+            android:enabled="true"
+            android:exported="true">
+
+            <intent-filter>
+                <action android:name="literacyapp.intent.action.STUDENT_UPDATED" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
             android:name=".receiver.ApplicationOpenedEventReceiver"
             android:enabled="true"
             android:exported="true">
@@ -81,12 +91,12 @@
         </receiver>
 
         <receiver
-            android:name=".receiver.StudentUpdatedReceiver"
+            android:name=".receiver.ShapeLearningEventReceiver"
             android:enabled="true"
             android:exported="true">
 
             <intent-filter>
-                <action android:name="literacyapp.intent.action.STUDENT_UPDATED" />
+                <action android:name="literacyapp.intent.action.SHAPE_LEARNING_EVENT" />
             </intent-filter>
         </receiver>
     </application>

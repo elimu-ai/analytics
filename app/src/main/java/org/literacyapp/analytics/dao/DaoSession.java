@@ -12,6 +12,7 @@ import org.literacyapp.analytics.model.ApplicationOpenedEvent;
 import org.literacyapp.analytics.model.BootCompletedEvent;
 import org.literacyapp.analytics.model.LetterLearningEvent;
 import org.literacyapp.analytics.model.NumberLearningEvent;
+import org.literacyapp.analytics.model.ShapeLearningEvent;
 import org.literacyapp.analytics.model.StoryBookLearningEvent;
 import org.literacyapp.analytics.model.VideoLearningEvent;
 
@@ -19,6 +20,7 @@ import org.literacyapp.analytics.dao.ApplicationOpenedEventDao;
 import org.literacyapp.analytics.dao.BootCompletedEventDao;
 import org.literacyapp.analytics.dao.LetterLearningEventDao;
 import org.literacyapp.analytics.dao.NumberLearningEventDao;
+import org.literacyapp.analytics.dao.ShapeLearningEventDao;
 import org.literacyapp.analytics.dao.StoryBookLearningEventDao;
 import org.literacyapp.analytics.dao.VideoLearningEventDao;
 
@@ -35,6 +37,7 @@ public class DaoSession extends AbstractDaoSession {
     private final DaoConfig bootCompletedEventDaoConfig;
     private final DaoConfig letterLearningEventDaoConfig;
     private final DaoConfig numberLearningEventDaoConfig;
+    private final DaoConfig shapeLearningEventDaoConfig;
     private final DaoConfig storyBookLearningEventDaoConfig;
     private final DaoConfig videoLearningEventDaoConfig;
 
@@ -42,6 +45,7 @@ public class DaoSession extends AbstractDaoSession {
     private final BootCompletedEventDao bootCompletedEventDao;
     private final LetterLearningEventDao letterLearningEventDao;
     private final NumberLearningEventDao numberLearningEventDao;
+    private final ShapeLearningEventDao shapeLearningEventDao;
     private final StoryBookLearningEventDao storyBookLearningEventDao;
     private final VideoLearningEventDao videoLearningEventDao;
 
@@ -61,6 +65,9 @@ public class DaoSession extends AbstractDaoSession {
         numberLearningEventDaoConfig = daoConfigMap.get(NumberLearningEventDao.class).clone();
         numberLearningEventDaoConfig.initIdentityScope(type);
 
+        shapeLearningEventDaoConfig = daoConfigMap.get(ShapeLearningEventDao.class).clone();
+        shapeLearningEventDaoConfig.initIdentityScope(type);
+
         storyBookLearningEventDaoConfig = daoConfigMap.get(StoryBookLearningEventDao.class).clone();
         storyBookLearningEventDaoConfig.initIdentityScope(type);
 
@@ -71,6 +78,7 @@ public class DaoSession extends AbstractDaoSession {
         bootCompletedEventDao = new BootCompletedEventDao(bootCompletedEventDaoConfig, this);
         letterLearningEventDao = new LetterLearningEventDao(letterLearningEventDaoConfig, this);
         numberLearningEventDao = new NumberLearningEventDao(numberLearningEventDaoConfig, this);
+        shapeLearningEventDao = new ShapeLearningEventDao(shapeLearningEventDaoConfig, this);
         storyBookLearningEventDao = new StoryBookLearningEventDao(storyBookLearningEventDaoConfig, this);
         videoLearningEventDao = new VideoLearningEventDao(videoLearningEventDaoConfig, this);
 
@@ -78,6 +86,7 @@ public class DaoSession extends AbstractDaoSession {
         registerDao(BootCompletedEvent.class, bootCompletedEventDao);
         registerDao(LetterLearningEvent.class, letterLearningEventDao);
         registerDao(NumberLearningEvent.class, numberLearningEventDao);
+        registerDao(ShapeLearningEvent.class, shapeLearningEventDao);
         registerDao(StoryBookLearningEvent.class, storyBookLearningEventDao);
         registerDao(VideoLearningEvent.class, videoLearningEventDao);
     }
@@ -87,6 +96,7 @@ public class DaoSession extends AbstractDaoSession {
         bootCompletedEventDaoConfig.clearIdentityScope();
         letterLearningEventDaoConfig.clearIdentityScope();
         numberLearningEventDaoConfig.clearIdentityScope();
+        shapeLearningEventDaoConfig.clearIdentityScope();
         storyBookLearningEventDaoConfig.clearIdentityScope();
         videoLearningEventDaoConfig.clearIdentityScope();
     }
@@ -105,6 +115,10 @@ public class DaoSession extends AbstractDaoSession {
 
     public NumberLearningEventDao getNumberLearningEventDao() {
         return numberLearningEventDao;
+    }
+
+    public ShapeLearningEventDao getShapeLearningEventDao() {
+        return shapeLearningEventDao;
     }
 
     public StoryBookLearningEventDao getStoryBookLearningEventDao() {
