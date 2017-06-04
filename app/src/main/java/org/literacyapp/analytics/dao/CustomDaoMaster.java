@@ -35,6 +35,12 @@ public class CustomDaoMaster extends DaoMaster {
                         BootCompletedEventDao.class
                 );
             }
+
+            if (oldVersion < 1000009) {
+                DbMigrationHelper.migrate(db,
+                        StoryBookLearningEventDao.class
+                );
+            }
         }
     }
 }

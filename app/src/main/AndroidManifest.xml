@@ -71,6 +71,16 @@
         </receiver>
 
         <receiver
+            android:name=".receiver.StoryBookLearningEventReceiver"
+            android:enabled="true"
+            android:exported="true">
+
+            <intent-filter>
+                <action android:name="literacyapp.intent.action.STORYBOOK_LEARNING_EVENT" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
             android:name=".receiver.StudentUpdatedReceiver"
             android:enabled="true"
             android:exported="true">
