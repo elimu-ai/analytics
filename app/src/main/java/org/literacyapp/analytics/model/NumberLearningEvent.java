@@ -31,6 +31,7 @@ public class NumberLearningEvent {
     private String studentId;
 
     // TODO: replace with Number?
+    // TODO: add @NotNull
     private Integer number;
 
     @Generated(hash = 1493158911)

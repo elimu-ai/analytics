@@ -31,6 +31,7 @@ public class LetterLearningEvent {
     private String studentId;
 
     // TODO: replace with Letter?
+    // TODO: add @NotNull
     private String letter;
 
     @Generated(hash = 1587191339)

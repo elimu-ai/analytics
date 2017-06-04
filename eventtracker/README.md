@@ -17,17 +17,16 @@ Then, add the following dependencies:
 dependencies {
    ...
 
-   compile 'org.literacyapp.analytics:eventtracker:1.0.2'
+   compile 'org.literacyapp.analytics:eventtracker:1.0.4'
 }
 ```
 
 ## Report Learning Activity
 
-To report learning activity, use one of the static methods provided by the EventTracker class:
-EventTracker.reportLetterLearningEvent(getApplicationContext(), “a”);
+To report learning activity, use one of the static methods provided by the EventTracker class, e.g. `EventTracker.reportLetterLearningEvent(getApplicationContext(), “a”);`
 
-Note that for the analytics data to be stored on the SD card, the Analytics application must be installed on the tablet. The log files will then appear under /sdcard/.literacyapp-analytics/events
+Note that for the analytics data to be stored on the SD card, the Analytics application must be installed on the tablet. The log files will then appear under `/sdcard/.literacyapp-analytics/events/<deviceId>`
 
 ### Sample Application
 
-To see a sample of how to use the analytics library, go to https://github.com/literacyapp-org/literacyapp-android
+To see a sample of how to use the analytics library is being used, go to https://github.com/literacyapp-org/literacyapp-android

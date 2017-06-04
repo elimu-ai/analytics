@@ -6,11 +6,13 @@ import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.NotNull;
 import org.literacyapp.analytics.dao.converter.CalendarConverter;
+import org.literacyapp.analytics.dao.converter.ShapeConverter;
+import org.literacyapp.model.enums.content.Shape;
 
 import java.util.Calendar;
 
 @Entity
-public class VideoLearningEvent {
+public class ShapeLearningEvent {
 
     @Id(autoincrement = true)
     private Long id;
@@ -30,24 +32,24 @@ public class VideoLearningEvent {
     // TODO: replace with Student?
     private String studentId;
 
-    // TODO: replace with Video?
-    // TODO: add @NotNull
-    private Long videoId;
+    @NotNull
+    @Convert(converter = ShapeConverter.class, columnType = String.class)
+    private Shape shape;
 
-    @Generated(hash = 1150493777)
-    public VideoLearningEvent(Long id, @NotNull String deviceId,
+    @Generated(hash = 1844681634)
+    public ShapeLearningEvent(Long id, @NotNull String deviceId,
             @NotNull Calendar time, @NotNull String packageName, String studentId,
-            Long videoId) {
+            @NotNull Shape shape) {
         this.id = id;
         this.deviceId = deviceId;
         this.time = time;
         this.packageName = packageName;
         this.studentId = studentId;
-        this.videoId = videoId;
+        this.shape = shape;
     }
 
-    @Generated(hash = 934937089)
-    public VideoLearningEvent() {
+    @Generated(hash = 1980810229)
+    public ShapeLearningEvent() {
     }
 
     public Long getId() {
@@ -90,11 +92,11 @@ public class VideoLearningEvent {
         this.studentId = studentId;
     }
 
-    public Long getVideoId() {
-        return this.videoId;
+    public Shape getShape() {
+        return this.shape;
     }
 
-    public void setVideoId(Long videoId) {
-        this.videoId = videoId;
+    public void setShape(Shape shape) {
+        this.shape = shape;
     }
 }

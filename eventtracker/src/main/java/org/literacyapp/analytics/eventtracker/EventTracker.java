@@ -6,6 +6,7 @@ import android.util.Log;
 
 import org.literacyapp.model.enums.content.LiteracySkill;
 import org.literacyapp.model.enums.content.NumeracySkill;
+import org.literacyapp.model.enums.content.Shape;
 
 public class EventTracker {
 
@@ -60,6 +61,17 @@ public class EventTracker {
         intent.setAction("literacyapp.intent.action.STORYBOOK_LEARNING_EVENT");
         intent.putExtra("packageName", context.getPackageName());
         intent.putExtra("storyBookId", storyBookId);
+        context.sendBroadcast(intent);
+    }
+
+    public static void reportShapeLearningEvent(Context context, Shape shape) {
+        Log.i(EventTracker.class.getName(), "reportShapeLearningEvent");
+
+        Intent intent = new Intent();
+        intent.setPackage("org.literacyapp.analytics");
+        intent.setAction("literacyapp.intent.action.SHAPE_LEARNING_EVENT");
+        intent.putExtra("packageName", context.getPackageName());
+        intent.putExtra("shape", shape);
         context.sendBroadcast(intent);
     }
 }
