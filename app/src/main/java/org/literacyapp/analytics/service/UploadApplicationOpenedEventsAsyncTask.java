@@ -25,6 +25,7 @@ public class UploadApplicationOpenedEventsAsyncTask extends AsyncTask<File, Stri
 
         File file = files[0];
         Log.i(getClass().getName(), "file: " + file);
+        Log.i(getClass().getName(), "file.getName(): " + file.getName());
 
         try {
             // See https://stackoverflow.com/a/11826317
@@ -44,7 +45,7 @@ public class UploadApplicationOpenedEventsAsyncTask extends AsyncTask<File, Stri
             DataOutputStream request = new DataOutputStream(connection.getOutputStream());
 
             request.writeBytes("--*****\r\n");
-            request.writeBytes("Content-Disposition: form-data; name=\"multipartFile\";filename=\"application_opened_events_2017-06-07.log\"\r\n");
+            request.writeBytes("Content-Disposition: form-data; name=\"multipartFile\";filename=\"" + file.getName() + "\"\r\n");
             request.writeBytes("\r\n");
 
             byte[] fileBytes = FileUtils.readFileToByteArray(file);
