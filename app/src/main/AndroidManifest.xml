@@ -3,6 +3,7 @@
     package="org.literacyapp.analytics">
 
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
@@ -10,6 +11,7 @@
         android:name=".AnalyticsApplication"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name">
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,72 +31,64 @@
             android:enabled="true"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE" />
+        <service
+            android:name=".service.ServerSynchronizationJobService"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
 
         <receiver
             android:name=".receiver.StudentUpdatedReceiver"
             android:enabled="true"
             android:exported="true">
-
             <intent-filter>
                 <action android:name="literacyapp.intent.action.STUDENT_UPDATED" />
             </intent-filter>
         </receiver>
-
         <receiver
             android:name=".receiver.ApplicationOpenedEventReceiver"
             android:enabled="true"
             android:exported="true">
-
             <intent-filter>
                 <action android:name="literacyapp.intent.action.APPLICATION_OPENED_EVENT" />
             </intent-filter>
         </receiver>
-
         <receiver
             android:name=".receiver.LetterLearningEventReceiver"
             android:enabled="true"
             android:exported="true">
-
             <intent-filter>
                 <action android:name="literacyapp.intent.action.LETTER_LEARNING_EVENT" />
             </intent-filter>
         </receiver>
-
         <receiver
             android:name=".receiver.NumberLearningEventReceiver"
             android:enabled="true"
             android:exported="true">
-
             <intent-filter>
                 <action android:name="literacyapp.intent.action.NUMBER_LEARNING_EVENT" />
             </intent-filter>
         </receiver>
-
         <receiver
             android:name=".receiver.VideoLearningEventReceiver"
             android:enabled="true"
             android:exported="true">
-
             <intent-filter>
                 <action android:name="literacyapp.intent.action.VIDEO_LEARNING_EVENT" />
             </intent-filter>
         </receiver>
-
         <receiver
             android:name=".receiver.StoryBookLearningEventReceiver"
             android:enabled="true"
             android:exported="true">
-
             <intent-filter>
                 <action android:name="literacyapp.intent.action.STORYBOOK_LEARNING_EVENT" />
             </intent-filter>
         </receiver>
-
         <receiver
             android:name=".receiver.ShapeLearningEventReceiver"
             android:enabled="true"
             android:exported="true">
-
             <intent-filter>
                 <action android:name="literacyapp.intent.action.SHAPE_LEARNING_EVENT" />
             </intent-filter>

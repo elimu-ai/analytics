@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import org.literacyapp.analytics.service.ScreenshotJobService;
+import org.literacyapp.analytics.service.ServerSynchronizationJobService;
 import org.literacyapp.analytics.util.RootHelper;
 
 public class MainActivity extends Activity {
@@ -61,20 +62,34 @@ public class MainActivity extends Activity {
                 if (!isRootPermissionGranted) {
                     Toast.makeText(getApplicationContext(), "Root permission was not granted. Please see log for details.", Toast.LENGTH_LONG).show();
                 } else {
-                    Toast.makeText(getApplicationContext(), "Root permission was granted. Starting background job...", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Root permission was granted. Starting background jobs...", Toast.LENGTH_LONG).show();
+
+                    // Initiate background job for synchronizing events with server
+                    // Note: This code block also exists in the BootReceiver
+                    ComponentName componentName = new ComponentName(getApplicationContext(), ServerSynchronizationJobService.class);
+                    JobInfo.Builder builder = new JobInfo.Builder(1, componentName);
+                    builder.setPeriodic(60 * 60 * 1000); // Every 60 minutes
+                    JobInfo serverSynchronizationJobInfo = builder.build();
+                    JobScheduler jobScheduler = (JobScheduler) getSystemService(Context.JOB_SCHEDULER_SERVICE);
+                    int resultId = jobScheduler.schedule(serverSynchronizationJobInfo);
+                    if (resultId == JobScheduler.RESULT_SUCCESS) {
+                        Log.i(getClass().getName(), "Server synchronization Job scheduled with id: " + serverSynchronizationJobInfo.getId());
+                    } else {
+                        Log.w(getClass().getName(), "Server synchronization Job scheduling failed. JobInfo id: " + serverSynchronizationJobInfo.getId());
+                    }
+
 
                     // Initiate background job for recording screenshots
-                    ComponentName componentName = new ComponentName(getApplicationContext(), ScreenshotJobService.class);
-                    JobInfo.Builder builder = new JobInfo.Builder(1, componentName);
+                    // Note: This code block also exists in the BootReceiver
+                    componentName = new ComponentName(getApplicationContext(), ScreenshotJobService.class);
+                    builder = new JobInfo.Builder(2, componentName);
                     builder.setPeriodic(5 * 60 * 1000); // Every 5 minutes
                     JobInfo screenshotJobInfo = builder.build();
-
-                    JobScheduler jobScheduler = (JobScheduler) getSystemService(Context.JOB_SCHEDULER_SERVICE);
-                    int resultId = jobScheduler.schedule(screenshotJobInfo);
-                    if (resultId > 0) {
-                        Log.i(getClass().getName(), "Job scheduled with id: " + resultId);
+                    resultId = jobScheduler.schedule(screenshotJobInfo);
+                    if (resultId == JobScheduler.RESULT_SUCCESS) {
+                        Log.i(getClass().getName(), "Screenshot Job scheduled with id: " + screenshotJobInfo.getId());
                     } else {
-                        Log.w(getClass().getName(), "Job scheduling failed. Error id: " + resultId);
+                        Log.w(getClass().getName(), "Screenshot Job scheduling failed. JobInfo id: " + serverSynchronizationJobInfo.getId());
                     }
                 }
 

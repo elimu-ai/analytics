@@ -15,6 +15,8 @@ import java.io.File;
 
 /**
  * Service responsible for recording screenshots when the screen in switched on.
+ *
+ * This service is triggered in the @{link {@link org.literacyapp.analytics.receiver.BootReceiver}}
  */
 public class ScreenshotJobService extends JobService {
 
