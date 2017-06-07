@@ -1,4 +1,4 @@
-package org.literacyapp.appstore.util;
+package org.literacyapp.analytics.util;
 
 import org.literacyapp.model.enums.Environment;
 

@@ -16,6 +16,7 @@ import org.literacyapp.analytics.AnalyticsApplication;
 import org.literacyapp.analytics.dao.BootCompletedEventDao;
 import org.literacyapp.analytics.model.BootCompletedEvent;
 import org.literacyapp.analytics.service.ScreenshotJobService;
+import org.literacyapp.analytics.service.ServerSynchronizationJobService;
 import org.literacyapp.analytics.util.DeviceInfoHelper;
 
 import java.io.File;
@@ -27,19 +28,6 @@ public class BootReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.i(getClass().getName(), "onReceive");
-
-        // Initiate background job for recording screenshots
-        ComponentName componentName = new ComponentName(context, ScreenshotJobService.class);
-        JobInfo.Builder builder = new JobInfo.Builder(1, componentName);
-        builder.setPeriodic(5 * 60 * 1000); // Every 5 minutes
-        JobInfo screenshotJobInfo = builder.build();
-        JobScheduler jobScheduler = (JobScheduler) context.getSystemService(Context.JOB_SCHEDULER_SERVICE);
-        int resultId = jobScheduler.schedule(screenshotJobInfo);
-        if (resultId > 0) {
-            Log.i(getClass().getName(), "Job scheduled with id: " + resultId);
-        } else {
-            Log.w(getClass().getName(), "Job scheduling failed. Error id: " + resultId);
-        }
 
 
         // Store event in database
@@ -72,6 +60,35 @@ public class BootReceiver extends BroadcastReceiver {
             FileUtils.writeStringToFile(logFile, logLine, "UTF-8", true);
         } catch (IOException e) {
             Log.e(getClass().getName(), null, e);
+        }
+
+
+        // Initiate background job for synchronizing events with server
+        // Note: This code block also exists in the MainActivity
+        ComponentName componentName = new ComponentName(context, ServerSynchronizationJobService.class);
+        JobInfo.Builder builder = new JobInfo.Builder(1, componentName);
+        builder.setPeriodic(60 * 60 * 1000); // Every 60 minutes
+        JobInfo serverSynchronizationJobInfo = builder.build();
+        JobScheduler jobScheduler = (JobScheduler) context.getSystemService(Context.JOB_SCHEDULER_SERVICE);
+        int resultId = jobScheduler.schedule(serverSynchronizationJobInfo);
+        if (resultId == JobScheduler.RESULT_SUCCESS) {
+            Log.i(getClass().getName(), "Server synchronization Job scheduled with id: " + serverSynchronizationJobInfo.getId());
+        } else {
+            Log.w(getClass().getName(), "Server synchronization Job scheduling failed. JobInfo id: " + serverSynchronizationJobInfo.getId());
+        }
+
+
+        // Initiate background job for recording screenshots
+        // Note: This code block also exists in the MainActivity
+        componentName = new ComponentName(context, ScreenshotJobService.class);
+        builder = new JobInfo.Builder(2, componentName);
+        builder.setPeriodic(5 * 60 * 1000); // Every 5 minutes
+        JobInfo screenshotJobInfo = builder.build();
+        resultId = jobScheduler.schedule(screenshotJobInfo);
+        if (resultId == JobScheduler.RESULT_SUCCESS) {
+            Log.i(getClass().getName(), "Screenshot Job scheduled with id: " + screenshotJobInfo.getId());
+        } else {
+            Log.w(getClass().getName(), "Screenshot Job scheduling failed. JobInfo id: " + serverSynchronizationJobInfo.getId());
         }
     }
 }
