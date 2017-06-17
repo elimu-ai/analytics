@@ -15,8 +15,8 @@ android {
         applicationId "org.literacyapp.analytics"
         minSdkVersion 21
         targetSdkVersion 23
-        versionCode 1002001
-        versionName "1.2.1"
+        versionCode 1002002
+        versionName "1.2.2"
     }
 
     buildTypes {
