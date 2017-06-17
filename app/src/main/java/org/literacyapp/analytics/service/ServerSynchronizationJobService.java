@@ -42,8 +42,7 @@ public class ServerSynchronizationJobService extends JobService {
                 Log.i(getClass().getName(), "deviceDir: " + deviceDir);
 
                 File[] eventFiles = deviceDir.listFiles();
-                for (int j = 0; j < eventFiles.length; j++) {
-                    File eventFile = eventFiles[j];
+                for (File eventFile : eventFiles) {
                     Log.i(getClass().getName(), "eventFile: " + eventFile);
                     // Expected filename: "application_opened_events_yyyy-MM-dd.log"
 
