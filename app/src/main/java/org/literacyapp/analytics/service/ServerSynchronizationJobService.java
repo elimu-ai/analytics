@@ -41,6 +41,10 @@ public class ServerSynchronizationJobService extends JobService {
                 File deviceDir = deviceDirs[i];
                 Log.i(getClass().getName(), "deviceDir: " + deviceDir);
 
+                if (!deviceDir.getName().startsWith("device_")) {
+                    continue;
+                }
+
                 File[] eventFiles = deviceDir.listFiles();
                 for (File eventFile : eventFiles) {
                     Log.i(getClass().getName(), "eventFile: " + eventFile);
