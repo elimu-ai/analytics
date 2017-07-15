@@ -1,3 +1,3 @@
-# literacyapp-analytics
+# analytics
 
-For usage instructions, see https://github.com/literacyapp-org/literacyapp-analytics/tree/master/eventtracker
+For usage instructions, see https://github.com/elimu-ai/analytics/tree/master/eventtracker
