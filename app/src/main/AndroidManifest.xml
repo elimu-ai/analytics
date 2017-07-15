@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.literacyapp.analytics">
+    package="ai.elimu.analytics">
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -42,7 +42,7 @@
             android:enabled="true"
             android:exported="true">
             <intent-filter>
-                <action android:name="literacyapp.intent.action.STUDENT_UPDATED" />
+                <action android:name="ai.elimu.intent.action.STUDENT_UPDATED" />
             </intent-filter>
         </receiver>
         <receiver
@@ -50,7 +50,7 @@
             android:enabled="true"
             android:exported="true">
             <intent-filter>
-                <action android:name="literacyapp.intent.action.APPLICATION_OPENED_EVENT" />
+                <action android:name="ai.elimu.intent.action.APPLICATION_OPENED_EVENT" />
             </intent-filter>
         </receiver>
         <receiver
@@ -58,7 +58,7 @@
             android:enabled="true"
             android:exported="true">
             <intent-filter>
-                <action android:name="literacyapp.intent.action.LETTER_LEARNING_EVENT" />
+                <action android:name="ai.elimu.intent.action.LETTER_LEARNING_EVENT" />
             </intent-filter>
         </receiver>
         <receiver
@@ -66,7 +66,7 @@
             android:enabled="true"
             android:exported="true">
             <intent-filter>
-                <action android:name="literacyapp.intent.action.NUMBER_LEARNING_EVENT" />
+                <action android:name="ai.elimu.intent.action.NUMBER_LEARNING_EVENT" />
             </intent-filter>
         </receiver>
         <receiver
@@ -74,7 +74,7 @@
             android:enabled="true"
             android:exported="true">
             <intent-filter>
-                <action android:name="literacyapp.intent.action.VIDEO_LEARNING_EVENT" />
+                <action android:name="ai.elimu.intent.action.VIDEO_LEARNING_EVENT" />
             </intent-filter>
         </receiver>
         <receiver
@@ -82,7 +82,7 @@
             android:enabled="true"
             android:exported="true">
             <intent-filter>
-                <action android:name="literacyapp.intent.action.STORYBOOK_LEARNING_EVENT" />
+                <action android:name="ai.elimu.intent.action.STORYBOOK_LEARNING_EVENT" />
             </intent-filter>
         </receiver>
         <receiver
@@ -90,7 +90,7 @@
             android:enabled="true"
             android:exported="true">
             <intent-filter>
-                <action android:name="literacyapp.intent.action.SHAPE_LEARNING_EVENT" />
+                <action android:name="ai.elimu.intent.action.SHAPE_LEARNING_EVENT" />
             </intent-filter>
         </receiver>
     </application>

@@ -17,7 +17,7 @@ Then, add the following dependencies:
 dependencies {
    ...
 
-   compile 'org.literacyapp.analytics:eventtracker:1.0.4'
+   compile 'ai.elimu.analytics:eventtracker:1.0.5'
 }
 ```
 
@@ -25,8 +25,8 @@ dependencies {
 
 To report learning activity, use one of the static methods provided by the EventTracker class, e.g. `EventTracker.reportLetterLearningEvent(getApplicationContext(), “a”);`
 
-Note that for the analytics data to be stored on the SD card, the Analytics application must be installed on the tablet. The log files will then appear under `/sdcard/.literacyapp-analytics/events/<deviceId>`
+Note that for the analytics data to be stored on the SD card, the Analytics application must be installed on the tablet. The log files will then appear under `/sdcard/.elimu-ai/analytics/events/<deviceId>`
 
 ### Sample Application
 
-To see a sample of how to use the analytics library is being used, go to https://github.com/literacyapp-org/literacyapp-android
+To see a sample of how to use the analytics library is being used, go to https://github.com/elimu-ai/launcher
