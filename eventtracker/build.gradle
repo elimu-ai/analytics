@@ -33,6 +33,6 @@ dependencies {
     })
     testCompile 'junit:junit:4.12'
 
-    compile 'ai.elimu:model:1.1.58'
+    compile 'ai.elimu:model:1.1.67'
     compile 'com.android.support:appcompat-v7:23.4.0'
 }
