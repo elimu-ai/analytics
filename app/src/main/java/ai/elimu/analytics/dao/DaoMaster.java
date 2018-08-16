@@ -21,24 +21,24 @@ public class DaoMaster extends AbstractDaoMaster {
 
     /** Creates underlying database table using DAOs. */
     public static void createAllTables(Database db, boolean ifNotExists) {
-        ApplicationOpenedEventDao.createTable(db, ifNotExists);
+        StoryBookLearningEventDao.createTable(db, ifNotExists);
+        ShapeLearningEventDao.createTable(db, ifNotExists);
         BootCompletedEventDao.createTable(db, ifNotExists);
         LetterLearningEventDao.createTable(db, ifNotExists);
         NumberLearningEventDao.createTable(db, ifNotExists);
-        ShapeLearningEventDao.createTable(db, ifNotExists);
-        StoryBookLearningEventDao.createTable(db, ifNotExists);
         VideoLearningEventDao.createTable(db, ifNotExists);
+        ApplicationOpenedEventDao.createTable(db, ifNotExists);
     }
 
     /** Drops underlying database table using DAOs. */
     public static void dropAllTables(Database db, boolean ifExists) {
-        ApplicationOpenedEventDao.dropTable(db, ifExists);
+        StoryBookLearningEventDao.dropTable(db, ifExists);
+        ShapeLearningEventDao.dropTable(db, ifExists);
         BootCompletedEventDao.dropTable(db, ifExists);
         LetterLearningEventDao.dropTable(db, ifExists);
         NumberLearningEventDao.dropTable(db, ifExists);
-        ShapeLearningEventDao.dropTable(db, ifExists);
-        StoryBookLearningEventDao.dropTable(db, ifExists);
         VideoLearningEventDao.dropTable(db, ifExists);
+        ApplicationOpenedEventDao.dropTable(db, ifExists);
     }
 
     /**
@@ -57,13 +57,13 @@ public class DaoMaster extends AbstractDaoMaster {
 
     public DaoMaster(Database db) {
         super(db, SCHEMA_VERSION);
-        registerDaoClass(ApplicationOpenedEventDao.class);
+        registerDaoClass(StoryBookLearningEventDao.class);
+        registerDaoClass(ShapeLearningEventDao.class);
         registerDaoClass(BootCompletedEventDao.class);
         registerDaoClass(LetterLearningEventDao.class);
         registerDaoClass(NumberLearningEventDao.class);
-        registerDaoClass(ShapeLearningEventDao.class);
-        registerDaoClass(StoryBookLearningEventDao.class);
         registerDaoClass(VideoLearningEventDao.class);
+        registerDaoClass(ApplicationOpenedEventDao.class);
     }
 
     public DaoSession newSession() {

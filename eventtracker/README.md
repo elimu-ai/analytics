@@ -6,7 +6,7 @@ To import the library, you first need to add our repository in app/build.gradle:
 repositories {
     mavenLocal()
     maven {
-        url "http://archiva.educativo.eu:8081/repository/internal/"
+        url "https://dl.bintray.com/elimu-ai/maven/"
     }
 }
 ```
