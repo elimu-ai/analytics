@@ -1,1 +1,2 @@
-include ':app', ':eventtracker'
+include ':app'
+rootProject.name='elimu.ai Analytics'
