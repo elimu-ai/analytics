@@ -10,7 +10,7 @@ import androidx.room.TypeConverters;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {StoryBookLearningEvent.class}, version = 3000000, exportSchema = false)
+@Database(entities = {StoryBookLearningEvent.class}, version = 3000000, exportSchema = true)
 @TypeConverters({Converters.class})
 public abstract class AnalyticsRoomDatabase extends RoomDatabase {
 
