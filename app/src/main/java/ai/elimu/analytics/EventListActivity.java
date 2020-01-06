@@ -10,12 +10,14 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.Calendar;
 import java.util.List;
 
 public class EventListActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        Log.d(getClass().getName(), "onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_list);
 
@@ -32,6 +34,7 @@ public class EventListActivity extends AppCompatActivity {
 
         // Insert dummy value into database
         StoryBookLearningEvent storyBookLearningEvent = new StoryBookLearningEvent();
+        storyBookLearningEvent.setTimestamp(Calendar.getInstance());
         storyBookLearningEvent.setStoryBookId(123L);
         AnalyticsRoomDatabase.databaseWriteExecutor.execute(() -> {
             storyBookLearningEventDao.insert(storyBookLearningEvent);
