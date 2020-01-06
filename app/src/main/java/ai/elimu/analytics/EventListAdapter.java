@@ -15,11 +15,13 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.Even
 
     class EventViewHolder extends RecyclerView.ViewHolder {
 
-        private final TextView textView;
+        private final TextView textViewFirstLine;
+        private final TextView textViewSecondLine;
 
         private EventViewHolder(View itemView) {
             super(itemView);
-            textView = itemView.findViewById(R.id.textView);
+            textViewFirstLine = itemView.findViewById(R.id.textViewFirstLine);
+            textViewSecondLine = itemView.findViewById(R.id.textViewSecondLine);
         }
     }
 
@@ -42,7 +44,8 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.Even
     public void onBindViewHolder(@NonNull EventViewHolder viewHolder, int position) {
         if (storyBookLearningEvents != null) {
             StoryBookLearningEvent storyBookLearningEvent = storyBookLearningEvents.get(position);
-            viewHolder.textView.setText("id: " + storyBookLearningEvent.getId() + ", storyBookId: " + storyBookLearningEvent.getStoryBookId());
+            viewHolder.textViewFirstLine.setText("StoryBookLearningEvent");
+            viewHolder.textViewSecondLine.setText("id: " + storyBookLearningEvent.getId() + ", storyBookId: " + storyBookLearningEvent.getStoryBookId());
         }
     }
 
@@ -57,5 +60,6 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.Even
 
     public void setStoryBookLearningEvents(List<StoryBookLearningEvent> storyBookLearningEvents) {
         this.storyBookLearningEvents = storyBookLearningEvents;
+        notifyDataSetChanged();
     }
 }
