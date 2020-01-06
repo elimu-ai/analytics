@@ -10,7 +10,7 @@ public class StoryBookLearningEvent {
     @PrimaryKey(autoGenerate = true)
     private Long id;
 
-    // TODO: calendar
+    // TODO: timestamp
 
     @NonNull
     private Long storyBookId;

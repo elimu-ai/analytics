@@ -6,10 +6,17 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 @Database(entities = {StoryBookLearningEvent.class}, version = 3000000, exportSchema = false)
 public abstract class AnalyticsRoomDatabase extends RoomDatabase {
 
+    public abstract StoryBookLearningEventDao storyBookLearningEventDao();
+
     private static volatile AnalyticsRoomDatabase INSTANCE;
+
+    static final ExecutorService databaseWriteExecutor = Executors.newFixedThreadPool(4);
 
     static AnalyticsRoomDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {

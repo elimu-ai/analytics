@@ -9,18 +9,23 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.List;
+
 public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.EventViewHolder> {
 
     class EventViewHolder extends RecyclerView.ViewHolder {
-        private final TextView eventItemView;
+
+        private final TextView textView;
 
         private EventViewHolder(View itemView) {
             super(itemView);
-            eventItemView = itemView.findViewById(R.id.textView);
+            textView = itemView.findViewById(R.id.textView);
         }
     }
 
     private final LayoutInflater layoutInflater;
+
+    private List<StoryBookLearningEvent> storyBookLearningEvents;
 
     EventListAdapter(Context context) {
         layoutInflater = LayoutInflater.from(context);
@@ -34,13 +39,23 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.Even
     }
 
     @Override
-    public void onBindViewHolder(@NonNull EventViewHolder holder, int position) {
-        // TODO
+    public void onBindViewHolder(@NonNull EventViewHolder viewHolder, int position) {
+        if (storyBookLearningEvents != null) {
+            StoryBookLearningEvent storyBookLearningEvent = storyBookLearningEvents.get(position);
+            viewHolder.textView.setText("id: " + storyBookLearningEvent.getId() + ", storyBookId: " + storyBookLearningEvent.getStoryBookId());
+        }
     }
 
     @Override
     public int getItemCount() {
-        // TODO
-        return 0;
+        if (storyBookLearningEvents == null) {
+            return 0;
+        } else {
+            return storyBookLearningEvents.size();
+        }
+    }
+
+    public void setStoryBookLearningEvents(List<StoryBookLearningEvent> storyBookLearningEvents) {
+        this.storyBookLearningEvents = storyBookLearningEvents;
     }
 }
