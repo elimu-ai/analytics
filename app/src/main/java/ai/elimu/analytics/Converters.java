@@ -10,14 +10,14 @@ import java.util.Calendar;
 public class Converters {
 
     @TypeConverter
-    public static Calendar fromTimestamp(Long value) {
+    public static Calendar fromLong(Long value) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(value);
         return calendar;
     }
 
     @TypeConverter
-    public static Long toTimestamp(Calendar calendar) {
+    public static Long toLong(Calendar calendar) {
         return calendar.getTimeInMillis();
     }
 }

@@ -12,8 +12,8 @@ public class StoryBookLearningEvent {
     @PrimaryKey(autoGenerate = true)
     private Long id;
 
-//    @NonNull
-//    private Calendar timestamp;
+    @NonNull
+    private Calendar timestamp;
 
     @NonNull
     private Long storyBookId;
@@ -28,13 +28,13 @@ public class StoryBookLearningEvent {
         this.id = id;
     }
 
-//    public Calendar getTimestamp() {
-//        return timestamp;
-//    }
-//
-//    public void setTimestamp(Calendar timestamp) {
-//        this.timestamp = timestamp;
-//    }
+    public Calendar getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Calendar timestamp) {
+        this.timestamp = timestamp;
+    }
 
     public Long getStoryBookId() {
         return storyBookId;
