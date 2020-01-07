@@ -2,23 +2,17 @@
   "formatVersion": 1,
   "database": {
     "version": 3000000,
-    "identityHash": "f35fadc0a424a3e0b7c18158c8513fe3",
+    "identityHash": "d54f9113a3bafa7507378cd4abaa47e7",
     "entities": [
       {
         "tableName": "StoryBookLearningEvent",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `timestamp` INTEGER NOT NULL, `storyBookId` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `storyBookId` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
             "columnName": "id",
             "affinity": "INTEGER",
             "notNull": false
-          },
-          {
-            "fieldPath": "timestamp",
-            "columnName": "timestamp",
-            "affinity": "INTEGER",
-            "notNull": true
           },
           {
             "fieldPath": "storyBookId",
@@ -40,7 +34,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'f35fadc0a424a3e0b7c18158c8513fe3')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd54f9113a3bafa7507378cd4abaa47e7')"
     ]
   }
 }

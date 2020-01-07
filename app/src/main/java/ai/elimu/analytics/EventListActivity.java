@@ -34,7 +34,7 @@ public class EventListActivity extends AppCompatActivity {
 
         // Insert dummy value into database
         StoryBookLearningEvent storyBookLearningEvent = new StoryBookLearningEvent();
-        storyBookLearningEvent.setTimestamp(Calendar.getInstance());
+//        storyBookLearningEvent.setTimestamp(Calendar.getInstance());
         storyBookLearningEvent.setStoryBookId(123L);
         AnalyticsRoomDatabase.databaseWriteExecutor.execute(() -> {
             storyBookLearningEventDao.insert(storyBookLearningEvent);
