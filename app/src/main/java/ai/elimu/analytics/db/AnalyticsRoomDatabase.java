@@ -18,7 +18,7 @@ import java.util.concurrent.Executors;
 import ai.elimu.analytics.dao.StoryBookLearningEventDao;
 import ai.elimu.analytics.entity.StoryBookLearningEvent;
 
-@Database(entities = {StoryBookLearningEvent.class}, version = 3000002, exportSchema = true)
+@Database(entities = {StoryBookLearningEvent.class}, version = 3000003, exportSchema = true)
 @TypeConverters({Converters.class})
 public abstract class AnalyticsRoomDatabase extends RoomDatabase {
 
@@ -40,7 +40,8 @@ public abstract class AnalyticsRoomDatabase extends RoomDatabase {
                             )
                             .addMigrations(
                                     MIGRATION_3000000_3000001,
-                                    MIGRATION_3000001_3000002
+                                    MIGRATION_3000001_3000002,
+                                    MIGRATION_3000002_3000003
                             )
                             .build();
                 }
@@ -67,6 +68,14 @@ public abstract class AnalyticsRoomDatabase extends RoomDatabase {
             String sql = "DELETE FROM StoryBookLearningEvent";
             Log.i(getClass().getName(), "sql: " + sql);
             database.execSQL(sql);
+        }
+    };
+
+    private static final Migration MIGRATION_3000002_3000003 = new Migration(3000002, 3000003) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            Log.i(getClass().getName(), "migrate (3000002 --> 3000003)");
+            Log.i(getClass().getName(), "No changes");
         }
     };
 }
