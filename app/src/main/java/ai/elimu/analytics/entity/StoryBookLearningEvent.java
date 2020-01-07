@@ -1,4 +1,4 @@
-package ai.elimu.analytics;
+package ai.elimu.analytics.entity;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;

@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import ai.elimu.analytics.entity.StoryBookLearningEvent;
+
 public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.EventViewHolder> {
 
     class EventViewHolder extends RecyclerView.ViewHolder {

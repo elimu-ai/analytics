@@ -1,6 +1,5 @@
 package ai.elimu.analytics;
 
-import android.app.Application;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -12,6 +11,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.Calendar;
 import java.util.List;
+
+import ai.elimu.analytics.dao.StoryBookLearningEventDao;
+import ai.elimu.analytics.entity.StoryBookLearningEvent;
+import ai.elimu.analytics.db.AnalyticsRoomDatabase;
 
 public class EventListActivity extends AppCompatActivity {
 

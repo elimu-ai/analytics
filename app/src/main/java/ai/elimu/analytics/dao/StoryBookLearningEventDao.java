@@ -1,10 +1,12 @@
-package ai.elimu.analytics;
+package ai.elimu.analytics.dao;
 
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
 
 import java.util.List;
+
+import ai.elimu.analytics.entity.StoryBookLearningEvent;
 
 @Dao
 public interface StoryBookLearningEventDao {

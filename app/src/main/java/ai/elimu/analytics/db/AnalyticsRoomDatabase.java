@@ -1,4 +1,4 @@
-package ai.elimu.analytics;
+package ai.elimu.analytics.db;
 
 import android.content.Context;
 import android.util.Log;
@@ -15,6 +15,9 @@ import java.util.Calendar;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import ai.elimu.analytics.dao.StoryBookLearningEventDao;
+import ai.elimu.analytics.entity.StoryBookLearningEvent;
+
 @Database(entities = {StoryBookLearningEvent.class}, version = 3000001, exportSchema = true)
 @TypeConverters({Converters.class})
 public abstract class AnalyticsRoomDatabase extends RoomDatabase {
@@ -23,9 +26,9 @@ public abstract class AnalyticsRoomDatabase extends RoomDatabase {
 
     private static volatile AnalyticsRoomDatabase INSTANCE;
 
-    static final ExecutorService databaseWriteExecutor = Executors.newFixedThreadPool(4);
+    public static final ExecutorService databaseWriteExecutor = Executors.newFixedThreadPool(4);
 
-    static final Migration MIGRATION_3000000_3000001 = new Migration(3000000, 3000001) {
+    private static final Migration MIGRATION_3000000_3000001 = new Migration(3000000, 3000001) {
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database) {
             Log.i(getClass().getName(), "migrate (3000000 --> 3000001)");
@@ -36,7 +39,7 @@ public abstract class AnalyticsRoomDatabase extends RoomDatabase {
         }
     };
 
-    static AnalyticsRoomDatabase getDatabase(final Context context) {
+    public static AnalyticsRoomDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {
             synchronized (AnalyticsRoomDatabase.class) {
                 if (INSTANCE == null) {
