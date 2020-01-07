@@ -32,18 +32,9 @@ public class EventListActivity extends AppCompatActivity {
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), linearLayoutManager.getOrientation());
         recyclerView.addItemDecoration(dividerItemDecoration);
 
+        // Fetch all learning events from database, and update adapter
         AnalyticsRoomDatabase analyticsRoomDatabase = AnalyticsRoomDatabase.getDatabase(getApplicationContext());
         StoryBookLearningEventDao storyBookLearningEventDao = analyticsRoomDatabase.storyBookLearningEventDao();
-
-        // Insert dummy value into database
-        StoryBookLearningEvent storyBookLearningEvent = new StoryBookLearningEvent();
-        storyBookLearningEvent.setTimestamp(Calendar.getInstance());
-        storyBookLearningEvent.setStoryBookId(123L);
-        AnalyticsRoomDatabase.databaseWriteExecutor.execute(() -> {
-            storyBookLearningEventDao.insert(storyBookLearningEvent);
-        });
-
-        // Fetch all learning events from database, and update adapter
         AnalyticsRoomDatabase.databaseWriteExecutor.execute(() -> {
             List<StoryBookLearningEvent> storyBookLearningEvents = storyBookLearningEventDao.loadAll();
             Log.d(getClass().getName(), "storyBookLearningEvents.size(): " + storyBookLearningEvents.size());
