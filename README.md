@@ -1,4 +1,4 @@
-# Analytics
+# Analytics 📊
 
 Android application which collects and uploads learning data.
 
