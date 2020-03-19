@@ -43,7 +43,8 @@ public abstract class RoomDb extends RoomDatabase {
                                     MIGRATION_3000000_3000001,
                                     MIGRATION_3000001_3000002,
                                     MIGRATION_3000002_3000004,
-                                    MIGRATION_3000004_3000005
+                                    MIGRATION_3000004_3000005,
+                                    MIGRATION_3000005_3000006
                             )
                             .build();
                 }
@@ -89,9 +90,20 @@ public abstract class RoomDb extends RoomDatabase {
     private static final Migration MIGRATION_3000004_3000005 = new Migration(3000004, 3000005) {
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database) {
-            Log.i(getClass().getName(), "migrate (3000002 --> 3000004)");
+            Log.i(getClass().getName(), "migrate (3000004 --> 3000005)");
 
             String sql = "ALTER TABLE StoryBookLearningEvent ADD COLUMN packageName TEXT NOT NULL DEFAULT 'UNKNOWN'";
+            Log.i(getClass().getName(), "sql: " + sql);
+            database.execSQL(sql);
+        }
+    };
+
+    private static final Migration MIGRATION_3000005_3000006 = new Migration(3000005, 3000006) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            Log.i(getClass().getName(), "migrate (3000005 --> 3000006)");
+
+            String sql = "ALTER TABLE StoryBookLearningEvent ADD COLUMN learningEventType TEXT";
             Log.i(getClass().getName(), "sql: " + sql);
             database.execSQL(sql);
         }

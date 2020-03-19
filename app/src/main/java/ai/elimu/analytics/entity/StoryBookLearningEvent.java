@@ -6,6 +6,8 @@ import androidx.room.PrimaryKey;
 
 import java.util.Calendar;
 
+import ai.elimu.model.enums.analytics.LearningEventType;
+
 @Entity
 public class StoryBookLearningEvent {
 
@@ -24,7 +26,7 @@ public class StoryBookLearningEvent {
     @NonNull
     private Long storyBookId;
 
-    // TODO: learningEventType
+    private LearningEventType learningEventType;
 
     public Long getId() {
         return id;
@@ -64,5 +66,13 @@ public class StoryBookLearningEvent {
 
     public void setStoryBookId(Long storyBookId) {
         this.storyBookId = storyBookId;
+    }
+
+    public LearningEventType getLearningEventType() {
+        return learningEventType;
+    }
+
+    public void setLearningEventType(LearningEventType learningEventType) {
+        this.learningEventType = learningEventType;
     }
 }

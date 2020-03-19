@@ -47,7 +47,12 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.Even
         if (storyBookLearningEvents != null) {
             StoryBookLearningEvent storyBookLearningEvent = storyBookLearningEvents.get(position);
             viewHolder.textViewFirstLine.setText("StoryBookLearningEvent");
-            viewHolder.textViewSecondLine.setText("id: " + storyBookLearningEvent.getId() + ", androidId: \"" + storyBookLearningEvent.getAndroidId() + "\", packageName: \"" + storyBookLearningEvent.getPackageName() + "\", timestamp: " + storyBookLearningEvent.getTimestamp().getTime() + ", storyBookId: " + storyBookLearningEvent.getStoryBookId());
+            viewHolder.textViewSecondLine.setText("id: " + storyBookLearningEvent.getId()
+                    + ", androidId: \"" + storyBookLearningEvent.getAndroidId()
+                    + "\", packageName: \"" + storyBookLearningEvent.getPackageName()
+                    + "\", timestamp: " + storyBookLearningEvent.getTimestamp().getTime()
+                    + ", storyBookId: " + storyBookLearningEvent.getStoryBookId()
+                    + ", learningEventType: \"" + storyBookLearningEvent.getLearningEventType() + "\"");
         }
     }
 

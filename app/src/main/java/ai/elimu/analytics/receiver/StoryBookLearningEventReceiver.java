@@ -11,6 +11,7 @@ import java.util.Calendar;
 import ai.elimu.analytics.dao.StoryBookLearningEventDao;
 import ai.elimu.analytics.db.RoomDb;
 import ai.elimu.analytics.entity.StoryBookLearningEvent;
+import ai.elimu.model.enums.analytics.LearningEventType;
 
 public class StoryBookLearningEventReceiver extends BroadcastReceiver {
 
@@ -30,11 +31,20 @@ public class StoryBookLearningEventReceiver extends BroadcastReceiver {
         Long storyBookId = intent.getLongExtra("storyBookId", -1);
         Log.i(getClass().getName(), "storyBookId: " + storyBookId);
 
+        LearningEventType learningEventType = null;
+        if (intent.hasExtra("learningEventType")) {
+            String learningEventTypeAsString = intent.getStringExtra("learningEventType");
+            Log.i(getClass().getName(), "learningEventTypeAsString: " + learningEventTypeAsString);
+            learningEventType = LearningEventType.valueOf(learningEventTypeAsString);
+        }
+        Log.i(getClass().getName(), "learningEventType: " + learningEventType);
+
         StoryBookLearningEvent storyBookLearningEvent = new StoryBookLearningEvent();
         storyBookLearningEvent.setAndroidId(androidId);
         storyBookLearningEvent.setPackageName(packageName);
         storyBookLearningEvent.setTimestamp(timestamp);
         storyBookLearningEvent.setStoryBookId(storyBookId);
+        storyBookLearningEvent.setLearningEventType(learningEventType);
 
         // Store in database
         RoomDb roomDb = RoomDb.getDatabase(context);
