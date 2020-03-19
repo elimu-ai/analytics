@@ -1,18 +1,24 @@
 {
   "formatVersion": 1,
   "database": {
-    "version": 3000003,
-    "identityHash": "f35fadc0a424a3e0b7c18158c8513fe3",
+    "version": 3000004,
+    "identityHash": "17f160e307bf7ebc80b8dcc1aa75f9b5",
     "entities": [
       {
         "tableName": "StoryBookLearningEvent",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `timestamp` INTEGER NOT NULL, `storyBookId` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `androidId` TEXT NOT NULL, `timestamp` INTEGER NOT NULL, `storyBookId` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
             "columnName": "id",
             "affinity": "INTEGER",
             "notNull": false
+          },
+          {
+            "fieldPath": "androidId",
+            "columnName": "androidId",
+            "affinity": "TEXT",
+            "notNull": true
           },
           {
             "fieldPath": "timestamp",
@@ -40,7 +46,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'f35fadc0a424a3e0b7c18158c8513fe3')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '17f160e307bf7ebc80b8dcc1aa75f9b5')"
     ]
   }
 }

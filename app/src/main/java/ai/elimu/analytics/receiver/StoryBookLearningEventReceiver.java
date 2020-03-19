@@ -3,6 +3,7 @@ package ai.elimu.analytics.receiver;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.provider.Settings;
 import android.util.Log;
 
 import java.util.Calendar;
@@ -17,10 +18,14 @@ public class StoryBookLearningEventReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         Log.i(getClass().getName(), "onReceive");
 
+        String androidId = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
+        Log.i(getClass().getName(), "androidId: " + androidId);
+
         Long storyBookId = intent.getLongExtra("storyBookId", -1);
         Log.i(getClass().getName(), "storyBookId: " + storyBookId);
 
         StoryBookLearningEvent storyBookLearningEvent = new StoryBookLearningEvent();
+        storyBookLearningEvent.setAndroidId(androidId);
         storyBookLearningEvent.setTimestamp(Calendar.getInstance());
         storyBookLearningEvent.setStoryBookId(storyBookId);
 
