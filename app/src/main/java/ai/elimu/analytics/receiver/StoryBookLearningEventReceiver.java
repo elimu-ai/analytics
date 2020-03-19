@@ -9,7 +9,7 @@ import android.util.Log;
 import java.util.Calendar;
 
 import ai.elimu.analytics.dao.StoryBookLearningEventDao;
-import ai.elimu.analytics.db.AnalyticsRoomDatabase;
+import ai.elimu.analytics.db.RoomDb;
 import ai.elimu.analytics.entity.StoryBookLearningEvent;
 
 public class StoryBookLearningEventReceiver extends BroadcastReceiver {
@@ -37,9 +37,9 @@ public class StoryBookLearningEventReceiver extends BroadcastReceiver {
         storyBookLearningEvent.setStoryBookId(storyBookId);
 
         // Store in database
-        AnalyticsRoomDatabase analyticsRoomDatabase = AnalyticsRoomDatabase.getDatabase(context);
-        StoryBookLearningEventDao storyBookLearningEventDao = analyticsRoomDatabase.storyBookLearningEventDao();
-        AnalyticsRoomDatabase.databaseWriteExecutor.execute(() -> {
+        RoomDb roomDb = RoomDb.getDatabase(context);
+        StoryBookLearningEventDao storyBookLearningEventDao = roomDb.storyBookLearningEventDao();
+        RoomDb.databaseWriteExecutor.execute(() -> {
             storyBookLearningEventDao.insert(storyBookLearningEvent);
         });
     }

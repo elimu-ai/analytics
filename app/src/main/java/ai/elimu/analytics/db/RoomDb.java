@@ -21,22 +21,22 @@ import ai.elimu.analytics.entity.StoryBookLearningEvent;
 
 @Database(entities = {StoryBookLearningEvent.class}, version = BuildConfig.VERSION_CODE, exportSchema = true)
 @TypeConverters({Converters.class})
-public abstract class AnalyticsRoomDatabase extends RoomDatabase {
+public abstract class RoomDb extends RoomDatabase {
 
     public abstract StoryBookLearningEventDao storyBookLearningEventDao();
 
-    private static volatile AnalyticsRoomDatabase INSTANCE;
+    private static volatile RoomDb INSTANCE;
 
     public static final ExecutorService databaseWriteExecutor = Executors.newFixedThreadPool(4);
 
-    public static AnalyticsRoomDatabase getDatabase(final Context context) {
+    public static RoomDb getDatabase(final Context context) {
         if (INSTANCE == null) {
-            synchronized (AnalyticsRoomDatabase.class) {
+            synchronized (RoomDb.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room
                             .databaseBuilder(
                                     context.getApplicationContext(),
-                                    AnalyticsRoomDatabase.class,
+                                    RoomDb.class,
                                     "analytics_database"
                             )
                             .addMigrations(
