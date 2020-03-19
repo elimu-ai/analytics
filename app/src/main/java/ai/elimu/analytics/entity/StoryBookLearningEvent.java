@@ -16,6 +16,9 @@ public class StoryBookLearningEvent {
     private String androidId;
 
     @NonNull
+    private String packageName;
+
+    @NonNull
     private Calendar timestamp;
 
     @NonNull
@@ -37,6 +40,14 @@ public class StoryBookLearningEvent {
 
     public void setAndroidId(String androidId) {
         this.androidId = androidId;
+    }
+
+    public String getPackageName() {
+        return packageName;
+    }
+
+    public void setPackageName(String packageName) {
+        this.packageName = packageName;
     }
 
     public Calendar getTimestamp() {

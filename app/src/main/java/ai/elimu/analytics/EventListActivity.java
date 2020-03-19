@@ -20,8 +20,9 @@ public class EventListActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        Log.d(getClass().getName(), "onCreate");
+        Log.i(getClass().getName(), "onCreate");
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_event_list);
 
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
@@ -40,5 +41,11 @@ public class EventListActivity extends AppCompatActivity {
             Log.d(getClass().getName(), "storyBookLearningEvents.size(): " + storyBookLearningEvents.size());
             eventListAdapter.setStoryBookLearningEvents(storyBookLearningEvents);
         });
+    }
+
+    @Override
+    protected void onStart() {
+        Log.i(getClass().getName(), "onStart");
+        super.onStart();
     }
 }

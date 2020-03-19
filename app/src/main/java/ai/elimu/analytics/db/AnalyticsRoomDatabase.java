@@ -42,7 +42,8 @@ public abstract class AnalyticsRoomDatabase extends RoomDatabase {
                             .addMigrations(
                                     MIGRATION_3000000_3000001,
                                     MIGRATION_3000001_3000002,
-                                    MIGRATION_3000002_3000004
+                                    MIGRATION_3000002_3000004,
+                                    MIGRATION_3000004_3000005
                             )
                             .build();
                 }
@@ -74,12 +75,23 @@ public abstract class AnalyticsRoomDatabase extends RoomDatabase {
         }
     };
 
-    private static final Migration MIGRATION_3000002_3000004 = new Migration(3000003, 3000004) {
+    private static final Migration MIGRATION_3000002_3000004 = new Migration(3000002, 3000004) {
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database) {
             Log.i(getClass().getName(), "migrate (3000002 --> 3000004)");
 
             String sql = "ALTER TABLE StoryBookLearningEvent ADD COLUMN androidId TEXT NOT NULL DEFAULT 'asdf1234'";
+            Log.i(getClass().getName(), "sql: " + sql);
+            database.execSQL(sql);
+        }
+    };
+
+    private static final Migration MIGRATION_3000004_3000005 = new Migration(3000004, 3000005) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            Log.i(getClass().getName(), "migrate (3000002 --> 3000004)");
+
+            String sql = "ALTER TABLE StoryBookLearningEvent ADD COLUMN packageName TEXT NOT NULL DEFAULT 'UNKNOWN'";
             Log.i(getClass().getName(), "sql: " + sql);
             database.execSQL(sql);
         }

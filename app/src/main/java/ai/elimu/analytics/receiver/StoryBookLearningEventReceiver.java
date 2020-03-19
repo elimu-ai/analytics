@@ -21,6 +21,9 @@ public class StoryBookLearningEventReceiver extends BroadcastReceiver {
         String androidId = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
         Log.i(getClass().getName(), "androidId: " + androidId);
 
+        String packageName = intent.getStringExtra("packageName");
+        Log.i(getClass().getName(), "packageName: " + packageName);
+
         Calendar timestamp = Calendar.getInstance();
         Log.i(getClass().getName(), "timestamp.getTime(): " + timestamp.getTime());
 
@@ -29,6 +32,7 @@ public class StoryBookLearningEventReceiver extends BroadcastReceiver {
 
         StoryBookLearningEvent storyBookLearningEvent = new StoryBookLearningEvent();
         storyBookLearningEvent.setAndroidId(androidId);
+        storyBookLearningEvent.setPackageName(packageName);
         storyBookLearningEvent.setTimestamp(timestamp);
         storyBookLearningEvent.setStoryBookId(storyBookId);
 
