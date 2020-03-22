@@ -1,7 +1,6 @@
 package ai.elimu.analytics.task;
 
 import android.content.Context;
-import android.os.Environment;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -80,14 +79,11 @@ public class ExportEventsToCsvWorker extends Worker {
                 csvPrinter.flush();
 
                 String csvFileContent = stringWriter.toString();
-                Log.i(getClass().getName(), "csvFileContent.length(): " + csvFileContent.length());
-                Log.i(getClass().getName(), "csvFileContent: \n" + csvFileContent);
 
                 // Write the content to the CSV file
                 File filesDir = getApplicationContext().getFilesDir();
                 File storyBookLearningEventsDir = new File(filesDir, "storybook-learning-events");
                 File csvFile = new File(storyBookLearningEventsDir, csvFilename);
-                Log.i(getClass().getName(), "csvFile: " + csvFile);
                 FileUtils.writeStringToFile(csvFile, csvFileContent, "UTF-8");
             }
         } catch (IOException e) {
