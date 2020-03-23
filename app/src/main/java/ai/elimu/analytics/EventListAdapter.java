@@ -48,7 +48,7 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.Even
             StoryBookLearningEvent storyBookLearningEvent = storyBookLearningEvents.get(position);
             viewHolder.textViewFirstLine.setText("StoryBookLearningEvent");
             viewHolder.textViewSecondLine.setText("id: " + storyBookLearningEvent.getId()
-                    + ", time: " + storyBookLearningEvent.getTimestamp().getTime()
+                    + ", time: " + storyBookLearningEvent.getTime().getTime()
                     + ", androidId: \"" + storyBookLearningEvent.getAndroidId() + "\""
                     + ", packageName: \"" + storyBookLearningEvent.getPackageName() + "\""
                     + ", storyBookId: " + storyBookLearningEvent.getStoryBookId()

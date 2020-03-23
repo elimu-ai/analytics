@@ -55,7 +55,7 @@ public class ExportEventsToCsvWorker extends Worker {
             for (StoryBookLearningEvent storyBookLearningEvent : storyBookLearningEvents) {
                 // Export event to CSV file. Example format: "files/storybook-learning-events/storybook-learning-events_2020-03-21.csv"
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                String date = simpleDateFormat.format(storyBookLearningEvent.getTimestamp().getTime());
+                String date = simpleDateFormat.format(storyBookLearningEvent.getTime().getTime());
                 if (!date.equals(dateOfPreviousEvent)) {
                     // Reset file content
                     stringWriter = new StringWriter();
@@ -68,7 +68,7 @@ public class ExportEventsToCsvWorker extends Worker {
                 // TODO: convert to StoryBookLearningEventGson
 
                 csvPrinter.printRecord(
-                        storyBookLearningEvent.getTimestamp().getTimeInMillis(),
+                        storyBookLearningEvent.getTime().getTimeInMillis(),
                         storyBookLearningEvent.getAndroidId(),
                         storyBookLearningEvent.getPackageName(),
                         storyBookLearningEvent.getStoryBookId(),

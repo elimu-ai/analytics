@@ -42,7 +42,7 @@ public class StoryBookLearningEventReceiver extends BroadcastReceiver {
         StoryBookLearningEvent storyBookLearningEvent = new StoryBookLearningEvent();
         storyBookLearningEvent.setAndroidId(androidId);
         storyBookLearningEvent.setPackageName(packageName);
-        storyBookLearningEvent.setTimestamp(timestamp);
+        storyBookLearningEvent.setTime(timestamp);
         storyBookLearningEvent.setStoryBookId(storyBookId);
         storyBookLearningEvent.setLearningEventType(learningEventType);
 

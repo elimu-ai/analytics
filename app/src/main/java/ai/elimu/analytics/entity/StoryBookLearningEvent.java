@@ -21,9 +21,8 @@ public class StoryBookLearningEvent {
     @NonNull
     private String packageName;
 
-    // TODO: rename to "time"
     @NonNull
-    private Calendar timestamp;
+    private Calendar time;
 
 
     @NonNull
@@ -55,12 +54,12 @@ public class StoryBookLearningEvent {
         this.packageName = packageName;
     }
 
-    public Calendar getTimestamp() {
-        return timestamp;
+    public Calendar getTime() {
+        return time;
     }
 
-    public void setTimestamp(Calendar timestamp) {
-        this.timestamp = timestamp;
+    public void setTime(Calendar time) {
+        this.time = time;
     }
 
     public Long getStoryBookId() {

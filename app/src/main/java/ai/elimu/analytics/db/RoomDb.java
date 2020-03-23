@@ -19,7 +19,7 @@ import ai.elimu.analytics.BuildConfig;
 import ai.elimu.analytics.dao.StoryBookLearningEventDao;
 import ai.elimu.analytics.entity.StoryBookLearningEvent;
 
-@Database(entities = {StoryBookLearningEvent.class}, version = BuildConfig.VERSION_CODE, exportSchema = true)
+@Database(entities = {StoryBookLearningEvent.class}, version = BuildConfig.VERSION_CODE)
 @TypeConverters({Converters.class})
 public abstract class RoomDb extends RoomDatabase {
 
@@ -46,6 +46,7 @@ public abstract class RoomDb extends RoomDatabase {
                                     MIGRATION_3000004_3000005,
                                     MIGRATION_3000005_3000006
                             )
+                            .fallbackToDestructiveMigration()
                             .build();
                 }
             }
@@ -58,8 +59,7 @@ public abstract class RoomDb extends RoomDatabase {
         public void migrate(@NonNull SupportSQLiteDatabase database) {
             Log.i(getClass().getName(), "migrate (3000000 --> 3000001)");
 
-            Calendar timestamp = Calendar.getInstance();
-            String sql = "ALTER TABLE StoryBookLearningEvent ADD COLUMN timestamp INTEGER NOT NULL DEFAULT " + timestamp.getTimeInMillis();
+            String sql = "ALTER TABLE StoryBookLearningEvent ADD COLUMN timestamp INTEGER NOT NULL DEFAULT " + Calendar.getInstance().getTimeInMillis();
             Log.i(getClass().getName(), "sql: " + sql);
             database.execSQL(sql);
         }
