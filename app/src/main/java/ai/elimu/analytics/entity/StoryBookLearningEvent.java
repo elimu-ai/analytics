@@ -6,19 +6,30 @@ import androidx.room.PrimaryKey;
 
 import java.util.Calendar;
 
+import ai.elimu.model.enums.analytics.LearningEventType;
+
 @Entity
 public class StoryBookLearningEvent {
 
     @PrimaryKey(autoGenerate = true)
     private Long id;
 
+
     @NonNull
-    private Calendar timestamp;
+    private String androidId;
+
+    @NonNull
+    private String packageName;
+
+    @NonNull
+    private Calendar time;
+
 
     @NonNull
     private Long storyBookId;
 
-    // TODO: learningEventType
+    @NonNull
+    private LearningEventType learningEventType;
 
     public Long getId() {
         return id;
@@ -28,12 +39,28 @@ public class StoryBookLearningEvent {
         this.id = id;
     }
 
-    public Calendar getTimestamp() {
-        return timestamp;
+    public String getAndroidId() {
+        return androidId;
     }
 
-    public void setTimestamp(Calendar timestamp) {
-        this.timestamp = timestamp;
+    public void setAndroidId(String androidId) {
+        this.androidId = androidId;
+    }
+
+    public String getPackageName() {
+        return packageName;
+    }
+
+    public void setPackageName(String packageName) {
+        this.packageName = packageName;
+    }
+
+    public Calendar getTime() {
+        return time;
+    }
+
+    public void setTime(Calendar time) {
+        this.time = time;
     }
 
     public Long getStoryBookId() {
@@ -42,5 +69,13 @@ public class StoryBookLearningEvent {
 
     public void setStoryBookId(Long storyBookId) {
         this.storyBookId = storyBookId;
+    }
+
+    public LearningEventType getLearningEventType() {
+        return learningEventType;
+    }
+
+    public void setLearningEventType(LearningEventType learningEventType) {
+        this.learningEventType = learningEventType;
     }
 }

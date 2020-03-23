@@ -9,19 +9,19 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.Calendar;
 import java.util.List;
 
 import ai.elimu.analytics.dao.StoryBookLearningEventDao;
+import ai.elimu.analytics.db.RoomDb;
 import ai.elimu.analytics.entity.StoryBookLearningEvent;
-import ai.elimu.analytics.db.AnalyticsRoomDatabase;
 
 public class EventListActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        Log.d(getClass().getName(), "onCreate");
+        Log.i(getClass().getName(), "onCreate");
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_event_list);
 
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
@@ -33,12 +33,18 @@ public class EventListActivity extends AppCompatActivity {
         recyclerView.addItemDecoration(dividerItemDecoration);
 
         // Fetch all learning events from database, and update adapter
-        AnalyticsRoomDatabase analyticsRoomDatabase = AnalyticsRoomDatabase.getDatabase(getApplicationContext());
-        StoryBookLearningEventDao storyBookLearningEventDao = analyticsRoomDatabase.storyBookLearningEventDao();
-        AnalyticsRoomDatabase.databaseWriteExecutor.execute(() -> {
+        RoomDb roomDb = RoomDb.getDatabase(getApplicationContext());
+        StoryBookLearningEventDao storyBookLearningEventDao = roomDb.storyBookLearningEventDao();
+        RoomDb.databaseWriteExecutor.execute(() -> {
             List<StoryBookLearningEvent> storyBookLearningEvents = storyBookLearningEventDao.loadAll();
             Log.d(getClass().getName(), "storyBookLearningEvents.size(): " + storyBookLearningEvents.size());
             eventListAdapter.setStoryBookLearningEvents(storyBookLearningEvents);
         });
+    }
+
+    @Override
+    protected void onStart() {
+        Log.i(getClass().getName(), "onStart");
+        super.onStart();
     }
 }
