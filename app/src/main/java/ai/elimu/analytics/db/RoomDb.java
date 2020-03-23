@@ -51,6 +51,7 @@ public abstract class RoomDb extends RoomDatabase {
                 }
             }
         }
+
         return INSTANCE;
     }
 
@@ -58,6 +59,7 @@ public abstract class RoomDb extends RoomDatabase {
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database) {
             Log.i(getClass().getName(), "migrate (3000000 --> 3000001)");
+            Log.i(getClass().getName(), "database.getVersion(): " + database.getVersion());
 
             String sql = "ALTER TABLE StoryBookLearningEvent ADD COLUMN timestamp INTEGER NOT NULL DEFAULT " + Calendar.getInstance().getTimeInMillis();
             Log.i(getClass().getName(), "sql: " + sql);
@@ -69,6 +71,7 @@ public abstract class RoomDb extends RoomDatabase {
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database) {
             Log.i(getClass().getName(), "migrate (3000001 --> 3000002)");
+            Log.i(getClass().getName(), "database.getVersion(): " + database.getVersion());
 
             String sql = "DELETE FROM StoryBookLearningEvent";
             Log.i(getClass().getName(), "sql: " + sql);
@@ -80,6 +83,7 @@ public abstract class RoomDb extends RoomDatabase {
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database) {
             Log.i(getClass().getName(), "migrate (3000002 --> 3000004)");
+            Log.i(getClass().getName(), "database.getVersion(): " + database.getVersion());
 
             String sql = "ALTER TABLE StoryBookLearningEvent ADD COLUMN androidId TEXT NOT NULL DEFAULT 'asdf1234'";
             Log.i(getClass().getName(), "sql: " + sql);
@@ -91,6 +95,7 @@ public abstract class RoomDb extends RoomDatabase {
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database) {
             Log.i(getClass().getName(), "migrate (3000004 --> 3000005)");
+            Log.i(getClass().getName(), "database.getVersion(): " + database.getVersion());
 
             String sql = "ALTER TABLE StoryBookLearningEvent ADD COLUMN packageName TEXT NOT NULL DEFAULT 'UNKNOWN'";
             Log.i(getClass().getName(), "sql: " + sql);
@@ -102,6 +107,7 @@ public abstract class RoomDb extends RoomDatabase {
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database) {
             Log.i(getClass().getName(), "migrate (3000005 --> 3000006)");
+            Log.i(getClass().getName(), "database.getVersion(): " + database.getVersion());
 
             String sql = "ALTER TABLE StoryBookLearningEvent ADD COLUMN learningEventType TEXT";
             Log.i(getClass().getName(), "sql: " + sql);

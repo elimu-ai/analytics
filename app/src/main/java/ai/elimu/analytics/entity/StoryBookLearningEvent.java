@@ -28,6 +28,7 @@ public class StoryBookLearningEvent {
     @NonNull
     private Long storyBookId;
 
+    @NonNull
     private LearningEventType learningEventType;
 
     public Long getId() {
