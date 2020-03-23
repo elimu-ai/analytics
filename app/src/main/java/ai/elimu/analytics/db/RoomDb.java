@@ -11,15 +11,13 @@ import androidx.room.TypeConverters;
 import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-import java.util.Calendar;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import ai.elimu.analytics.BuildConfig;
 import ai.elimu.analytics.dao.StoryBookLearningEventDao;
 import ai.elimu.analytics.entity.StoryBookLearningEvent;
 
-@Database(entities = {StoryBookLearningEvent.class}, version = BuildConfig.VERSION_CODE)
+@Database(entities = {StoryBookLearningEvent.class}, version = 1)
 @TypeConverters({Converters.class})
 public abstract class RoomDb extends RoomDatabase {
 
@@ -37,15 +35,12 @@ public abstract class RoomDb extends RoomDatabase {
                             .databaseBuilder(
                                     context.getApplicationContext(),
                                     RoomDb.class,
-                                    "analytics_database"
+                                    "analytics_db"
                             )
-                            .addMigrations(
-                                    MIGRATION_3000000_3000001,
-                                    MIGRATION_3000001_3000002,
-                                    MIGRATION_3000002_3000004,
-                                    MIGRATION_3000004_3000005,
-                                    MIGRATION_3000005_3000006
-                            )
+//                            .addMigrations(
+//                                    // See https://developer.android.com/training/data-storage/room/migrating-db-versions
+//                                    MIGRATION_1_2
+//                            )
                             .build();
                 }
             }
@@ -54,63 +49,14 @@ public abstract class RoomDb extends RoomDatabase {
         return INSTANCE;
     }
 
-    private static final Migration MIGRATION_3000000_3000001 = new Migration(3000000, 3000001) {
-        @Override
-        public void migrate(@NonNull SupportSQLiteDatabase database) {
-            Log.i(getClass().getName(), "migrate (3000000 --> 3000001)");
-            Log.i(getClass().getName(), "database.getVersion(): " + database.getVersion());
-
-            String sql = "ALTER TABLE StoryBookLearningEvent ADD COLUMN timestamp INTEGER NOT NULL DEFAULT " + Calendar.getInstance().getTimeInMillis();
-            Log.i(getClass().getName(), "sql: " + sql);
-            database.execSQL(sql);
-        }
-    };
-
-    private static final Migration MIGRATION_3000001_3000002 = new Migration(3000001, 3000002) {
-        @Override
-        public void migrate(@NonNull SupportSQLiteDatabase database) {
-            Log.i(getClass().getName(), "migrate (3000001 --> 3000002)");
-            Log.i(getClass().getName(), "database.getVersion(): " + database.getVersion());
-
-            String sql = "DELETE FROM StoryBookLearningEvent";
-            Log.i(getClass().getName(), "sql: " + sql);
-            database.execSQL(sql);
-        }
-    };
-
-    private static final Migration MIGRATION_3000002_3000004 = new Migration(3000002, 3000004) {
-        @Override
-        public void migrate(@NonNull SupportSQLiteDatabase database) {
-            Log.i(getClass().getName(), "migrate (3000002 --> 3000004)");
-            Log.i(getClass().getName(), "database.getVersion(): " + database.getVersion());
-
-            String sql = "ALTER TABLE StoryBookLearningEvent ADD COLUMN androidId TEXT NOT NULL DEFAULT 'asdf1234'";
-            Log.i(getClass().getName(), "sql: " + sql);
-            database.execSQL(sql);
-        }
-    };
-
-    private static final Migration MIGRATION_3000004_3000005 = new Migration(3000004, 3000005) {
-        @Override
-        public void migrate(@NonNull SupportSQLiteDatabase database) {
-            Log.i(getClass().getName(), "migrate (3000004 --> 3000005)");
-            Log.i(getClass().getName(), "database.getVersion(): " + database.getVersion());
-
-            String sql = "ALTER TABLE StoryBookLearningEvent ADD COLUMN packageName TEXT NOT NULL DEFAULT 'UNKNOWN'";
-            Log.i(getClass().getName(), "sql: " + sql);
-            database.execSQL(sql);
-        }
-    };
-
-    private static final Migration MIGRATION_3000005_3000006 = new Migration(3000005, 3000006) {
-        @Override
-        public void migrate(@NonNull SupportSQLiteDatabase database) {
-            Log.i(getClass().getName(), "migrate (3000005 --> 3000006)");
-            Log.i(getClass().getName(), "database.getVersion(): " + database.getVersion());
-
-            String sql = "ALTER TABLE StoryBookLearningEvent ADD COLUMN learningEventType TEXT";
-            Log.i(getClass().getName(), "sql: " + sql);
-            database.execSQL(sql);
-        }
-    };
+//    private static final Migration MIGRATION_1_2 = new Migration(1, 2) {
+//        @Override
+//        public void migrate(@NonNull SupportSQLiteDatabase database) {
+//            Log.i(getClass().getName(), "migrate (" + database.getVersion() + " --> 2)");
+//
+//            String sql = "...";
+//            Log.i(getClass().getName(), "sql: " + sql);
+//            database.execSQL(sql);
+//        }
+//    };
 }
