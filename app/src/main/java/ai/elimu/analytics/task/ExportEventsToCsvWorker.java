@@ -65,8 +65,6 @@ public class ExportEventsToCsvWorker extends Worker {
                 String csvFilename = "storybook-learning-events_" + date + ".csv";
                 Log.i(getClass().getName(), "csvFilename: " + csvFilename);
 
-                // TODO: convert to StoryBookLearningEventGson
-
                 csvPrinter.printRecord(
                         storyBookLearningEvent.getTime().getTimeInMillis(),
                         storyBookLearningEvent.getAndroidId(),
