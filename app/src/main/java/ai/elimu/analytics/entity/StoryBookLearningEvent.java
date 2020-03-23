@@ -14,14 +14,17 @@ public class StoryBookLearningEvent {
     @PrimaryKey(autoGenerate = true)
     private Long id;
 
+
     @NonNull
     private String androidId;
 
     @NonNull
     private String packageName;
 
+    // TODO: rename to "time"
     @NonNull
     private Calendar timestamp;
+
 
     @NonNull
     private Long storyBookId;

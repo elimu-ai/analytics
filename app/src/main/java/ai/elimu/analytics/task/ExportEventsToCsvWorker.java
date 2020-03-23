@@ -40,12 +40,11 @@ public class ExportEventsToCsvWorker extends Worker {
 
         CSVFormat csvFormat = CSVFormat.DEFAULT
                 .withHeader(
-                        "id",
-                        "androidId",
-                        "packageName",
                         "time",
-                        "storyBookId",
-                        "learningEventType"
+                        "android_id",
+                        "package_name",
+                        "storybook_id",
+                        "learning_event_type"
                 );
         StringWriter stringWriter = new StringWriter();
         try {
@@ -69,10 +68,9 @@ public class ExportEventsToCsvWorker extends Worker {
                 // TODO: convert to StoryBookLearningEventGson
 
                 csvPrinter.printRecord(
-                        storyBookLearningEvent.getId(),
+                        storyBookLearningEvent.getTimestamp().getTimeInMillis(),
                         storyBookLearningEvent.getAndroidId(),
                         storyBookLearningEvent.getPackageName(),
-                        storyBookLearningEvent.getTimestamp().getTimeInMillis(),
                         storyBookLearningEvent.getStoryBookId(),
                         storyBookLearningEvent.getLearningEventType()
                 );
