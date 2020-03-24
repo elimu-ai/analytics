@@ -54,7 +54,15 @@ public class UploadEventsWorker extends Worker {
                 try {
                     Response<ResponseBody> response = call.execute();
                     Log.i(getClass().getName(), "response: " + response);
-                    // TODO: handle response
+                    Log.i(getClass().getName(), "response.isSuccessful(): " + response.isSuccessful());
+                    if (response.isSuccessful()) {
+                        String bodyString = response.body().string();
+                        Log.i(getClass().getName(), "bodyString: " + bodyString);
+                    } else {
+                        String errorBodyString = response.errorBody().string();
+                        Log.e(getClass().getName(), "errorBodyString: " + errorBodyString);
+                        // TODO: Handle error
+                    }
                 } catch (IOException e) {
                     Log.e(getClass().getName(), null, e);
                 }

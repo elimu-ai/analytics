@@ -40,6 +40,7 @@ public class ExportEventsToCsvWorker extends Worker {
 
         CSVFormat csvFormat = CSVFormat.DEFAULT
                 .withHeader(
+                        "id",
                         "time",
                         "android_id",
                         "package_name",
@@ -66,6 +67,7 @@ public class ExportEventsToCsvWorker extends Worker {
                 Log.i(getClass().getName(), "csvFilename: " + csvFilename);
 
                 csvPrinter.printRecord(
+                        storyBookLearningEvent.getId(),
                         storyBookLearningEvent.getTime().getTimeInMillis(),
                         storyBookLearningEvent.getAndroidId(),
                         storyBookLearningEvent.getPackageName(),

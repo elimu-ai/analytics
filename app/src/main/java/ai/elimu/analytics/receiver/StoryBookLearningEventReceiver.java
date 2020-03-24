@@ -28,15 +28,12 @@ public class StoryBookLearningEventReceiver extends BroadcastReceiver {
         Calendar timestamp = Calendar.getInstance();
         Log.i(getClass().getName(), "timestamp.getTime(): " + timestamp.getTime());
 
-        Long storyBookId = intent.getLongExtra("storyBookId", -1);
+        Long storyBookId = intent.getLongExtra("storyBookId", 0);
         Log.i(getClass().getName(), "storyBookId: " + storyBookId);
 
-        LearningEventType learningEventType = null;
-        if (intent.hasExtra("learningEventType")) {
-            String learningEventTypeAsString = intent.getStringExtra("learningEventType");
-            Log.i(getClass().getName(), "learningEventTypeAsString: " + learningEventTypeAsString);
-            learningEventType = LearningEventType.valueOf(learningEventTypeAsString);
-        }
+        String learningEventTypeAsString = intent.getStringExtra("learningEventType");
+        Log.i(getClass().getName(), "learningEventTypeAsString: " + learningEventTypeAsString);
+        LearningEventType learningEventType = LearningEventType.valueOf(learningEventTypeAsString);
         Log.i(getClass().getName(), "learningEventType: " + learningEventType);
 
         StoryBookLearningEvent storyBookLearningEvent = new StoryBookLearningEvent();
