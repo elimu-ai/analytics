@@ -54,7 +54,7 @@ public class ExportEventsToCsvWorker extends Worker {
             // Generate one CSV file per day of events
             String dateOfPreviousEvent = null;
             for (StoryBookLearningEvent storyBookLearningEvent : storyBookLearningEvents) {
-                // Export event to CSV file. Example format: "files/storybook-learning-events/storybook-learning-events_2020-03-21.csv"
+                // Export event to CSV file. Example format: "files/storybook-learning-events/7161a85a0e4751cd_storybook-learning-events_2020-03-21.csv"
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 String date = simpleDateFormat.format(storyBookLearningEvent.getTime().getTime());
                 if (!date.equals(dateOfPreviousEvent)) {
@@ -63,7 +63,7 @@ public class ExportEventsToCsvWorker extends Worker {
                     csvPrinter = new CSVPrinter(stringWriter, csvFormat);
                 }
                 dateOfPreviousEvent = date;
-                String csvFilename = "storybook-learning-events_" + date + ".csv";
+                String csvFilename = storyBookLearningEvent.getAndroidId() + "_storybook-learning-events_" + date + ".csv";
                 Log.i(getClass().getName(), "csvFilename: " + csvFilename);
 
                 csvPrinter.printRecord(
