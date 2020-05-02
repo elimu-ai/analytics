@@ -20,10 +20,10 @@ public class StoryBookLearningEventReceiver extends BroadcastReceiver {
         Log.i(getClass().getName(), "onReceive");
 
         String androidId = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
-        Log.i(getClass().getName(), "androidId: " + androidId);
+        Log.i(getClass().getName(), "androidId: \"" + androidId + "\"");
 
         String packageName = intent.getStringExtra("packageName");
-        Log.i(getClass().getName(), "packageName: " + packageName);
+        Log.i(getClass().getName(), "packageName: \"" + packageName + "\"");
 
         Calendar timestamp = Calendar.getInstance();
         Log.i(getClass().getName(), "timestamp.getTime(): " + timestamp.getTime());
@@ -32,7 +32,7 @@ public class StoryBookLearningEventReceiver extends BroadcastReceiver {
         Log.i(getClass().getName(), "storyBookId: " + storyBookId);
 
         String learningEventTypeAsString = intent.getStringExtra("learningEventType");
-        Log.i(getClass().getName(), "learningEventTypeAsString: " + learningEventTypeAsString);
+        Log.i(getClass().getName(), "learningEventTypeAsString: \"" + learningEventTypeAsString + "\"");
         LearningEventType learningEventType = LearningEventType.valueOf(learningEventTypeAsString);
         Log.i(getClass().getName(), "learningEventType: " + learningEventType);
 
