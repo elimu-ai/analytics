@@ -18,8 +18,10 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 import ai.elimu.analytics.dao.StoryBookLearningEventDao;
+import ai.elimu.analytics.dao.WordLearningEventDao;
 import ai.elimu.analytics.db.RoomDb;
 import ai.elimu.analytics.entity.StoryBookLearningEvent;
+import ai.elimu.analytics.entity.WordLearningEvent;
 
 public class ExportEventsToCsvWorker extends Worker {
 
@@ -31,7 +33,16 @@ public class ExportEventsToCsvWorker extends Worker {
     @Override
     public Result doWork() {
         Log.i(getClass().getName(), "doWork");
+        
+        exportStoryBookLearningEventsToCsv();
+        exportWordLearningEventsToCsv();
 
+        return Result.success();
+    }
+    
+    private void exportStoryBookLearningEventsToCsv() {
+        Log.i(getClass().getName(), "exportStoryBookLearningEventsToCsv");
+        
         // Extract StoryBookLearningEvents from the database that have not yet been exported to CSV.
         RoomDb roomDb = RoomDb.getDatabase(getApplicationContext());
         StoryBookLearningEventDao storyBookLearningEventDao = roomDb.storyBookLearningEventDao();
@@ -87,7 +98,67 @@ public class ExportEventsToCsvWorker extends Worker {
         } catch (IOException e) {
             Log.e(getClass().getName(), null, e);
         }
+    }
 
-        return Result.success();
+    private void exportWordLearningEventsToCsv() {
+        Log.i(getClass().getName(), "exportWordLearningEventsToCsv");
+
+        // Extract WordLearningEvents from the database that have not yet been exported to CSV.
+        RoomDb roomDb = RoomDb.getDatabase(getApplicationContext());
+        WordLearningEventDao wordLearningEventDao = roomDb.wordLearningEventDao();
+        List<WordLearningEvent> wordLearningEvents = wordLearningEventDao.loadAll();
+        Log.i(getClass().getName(), "wordLearningEvents.size(): " + wordLearningEvents.size());
+
+        CSVFormat csvFormat = CSVFormat.DEFAULT
+                .withHeader(
+                        "id",
+                        "time",
+                        "android_id",
+                        "package_name",
+                        "word_id",
+                        "word_text",
+                        "learning_event_type"
+                );
+        StringWriter stringWriter = new StringWriter();
+        try {
+            CSVPrinter csvPrinter = new CSVPrinter(stringWriter, csvFormat);
+
+            // Generate one CSV file per day of events
+            String dateOfPreviousEvent = null;
+            for (WordLearningEvent wordLearningEvent : wordLearningEvents) {
+                // Export event to CSV file. Example format: "files/word-learning-events/7161a85a0e4751cd_word-learning-events_2020-03-21.csv"
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                String date = simpleDateFormat.format(wordLearningEvent.getTime().getTime());
+                if (!date.equals(dateOfPreviousEvent)) {
+                    // Reset file content
+                    stringWriter = new StringWriter();
+                    csvPrinter = new CSVPrinter(stringWriter, csvFormat);
+                }
+                dateOfPreviousEvent = date;
+                String csvFilename = wordLearningEvent.getAndroidId() + "_word-learning-events_" + date + ".csv";
+                Log.i(getClass().getName(), "csvFilename: " + csvFilename);
+
+                csvPrinter.printRecord(
+                        wordLearningEvent.getId(),
+                        wordLearningEvent.getTime().getTimeInMillis(),
+                        wordLearningEvent.getAndroidId(),
+                        wordLearningEvent.getPackageName(),
+                        wordLearningEvent.getWordId(),
+                        wordLearningEvent.getWordText(),
+                        wordLearningEvent.getLearningEventType()
+                );
+                csvPrinter.flush();
+
+                String csvFileContent = stringWriter.toString();
+
+                // Write the content to the CSV file
+                File filesDir = getApplicationContext().getFilesDir();
+                File wordLearningEventsDir = new File(filesDir, "word-learning-events");
+                File csvFile = new File(wordLearningEventsDir, csvFilename);
+                FileUtils.writeStringToFile(csvFile, csvFileContent, "UTF-8");
+            }
+        } catch (IOException e) {
+            Log.e(getClass().getName(), null, e);
+        }
     }
 }
