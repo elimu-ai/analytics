@@ -1,24 +1,19 @@
 package ai.elimu.analytics;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.work.Constraints;
-import androidx.work.ExistingPeriodicWorkPolicy;
-import androidx.work.NetworkType;
-import androidx.work.PeriodicWorkRequest;
-import androidx.work.WorkManager;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import ai.elimu.analytics.dao.StoryBookLearningEventDao;
+import ai.elimu.analytics.dao.WordLearningEventDao;
 import ai.elimu.analytics.db.RoomDb;
 import ai.elimu.analytics.entity.StoryBookLearningEvent;
-import ai.elimu.analytics.task.ExportEventsToCsvWorker;
-import ai.elimu.analytics.task.UploadEventsWorker;
+import ai.elimu.analytics.entity.WordLearningEvent;
+import ai.elimu.analytics.task.TaskInitializer;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,7 +26,11 @@ public class MainActivity extends AppCompatActivity {
         // If the database is not empty, redirect the user to the EventListActivity
         RoomDb roomDb = RoomDb.getDatabase(getApplicationContext());
         StoryBookLearningEventDao storyBookLearningEventDao = roomDb.storyBookLearningEventDao();
+        WordLearningEventDao wordLearningEventDao = roomDb.wordLearningEventDao();
         RoomDb.databaseWriteExecutor.execute(() -> {
+            List<WordLearningEvent> wordLearningEvents = wordLearningEventDao.loadAll();
+            Log.i(getClass().getName(), "wordLearningEvents.size(): " + wordLearningEvents.size());
+
             List<StoryBookLearningEvent> storyBookLearningEvents = storyBookLearningEventDao.loadAll();
             Log.i(getClass().getName(), "storyBookLearningEvents.size(): " + storyBookLearningEvents.size());
             if (!storyBookLearningEvents.isEmpty()) {
@@ -46,26 +45,6 @@ public class MainActivity extends AppCompatActivity {
         Log.i(getClass().getName(), "onStart");
         super.onStart();
 
-        // Periodically export events to CSV files
-        PeriodicWorkRequest exportEventsToCsvWorkRequest = new PeriodicWorkRequest.Builder(ExportEventsToCsvWorker.class, 1, TimeUnit.HOURS)
-                .build();
-        WorkManager.getInstance(getApplicationContext()).enqueueUniquePeriodicWork(
-                "export_events_to_csv",
-                ExistingPeriodicWorkPolicy.KEEP,
-                exportEventsToCsvWorkRequest
-        );
-
-        // Periodically upload events (CSV files) to the server
-        Constraints uploadEventsConstraints = new Constraints.Builder()
-                .setRequiredNetworkType(NetworkType.CONNECTED)
-                .build();
-        PeriodicWorkRequest uploadEventsWorkRequest = new PeriodicWorkRequest.Builder(UploadEventsWorker.class, 12, TimeUnit.HOURS)
-                .setConstraints(uploadEventsConstraints)
-                .build();
-        WorkManager.getInstance(getApplicationContext()).enqueueUniquePeriodicWork(
-                "upload_events",
-                ExistingPeriodicWorkPolicy.KEEP,
-                uploadEventsWorkRequest
-        );
+        TaskInitializer.initializePeriodicWork(getApplicationContext());
     }
 }

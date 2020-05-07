@@ -6,20 +6,30 @@ import androidx.room.Entity;
 import ai.elimu.model.enums.analytics.LearningEventType;
 
 @Entity
-public class StoryBookLearningEvent extends LearningEvent {
+public class WordLearningEvent extends LearningEvent {
+
+    private Long wordId;
 
     @NonNull
-    private Long storyBookId;
+    private String wordText;
 
     @NonNull
     private LearningEventType learningEventType;
 
-    public Long getStoryBookId() {
-        return storyBookId;
+    public Long getWordId() {
+        return wordId;
     }
 
-    public void setStoryBookId(Long storyBookId) {
-        this.storyBookId = storyBookId;
+    public void setWordId(Long wordId) {
+        this.wordId = wordId;
+    }
+
+    public String getWordText() {
+        return wordText;
+    }
+
+    public void setWordText(String wordText) {
+        this.wordText = wordText;
     }
 
     public LearningEventType getLearningEventType() {
