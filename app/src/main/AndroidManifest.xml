@@ -37,6 +37,14 @@
             </intent-filter>
         </receiver>
 
+        <receiver android:name=".receiver.WordAssessmentEventReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="ai.elimu.intent.action.WORD_ASSESSMENT_EVENT" />
+            </intent-filter>
+        </receiver>
+
         <receiver android:name=".receiver.BootReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
