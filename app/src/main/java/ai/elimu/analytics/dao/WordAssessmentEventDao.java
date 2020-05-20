@@ -1,5 +1,7 @@
 package ai.elimu.analytics.dao;
 
+import android.database.Cursor;
+
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
@@ -16,4 +18,7 @@ public interface WordAssessmentEventDao {
 
     @Query("SELECT * FROM WordAssessmentEvent ORDER BY time DESC")
     List<WordAssessmentEvent> loadAll();
+
+    @Query("SELECT * FROM WordAssessmentEvent ORDER BY time DESC")
+    Cursor loadAllAsCursor();
 }
