@@ -14,6 +14,6 @@ public interface WordLearningEventDao {
     @Insert
     void insert(WordLearningEvent wordLearningEvent);
 
-    @Query("SELECT * FROM WordLearningEvent")
+    @Query("SELECT * FROM WordLearningEvent ORDER BY time DESC")
     List<WordLearningEvent> loadAll();
 }

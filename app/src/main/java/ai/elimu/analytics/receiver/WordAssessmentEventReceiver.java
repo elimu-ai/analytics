@@ -8,6 +8,10 @@ import android.util.Log;
 
 import java.util.Calendar;
 
+import ai.elimu.analytics.dao.WordAssessmentEventDao;
+import ai.elimu.analytics.db.RoomDb;
+import ai.elimu.analytics.entity.WordAssessmentEvent;
+
 public class WordAssessmentEventReceiver extends BroadcastReceiver {
 
     @Override
@@ -37,5 +41,21 @@ public class WordAssessmentEventReceiver extends BroadcastReceiver {
 
         long timeSpentMs = intent.getLongExtra("timeSpentMs", 0);
         Log.i(getClass().getName(), "timeSpentMs: " + timeSpentMs);
+
+        WordAssessmentEvent wordAssessmentEvent = new WordAssessmentEvent();
+        wordAssessmentEvent.setAndroidId(androidId);
+        wordAssessmentEvent.setPackageName(packageName);
+        wordAssessmentEvent.setTime(timestamp);
+        wordAssessmentEvent.setWordId(wordId);
+        wordAssessmentEvent.setWordText(wordText);
+        wordAssessmentEvent.setMasteryScore(masteryScore);
+        wordAssessmentEvent.setTimeSpentMs(timeSpentMs);
+
+        // Store in database
+        RoomDb roomDb = RoomDb.getDatabase(context);
+        WordAssessmentEventDao wordAssessmentEventDao = roomDb.wordAssessmentEventDao();
+        RoomDb.databaseWriteExecutor.execute(() -> {
+            wordAssessmentEventDao.insert(wordAssessmentEvent);
+        });
     }
 }

@@ -14,6 +14,6 @@ public interface StoryBookLearningEventDao {
     @Insert
     void insert(StoryBookLearningEvent storyBookLearningEvent);
 
-    @Query("SELECT * FROM StoryBookLearningEvent")
+    @Query("SELECT * FROM StoryBookLearningEvent ORDER BY time DESC")
     List<StoryBookLearningEvent> loadAll();
 }
