@@ -6,7 +6,7 @@ import androidx.room.Entity;
 import java.util.Calendar;
 
 @Entity
-public class LearningEvent extends BaseEntity {
+public abstract class LearningEvent extends BaseEntity {
 
     @NonNull
     private String androidId;
