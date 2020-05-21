@@ -4,6 +4,8 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <permission android:name="${applicationId}.provider.READ" />
+
     <application
         android:name=".BaseApplication"
         android:allowBackup="true"
@@ -36,11 +38,28 @@
                 <action android:name="ai.elimu.intent.action.WORD_LEARNING_EVENT" />
             </intent-filter>
         </receiver>
-
+        <receiver android:name=".receiver.WordAssessmentEventReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="ai.elimu.intent.action.WORD_ASSESSMENT_EVENT" />
+            </intent-filter>
+        </receiver>
         <receiver android:name=".receiver.BootReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+
+        <provider
+            android:name=".provider.WordLearningEventProvider"
+            android:authorities="${applicationId}.provider.word_learning_event_provider"
+            android:enabled="true"
+            android:exported="true" />
+        <provider
+            android:name=".provider.WordAssessmentEventProvider"
+            android:authorities="${applicationId}.provider.word_assessment_event_provider"
+            android:enabled="true"
+            android:exported="true" />
     </application>
 </manifest>

@@ -4,7 +4,7 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity
-public class BaseEntity {
+public abstract class BaseEntity {
 
     @PrimaryKey(autoGenerate = true)
     private Long id;

@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         StoryBookLearningEventDao storyBookLearningEventDao = roomDb.storyBookLearningEventDao();
         WordLearningEventDao wordLearningEventDao = roomDb.wordLearningEventDao();
         RoomDb.databaseWriteExecutor.execute(() -> {
-            List<WordLearningEvent> wordLearningEvents = wordLearningEventDao.loadAll();
+            List<WordLearningEvent> wordLearningEvents = wordLearningEventDao.loadAllOrderedByTimeDesc();
             Log.i(getClass().getName(), "wordLearningEvents.size(): " + wordLearningEvents.size());
 
             List<StoryBookLearningEvent> storyBookLearningEvents = storyBookLearningEventDao.loadAll();

@@ -106,7 +106,7 @@ public class ExportEventsToCsvWorker extends Worker {
         // Extract WordLearningEvents from the database that have not yet been exported to CSV.
         RoomDb roomDb = RoomDb.getDatabase(getApplicationContext());
         WordLearningEventDao wordLearningEventDao = roomDb.wordLearningEventDao();
-        List<WordLearningEvent> wordLearningEvents = wordLearningEventDao.loadAll();
+        List<WordLearningEvent> wordLearningEvents = wordLearningEventDao.loadAllOrderedByTimeDesc();
         Log.i(getClass().getName(), "wordLearningEvents.size(): " + wordLearningEvents.size());
 
         CSVFormat csvFormat = CSVFormat.DEFAULT
