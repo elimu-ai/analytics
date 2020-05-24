@@ -16,9 +16,9 @@ public interface WordAssessmentEventDao {
     @Insert
     void insert(WordAssessmentEvent wordAssessmentEvent);
 
-    @Query("SELECT * FROM WordAssessmentEvent ORDER BY time DESC")
-    List<WordAssessmentEvent> loadAll();
+    @Query("SELECT * FROM WordAssessmentEvent ORDER BY time ASC")
+    List<WordAssessmentEvent> loadAllOrderedByTimeAsc();
 
-    @Query("SELECT * FROM WordAssessmentEvent ORDER BY time DESC")
-    Cursor loadAllAsCursor();
+    @Query("SELECT * FROM WordAssessmentEvent ORDER BY time ASC")
+    Cursor loadAllOrderedByTimeAscAsCursor();
 }

@@ -55,7 +55,7 @@ public class WordAssessmentEventProvider extends ContentProvider {
             // Get the Room Cursor
             RoomDb roomDb = RoomDb.getDatabase(context);
             WordAssessmentEventDao wordAssessmentEventDao = roomDb.wordAssessmentEventDao();
-            Cursor cursor = wordAssessmentEventDao.loadAllAsCursor();
+            Cursor cursor = wordAssessmentEventDao.loadAllOrderedByTimeAscAsCursor();
             Log.i(getClass().getName(), "cursor: " + cursor);
             cursor.setNotificationUri(context.getContentResolver(), uri);
             return cursor;
