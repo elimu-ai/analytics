@@ -23,6 +23,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".EventListActivity" />
+        <activity android:name=".language.SelectLanguageActivity" />
 
         <receiver android:name=".receiver.StoryBookLearningEventReceiver"
             android:enabled="true"

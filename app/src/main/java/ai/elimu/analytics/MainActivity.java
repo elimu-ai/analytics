@@ -13,7 +13,10 @@ import ai.elimu.analytics.dao.WordLearningEventDao;
 import ai.elimu.analytics.db.RoomDb;
 import ai.elimu.analytics.entity.StoryBookLearningEvent;
 import ai.elimu.analytics.entity.WordLearningEvent;
+import ai.elimu.analytics.language.SelectLanguageActivity;
+import ai.elimu.analytics.language.SharedPreferencesHelper;
 import ai.elimu.analytics.task.TaskInitializer;
+import ai.elimu.model.enums.Language;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,23 +24,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         Log.i(getClass().getName(), "onCreate");
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
-
-        // If the database is not empty, redirect the user to the EventListActivity
-        RoomDb roomDb = RoomDb.getDatabase(getApplicationContext());
-        StoryBookLearningEventDao storyBookLearningEventDao = roomDb.storyBookLearningEventDao();
-        WordLearningEventDao wordLearningEventDao = roomDb.wordLearningEventDao();
-        RoomDb.databaseWriteExecutor.execute(() -> {
-            List<WordLearningEvent> wordLearningEvents = wordLearningEventDao.loadAllOrderedByTimeDesc();
-            Log.i(getClass().getName(), "wordLearningEvents.size(): " + wordLearningEvents.size());
-
-            List<StoryBookLearningEvent> storyBookLearningEvents = storyBookLearningEventDao.loadAll();
-            Log.i(getClass().getName(), "storyBookLearningEvents.size(): " + storyBookLearningEvents.size());
-            if (!storyBookLearningEvents.isEmpty()) {
-                startActivity(new Intent(getApplicationContext(), EventListActivity.class));
-                finish();
-            }
-        });
     }
 
     @Override
@@ -45,6 +33,34 @@ public class MainActivity extends AppCompatActivity {
         Log.i(getClass().getName(), "onStart");
         super.onStart();
 
-        TaskInitializer.initializePeriodicWork(getApplicationContext());
+        Language language = SharedPreferencesHelper.getLanguage(getApplicationContext());
+        Log.i(getClass().getName(), "language: " + language);
+        if (language == null) {
+            // Redirect to language selection
+
+            Intent selectLanguageIntent = new Intent(getApplicationContext(), SelectLanguageActivity.class);
+            startActivity(selectLanguageIntent);
+            finish();
+        } else {
+            // Redirect to event list
+
+            TaskInitializer.initializePeriodicWork(getApplicationContext());
+
+            // If the database is not empty, redirect the user to the EventListActivity
+            RoomDb roomDb = RoomDb.getDatabase(getApplicationContext());
+            StoryBookLearningEventDao storyBookLearningEventDao = roomDb.storyBookLearningEventDao();
+            WordLearningEventDao wordLearningEventDao = roomDb.wordLearningEventDao();
+            RoomDb.databaseWriteExecutor.execute(() -> {
+                List<WordLearningEvent> wordLearningEvents = wordLearningEventDao.loadAllOrderedByTimeDesc();
+                Log.i(getClass().getName(), "wordLearningEvents.size(): " + wordLearningEvents.size());
+
+                List<StoryBookLearningEvent> storyBookLearningEvents = storyBookLearningEventDao.loadAll();
+                Log.i(getClass().getName(), "storyBookLearningEvents.size(): " + storyBookLearningEvents.size());
+                if (!storyBookLearningEvents.isEmpty()) {
+                    startActivity(new Intent(getApplicationContext(), EventListActivity.class));
+                    finish();
+                }
+            });
+        }
     }
 }
