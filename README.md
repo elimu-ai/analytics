@@ -10,7 +10,7 @@ Android application which collects and uploads learning data.
 
 ## Learning Events
 
-The various types of _Learning Events_ are handled by the Android receivers at [src/main/java/ai/elimu/analytics/receiver](src/main/java/ai/elimu/analytics/receiver).
+The various types of _Learning Events_ are handled by the Android receivers at [app/src/main/java/ai/elimu/analytics/receiver](app/src/main/java/ai/elimu/analytics/receiver).
 
   * StoryBookLearningEvent
   * WordLearningEvent
@@ -18,12 +18,23 @@ The various types of _Learning Events_ are handled by the Android receivers at [
 
 ## Assessment Events
 
-The various types of _Assessment Events_ are handled by the Android receivers at [src/main/java/ai/elimu/analytics/receiver](src/main/java/ai/elimu/analytics/receiver).
+The various types of _Assessment Events_ are handled by the Android receivers at [app/src/main/java/ai/elimu/analytics/receiver](app/src/main/java/ai/elimu/analytics/receiver).
 
   * WordAssessmentEvent
   * LetterAssessmentEvent
 
 ## Usage Sample
+
+```java
+// Report WordLearningEvent to the Analytics application
+Intent broadcastIntent = new Intent();
+broadcastIntent.setPackage(BuildConfig.ANALYTICS_APPLICATION_ID);
+broadcastIntent.setAction("ai.elimu.intent.action.WORD_LEARNING_EVENT");
+broadcastIntent.putExtra("packageName", BuildConfig.APPLICATION_ID);
+broadcastIntent.putExtra("wordText", wordText);
+broadcastIntent.putExtra("learningEventType", "WORD_PRESSED");
+sendBroadcast(broadcastIntent);
+```
 
 For an example of an app that is reporting learning events, see https://github.com/elimu-ai/vitabu.
 
