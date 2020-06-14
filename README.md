@@ -10,7 +10,9 @@ Android application which collects and uploads learning data.
 
 ## Learning Events
 
-The various types of _Learning Events_ are handled by the Android receivers at [app/src/main/java/ai/elimu/analytics/receiver](app/src/main/java/ai/elimu/analytics/receiver).
+The various types of _learning events_ are handled by the Android receivers at [app/src/main/java/ai/elimu/analytics/receiver](app/src/main/java/ai/elimu/analytics/receiver).
+
+A _learning event_ is an event without any corresponding testing of the student's mastery of a concept. For example; A student presses a word in a storybook and listens to its pronunciation.
 
   * StoryBookLearningEvent
   * WordLearningEvent
@@ -18,7 +20,9 @@ The various types of _Learning Events_ are handled by the Android receivers at [
 
 ## Assessment Events
 
-The various types of _Assessment Events_ are handled by the Android receivers at [app/src/main/java/ai/elimu/analytics/receiver](app/src/main/java/ai/elimu/analytics/receiver).
+The various types of _assessment events_ are handled by the Android receivers at [app/src/main/java/ai/elimu/analytics/receiver](app/src/main/java/ai/elimu/analytics/receiver).
+
+An _assessment event_ is an event that involves testing of whether or not the student is able to master a concept. For example; A word is sounded out, and the student is asked select the corresponding written text amongst a list of alternatives (multiple choice).
 
   * WordAssessmentEvent
   * LetterAssessmentEvent
