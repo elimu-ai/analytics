@@ -2,7 +2,26 @@
 
 Android application which collects and uploads learning data.
 
-See software architecture diagram at https://github.com/elimu-ai/model/blob/master/README.md
+## Software Architecture
+
+[
+  <img width="320" alt="Software Architecture" src="https://user-images.githubusercontent.com/15718174/83595568-fb6a1e00-a594-11ea-990a-10c0bd62ed11.png">
+](https://github.com/elimu-ai/wiki/blob/master/SOFTWARE_ARCHITECTURE.md)
+
+## Learning Events
+
+The various types of _Learning Events_ are handled by the Android receivers at [src/main/java/ai/elimu/analytics/receiver](src/main/java/ai/elimu/analytics/receiver).
+
+  * StoryBookLearningEvent
+  * WordLearningEvent
+  * LetterLearningEvent
+
+## Assessment Events
+
+The various types of _Assessment Events_ are handled by the Android receivers at [src/main/java/ai/elimu/analytics/receiver](src/main/java/ai/elimu/analytics/receiver).
+
+  * WordAssessmentEvent
+  * LetterAssessmentEvent
 
 ## Usage Sample
 
