@@ -1,6 +1,6 @@
 # elimu.ai Analytics 📊
 
-Android application which collects and uploads learning data.
+Android application which collects, provides and uploads learning event data.
 
 ## Software Architecture
 
