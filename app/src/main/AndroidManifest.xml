@@ -25,11 +25,11 @@
         <activity android:name=".EventListActivity" />
         <activity android:name=".language.SelectLanguageActivity" />
 
-        <receiver android:name=".receiver.StoryBookLearningEventReceiver"
+        <receiver android:name=".receiver.LetterLearningEventReceiver"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
-                <action android:name="ai.elimu.intent.action.STORYBOOK_LEARNING_EVENT" />
+                <action android:name="ai.elimu.intent.action.LETTER_LEARNING_EVENT" />
             </intent-filter>
         </receiver>
         <receiver android:name=".receiver.WordLearningEventReceiver"
@@ -44,6 +44,13 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="ai.elimu.intent.action.WORD_ASSESSMENT_EVENT" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".receiver.StoryBookLearningEventReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="ai.elimu.intent.action.STORYBOOK_LEARNING_EVENT" />
             </intent-filter>
         </receiver>
         <receiver android:name=".receiver.BootReceiver">

@@ -31,6 +31,9 @@ public class StoryBookLearningEventReceiver extends BroadcastReceiver {
         Long storyBookId = intent.getLongExtra("storyBookId", 0);
         Log.i(getClass().getName(), "storyBookId: " + storyBookId);
 
+        String storyBookTitle = intent.getStringExtra("storyBookTitle");
+        Log.i(getClass().getName(), "storyBookTitle: \"" + storyBookTitle + "\"");
+
         String learningEventTypeAsString = intent.getStringExtra("learningEventType");
         Log.i(getClass().getName(), "learningEventTypeAsString: \"" + learningEventTypeAsString + "\"");
         LearningEventType learningEventType = LearningEventType.valueOf(learningEventTypeAsString);
@@ -41,6 +44,7 @@ public class StoryBookLearningEventReceiver extends BroadcastReceiver {
         storyBookLearningEvent.setPackageName(packageName);
         storyBookLearningEvent.setTime(timestamp);
         storyBookLearningEvent.setStoryBookId(storyBookId);
+//        storyBookLearningEvent.setStoryBookTitle(storyBookTitle);
         storyBookLearningEvent.setLearningEventType(learningEventType);
 
         // Store in database
