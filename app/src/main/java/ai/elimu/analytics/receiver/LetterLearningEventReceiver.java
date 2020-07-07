@@ -8,6 +8,8 @@ import android.util.Log;
 
 import java.util.Calendar;
 
+import ai.elimu.analytics.dao.LetterLearningEventDao;
+import ai.elimu.analytics.db.RoomDb;
 import ai.elimu.analytics.entity.LetterLearningEvent;
 import ai.elimu.model.enums.analytics.LearningEventType;
 
@@ -48,11 +50,11 @@ public class LetterLearningEventReceiver extends BroadcastReceiver {
         letterLearningEvent.setLetterText(letterText);
         letterLearningEvent.setLearningEventType(learningEventType);
 
-//        // Store in database
-//        RoomDb roomDb = RoomDb.getDatabase(context);
-//        LetterLearningEventDao letterLearningEventDao = roomDb.letterLearningEventDao();
-//        RoomDb.databaseWriteExecutor.execute(() -> {
-//            letterLearningEventDao.insert(letterLearningEvent);
-//        });
+        // Store in database
+        RoomDb roomDb = RoomDb.getDatabase(context);
+        LetterLearningEventDao letterLearningEventDao = roomDb.letterLearningEventDao();
+        RoomDb.databaseWriteExecutor.execute(() -> {
+            letterLearningEventDao.insert(letterLearningEvent);
+        });
     }
 }
