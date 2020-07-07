@@ -14,20 +14,23 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import ai.elimu.analytics.dao.LetterLearningEventDao;
 import ai.elimu.analytics.dao.StoryBookLearningEventDao;
 import ai.elimu.analytics.dao.WordAssessmentEventDao;
 import ai.elimu.analytics.dao.WordLearningEventDao;
+import ai.elimu.analytics.entity.LetterLearningEvent;
 import ai.elimu.analytics.entity.StoryBookLearningEvent;
 import ai.elimu.analytics.entity.WordAssessmentEvent;
 import ai.elimu.analytics.entity.WordLearningEvent;
 
-@Database(version = 3, entities = {StoryBookLearningEvent.class, WordLearningEvent.class, WordAssessmentEvent.class})
+@Database(version = 4, entities = {LetterLearningEvent.class, WordLearningEvent.class, WordAssessmentEvent.class, StoryBookLearningEvent.class})
 @TypeConverters({Converters.class})
 public abstract class RoomDb extends RoomDatabase {
 
-    public abstract StoryBookLearningEventDao storyBookLearningEventDao();
+    public abstract LetterLearningEventDao letterLearningEventDao();
     public abstract WordLearningEventDao wordLearningEventDao();
     public abstract WordAssessmentEventDao wordAssessmentEventDao();
+    public abstract StoryBookLearningEventDao storyBookLearningEventDao();
 
     private static volatile RoomDb INSTANCE;
 
@@ -46,7 +49,8 @@ public abstract class RoomDb extends RoomDatabase {
                             .addMigrations(
                                     // See https://developer.android.com/training/data-storage/room/migrating-db-versions
                                     MIGRATION_1_2,
-                                    MIGRATION_2_3
+                                    MIGRATION_2_3,
+                                    MIGRATION_3_4
                             )
                             .build();
                 }
@@ -73,6 +77,17 @@ public abstract class RoomDb extends RoomDatabase {
             Log.i(getClass().getName(), "migrate (" + database.getVersion() + " --> 3)");
 
             String sql = "CREATE TABLE IF NOT EXISTS `WordAssessmentEvent` (`wordId` INTEGER, `wordText` TEXT NOT NULL, `masteryScore` REAL NOT NULL, `timeSpentMs` INTEGER NOT NULL, `androidId` TEXT NOT NULL, `packageName` TEXT NOT NULL, `time` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT)";
+            Log.i(getClass().getName(), "sql: " + sql);
+            database.execSQL(sql);
+        }
+    };
+
+    private static final Migration MIGRATION_3_4 = new Migration(3, 4) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            Log.i(getClass().getName(), "migrate (" + database.getVersion() + " --> 4)");
+
+            String sql = "CREATE TABLE IF NOT EXISTS `LetterLearningEvent` (`letterId` INTEGER, `letterText` TEXT NOT NULL, `learningEventType` TEXT NOT NULL, `androidId` TEXT NOT NULL, `packageName` TEXT NOT NULL, `time` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT)";
             Log.i(getClass().getName(), "sql: " + sql);
             database.execSQL(sql);
         }

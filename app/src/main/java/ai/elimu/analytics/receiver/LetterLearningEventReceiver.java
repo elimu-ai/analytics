@@ -8,12 +8,12 @@ import android.util.Log;
 
 import java.util.Calendar;
 
-import ai.elimu.analytics.dao.StoryBookLearningEventDao;
+import ai.elimu.analytics.dao.LetterLearningEventDao;
 import ai.elimu.analytics.db.RoomDb;
-import ai.elimu.analytics.entity.StoryBookLearningEvent;
+import ai.elimu.analytics.entity.LetterLearningEvent;
 import ai.elimu.model.enums.analytics.LearningEventType;
 
-public class StoryBookLearningEventReceiver extends BroadcastReceiver {
+public class LetterLearningEventReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -28,30 +28,33 @@ public class StoryBookLearningEventReceiver extends BroadcastReceiver {
         Calendar timestamp = Calendar.getInstance();
         Log.i(getClass().getName(), "timestamp.getTime(): " + timestamp.getTime());
 
-        Long storyBookId = intent.getLongExtra("storyBookId", 0);
-        Log.i(getClass().getName(), "storyBookId: " + storyBookId);
+        Long letterId = null;
+        if (intent.hasExtra("letterId")) {
+            letterId = intent.getLongExtra("letterId", 0);
+        }
+        Log.i(getClass().getName(), "letterId: " + letterId);
 
-        String storyBookTitle = intent.getStringExtra("storyBookTitle");
-        Log.i(getClass().getName(), "storyBookTitle: \"" + storyBookTitle + "\"");
+        String letterText = intent.getStringExtra("letterText");
+        Log.i(getClass().getName(), "letterText: \"" + letterText + "\"");
 
         String learningEventTypeAsString = intent.getStringExtra("learningEventType");
         Log.i(getClass().getName(), "learningEventTypeAsString: \"" + learningEventTypeAsString + "\"");
         LearningEventType learningEventType = LearningEventType.valueOf(learningEventTypeAsString);
         Log.i(getClass().getName(), "learningEventType: " + learningEventType);
 
-        StoryBookLearningEvent storyBookLearningEvent = new StoryBookLearningEvent();
-        storyBookLearningEvent.setAndroidId(androidId);
-        storyBookLearningEvent.setPackageName(packageName);
-        storyBookLearningEvent.setTime(timestamp);
-        storyBookLearningEvent.setStoryBookId(storyBookId);
-//        storyBookLearningEvent.setStoryBookTitle(storyBookTitle);
-        storyBookLearningEvent.setLearningEventType(learningEventType);
+        LetterLearningEvent letterLearningEvent = new LetterLearningEvent();
+        letterLearningEvent.setAndroidId(androidId);
+        letterLearningEvent.setPackageName(packageName);
+        letterLearningEvent.setTime(timestamp);
+        letterLearningEvent.setLetterId(letterId);
+        letterLearningEvent.setLetterText(letterText);
+        letterLearningEvent.setLearningEventType(learningEventType);
 
         // Store in database
         RoomDb roomDb = RoomDb.getDatabase(context);
-        StoryBookLearningEventDao storyBookLearningEventDao = roomDb.storyBookLearningEventDao();
+        LetterLearningEventDao letterLearningEventDao = roomDb.letterLearningEventDao();
         RoomDb.databaseWriteExecutor.execute(() -> {
-            storyBookLearningEventDao.insert(storyBookLearningEvent);
+            letterLearningEventDao.insert(letterLearningEvent);
         });
     }
 }
