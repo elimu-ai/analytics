@@ -7,8 +7,8 @@ android {
         applicationId "ai.elimu.analytics"
         minSdkVersion 24
         targetSdkVersion 29
-        versionCode 3000014
-        versionName "3.0.14"
+        versionCode 3000015
+        versionName "3.0.15-SNAPSHOT"
         setProperty("archivesBaseName", "${applicationId}-${versionCode}")
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
