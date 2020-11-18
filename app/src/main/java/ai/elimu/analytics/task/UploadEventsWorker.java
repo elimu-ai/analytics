@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.util.Arrays;
 
 import ai.elimu.analytics.BaseApplication;
+import ai.elimu.analytics.BuildConfig;
+import ai.elimu.analytics.rest.LetterLearningEventService;
 import ai.elimu.analytics.rest.StoryBookLearningEventService;
 import ai.elimu.analytics.rest.WordLearningEventService;
 import okhttp3.MediaType;
@@ -33,20 +35,23 @@ public class UploadEventsWorker extends Worker {
     public Result doWork() {
         Log.i(getClass().getName(), "doWork");
 
-        uploadStoryBookLearningEvents();
-        uploadWordLearningEvents();
+        if (!"debug".equals(BuildConfig.BUILD_TYPE)) {
+            uploadLetterLearningEvents();
+            uploadWordLearningEvents();
+            uploadStoryBookLearningEvents();
+        }
 
         return Result.success();
     }
-    
-    private void uploadStoryBookLearningEvents() {
-        Log.i(getClass().getName(), "uploadStoryBookLearningEvents");
+
+    private void uploadLetterLearningEvents() {
+        Log.i(getClass().getName(), "uploadLetterLearningEvents");
 
         // Upload CSV files to the server
         File filesDir = getApplicationContext().getFilesDir();
-        File storyBookLearningEventsDir = new File(filesDir, "storybook-learning-events");
-        Log.i(getClass().getName(), "Uploading CSV files from " + storyBookLearningEventsDir);
-        File[] files = storyBookLearningEventsDir.listFiles();
+        File letterLearningEventsDir = new File(filesDir, "letter-learning-events");
+        Log.i(getClass().getName(), "Uploading CSV files from " + letterLearningEventsDir);
+        File[] files = letterLearningEventsDir.listFiles();
         if (files != null) {
             Log.i(getClass().getName(), "files.length: " + files.length);
             Arrays.sort(files);
@@ -56,10 +61,10 @@ public class UploadEventsWorker extends Worker {
 
                 BaseApplication baseApplication = (BaseApplication) getApplicationContext();
                 Retrofit retrofit = baseApplication.getRetrofit();
-                StoryBookLearningEventService storyBookLearningEventService = retrofit.create(StoryBookLearningEventService.class);
+                LetterLearningEventService letterLearningEventService = retrofit.create(LetterLearningEventService.class);
                 RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
                 MultipartBody.Part part = MultipartBody.Part.createFormData("file", file.getName(), requestBody);
-                Call<ResponseBody> call = storyBookLearningEventService.uploadCsvFile(part);
+                Call<ResponseBody> call = letterLearningEventService.uploadCsvFile(part);
                 Log.i(getClass().getName(), "call.request(): " + call.request());
                 try {
                     Response<ResponseBody> response = call.execute();
@@ -101,6 +106,47 @@ public class UploadEventsWorker extends Worker {
                 RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
                 MultipartBody.Part part = MultipartBody.Part.createFormData("file", file.getName(), requestBody);
                 Call<ResponseBody> call = wordLearningEventService.uploadCsvFile(part);
+                Log.i(getClass().getName(), "call.request(): " + call.request());
+                try {
+                    Response<ResponseBody> response = call.execute();
+                    Log.i(getClass().getName(), "response: " + response);
+                    Log.i(getClass().getName(), "response.isSuccessful(): " + response.isSuccessful());
+                    if (response.isSuccessful()) {
+                        String bodyString = response.body().string();
+                        Log.i(getClass().getName(), "bodyString: " + bodyString);
+                    } else {
+                        String errorBodyString = response.errorBody().string();
+                        Log.e(getClass().getName(), "errorBodyString: " + errorBodyString);
+                        // TODO: Handle error
+                    }
+                } catch (IOException e) {
+                    Log.e(getClass().getName(), null, e);
+                }
+            }
+        }
+    }
+    
+    private void uploadStoryBookLearningEvents() {
+        Log.i(getClass().getName(), "uploadStoryBookLearningEvents");
+
+        // Upload CSV files to the server
+        File filesDir = getApplicationContext().getFilesDir();
+        File storyBookLearningEventsDir = new File(filesDir, "storybook-learning-events");
+        Log.i(getClass().getName(), "Uploading CSV files from " + storyBookLearningEventsDir);
+        File[] files = storyBookLearningEventsDir.listFiles();
+        if (files != null) {
+            Log.i(getClass().getName(), "files.length: " + files.length);
+            Arrays.sort(files);
+            for (int i = 0; i < files.length; i++) {
+                File file = files[i];
+                Log.i(getClass().getName(), "file.getName(): " + file.getName());
+
+                BaseApplication baseApplication = (BaseApplication) getApplicationContext();
+                Retrofit retrofit = baseApplication.getRetrofit();
+                StoryBookLearningEventService storyBookLearningEventService = retrofit.create(StoryBookLearningEventService.class);
+                RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+                MultipartBody.Part part = MultipartBody.Part.createFormData("file", file.getName(), requestBody);
+                Call<ResponseBody> call = storyBookLearningEventService.uploadCsvFile(part);
                 Log.i(getClass().getName(), "call.request(): " + call.request());
                 try {
                     Response<ResponseBody> response = call.execute();

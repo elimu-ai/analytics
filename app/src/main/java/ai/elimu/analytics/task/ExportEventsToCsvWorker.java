@@ -17,9 +17,11 @@ import java.io.StringWriter;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import ai.elimu.analytics.dao.LetterLearningEventDao;
 import ai.elimu.analytics.dao.StoryBookLearningEventDao;
 import ai.elimu.analytics.dao.WordLearningEventDao;
 import ai.elimu.analytics.db.RoomDb;
+import ai.elimu.analytics.entity.LetterLearningEvent;
 import ai.elimu.analytics.entity.StoryBookLearningEvent;
 import ai.elimu.analytics.entity.WordLearningEvent;
 
@@ -33,21 +35,22 @@ public class ExportEventsToCsvWorker extends Worker {
     @Override
     public Result doWork() {
         Log.i(getClass().getName(), "doWork");
-        
-        exportStoryBookLearningEventsToCsv();
+
+        exportLetterLearningEventsToCsv();
         exportWordLearningEventsToCsv();
+        exportStoryBookLearningEventsToCsv();
 
         return Result.success();
     }
-    
-    private void exportStoryBookLearningEventsToCsv() {
-        Log.i(getClass().getName(), "exportStoryBookLearningEventsToCsv");
-        
-        // Extract StoryBookLearningEvents from the database that have not yet been exported to CSV.
+
+    private void exportLetterLearningEventsToCsv() {
+        Log.i(getClass().getName(), "exportLetterLearningEventsToCsv");
+
+        // Extract LetterLearningEvents from the database that have not yet been exported to CSV.
         RoomDb roomDb = RoomDb.getDatabase(getApplicationContext());
-        StoryBookLearningEventDao storyBookLearningEventDao = roomDb.storyBookLearningEventDao();
-        List<StoryBookLearningEvent> storyBookLearningEvents = storyBookLearningEventDao.loadAll();
-        Log.i(getClass().getName(), "storyBookLearningEvents.size(): " + storyBookLearningEvents.size());
+        LetterLearningEventDao letterLearningEventDao = roomDb.letterLearningEventDao();
+        List<LetterLearningEvent> letterLearningEvents = letterLearningEventDao.loadAllOrderedByTimeDesc();
+        Log.i(getClass().getName(), "letterLearningEvents.size(): " + letterLearningEvents.size());
 
         CSVFormat csvFormat = CSVFormat.DEFAULT
                 .withHeader(
@@ -55,7 +58,8 @@ public class ExportEventsToCsvWorker extends Worker {
                         "time",
                         "android_id",
                         "package_name",
-                        "storybook_id",
+                        "letter_id",
+                        "letter_text",
                         "learning_event_type"
                 );
         StringWriter stringWriter = new StringWriter();
@@ -64,26 +68,27 @@ public class ExportEventsToCsvWorker extends Worker {
 
             // Generate one CSV file per day of events
             String dateOfPreviousEvent = null;
-            for (StoryBookLearningEvent storyBookLearningEvent : storyBookLearningEvents) {
-                // Export event to CSV file. Example format: "files/storybook-learning-events/7161a85a0e4751cd_storybook-learning-events_2020-03-21.csv"
+            for (LetterLearningEvent letterLearningEvent : letterLearningEvents) {
+                // Export event to CSV file. Example format: "files/letter-learning-events/7161a85a0e4751cd_letter-learning-events_2020-03-21.csv"
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                String date = simpleDateFormat.format(storyBookLearningEvent.getTime().getTime());
+                String date = simpleDateFormat.format(letterLearningEvent.getTime().getTime());
                 if (!date.equals(dateOfPreviousEvent)) {
                     // Reset file content
                     stringWriter = new StringWriter();
                     csvPrinter = new CSVPrinter(stringWriter, csvFormat);
                 }
                 dateOfPreviousEvent = date;
-                String csvFilename = storyBookLearningEvent.getAndroidId() + "_storybook-learning-events_" + date + ".csv";
+                String csvFilename = letterLearningEvent.getAndroidId() + "_letter-learning-events_" + date + ".csv";
                 Log.i(getClass().getName(), "csvFilename: " + csvFilename);
 
                 csvPrinter.printRecord(
-                        storyBookLearningEvent.getId(),
-                        storyBookLearningEvent.getTime().getTimeInMillis(),
-                        storyBookLearningEvent.getAndroidId(),
-                        storyBookLearningEvent.getPackageName(),
-                        storyBookLearningEvent.getStoryBookId(),
-                        storyBookLearningEvent.getLearningEventType()
+                        letterLearningEvent.getId(),
+                        letterLearningEvent.getTime().getTimeInMillis(),
+                        letterLearningEvent.getAndroidId(),
+                        letterLearningEvent.getPackageName(),
+                        letterLearningEvent.getLetterId(),
+                        letterLearningEvent.getLetterText(),
+                        letterLearningEvent.getLearningEventType()
                 );
                 csvPrinter.flush();
 
@@ -91,8 +96,8 @@ public class ExportEventsToCsvWorker extends Worker {
 
                 // Write the content to the CSV file
                 File filesDir = getApplicationContext().getFilesDir();
-                File storyBookLearningEventsDir = new File(filesDir, "storybook-learning-events");
-                File csvFile = new File(storyBookLearningEventsDir, csvFilename);
+                File letterLearningEventsDir = new File(filesDir, "letter-learning-events");
+                File csvFile = new File(letterLearningEventsDir, csvFilename);
                 FileUtils.writeStringToFile(csvFile, csvFileContent, "UTF-8");
             }
         } catch (IOException e) {
@@ -155,6 +160,66 @@ public class ExportEventsToCsvWorker extends Worker {
                 File filesDir = getApplicationContext().getFilesDir();
                 File wordLearningEventsDir = new File(filesDir, "word-learning-events");
                 File csvFile = new File(wordLearningEventsDir, csvFilename);
+                FileUtils.writeStringToFile(csvFile, csvFileContent, "UTF-8");
+            }
+        } catch (IOException e) {
+            Log.e(getClass().getName(), null, e);
+        }
+    }
+    
+    private void exportStoryBookLearningEventsToCsv() {
+        Log.i(getClass().getName(), "exportStoryBookLearningEventsToCsv");
+        
+        // Extract StoryBookLearningEvents from the database that have not yet been exported to CSV.
+        RoomDb roomDb = RoomDb.getDatabase(getApplicationContext());
+        StoryBookLearningEventDao storyBookLearningEventDao = roomDb.storyBookLearningEventDao();
+        List<StoryBookLearningEvent> storyBookLearningEvents = storyBookLearningEventDao.loadAll();
+        Log.i(getClass().getName(), "storyBookLearningEvents.size(): " + storyBookLearningEvents.size());
+
+        CSVFormat csvFormat = CSVFormat.DEFAULT
+                .withHeader(
+                        "id",
+                        "time",
+                        "android_id",
+                        "package_name",
+                        "storybook_id",
+                        "learning_event_type"
+                );
+        StringWriter stringWriter = new StringWriter();
+        try {
+            CSVPrinter csvPrinter = new CSVPrinter(stringWriter, csvFormat);
+
+            // Generate one CSV file per day of events
+            String dateOfPreviousEvent = null;
+            for (StoryBookLearningEvent storyBookLearningEvent : storyBookLearningEvents) {
+                // Export event to CSV file. Example format: "files/storybook-learning-events/7161a85a0e4751cd_storybook-learning-events_2020-03-21.csv"
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                String date = simpleDateFormat.format(storyBookLearningEvent.getTime().getTime());
+                if (!date.equals(dateOfPreviousEvent)) {
+                    // Reset file content
+                    stringWriter = new StringWriter();
+                    csvPrinter = new CSVPrinter(stringWriter, csvFormat);
+                }
+                dateOfPreviousEvent = date;
+                String csvFilename = storyBookLearningEvent.getAndroidId() + "_storybook-learning-events_" + date + ".csv";
+                Log.i(getClass().getName(), "csvFilename: " + csvFilename);
+
+                csvPrinter.printRecord(
+                        storyBookLearningEvent.getId(),
+                        storyBookLearningEvent.getTime().getTimeInMillis(),
+                        storyBookLearningEvent.getAndroidId(),
+                        storyBookLearningEvent.getPackageName(),
+                        storyBookLearningEvent.getStoryBookId(),
+                        storyBookLearningEvent.getLearningEventType()
+                );
+                csvPrinter.flush();
+
+                String csvFileContent = stringWriter.toString();
+
+                // Write the content to the CSV file
+                File filesDir = getApplicationContext().getFilesDir();
+                File storyBookLearningEventsDir = new File(filesDir, "storybook-learning-events");
+                File csvFile = new File(storyBookLearningEventsDir, csvFilename);
                 FileUtils.writeStringToFile(csvFile, csvFileContent, "UTF-8");
             }
         } catch (IOException e) {
