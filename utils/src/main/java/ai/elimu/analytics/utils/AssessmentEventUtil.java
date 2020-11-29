@@ -22,7 +22,7 @@ public class AssessmentEventUtil {
         Log.i(AssessmentEventUtil.class.getName(), "reportLetterAssessmentEvent");
 
         Intent broadcastIntent = new Intent();
-        broadcastIntent.setAction("ai.elimu.intent.action.WORD_ASSESSMENT_EVENT");
+        broadcastIntent.setAction("ai.elimu.intent.action.LETTER_ASSESSMENT_EVENT");
         broadcastIntent.putExtra("packageName", context.getPackageName());
         broadcastIntent.putExtra("letterId", letterGson.getId());
         broadcastIntent.putExtra("letterText", letterGson.getText());
