@@ -1,0 +1,51 @@
+plugins {
+    id 'com.android.library'
+    id 'maven-publish'
+}
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.3"
+
+    defaultConfig {
+        minSdkVersion 24
+        targetSdkVersion 29
+        versionCode 1000007
+        versionName "1.0.7"
+        setProperty("archivesBaseName", "utils-${versionName}")
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation 'ai.elimu:model:2.0.27'
+}
+
+// See https://docs.gradle.org/current/dsl/org.gradle.api.publish.maven.MavenPublication.html
+// Usage: ./gradlew clean build publish -PmavenUsername=***** -PmavenPassword=*****
+publishing {
+    publications {
+        utils(MavenPublication) {
+            groupId 'ai.elimu.analytics'
+            artifactId 'utils'
+            version '1.0.7'
+            artifact("${buildDir}/outputs/aar/utils-${version}-release.aar")
+        }
+    }
+    repositories {
+        maven {
+            credentials(PasswordCredentials)
+            // See https://www.jfrog.com/confluence/display/BT/Bintray+REST+API#BintrayRESTAPI-MavenUpload
+            url "https://api.bintray.com/maven/elimu-ai/maven/analytics.utils/;publish=1"
+        }
+    }
+}
