@@ -19,8 +19,17 @@ import ai.elimu.model.v2.gson.content.LetterGson;
 import ai.elimu.model.v2.gson.content.StoryBookGson;
 import ai.elimu.model.v2.gson.content.WordGson;
 
+/**
+ * A utility class that makes it easier for other apps to report learning events and assessments events.
+ */
 public class LearningEventUtil {
 
+    /**
+     * @param letterGson The letter that the student is learning.
+     * @param learningEventType The type of learning (i.e. the learning format) that is presented to the student in the application ({@code packageName}).
+     * @param context Needed to fetch the {@code packageName} of the application where the learning event occurred.
+     * @param analyticsApplicationId The package name of the analytics application that will receive an store the event.
+     */
     public static void reportLetterLearningEvent(LetterGson letterGson, LearningEventType learningEventType, Context context, String analyticsApplicationId) {
         Log.i(LearningEventUtil.class.getName(), "reportLetterLearningEvent");
 
@@ -34,6 +43,12 @@ public class LearningEventUtil {
         context.sendBroadcast(broadcastIntent);
     }
 
+    /**
+     * @param wordGson The word that the student is learning.
+     * @param learningEventType The type of learning (i.e. the learning format) that is presented to the student in the application ({@code packageName}).
+     * @param context Needed to fetch the {@code packageName} of the application where the learning event occurred.
+     * @param analyticsApplicationId The package name of the analytics application that will receive an store the event.
+     */
     public static void reportWordLearningEvent(WordGson wordGson, LearningEventType learningEventType, Context context, String analyticsApplicationId) {
         Log.i(LearningEventUtil.class.getName(), "reportWordLearningEvent");
 
@@ -47,6 +62,12 @@ public class LearningEventUtil {
         context.sendBroadcast(broadcastIntent);
     }
 
+    /**
+     * @param storyBookGson The storybook that the student is learning from.
+     * @param learningEventType The type of learning (i.e. the learning format) that is presented to the student in the application ({@code packageName}).
+     * @param context Needed to fetch the {@code packageName} of the application where the learning event occurred.
+     * @param analyticsApplicationId The package name of the analytics application that will receive an store the event.
+     */
     public static void reportStoryBookLearningEvent(StoryBookGson storyBookGson, LearningEventType learningEventType, Context context, String analyticsApplicationId) {
         Log.i(LearningEventUtil.class.getName(), "reportStoryBookLearningEvent");
 
@@ -58,6 +79,7 @@ public class LearningEventUtil {
         broadcastIntent.setPackage(analyticsApplicationId);
         context.sendBroadcast(broadcastIntent);
     }
+
 
     public static List<WordLearningEventGson> getWordLearningEventGsons(Context context, String analyticsApplicationId) {
         Log.i(LearningEventUtil.class.getName(), "getWordLearningEventGsons");
