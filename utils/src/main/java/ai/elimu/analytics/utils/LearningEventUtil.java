@@ -75,6 +75,7 @@ public class LearningEventUtil {
         broadcastIntent.setAction("ai.elimu.intent.action.STORYBOOK_LEARNING_EVENT");
         broadcastIntent.putExtra("packageName", context.getPackageName());
         broadcastIntent.putExtra("storyBookId", storyBookGson.getId());
+        broadcastIntent.putExtra("storyBookTitle", storyBookGson.getTitle());
         broadcastIntent.putExtra("learningEventType", learningEventType.toString());
         broadcastIntent.setPackage(analyticsApplicationId);
         context.sendBroadcast(broadcastIntent);
