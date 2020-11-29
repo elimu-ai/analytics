@@ -46,6 +46,7 @@ public class AssessmentEventUtil {
         context.sendBroadcast(broadcastIntent);
     }
 
+
     public static List<WordAssessmentEventGson> getWordAssessmentEventGsons(Set<Long> idsOfWordsInWordLearningEvents, Context context, String analyticsApplicationId) {
         Log.i(AssessmentEventUtil.class.getName(), "getWordAssessmentEventGsons");
 
