@@ -11,7 +11,7 @@ android {
         minSdkVersion 24
         targetSdkVersion 29
         versionCode 1000009
-        versionName "1.0.9-SNAPSHOT"
+        versionName "1.0.9"
         setProperty("archivesBaseName", "utils-${versionName}")
     }
 
@@ -37,15 +37,14 @@ publishing {
         utils(MavenPublication) {
             groupId 'ai.elimu.analytics'
             artifactId 'utils'
-            version '1.0.9-SNAPSHOT'
+            version '1.0.9'
             artifact("${buildDir}/outputs/aar/utils-${version}-release.aar")
         }
     }
     repositories {
         maven {
             credentials(PasswordCredentials)
-            // See https://www.jfrog.com/confluence/display/BT/Bintray+REST+API#BintrayRESTAPI-MavenUpload
-            url "https://api.bintray.com/maven/elimu-ai/maven/analytics.utils/;publish=1"
+            url "https://maven.pkg.github.com/elimu-ai/analytics"
         }
     }
 }
