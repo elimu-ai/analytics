@@ -16,24 +16,24 @@ import ai.elimu.analytics.utils.converter.CursorToWordLearningEventGsonConverter
 import ai.elimu.model.v2.gson.analytics.WordAssessmentEventGson;
 import ai.elimu.model.v2.gson.analytics.WordLearningEventGson;
 
-public class ContentProviderUtil {
+public class EventProviderUtil {
 
     public static List<WordLearningEventGson> getWordLearningEventGsons(Context context, String contentProviderApplicationId) {
-        Log.i(ContentProviderUtil.class.getName(), "getWordLearningEventGsons");
+        Log.i(EventProviderUtil.class.getName(), "getWordLearningEventGsons");
 
         List<WordLearningEventGson> wordLearningEventGsons = new ArrayList<>();
 
         Uri wordLearningEventsUri = Uri.parse("content://" + contentProviderApplicationId + ".provider.word_learning_event_provider/events");
-        Log.i(ContentProviderUtil.class.getName(), "wordLearningEventsUri: " + wordLearningEventsUri);
+        Log.i(EventProviderUtil.class.getName(), "wordLearningEventsUri: " + wordLearningEventsUri);
         Cursor wordLearningEventsCursor = context.getContentResolver().query(wordLearningEventsUri, null, null, null, null);
-        Log.i(ContentProviderUtil.class.getName(), "wordLearningEventsCursor: " + wordLearningEventsCursor);
+        Log.i(EventProviderUtil.class.getName(), "wordLearningEventsCursor: " + wordLearningEventsCursor);
         if (wordLearningEventsCursor == null) {
-            Log.e(ContentProviderUtil.class.getName(), "wordLearningEventsCursor == null");
+            Log.e(EventProviderUtil.class.getName(), "wordLearningEventsCursor == null");
             Toast.makeText(context, "wordLearningEventsCursor == null", Toast.LENGTH_LONG).show();
         } else {
-            Log.i(ContentProviderUtil.class.getName(), "wordLearningEventsCursor.getCount(): " + wordLearningEventsCursor.getCount());
+            Log.i(EventProviderUtil.class.getName(), "wordLearningEventsCursor.getCount(): " + wordLearningEventsCursor.getCount());
             if (wordLearningEventsCursor.getCount() == 0) {
-                Log.e(ContentProviderUtil.class.getName(), "wordLearningEventsCursor.getCount() == 0");
+                Log.e(EventProviderUtil.class.getName(), "wordLearningEventsCursor.getCount() == 0");
             } else {
                 boolean isLast = false;
                 while (!isLast) {
@@ -48,30 +48,30 @@ public class ContentProviderUtil {
                 }
 
                 wordLearningEventsCursor.close();
-                Log.i(ContentProviderUtil.class.getName(), "wordLearningEventsCursor.isClosed(): " + wordLearningEventsCursor.isClosed());
+                Log.i(EventProviderUtil.class.getName(), "wordLearningEventsCursor.isClosed(): " + wordLearningEventsCursor.isClosed());
             }
         }
-        Log.i(ContentProviderUtil.class.getName(), "wordLearningEventGsons.size(): " + wordLearningEventGsons.size());
+        Log.i(EventProviderUtil.class.getName(), "wordLearningEventGsons.size(): " + wordLearningEventGsons.size());
 
         return wordLearningEventGsons;
     }
 
     public static Set<Long> getIdsOfWordsInWordLearningEvents(Context context, String contentProviderApplicationId) {
-        Log.i(ContentProviderUtil.class.getName(), "getIdsOfWordsInWordLearningEvents");
+        Log.i(EventProviderUtil.class.getName(), "getIdsOfWordsInWordLearningEvents");
 
         Set<Long> wordIdsSet = new HashSet<>();
 
         Uri wordLearningEventsUri = Uri.parse("content://" + contentProviderApplicationId + ".provider.word_learning_event_provider/events");
-        Log.i(ContentProviderUtil.class.getName(), "wordLearningEventsUri: " + wordLearningEventsUri);
+        Log.i(EventProviderUtil.class.getName(), "wordLearningEventsUri: " + wordLearningEventsUri);
         Cursor wordLearningEventsCursor = context.getContentResolver().query(wordLearningEventsUri, null, null, null, null);
-        Log.i(ContentProviderUtil.class.getName(), "wordLearningEventsCursor: " + wordLearningEventsCursor);
+        Log.i(EventProviderUtil.class.getName(), "wordLearningEventsCursor: " + wordLearningEventsCursor);
         if (wordLearningEventsCursor == null) {
-            Log.e(ContentProviderUtil.class.getName(), "wordLearningEventsCursor == null");
+            Log.e(EventProviderUtil.class.getName(), "wordLearningEventsCursor == null");
             Toast.makeText(context, "wordLearningEventsCursor == null", Toast.LENGTH_LONG).show();
         } else {
-            Log.i(ContentProviderUtil.class.getName(), "wordLearningEventsCursor.getCount(): " + wordLearningEventsCursor.getCount());
+            Log.i(EventProviderUtil.class.getName(), "wordLearningEventsCursor.getCount(): " + wordLearningEventsCursor.getCount());
             if (wordLearningEventsCursor.getCount() == 0) {
-                Log.e(ContentProviderUtil.class.getName(), "wordLearningEventsCursor.getCount() == 0");
+                Log.e(EventProviderUtil.class.getName(), "wordLearningEventsCursor.getCount() == 0");
             } else {
                 boolean isLast = false;
                 while (!isLast) {
@@ -86,30 +86,30 @@ public class ContentProviderUtil {
                 }
 
                 wordLearningEventsCursor.close();
-                Log.i(ContentProviderUtil.class.getName(), "wordLearningEventsCursor.isClosed(): " + wordLearningEventsCursor.isClosed());
+                Log.i(EventProviderUtil.class.getName(), "wordLearningEventsCursor.isClosed(): " + wordLearningEventsCursor.isClosed());
             }
         }
-        Log.i(ContentProviderUtil.class.getName(), "wordIdsSet.size(): " + wordIdsSet.size());
+        Log.i(EventProviderUtil.class.getName(), "wordIdsSet.size(): " + wordIdsSet.size());
 
         return wordIdsSet;
     }
 
     public static List<WordAssessmentEventGson> getWordAssessmentEventGsons(Set<Long> idsOfWordsInWordLearningEvents, Context context, String contentProviderApplicationId) {
-        Log.i(ContentProviderUtil.class.getName(), "getWordAssessmentEventGsons");
+        Log.i(EventProviderUtil.class.getName(), "getWordAssessmentEventGsons");
 
         List<WordAssessmentEventGson> wordAssessmentEventGsons = new ArrayList<>();
 
         Uri wordAssessmentEventsUri = Uri.parse("content://" + contentProviderApplicationId + ".provider.word_assessment_event_provider/events");
-        Log.i(ContentProviderUtil.class.getName(), "wordAssessmentEventsUri: " + wordAssessmentEventsUri);
+        Log.i(EventProviderUtil.class.getName(), "wordAssessmentEventsUri: " + wordAssessmentEventsUri);
         Cursor wordAssessmentEventsCursor = context.getContentResolver().query(wordAssessmentEventsUri, null, null, null, null);
-        Log.i(ContentProviderUtil.class.getName(), "wordAssessmentEventsCursor: " + wordAssessmentEventsCursor);
+        Log.i(EventProviderUtil.class.getName(), "wordAssessmentEventsCursor: " + wordAssessmentEventsCursor);
         if (wordAssessmentEventsCursor == null) {
-            Log.e(ContentProviderUtil.class.getName(), "wordAssessmentEventsCursor == null");
+            Log.e(EventProviderUtil.class.getName(), "wordAssessmentEventsCursor == null");
             Toast.makeText(context, "wordAssessmentEventsCursor == null", Toast.LENGTH_LONG).show();
         } else {
-            Log.i(ContentProviderUtil.class.getName(), "wordAssessmentEventsCursor.getCount(): " + wordAssessmentEventsCursor.getCount());
+            Log.i(EventProviderUtil.class.getName(), "wordAssessmentEventsCursor.getCount(): " + wordAssessmentEventsCursor.getCount());
             if (wordAssessmentEventsCursor.getCount() == 0) {
-                Log.e(ContentProviderUtil.class.getName(), "wordAssessmentEventsCursor.getCount() == 0");
+                Log.e(EventProviderUtil.class.getName(), "wordAssessmentEventsCursor.getCount() == 0");
             } else {
                 boolean isLast = false;
                 while (!isLast) {
@@ -124,10 +124,10 @@ public class ContentProviderUtil {
                 }
 
                 wordAssessmentEventsCursor.close();
-                Log.i(ContentProviderUtil.class.getName(), "wordAssessmentEventsCursor.isClosed(): " + wordAssessmentEventsCursor.isClosed());
+                Log.i(EventProviderUtil.class.getName(), "wordAssessmentEventsCursor.isClosed(): " + wordAssessmentEventsCursor.isClosed());
             }
         }
-        Log.i(ContentProviderUtil.class.getName(), "wordAssessmentEventGsons.size(): " + wordAssessmentEventGsons.size());
+        Log.i(EventProviderUtil.class.getName(), "wordAssessmentEventGsons.size(): " + wordAssessmentEventGsons.size());
 
         return wordAssessmentEventGsons;
     }
