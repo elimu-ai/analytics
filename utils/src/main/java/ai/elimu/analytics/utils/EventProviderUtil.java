@@ -18,12 +18,12 @@ import ai.elimu.model.v2.gson.analytics.WordLearningEventGson;
 
 public class EventProviderUtil {
 
-    public static List<WordLearningEventGson> getWordLearningEventGsons(Context context, String contentProviderApplicationId) {
+    public static List<WordLearningEventGson> getWordLearningEventGsons(Context context, String analyticsApplicationId) {
         Log.i(EventProviderUtil.class.getName(), "getWordLearningEventGsons");
 
         List<WordLearningEventGson> wordLearningEventGsons = new ArrayList<>();
 
-        Uri wordLearningEventsUri = Uri.parse("content://" + contentProviderApplicationId + ".provider.word_learning_event_provider/events");
+        Uri wordLearningEventsUri = Uri.parse("content://" + analyticsApplicationId + ".provider.word_learning_event_provider/events");
         Log.i(EventProviderUtil.class.getName(), "wordLearningEventsUri: " + wordLearningEventsUri);
         Cursor wordLearningEventsCursor = context.getContentResolver().query(wordLearningEventsUri, null, null, null, null);
         Log.i(EventProviderUtil.class.getName(), "wordLearningEventsCursor: " + wordLearningEventsCursor);
@@ -56,12 +56,12 @@ public class EventProviderUtil {
         return wordLearningEventGsons;
     }
 
-    public static Set<Long> getIdsOfWordsInWordLearningEvents(Context context, String contentProviderApplicationId) {
+    public static Set<Long> getIdsOfWordsInWordLearningEvents(Context context, String analyticsApplicationId) {
         Log.i(EventProviderUtil.class.getName(), "getIdsOfWordsInWordLearningEvents");
 
         Set<Long> wordIdsSet = new HashSet<>();
 
-        Uri wordLearningEventsUri = Uri.parse("content://" + contentProviderApplicationId + ".provider.word_learning_event_provider/events");
+        Uri wordLearningEventsUri = Uri.parse("content://" + analyticsApplicationId + ".provider.word_learning_event_provider/events");
         Log.i(EventProviderUtil.class.getName(), "wordLearningEventsUri: " + wordLearningEventsUri);
         Cursor wordLearningEventsCursor = context.getContentResolver().query(wordLearningEventsUri, null, null, null, null);
         Log.i(EventProviderUtil.class.getName(), "wordLearningEventsCursor: " + wordLearningEventsCursor);
@@ -94,12 +94,12 @@ public class EventProviderUtil {
         return wordIdsSet;
     }
 
-    public static List<WordAssessmentEventGson> getWordAssessmentEventGsons(Set<Long> idsOfWordsInWordLearningEvents, Context context, String contentProviderApplicationId) {
+    public static List<WordAssessmentEventGson> getWordAssessmentEventGsons(Set<Long> idsOfWordsInWordLearningEvents, Context context, String analyticsApplicationId) {
         Log.i(EventProviderUtil.class.getName(), "getWordAssessmentEventGsons");
 
         List<WordAssessmentEventGson> wordAssessmentEventGsons = new ArrayList<>();
 
-        Uri wordAssessmentEventsUri = Uri.parse("content://" + contentProviderApplicationId + ".provider.word_assessment_event_provider/events");
+        Uri wordAssessmentEventsUri = Uri.parse("content://" + analyticsApplicationId + ".provider.word_assessment_event_provider/events");
         Log.i(EventProviderUtil.class.getName(), "wordAssessmentEventsUri: " + wordAssessmentEventsUri);
         Cursor wordAssessmentEventsCursor = context.getContentResolver().query(wordAssessmentEventsUri, null, null, null, null);
         Log.i(EventProviderUtil.class.getName(), "wordAssessmentEventsCursor: " + wordAssessmentEventsCursor);
