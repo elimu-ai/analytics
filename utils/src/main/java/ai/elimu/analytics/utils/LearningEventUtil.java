@@ -20,7 +20,7 @@ import ai.elimu.model.v2.gson.content.StoryBookGson;
 import ai.elimu.model.v2.gson.content.WordGson;
 
 /**
- * A utility class that makes it easier for other apps to report learning events and assessments events.
+ * A utility class that makes it easier for other apps to report learning events.
  */
 public class LearningEventUtil {
 

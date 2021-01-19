@@ -16,6 +16,9 @@ import ai.elimu.model.v2.gson.analytics.WordAssessmentEventGson;
 import ai.elimu.model.v2.gson.content.LetterGson;
 import ai.elimu.model.v2.gson.content.WordGson;
 
+/**
+ * A utility class that makes it easier for other apps to report assessments events.
+ */
 public class AssessmentEventUtil {
 
     public static void reportLetterAssessmentEvent(LetterGson letterGson, Float masteryScore, Long timeSpentMs, Context context, String analyticsApplicationId) {
