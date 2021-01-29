@@ -17,12 +17,16 @@ import java.io.StringWriter;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import ai.elimu.analytics.dao.LetterAssessmentEventDao;
 import ai.elimu.analytics.dao.LetterLearningEventDao;
 import ai.elimu.analytics.dao.StoryBookLearningEventDao;
+import ai.elimu.analytics.dao.WordAssessmentEventDao;
 import ai.elimu.analytics.dao.WordLearningEventDao;
 import ai.elimu.analytics.db.RoomDb;
+import ai.elimu.analytics.entity.LetterAssessmentEvent;
 import ai.elimu.analytics.entity.LetterLearningEvent;
 import ai.elimu.analytics.entity.StoryBookLearningEvent;
+import ai.elimu.analytics.entity.WordAssessmentEvent;
 import ai.elimu.analytics.entity.WordLearningEvent;
 
 public class ExportEventsToCsvWorker extends Worker {
@@ -37,7 +41,9 @@ public class ExportEventsToCsvWorker extends Worker {
         Log.i(getClass().getName(), "doWork");
 
         exportLetterLearningEventsToCsv();
+        exportLetterAssessmentEventsToCsv();
         exportWordLearningEventsToCsv();
+        exportWordAssessmentEventsToCsv();
         exportStoryBookLearningEventsToCsv();
 
         return Result.success();
@@ -105,6 +111,70 @@ public class ExportEventsToCsvWorker extends Worker {
         }
     }
 
+    private void exportLetterAssessmentEventsToCsv() {
+        Log.i(getClass().getName(), "exportLetterAssessmentEventsToCsv");
+
+        // Extract LetterAssessmentEvents from the database that have not yet been exported to CSV.
+        RoomDb roomDb = RoomDb.getDatabase(getApplicationContext());
+        LetterAssessmentEventDao letterAssessmentEventDao = roomDb.letterAssessmentEventDao();
+        List<LetterAssessmentEvent> letterAssessmentEvents = letterAssessmentEventDao.loadAllOrderedByTimeAsc();
+        Log.i(getClass().getName(), "letterAssessmentEvents.size(): " + letterAssessmentEvents.size());
+
+        CSVFormat csvFormat = CSVFormat.DEFAULT
+                .withHeader(
+                        "id",
+                        "time",
+                        "android_id",
+                        "package_name",
+                        "letter_id",
+                        "letter_text",
+                        "mastery_score",
+                        "time_spent_ms"
+                );
+        StringWriter stringWriter = new StringWriter();
+        try {
+            CSVPrinter csvPrinter = new CSVPrinter(stringWriter, csvFormat);
+
+            // Generate one CSV file per day of events
+            String dateOfPreviousEvent = null;
+            for (LetterAssessmentEvent letterAssessmentEvent : letterAssessmentEvents) {
+                // Export event to CSV file. Example format: "files/letter-assessment-events/7161a85a0e4751cd_letter-assessment-events_2020-03-21.csv"
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                String date = simpleDateFormat.format(letterAssessmentEvent.getTime().getTime());
+                if (!date.equals(dateOfPreviousEvent)) {
+                    // Reset file content
+                    stringWriter = new StringWriter();
+                    csvPrinter = new CSVPrinter(stringWriter, csvFormat);
+                }
+                dateOfPreviousEvent = date;
+                String csvFilename = letterAssessmentEvent.getAndroidId() + "_letter-assessment-events_" + date + ".csv";
+                Log.i(getClass().getName(), "csvFilename: " + csvFilename);
+
+                csvPrinter.printRecord(
+                        letterAssessmentEvent.getId(),
+                        letterAssessmentEvent.getTime().getTimeInMillis(),
+                        letterAssessmentEvent.getAndroidId(),
+                        letterAssessmentEvent.getPackageName(),
+                        letterAssessmentEvent.getLetterId(),
+                        letterAssessmentEvent.getLetterText(),
+                        letterAssessmentEvent.getMasteryScore(),
+                        letterAssessmentEvent.getTimeSpentMs()
+                );
+                csvPrinter.flush();
+
+                String csvFileContent = stringWriter.toString();
+
+                // Write the content to the CSV file
+                File filesDir = getApplicationContext().getFilesDir();
+                File letterAssessmentEventsDir = new File(filesDir, "letter-assessment-events");
+                File csvFile = new File(letterAssessmentEventsDir, csvFilename);
+                FileUtils.writeStringToFile(csvFile, csvFileContent, "UTF-8");
+            }
+        } catch (IOException e) {
+            Log.e(getClass().getName(), null, e);
+        }
+    }
+
     private void exportWordLearningEventsToCsv() {
         Log.i(getClass().getName(), "exportWordLearningEventsToCsv");
 
@@ -160,6 +230,70 @@ public class ExportEventsToCsvWorker extends Worker {
                 File filesDir = getApplicationContext().getFilesDir();
                 File wordLearningEventsDir = new File(filesDir, "word-learning-events");
                 File csvFile = new File(wordLearningEventsDir, csvFilename);
+                FileUtils.writeStringToFile(csvFile, csvFileContent, "UTF-8");
+            }
+        } catch (IOException e) {
+            Log.e(getClass().getName(), null, e);
+        }
+    }
+
+    private void exportWordAssessmentEventsToCsv() {
+        Log.i(getClass().getName(), "exportWordAssessmentEventsToCsv");
+
+        // Extract WordAssessmentEvents from the database that have not yet been exported to CSV.
+        RoomDb roomDb = RoomDb.getDatabase(getApplicationContext());
+        WordAssessmentEventDao wordAssessmentEventDao = roomDb.wordAssessmentEventDao();
+        List<WordAssessmentEvent> wordAssessmentEvents = wordAssessmentEventDao.loadAllOrderedByTimeAsc();
+        Log.i(getClass().getName(), "wordAssessmentEvents.size(): " + wordAssessmentEvents.size());
+
+        CSVFormat csvFormat = CSVFormat.DEFAULT
+                .withHeader(
+                        "id",
+                        "time",
+                        "android_id",
+                        "package_name",
+                        "word_id",
+                        "word_text",
+                        "mastery_score",
+                        "time_spent_ms"
+                );
+        StringWriter stringWriter = new StringWriter();
+        try {
+            CSVPrinter csvPrinter = new CSVPrinter(stringWriter, csvFormat);
+
+            // Generate one CSV file per day of events
+            String dateOfPreviousEvent = null;
+            for (WordAssessmentEvent wordAssessmentEvent : wordAssessmentEvents) {
+                // Export event to CSV file. Example format: "files/word-assessment-events/7161a85a0e4751cd_word-assessment-events_2020-03-21.csv"
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                String date = simpleDateFormat.format(wordAssessmentEvent.getTime().getTime());
+                if (!date.equals(dateOfPreviousEvent)) {
+                    // Reset file content
+                    stringWriter = new StringWriter();
+                    csvPrinter = new CSVPrinter(stringWriter, csvFormat);
+                }
+                dateOfPreviousEvent = date;
+                String csvFilename = wordAssessmentEvent.getAndroidId() + "_word-assessment-events_" + date + ".csv";
+                Log.i(getClass().getName(), "csvFilename: " + csvFilename);
+
+                csvPrinter.printRecord(
+                        wordAssessmentEvent.getId(),
+                        wordAssessmentEvent.getTime().getTimeInMillis(),
+                        wordAssessmentEvent.getAndroidId(),
+                        wordAssessmentEvent.getPackageName(),
+                        wordAssessmentEvent.getWordId(),
+                        wordAssessmentEvent.getWordText(),
+                        wordAssessmentEvent.getMasteryScore(),
+                        wordAssessmentEvent.getTimeSpentMs()
+                );
+                csvPrinter.flush();
+
+                String csvFileContent = stringWriter.toString();
+
+                // Write the content to the CSV file
+                File filesDir = getApplicationContext().getFilesDir();
+                File wordAssessmentEventsDir = new File(filesDir, "word-assessment-events");
+                File csvFile = new File(wordAssessmentEventsDir, csvFilename);
                 FileUtils.writeStringToFile(csvFile, csvFileContent, "UTF-8");
             }
         } catch (IOException e) {
