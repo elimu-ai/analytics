@@ -32,6 +32,13 @@
                 <action android:name="ai.elimu.intent.action.LETTER_LEARNING_EVENT" />
             </intent-filter>
         </receiver>
+        <receiver android:name=".receiver.LetterAssessmentEventReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="ai.elimu.intent.action.LETTER_ASSESSMENT_EVENT" />
+            </intent-filter>
+        </receiver>
         <receiver android:name=".receiver.WordLearningEventReceiver"
             android:enabled="true"
             android:exported="true">
