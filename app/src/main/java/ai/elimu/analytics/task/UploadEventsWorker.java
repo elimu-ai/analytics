@@ -13,8 +13,10 @@ import java.util.Arrays;
 
 import ai.elimu.analytics.BaseApplication;
 import ai.elimu.analytics.BuildConfig;
+import ai.elimu.analytics.rest.LetterAssessmentEventService;
 import ai.elimu.analytics.rest.LetterLearningEventService;
 import ai.elimu.analytics.rest.StoryBookLearningEventService;
+import ai.elimu.analytics.rest.WordAssessmentEventService;
 import ai.elimu.analytics.rest.WordLearningEventService;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -37,7 +39,9 @@ public class UploadEventsWorker extends Worker {
 
         if (!"debug".equals(BuildConfig.BUILD_TYPE)) {
             uploadLetterLearningEvents();
+            uploadLetterAssessmentEvents();
             uploadWordLearningEvents();
+            uploadWordAssessmentEvents();
             uploadStoryBookLearningEvents();
         }
 
@@ -85,6 +89,47 @@ public class UploadEventsWorker extends Worker {
         }
     }
 
+    private void uploadLetterAssessmentEvents() {
+        Log.i(getClass().getName(), "uploadLetterAssessmentEvents");
+
+        // Upload CSV files to the server
+        File filesDir = getApplicationContext().getFilesDir();
+        File letterAssessmentEventsDir = new File(filesDir, "letter-assessment-events");
+        Log.i(getClass().getName(), "Uploading CSV files from " + letterAssessmentEventsDir);
+        File[] files = letterAssessmentEventsDir.listFiles();
+        if (files != null) {
+            Log.i(getClass().getName(), "files.length: " + files.length);
+            Arrays.sort(files);
+            for (int i = 0; i < files.length; i++) {
+                File file = files[i];
+                Log.i(getClass().getName(), "file.getName(): " + file.getName());
+
+                BaseApplication baseApplication = (BaseApplication) getApplicationContext();
+                Retrofit retrofit = baseApplication.getRetrofit();
+                LetterAssessmentEventService letterAssessmentEventService = retrofit.create(LetterAssessmentEventService.class);
+                RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+                MultipartBody.Part part = MultipartBody.Part.createFormData("file", file.getName(), requestBody);
+                Call<ResponseBody> call = letterAssessmentEventService.uploadCsvFile(part);
+                Log.i(getClass().getName(), "call.request(): " + call.request());
+                try {
+                    Response<ResponseBody> response = call.execute();
+                    Log.i(getClass().getName(), "response: " + response);
+                    Log.i(getClass().getName(), "response.isSuccessful(): " + response.isSuccessful());
+                    if (response.isSuccessful()) {
+                        String bodyString = response.body().string();
+                        Log.i(getClass().getName(), "bodyString: " + bodyString);
+                    } else {
+                        String errorBodyString = response.errorBody().string();
+                        Log.e(getClass().getName(), "errorBodyString: " + errorBodyString);
+                        // TODO: Handle error
+                    }
+                } catch (IOException e) {
+                    Log.e(getClass().getName(), null, e);
+                }
+            }
+        }
+    }
+
     private void uploadWordLearningEvents() {
         Log.i(getClass().getName(), "uploadWordLearningEvents");
 
@@ -106,6 +151,47 @@ public class UploadEventsWorker extends Worker {
                 RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
                 MultipartBody.Part part = MultipartBody.Part.createFormData("file", file.getName(), requestBody);
                 Call<ResponseBody> call = wordLearningEventService.uploadCsvFile(part);
+                Log.i(getClass().getName(), "call.request(): " + call.request());
+                try {
+                    Response<ResponseBody> response = call.execute();
+                    Log.i(getClass().getName(), "response: " + response);
+                    Log.i(getClass().getName(), "response.isSuccessful(): " + response.isSuccessful());
+                    if (response.isSuccessful()) {
+                        String bodyString = response.body().string();
+                        Log.i(getClass().getName(), "bodyString: " + bodyString);
+                    } else {
+                        String errorBodyString = response.errorBody().string();
+                        Log.e(getClass().getName(), "errorBodyString: " + errorBodyString);
+                        // TODO: Handle error
+                    }
+                } catch (IOException e) {
+                    Log.e(getClass().getName(), null, e);
+                }
+            }
+        }
+    }
+
+    private void uploadWordAssessmentEvents() {
+        Log.i(getClass().getName(), "uploadWordAssessmentEvents");
+
+        // Upload CSV files to the server
+        File filesDir = getApplicationContext().getFilesDir();
+        File wordAssessmentEventsDir = new File(filesDir, "word-assessment-events");
+        Log.i(getClass().getName(), "Uploading CSV files from " + wordAssessmentEventsDir);
+        File[] files = wordAssessmentEventsDir.listFiles();
+        if (files != null) {
+            Log.i(getClass().getName(), "files.length: " + files.length);
+            Arrays.sort(files);
+            for (int i = 0; i < files.length; i++) {
+                File file = files[i];
+                Log.i(getClass().getName(), "file.getName(): " + file.getName());
+
+                BaseApplication baseApplication = (BaseApplication) getApplicationContext();
+                Retrofit retrofit = baseApplication.getRetrofit();
+                WordAssessmentEventService wordAssessmentEventService = retrofit.create(WordAssessmentEventService.class);
+                RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+                MultipartBody.Part part = MultipartBody.Part.createFormData("file", file.getName(), requestBody);
+                Call<ResponseBody> call = wordAssessmentEventService.uploadCsvFile(part);
                 Log.i(getClass().getName(), "call.request(): " + call.request());
                 try {
                     Response<ResponseBody> response = call.execute();
