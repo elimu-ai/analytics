@@ -14,20 +14,23 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import ai.elimu.analytics.dao.LetterAssessmentEventDao;
 import ai.elimu.analytics.dao.LetterLearningEventDao;
 import ai.elimu.analytics.dao.StoryBookLearningEventDao;
 import ai.elimu.analytics.dao.WordAssessmentEventDao;
 import ai.elimu.analytics.dao.WordLearningEventDao;
+import ai.elimu.analytics.entity.LetterAssessmentEvent;
 import ai.elimu.analytics.entity.LetterLearningEvent;
 import ai.elimu.analytics.entity.StoryBookLearningEvent;
 import ai.elimu.analytics.entity.WordAssessmentEvent;
 import ai.elimu.analytics.entity.WordLearningEvent;
 
-@Database(version = 4, entities = {LetterLearningEvent.class, WordLearningEvent.class, WordAssessmentEvent.class, StoryBookLearningEvent.class})
+@Database(version = 5, entities = {LetterLearningEvent.class, LetterAssessmentEvent.class, WordLearningEvent.class, WordAssessmentEvent.class, StoryBookLearningEvent.class})
 @TypeConverters({Converters.class})
 public abstract class RoomDb extends RoomDatabase {
 
     public abstract LetterLearningEventDao letterLearningEventDao();
+    public abstract LetterAssessmentEventDao letterAssessmentEventDao();
     public abstract WordLearningEventDao wordLearningEventDao();
     public abstract WordAssessmentEventDao wordAssessmentEventDao();
     public abstract StoryBookLearningEventDao storyBookLearningEventDao();
@@ -50,7 +53,8 @@ public abstract class RoomDb extends RoomDatabase {
                                     // See https://developer.android.com/training/data-storage/room/migrating-db-versions
                                     MIGRATION_1_2,
                                     MIGRATION_2_3,
-                                    MIGRATION_3_4
+                                    MIGRATION_3_4,
+                                    MIGRATION_4_5
                             )
                             .build();
                 }
@@ -88,6 +92,17 @@ public abstract class RoomDb extends RoomDatabase {
             Log.i(getClass().getName(), "migrate (" + database.getVersion() + " --> 4)");
 
             String sql = "CREATE TABLE IF NOT EXISTS `LetterLearningEvent` (`letterId` INTEGER, `letterText` TEXT NOT NULL, `learningEventType` TEXT NOT NULL, `androidId` TEXT NOT NULL, `packageName` TEXT NOT NULL, `time` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT)";
+            Log.i(getClass().getName(), "sql: " + sql);
+            database.execSQL(sql);
+        }
+    };
+
+    private static final Migration MIGRATION_4_5 = new Migration(4, 5) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            Log.i(getClass().getName(), "migrate (" + database.getVersion() + " --> 5)");
+
+            String sql = "CREATE TABLE IF NOT EXISTS `LetterAssessmentEvent` (`letterId` INTEGER, `letterText` TEXT NOT NULL, `masteryScore` REAL NOT NULL, `timeSpentMs` INTEGER NOT NULL, `androidId` TEXT NOT NULL, `packageName` TEXT NOT NULL, `time` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT)";
             Log.i(getClass().getName(), "sql: " + sql);
             database.execSQL(sql);
         }
