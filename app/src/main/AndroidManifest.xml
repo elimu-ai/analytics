@@ -67,6 +67,11 @@
         </receiver>
 
         <provider
+            android:name=".provider.LetterAssessmentEventProvider"
+            android:authorities="${applicationId}.provider.letter_assessment_event_provider"
+            android:enabled="true"
+            android:exported="true" />
+        <provider
             android:name=".provider.WordLearningEventProvider"
             android:authorities="${applicationId}.provider.word_learning_event_provider"
             android:enabled="true"
