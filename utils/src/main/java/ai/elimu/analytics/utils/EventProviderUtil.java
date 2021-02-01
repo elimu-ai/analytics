@@ -59,8 +59,8 @@ public class EventProviderUtil {
         return letterAssessmentEventGsons;
     }
 
-    public static List<LetterAssessmentEventGson> getLetterAssessmentEventGsons(LetterGson letterGson, Context context, String analyticsApplicationId) {
-        Log.i(EventProviderUtil.class.getName(), "getLetterAssessmentEventGsons");
+    public static List<LetterAssessmentEventGson> getLetterAssessmentEventGsonsByLetter(LetterGson letterGson, Context context, String analyticsApplicationId) {
+        Log.i(EventProviderUtil.class.getName(), "getLetterAssessmentEventGsonsByLetter");
 
         List<LetterAssessmentEventGson> letterAssessmentEventGsons = new ArrayList<>();
 

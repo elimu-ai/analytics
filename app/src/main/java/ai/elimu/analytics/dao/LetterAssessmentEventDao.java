@@ -19,9 +19,9 @@ public interface LetterAssessmentEventDao {
     @Query("SELECT * FROM LetterAssessmentEvent ORDER BY time ASC")
     List<LetterAssessmentEvent> loadAllOrderedByTimeAsc();
 
-    @Query("SELECT * FROM LetterAssessmentEvent ORDER BY time ASC")
-    Cursor loadAllOrderedByTimeAscAsCursor();
+    @Query("SELECT * FROM LetterAssessmentEvent ORDER BY time DESC")
+    Cursor loadAllOrderedByTimeDesc();
 
     @Query("SELECT * FROM LetterAssessmentEvent WHERE letterId = :letterId ORDER BY time DESC")
-    Cursor loadAll(Long letterId);
+    Cursor loadAllOrderedByTimeDesc(Long letterId);
 }

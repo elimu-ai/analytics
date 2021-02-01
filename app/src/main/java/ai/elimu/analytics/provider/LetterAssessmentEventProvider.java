@@ -59,7 +59,7 @@ public class LetterAssessmentEventProvider extends ContentProvider {
             // Get the Room Cursor
             RoomDb roomDb = RoomDb.getDatabase(context);
             LetterAssessmentEventDao letterAssessmentEventDao = roomDb.letterAssessmentEventDao();
-            Cursor cursor = letterAssessmentEventDao.loadAllOrderedByTimeAscAsCursor();
+            Cursor cursor = letterAssessmentEventDao.loadAllOrderedByTimeDesc();
             Log.i(getClass().getName(), "cursor: " + cursor);
             cursor.setNotificationUri(context.getContentResolver(), uri);
             return cursor;
@@ -74,7 +74,7 @@ public class LetterAssessmentEventProvider extends ContentProvider {
             // Get the Room Cursor
             RoomDb roomDb = RoomDb.getDatabase(context);
             LetterAssessmentEventDao letterAssessmentEventDao = roomDb.letterAssessmentEventDao();
-            Cursor cursor = letterAssessmentEventDao.loadAll(letterId);
+            Cursor cursor = letterAssessmentEventDao.loadAllOrderedByTimeDesc(letterId);
             Log.i(getClass().getName(), "cursor: " + cursor);
             cursor.setNotificationUri(context.getContentResolver(), uri);
             return cursor;
