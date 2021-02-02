@@ -19,6 +19,9 @@ public interface WordAssessmentEventDao {
     @Query("SELECT * FROM WordAssessmentEvent ORDER BY time ASC")
     List<WordAssessmentEvent> loadAllOrderedByTimeAsc();
 
-    @Query("SELECT * FROM WordAssessmentEvent ORDER BY time ASC")
-    Cursor loadAllOrderedByTimeAscAsCursor();
+    @Query("SELECT * FROM WordAssessmentEvent ORDER BY time DESC")
+    Cursor loadAllOrderedByTimeDesc();
+
+    @Query("SELECT * FROM WordAssessmentEvent WHERE wordId = :wordId ORDER BY time DESC")
+    Cursor loadAllOrderedByTimeDesc(Long wordId);
 }

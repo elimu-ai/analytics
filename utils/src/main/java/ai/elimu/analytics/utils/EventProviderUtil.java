@@ -18,6 +18,7 @@ import ai.elimu.model.v2.gson.analytics.LetterAssessmentEventGson;
 import ai.elimu.model.v2.gson.analytics.WordAssessmentEventGson;
 import ai.elimu.model.v2.gson.analytics.WordLearningEventGson;
 import ai.elimu.model.v2.gson.content.LetterGson;
+import ai.elimu.model.v2.gson.content.WordGson;
 
 public class EventProviderUtil {
 
@@ -179,6 +180,44 @@ public class EventProviderUtil {
         List<WordAssessmentEventGson> wordAssessmentEventGsons = new ArrayList<>();
 
         Uri wordAssessmentEventsUri = Uri.parse("content://" + analyticsApplicationId + ".provider.word_assessment_event_provider/events");
+        Log.i(EventProviderUtil.class.getName(), "wordAssessmentEventsUri: " + wordAssessmentEventsUri);
+        Cursor wordAssessmentEventsCursor = context.getContentResolver().query(wordAssessmentEventsUri, null, null, null, null);
+        Log.i(EventProviderUtil.class.getName(), "wordAssessmentEventsCursor: " + wordAssessmentEventsCursor);
+        if (wordAssessmentEventsCursor == null) {
+            Log.e(EventProviderUtil.class.getName(), "wordAssessmentEventsCursor == null");
+            Toast.makeText(context, "wordAssessmentEventsCursor == null", Toast.LENGTH_LONG).show();
+        } else {
+            Log.i(EventProviderUtil.class.getName(), "wordAssessmentEventsCursor.getCount(): " + wordAssessmentEventsCursor.getCount());
+            if (wordAssessmentEventsCursor.getCount() == 0) {
+                Log.e(EventProviderUtil.class.getName(), "wordAssessmentEventsCursor.getCount() == 0");
+            } else {
+                boolean isLast = false;
+                while (!isLast) {
+                    wordAssessmentEventsCursor.moveToNext();
+
+                    // Convert from Room to Gson
+                    WordAssessmentEventGson wordAssessmentEventGson = CursorToWordAssessmentEventGsonConverter.getWordAssessmentEventGson(wordAssessmentEventsCursor);
+
+                    wordAssessmentEventGsons.add(wordAssessmentEventGson);
+
+                    isLast = wordAssessmentEventsCursor.isLast();
+                }
+
+                wordAssessmentEventsCursor.close();
+                Log.i(EventProviderUtil.class.getName(), "wordAssessmentEventsCursor.isClosed(): " + wordAssessmentEventsCursor.isClosed());
+            }
+        }
+        Log.i(EventProviderUtil.class.getName(), "wordAssessmentEventGsons.size(): " + wordAssessmentEventGsons.size());
+
+        return wordAssessmentEventGsons;
+    }
+
+    public static List<WordAssessmentEventGson> getWordAssessmentEventGsonsByWord(WordGson wordGson, Context context, String analyticsApplicationId) {
+        Log.i(EventProviderUtil.class.getName(), "getWordAssessmentEventGsonsByWord");
+
+        List<WordAssessmentEventGson> wordAssessmentEventGsons = new ArrayList<>();
+
+        Uri wordAssessmentEventsUri = Uri.parse("content://" + analyticsApplicationId + ".provider.word_assessment_event_provider/events/by-word-id/" + wordGson.getId());
         Log.i(EventProviderUtil.class.getName(), "wordAssessmentEventsUri: " + wordAssessmentEventsUri);
         Cursor wordAssessmentEventsCursor = context.getContentResolver().query(wordAssessmentEventsUri, null, null, null, null);
         Log.i(EventProviderUtil.class.getName(), "wordAssessmentEventsCursor: " + wordAssessmentEventsCursor);
