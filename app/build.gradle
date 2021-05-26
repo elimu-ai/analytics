@@ -47,7 +47,7 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.2.0'
     implementation 'androidx.work:work-runtime:2.5.0'
     implementation 'org.apache.commons:commons-csv:1.8'
-    implementation 'commons-io:commons-io:2.8.0'
+    implementation 'commons-io:commons-io:2.9.0'
 
     // Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
