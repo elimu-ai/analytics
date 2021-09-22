@@ -10,8 +10,6 @@ android {
     defaultConfig {
         minSdkVersion 24
         targetSdkVersion 30
-        versionCode 3001006
-        versionName "3.1.6-SNAPSHOT"
         setProperty("archivesBaseName", "utils-${versionName}")
     }
 
