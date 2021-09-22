@@ -11,7 +11,7 @@ import java.util.Calendar;
 import ai.elimu.analytics.dao.LetterLearningEventDao;
 import ai.elimu.analytics.db.RoomDb;
 import ai.elimu.analytics.entity.LetterLearningEvent;
-import ai.elimu.model.enums.analytics.LearningEventType;
+import ai.elimu.model.v2.enums.analytics.LearningEventType;
 
 public class LetterLearningEventReceiver extends BroadcastReceiver {
 

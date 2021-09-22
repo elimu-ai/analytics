@@ -6,7 +6,7 @@ import androidx.room.TypeConverter;
 
 import java.util.Calendar;
 
-import ai.elimu.model.enums.analytics.LearningEventType;
+import ai.elimu.model.v2.enums.analytics.LearningEventType;
 
 /**
  * See https://developer.android.com/training/data-storage/room/referencing-data

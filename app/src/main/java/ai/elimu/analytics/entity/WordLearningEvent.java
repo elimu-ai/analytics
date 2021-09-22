@@ -3,7 +3,7 @@ package ai.elimu.analytics.entity;
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 
-import ai.elimu.model.enums.analytics.LearningEventType;
+import ai.elimu.model.v2.enums.analytics.LearningEventType;
 
 @Entity
 public class WordLearningEvent extends LearningEvent {
