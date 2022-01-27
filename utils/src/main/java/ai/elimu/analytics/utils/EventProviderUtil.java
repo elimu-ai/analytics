@@ -3,7 +3,6 @@ package ai.elimu.analytics.utils;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
-import android.util.Log;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -23,21 +22,21 @@ import ai.elimu.model.v2.gson.content.WordGson;
 public class EventProviderUtil {
 
     public static List<LetterAssessmentEventGson> getLetterAssessmentEventGsons(Context context, String analyticsApplicationId) {
-        Log.i(EventProviderUtil.class.getName(), "getLetterAssessmentEventGsons");
+        Timber.i("getLetterAssessmentEventGsons");
 
         List<LetterAssessmentEventGson> letterAssessmentEventGsons = new ArrayList<>();
 
         Uri letterAssessmentEventsUri = Uri.parse("content://" + analyticsApplicationId + ".provider.letter_assessment_event_provider/events");
-        Log.i(EventProviderUtil.class.getName(), "letterAssessmentEventsUri: " + letterAssessmentEventsUri);
+        Timber.i("letterAssessmentEventsUri: " + letterAssessmentEventsUri);
         Cursor letterAssessmentEventsCursor = context.getContentResolver().query(letterAssessmentEventsUri, null, null, null, null);
-        Log.i(EventProviderUtil.class.getName(), "letterAssessmentEventsCursor: " + letterAssessmentEventsCursor);
+        Timber.i("letterAssessmentEventsCursor: " + letterAssessmentEventsCursor);
         if (letterAssessmentEventsCursor == null) {
-            Log.e(EventProviderUtil.class.getName(), "letterAssessmentEventsCursor == null");
+            Timber.e("letterAssessmentEventsCursor == null");
             Toast.makeText(context, "letterAssessmentEventsCursor == null", Toast.LENGTH_LONG).show();
         } else {
-            Log.i(EventProviderUtil.class.getName(), "letterAssessmentEventsCursor.getCount(): " + letterAssessmentEventsCursor.getCount());
+            Timber.i("letterAssessmentEventsCursor.getCount(): " + letterAssessmentEventsCursor.getCount());
             if (letterAssessmentEventsCursor.getCount() == 0) {
-                Log.e(EventProviderUtil.class.getName(), "letterAssessmentEventsCursor.getCount() == 0");
+                Timber.e("letterAssessmentEventsCursor.getCount() == 0");
             } else {
                 boolean isLast = false;
                 while (!isLast) {
@@ -52,30 +51,30 @@ public class EventProviderUtil {
                 }
 
                 letterAssessmentEventsCursor.close();
-                Log.i(EventProviderUtil.class.getName(), "letterAssessmentEventsCursor.isClosed(): " + letterAssessmentEventsCursor.isClosed());
+                Timber.i("letterAssessmentEventsCursor.isClosed(): " + letterAssessmentEventsCursor.isClosed());
             }
         }
-        Log.i(EventProviderUtil.class.getName(), "letterAssessmentEventGsons.size(): " + letterAssessmentEventGsons.size());
+        Timber.i("letterAssessmentEventGsons.size(): " + letterAssessmentEventGsons.size());
 
         return letterAssessmentEventGsons;
     }
 
     public static List<LetterAssessmentEventGson> getLetterAssessmentEventGsonsByLetter(LetterGson letterGson, Context context, String analyticsApplicationId) {
-        Log.i(EventProviderUtil.class.getName(), "getLetterAssessmentEventGsonsByLetter");
+        Timber.i("getLetterAssessmentEventGsonsByLetter");
 
         List<LetterAssessmentEventGson> letterAssessmentEventGsons = new ArrayList<>();
 
         Uri letterAssessmentEventsUri = Uri.parse("content://" + analyticsApplicationId + ".provider.letter_assessment_event_provider/events/by-letter-id/" + letterGson.getId());
-        Log.i(EventProviderUtil.class.getName(), "letterAssessmentEventsUri: " + letterAssessmentEventsUri);
+        Timber.i("letterAssessmentEventsUri: " + letterAssessmentEventsUri);
         Cursor letterAssessmentEventsCursor = context.getContentResolver().query(letterAssessmentEventsUri, null, null, null, null);
-        Log.i(EventProviderUtil.class.getName(), "letterAssessmentEventsCursor: " + letterAssessmentEventsCursor);
+        Timber.i("letterAssessmentEventsCursor: " + letterAssessmentEventsCursor);
         if (letterAssessmentEventsCursor == null) {
-            Log.e(EventProviderUtil.class.getName(), "letterAssessmentEventsCursor == null");
+            Timber.e("letterAssessmentEventsCursor == null");
             Toast.makeText(context, "letterAssessmentEventsCursor == null", Toast.LENGTH_LONG).show();
         } else {
-            Log.i(EventProviderUtil.class.getName(), "letterAssessmentEventsCursor.getCount(): " + letterAssessmentEventsCursor.getCount());
+            Timber.i("letterAssessmentEventsCursor.getCount(): " + letterAssessmentEventsCursor.getCount());
             if (letterAssessmentEventsCursor.getCount() == 0) {
-                Log.e(EventProviderUtil.class.getName(), "letterAssessmentEventsCursor.getCount() == 0");
+                Timber.e("letterAssessmentEventsCursor.getCount() == 0");
             } else {
                 boolean isLast = false;
                 while (!isLast) {
@@ -90,30 +89,30 @@ public class EventProviderUtil {
                 }
 
                 letterAssessmentEventsCursor.close();
-                Log.i(EventProviderUtil.class.getName(), "letterAssessmentEventsCursor.isClosed(): " + letterAssessmentEventsCursor.isClosed());
+                Timber.i("letterAssessmentEventsCursor.isClosed(): " + letterAssessmentEventsCursor.isClosed());
             }
         }
-        Log.i(EventProviderUtil.class.getName(), "letterAssessmentEventGsons.size(): " + letterAssessmentEventGsons.size());
+        Timber.i("letterAssessmentEventGsons.size(): " + letterAssessmentEventGsons.size());
 
         return letterAssessmentEventGsons;
     }
 
     public static List<WordLearningEventGson> getWordLearningEventGsons(Context context, String analyticsApplicationId) {
-        Log.i(EventProviderUtil.class.getName(), "getWordLearningEventGsons");
+        Timber.i("getWordLearningEventGsons");
 
         List<WordLearningEventGson> wordLearningEventGsons = new ArrayList<>();
 
         Uri wordLearningEventsUri = Uri.parse("content://" + analyticsApplicationId + ".provider.word_learning_event_provider/events");
-        Log.i(EventProviderUtil.class.getName(), "wordLearningEventsUri: " + wordLearningEventsUri);
+        Timber.i("wordLearningEventsUri: " + wordLearningEventsUri);
         Cursor wordLearningEventsCursor = context.getContentResolver().query(wordLearningEventsUri, null, null, null, null);
-        Log.i(EventProviderUtil.class.getName(), "wordLearningEventsCursor: " + wordLearningEventsCursor);
+        Timber.i("wordLearningEventsCursor: " + wordLearningEventsCursor);
         if (wordLearningEventsCursor == null) {
-            Log.e(EventProviderUtil.class.getName(), "wordLearningEventsCursor == null");
+            Timber.e("wordLearningEventsCursor == null");
             Toast.makeText(context, "wordLearningEventsCursor == null", Toast.LENGTH_LONG).show();
         } else {
-            Log.i(EventProviderUtil.class.getName(), "wordLearningEventsCursor.getCount(): " + wordLearningEventsCursor.getCount());
+            Timber.i("wordLearningEventsCursor.getCount(): " + wordLearningEventsCursor.getCount());
             if (wordLearningEventsCursor.getCount() == 0) {
-                Log.e(EventProviderUtil.class.getName(), "wordLearningEventsCursor.getCount() == 0");
+                Timber.e("wordLearningEventsCursor.getCount() == 0");
             } else {
                 boolean isLast = false;
                 while (!isLast) {
@@ -128,30 +127,30 @@ public class EventProviderUtil {
                 }
 
                 wordLearningEventsCursor.close();
-                Log.i(EventProviderUtil.class.getName(), "wordLearningEventsCursor.isClosed(): " + wordLearningEventsCursor.isClosed());
+                Timber.i("wordLearningEventsCursor.isClosed(): " + wordLearningEventsCursor.isClosed());
             }
         }
-        Log.i(EventProviderUtil.class.getName(), "wordLearningEventGsons.size(): " + wordLearningEventGsons.size());
+        Timber.i("wordLearningEventGsons.size(): " + wordLearningEventGsons.size());
 
         return wordLearningEventGsons;
     }
 
     public static Set<Long> getIdsOfWordsInWordLearningEvents(Context context, String analyticsApplicationId) {
-        Log.i(EventProviderUtil.class.getName(), "getIdsOfWordsInWordLearningEvents");
+        Timber.i("getIdsOfWordsInWordLearningEvents");
 
         Set<Long> wordIdsSet = new HashSet<>();
 
         Uri wordLearningEventsUri = Uri.parse("content://" + analyticsApplicationId + ".provider.word_learning_event_provider/events");
-        Log.i(EventProviderUtil.class.getName(), "wordLearningEventsUri: " + wordLearningEventsUri);
+        Timber.i("wordLearningEventsUri: " + wordLearningEventsUri);
         Cursor wordLearningEventsCursor = context.getContentResolver().query(wordLearningEventsUri, null, null, null, null);
-        Log.i(EventProviderUtil.class.getName(), "wordLearningEventsCursor: " + wordLearningEventsCursor);
+        Timber.i("wordLearningEventsCursor: " + wordLearningEventsCursor);
         if (wordLearningEventsCursor == null) {
-            Log.e(EventProviderUtil.class.getName(), "wordLearningEventsCursor == null");
+            Timber.e("wordLearningEventsCursor == null");
             Toast.makeText(context, "wordLearningEventsCursor == null", Toast.LENGTH_LONG).show();
         } else {
-            Log.i(EventProviderUtil.class.getName(), "wordLearningEventsCursor.getCount(): " + wordLearningEventsCursor.getCount());
+            Timber.i("wordLearningEventsCursor.getCount(): " + wordLearningEventsCursor.getCount());
             if (wordLearningEventsCursor.getCount() == 0) {
-                Log.e(EventProviderUtil.class.getName(), "wordLearningEventsCursor.getCount() == 0");
+                Timber.e("wordLearningEventsCursor.getCount() == 0");
             } else {
                 boolean isLast = false;
                 while (!isLast) {
@@ -166,30 +165,30 @@ public class EventProviderUtil {
                 }
 
                 wordLearningEventsCursor.close();
-                Log.i(EventProviderUtil.class.getName(), "wordLearningEventsCursor.isClosed(): " + wordLearningEventsCursor.isClosed());
+                Timber.i("wordLearningEventsCursor.isClosed(): " + wordLearningEventsCursor.isClosed());
             }
         }
-        Log.i(EventProviderUtil.class.getName(), "wordIdsSet.size(): " + wordIdsSet.size());
+        Timber.i("wordIdsSet.size(): " + wordIdsSet.size());
 
         return wordIdsSet;
     }
 
     public static List<WordAssessmentEventGson> getWordAssessmentEventGsons(Context context, String analyticsApplicationId) {
-        Log.i(EventProviderUtil.class.getName(), "getWordAssessmentEventGsons");
+        Timber.i("getWordAssessmentEventGsons");
 
         List<WordAssessmentEventGson> wordAssessmentEventGsons = new ArrayList<>();
 
         Uri wordAssessmentEventsUri = Uri.parse("content://" + analyticsApplicationId + ".provider.word_assessment_event_provider/events");
-        Log.i(EventProviderUtil.class.getName(), "wordAssessmentEventsUri: " + wordAssessmentEventsUri);
+        Timber.i("wordAssessmentEventsUri: " + wordAssessmentEventsUri);
         Cursor wordAssessmentEventsCursor = context.getContentResolver().query(wordAssessmentEventsUri, null, null, null, null);
-        Log.i(EventProviderUtil.class.getName(), "wordAssessmentEventsCursor: " + wordAssessmentEventsCursor);
+        Timber.i("wordAssessmentEventsCursor: " + wordAssessmentEventsCursor);
         if (wordAssessmentEventsCursor == null) {
-            Log.e(EventProviderUtil.class.getName(), "wordAssessmentEventsCursor == null");
+            Timber.e("wordAssessmentEventsCursor == null");
             Toast.makeText(context, "wordAssessmentEventsCursor == null", Toast.LENGTH_LONG).show();
         } else {
-            Log.i(EventProviderUtil.class.getName(), "wordAssessmentEventsCursor.getCount(): " + wordAssessmentEventsCursor.getCount());
+            Timber.i("wordAssessmentEventsCursor.getCount(): " + wordAssessmentEventsCursor.getCount());
             if (wordAssessmentEventsCursor.getCount() == 0) {
-                Log.e(EventProviderUtil.class.getName(), "wordAssessmentEventsCursor.getCount() == 0");
+                Timber.e("wordAssessmentEventsCursor.getCount() == 0");
             } else {
                 boolean isLast = false;
                 while (!isLast) {
@@ -204,30 +203,30 @@ public class EventProviderUtil {
                 }
 
                 wordAssessmentEventsCursor.close();
-                Log.i(EventProviderUtil.class.getName(), "wordAssessmentEventsCursor.isClosed(): " + wordAssessmentEventsCursor.isClosed());
+                Timber.i("wordAssessmentEventsCursor.isClosed(): " + wordAssessmentEventsCursor.isClosed());
             }
         }
-        Log.i(EventProviderUtil.class.getName(), "wordAssessmentEventGsons.size(): " + wordAssessmentEventGsons.size());
+        Timber.i("wordAssessmentEventGsons.size(): " + wordAssessmentEventGsons.size());
 
         return wordAssessmentEventGsons;
     }
 
     public static List<WordAssessmentEventGson> getWordAssessmentEventGsonsByWord(WordGson wordGson, Context context, String analyticsApplicationId) {
-        Log.i(EventProviderUtil.class.getName(), "getWordAssessmentEventGsonsByWord");
+        Timber.i("getWordAssessmentEventGsonsByWord");
 
         List<WordAssessmentEventGson> wordAssessmentEventGsons = new ArrayList<>();
 
         Uri wordAssessmentEventsUri = Uri.parse("content://" + analyticsApplicationId + ".provider.word_assessment_event_provider/events/by-word-id/" + wordGson.getId());
-        Log.i(EventProviderUtil.class.getName(), "wordAssessmentEventsUri: " + wordAssessmentEventsUri);
+        Timber.i("wordAssessmentEventsUri: " + wordAssessmentEventsUri);
         Cursor wordAssessmentEventsCursor = context.getContentResolver().query(wordAssessmentEventsUri, null, null, null, null);
-        Log.i(EventProviderUtil.class.getName(), "wordAssessmentEventsCursor: " + wordAssessmentEventsCursor);
+        Timber.i("wordAssessmentEventsCursor: " + wordAssessmentEventsCursor);
         if (wordAssessmentEventsCursor == null) {
-            Log.e(EventProviderUtil.class.getName(), "wordAssessmentEventsCursor == null");
+            Timber.e("wordAssessmentEventsCursor == null");
             Toast.makeText(context, "wordAssessmentEventsCursor == null", Toast.LENGTH_LONG).show();
         } else {
-            Log.i(EventProviderUtil.class.getName(), "wordAssessmentEventsCursor.getCount(): " + wordAssessmentEventsCursor.getCount());
+            Timber.i("wordAssessmentEventsCursor.getCount(): " + wordAssessmentEventsCursor.getCount());
             if (wordAssessmentEventsCursor.getCount() == 0) {
-                Log.e(EventProviderUtil.class.getName(), "wordAssessmentEventsCursor.getCount() == 0");
+                Timber.e("wordAssessmentEventsCursor.getCount() == 0");
             } else {
                 boolean isLast = false;
                 while (!isLast) {
@@ -242,10 +241,10 @@ public class EventProviderUtil {
                 }
 
                 wordAssessmentEventsCursor.close();
-                Log.i(EventProviderUtil.class.getName(), "wordAssessmentEventsCursor.isClosed(): " + wordAssessmentEventsCursor.isClosed());
+                Timber.i("wordAssessmentEventsCursor.isClosed(): " + wordAssessmentEventsCursor.isClosed());
             }
         }
-        Log.i(EventProviderUtil.class.getName(), "wordAssessmentEventGsons.size(): " + wordAssessmentEventGsons.size());
+        Timber.i("wordAssessmentEventGsons.size(): " + wordAssessmentEventGsons.size());
 
         return wordAssessmentEventGsons;
     }
