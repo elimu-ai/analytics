@@ -14,7 +14,6 @@ import ai.elimu.analytics.db.RoomDb;
 import ai.elimu.analytics.entity.StoryBookLearningEvent;
 import ai.elimu.analytics.entity.WordLearningEvent;
 import ai.elimu.analytics.language.SelectLanguageActivity;
-import ai.elimu.analytics.language.SharedPreferencesHelper;
 import ai.elimu.analytics.task.TaskInitializer;
 import ai.elimu.model.v2.enums.Language;
 
