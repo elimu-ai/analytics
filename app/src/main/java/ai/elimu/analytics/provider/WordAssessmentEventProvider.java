@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.net.Uri;
-import android.util.Log;
 
 import java.util.List;
 
@@ -29,53 +28,53 @@ public class WordAssessmentEventProvider extends ContentProvider {
 
     @Override
     public boolean onCreate() {
-        Log.i(getClass().getName(), "onCreate");
+        Timber.i("onCreate");
 
         Uri eventsUri = Uri.parse("content://" + AUTHORITY + "/" + TABLE);
-        Log.i(getClass().getName(), "eventsUri: " + eventsUri);
+        Timber.i("eventsUri: " + eventsUri);
 
         return true;
     }
 
     @Override
     public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
-        Log.i(getClass().getName(), "query");
+        Timber.i("query");
 
-        Log.i(getClass().getName(), "uri: " + uri);
-        Log.i(getClass().getName(), "projection: " + projection);
-        Log.i(getClass().getName(), "selection: " + selection);
-        Log.i(getClass().getName(), "selectionArgs: " + selectionArgs);
-        Log.i(getClass().getName(), "sortOrder: " + sortOrder);
+        Timber.i("uri: " + uri);
+        Timber.i("projection: " + projection);
+        Timber.i("selection: " + selection);
+        Timber.i("selectionArgs: " + selectionArgs);
+        Timber.i("sortOrder: " + sortOrder);
 
         Context context = getContext();
-        Log.i(getClass().getName(), "context: " + context);
+        Timber.i("context: " + context);
         if (context == null) {
             return null;
         }
 
         final int code = MATCHER.match(uri);
-        Log.i(getClass().getName(), "code: " + code);
+        Timber.i("code: " + code);
         if (code == CODE_EVENTS) {
             // Get the Room Cursor
             RoomDb roomDb = RoomDb.getDatabase(context);
             WordAssessmentEventDao wordAssessmentEventDao = roomDb.wordAssessmentEventDao();
             Cursor cursor = wordAssessmentEventDao.loadAllOrderedByTimeDesc();
-            Log.i(getClass().getName(), "cursor: " + cursor);
+            Timber.i("cursor: " + cursor);
             cursor.setNotificationUri(context.getContentResolver(), uri);
             return cursor;
         } else if (code == CODE_EVENTS_BY_WORD_ID) {
             // Extract the Word ID from the URI
             List<String> pathSegments = uri.getPathSegments();
-            Log.i(getClass().getName(), "pathSegments: " + pathSegments);
+            Timber.i("pathSegments: " + pathSegments);
             String wordIdAsString = pathSegments.get(2);
             Long wordId = Long.valueOf(wordIdAsString);
-            Log.i(getClass().getName(), "wordId: " + wordId);
+            Timber.i("wordId: " + wordId);
 
             // Get the Room Cursor
             RoomDb roomDb = RoomDb.getDatabase(context);
             WordAssessmentEventDao wordAssessmentEventDao = roomDb.wordAssessmentEventDao();
             Cursor cursor = wordAssessmentEventDao.loadAllOrderedByTimeDesc(wordId);
-            Log.i(getClass().getName(), "cursor: " + cursor);
+            Timber.i("cursor: " + cursor);
             cursor.setNotificationUri(context.getContentResolver(), uri);
             return cursor;
         } else {
@@ -85,28 +84,28 @@ public class WordAssessmentEventProvider extends ContentProvider {
 
     @Override
     public String getType(Uri uri) {
-        Log.i(getClass().getName(), "getType");
+        Timber.i("getType");
 
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
     @Override
     public Uri insert(Uri uri, ContentValues values) {
-        Log.i(getClass().getName(), "insert");
+        Timber.i("insert");
 
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
-        Log.i(getClass().getName(), "delete");
+        Timber.i("delete");
 
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
     @Override
     public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
-        Log.i(getClass().getName(), "update");
+        Timber.i("update");
 
         throw new UnsupportedOperationException("Not yet implemented");
     }

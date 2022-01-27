@@ -2,7 +2,6 @@ package ai.elimu.analytics;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -21,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.i(getClass().getName(), "onCreate");
+        Timber.i("onCreate");
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
@@ -29,11 +28,11 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onStart() {
-        Log.i(getClass().getName(), "onStart");
+        Timber.i("onStart");
         super.onStart();
 
         Language language = SharedPreferencesHelper.getLanguage(getApplicationContext());
-        Log.i(getClass().getName(), "language: " + language);
+        Timber.i("language: " + language);
         if (language == null) {
             // Redirect to language selection
 
@@ -51,10 +50,10 @@ public class MainActivity extends AppCompatActivity {
             WordLearningEventDao wordLearningEventDao = roomDb.wordLearningEventDao();
             RoomDb.databaseWriteExecutor.execute(() -> {
                 List<WordLearningEvent> wordLearningEvents = wordLearningEventDao.loadAllOrderedByTimeDesc();
-                Log.i(getClass().getName(), "wordLearningEvents.size(): " + wordLearningEvents.size());
+                Timber.i("wordLearningEvents.size(): " + wordLearningEvents.size());
 
                 List<StoryBookLearningEvent> storyBookLearningEvents = storyBookLearningEventDao.loadAll();
-                Log.i(getClass().getName(), "storyBookLearningEvents.size(): " + storyBookLearningEvents.size());
+                Timber.i("storyBookLearningEvents.size(): " + storyBookLearningEvents.size());
                 if (!storyBookLearningEvents.isEmpty()) {
                     startActivity(new Intent(getApplicationContext(), EventListActivity.class));
                     finish();

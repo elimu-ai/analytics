@@ -1,7 +1,6 @@
 package ai.elimu.analytics.task;
 
 import android.content.Context;
-import android.util.Log;
 
 import androidx.work.Constraints;
 import androidx.work.ExistingPeriodicWorkPolicy;
@@ -14,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 public class TaskInitializer {
 
     public static void initializePeriodicWork(Context context) {
-        Log.i(TaskInitializer.class.getName(), "initializePeriodicWork");
+        Timber.i("initializePeriodicWork");
 
         // Periodically export events to CSV files
         PeriodicWorkRequest exportEventsToCsvWorkRequest = new PeriodicWorkRequest

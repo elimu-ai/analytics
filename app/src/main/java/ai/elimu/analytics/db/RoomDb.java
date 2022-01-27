@@ -1,7 +1,6 @@
 package ai.elimu.analytics.db;
 
 import android.content.Context;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.room.Database;
@@ -67,10 +66,10 @@ public abstract class RoomDb extends RoomDatabase {
     private static final Migration MIGRATION_1_2 = new Migration(1, 2) {
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database) {
-            Log.i(getClass().getName(), "migrate (" + database.getVersion() + " --> 2)");
+            Timber.i("migrate (" + database.getVersion() + " --> 2)");
 
             String sql = "CREATE TABLE IF NOT EXISTS `WordLearningEvent` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `androidId` TEXT NOT NULL, `packageName` TEXT NOT NULL, `time` INTEGER NOT NULL, `wordId` INTEGER, `wordText` TEXT NOT NULL, `learningEventType` TEXT NOT NULL)";
-            Log.i(getClass().getName(), "sql: " + sql);
+            Timber.i("sql: " + sql);
             database.execSQL(sql);
         }
     };
@@ -78,10 +77,10 @@ public abstract class RoomDb extends RoomDatabase {
     private static final Migration MIGRATION_2_3 = new Migration(2, 3) {
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database) {
-            Log.i(getClass().getName(), "migrate (" + database.getVersion() + " --> 3)");
+            Timber.i("migrate (" + database.getVersion() + " --> 3)");
 
             String sql = "CREATE TABLE IF NOT EXISTS `WordAssessmentEvent` (`wordId` INTEGER, `wordText` TEXT NOT NULL, `masteryScore` REAL NOT NULL, `timeSpentMs` INTEGER NOT NULL, `androidId` TEXT NOT NULL, `packageName` TEXT NOT NULL, `time` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT)";
-            Log.i(getClass().getName(), "sql: " + sql);
+            Timber.i("sql: " + sql);
             database.execSQL(sql);
         }
     };
@@ -89,10 +88,10 @@ public abstract class RoomDb extends RoomDatabase {
     private static final Migration MIGRATION_3_4 = new Migration(3, 4) {
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database) {
-            Log.i(getClass().getName(), "migrate (" + database.getVersion() + " --> 4)");
+            Timber.i("migrate (" + database.getVersion() + " --> 4)");
 
             String sql = "CREATE TABLE IF NOT EXISTS `LetterLearningEvent` (`letterId` INTEGER, `letterText` TEXT NOT NULL, `learningEventType` TEXT NOT NULL, `androidId` TEXT NOT NULL, `packageName` TEXT NOT NULL, `time` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT)";
-            Log.i(getClass().getName(), "sql: " + sql);
+            Timber.i("sql: " + sql);
             database.execSQL(sql);
         }
     };
@@ -100,10 +99,10 @@ public abstract class RoomDb extends RoomDatabase {
     private static final Migration MIGRATION_4_5 = new Migration(4, 5) {
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database) {
-            Log.i(getClass().getName(), "migrate (" + database.getVersion() + " --> 5)");
+            Timber.i("migrate (" + database.getVersion() + " --> 5)");
 
             String sql = "CREATE TABLE IF NOT EXISTS `LetterAssessmentEvent` (`letterId` INTEGER, `letterText` TEXT NOT NULL, `masteryScore` REAL NOT NULL, `timeSpentMs` INTEGER NOT NULL, `androidId` TEXT NOT NULL, `packageName` TEXT NOT NULL, `time` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT)";
-            Log.i(getClass().getName(), "sql: " + sql);
+            Timber.i("sql: " + sql);
             database.execSQL(sql);
         }
     };

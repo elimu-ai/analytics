@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -83,8 +82,8 @@ public class LanguageListDialogFragment extends BottomSheetDialogFragment {
             holder.text.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.i(getClass().getName(), "onClick");
-                    Log.i(getClass().getName(), "language: " + language);
+                    Timber.i("onClick");
+                    Timber.i("language: " + language);
                     SharedPreferencesHelper.storeLanguage(getContext(), language);
                     Intent mainActivityIntent = new Intent(getContext(), MainActivity.class);
                     startActivity(mainActivityIntent);

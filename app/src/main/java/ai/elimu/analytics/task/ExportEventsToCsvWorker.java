@@ -1,7 +1,6 @@
 package ai.elimu.analytics.task;
 
 import android.content.Context;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.work.Worker;
@@ -38,7 +37,7 @@ public class ExportEventsToCsvWorker extends Worker {
     @NonNull
     @Override
     public Result doWork() {
-        Log.i(getClass().getName(), "doWork");
+        Timber.i("doWork");
 
         exportLetterLearningEventsToCsv();
         exportLetterAssessmentEventsToCsv();
@@ -50,13 +49,13 @@ public class ExportEventsToCsvWorker extends Worker {
     }
 
     private void exportLetterLearningEventsToCsv() {
-        Log.i(getClass().getName(), "exportLetterLearningEventsToCsv");
+        Timber.i("exportLetterLearningEventsToCsv");
 
         // Extract LetterLearningEvents from the database that have not yet been exported to CSV.
         RoomDb roomDb = RoomDb.getDatabase(getApplicationContext());
         LetterLearningEventDao letterLearningEventDao = roomDb.letterLearningEventDao();
         List<LetterLearningEvent> letterLearningEvents = letterLearningEventDao.loadAllOrderedByTimeDesc();
-        Log.i(getClass().getName(), "letterLearningEvents.size(): " + letterLearningEvents.size());
+        Timber.i("letterLearningEvents.size(): " + letterLearningEvents.size());
 
         CSVFormat csvFormat = CSVFormat.DEFAULT
                 .withHeader(
@@ -85,7 +84,7 @@ public class ExportEventsToCsvWorker extends Worker {
                 }
                 dateOfPreviousEvent = date;
                 String csvFilename = letterLearningEvent.getAndroidId() + "_letter-learning-events_" + date + ".csv";
-                Log.i(getClass().getName(), "csvFilename: " + csvFilename);
+                Timber.i("csvFilename: " + csvFilename);
 
                 csvPrinter.printRecord(
                         letterLearningEvent.getId(),
@@ -107,18 +106,18 @@ public class ExportEventsToCsvWorker extends Worker {
                 FileUtils.writeStringToFile(csvFile, csvFileContent, "UTF-8");
             }
         } catch (IOException e) {
-            Log.e(getClass().getName(), null, e);
+            Timber.e(e);
         }
     }
 
     private void exportLetterAssessmentEventsToCsv() {
-        Log.i(getClass().getName(), "exportLetterAssessmentEventsToCsv");
+        Timber.i("exportLetterAssessmentEventsToCsv");
 
         // Extract LetterAssessmentEvents from the database that have not yet been exported to CSV.
         RoomDb roomDb = RoomDb.getDatabase(getApplicationContext());
         LetterAssessmentEventDao letterAssessmentEventDao = roomDb.letterAssessmentEventDao();
         List<LetterAssessmentEvent> letterAssessmentEvents = letterAssessmentEventDao.loadAllOrderedByTimeAsc();
-        Log.i(getClass().getName(), "letterAssessmentEvents.size(): " + letterAssessmentEvents.size());
+        Timber.i("letterAssessmentEvents.size(): " + letterAssessmentEvents.size());
 
         CSVFormat csvFormat = CSVFormat.DEFAULT
                 .withHeader(
@@ -148,7 +147,7 @@ public class ExportEventsToCsvWorker extends Worker {
                 }
                 dateOfPreviousEvent = date;
                 String csvFilename = letterAssessmentEvent.getAndroidId() + "_letter-assessment-events_" + date + ".csv";
-                Log.i(getClass().getName(), "csvFilename: " + csvFilename);
+                Timber.i("csvFilename: " + csvFilename);
 
                 csvPrinter.printRecord(
                         letterAssessmentEvent.getId(),
@@ -171,18 +170,18 @@ public class ExportEventsToCsvWorker extends Worker {
                 FileUtils.writeStringToFile(csvFile, csvFileContent, "UTF-8");
             }
         } catch (IOException e) {
-            Log.e(getClass().getName(), null, e);
+            Timber.e(e);
         }
     }
 
     private void exportWordLearningEventsToCsv() {
-        Log.i(getClass().getName(), "exportWordLearningEventsToCsv");
+        Timber.i("exportWordLearningEventsToCsv");
 
         // Extract WordLearningEvents from the database that have not yet been exported to CSV.
         RoomDb roomDb = RoomDb.getDatabase(getApplicationContext());
         WordLearningEventDao wordLearningEventDao = roomDb.wordLearningEventDao();
         List<WordLearningEvent> wordLearningEvents = wordLearningEventDao.loadAllOrderedByTimeDesc();
-        Log.i(getClass().getName(), "wordLearningEvents.size(): " + wordLearningEvents.size());
+        Timber.i("wordLearningEvents.size(): " + wordLearningEvents.size());
 
         CSVFormat csvFormat = CSVFormat.DEFAULT
                 .withHeader(
@@ -211,7 +210,7 @@ public class ExportEventsToCsvWorker extends Worker {
                 }
                 dateOfPreviousEvent = date;
                 String csvFilename = wordLearningEvent.getAndroidId() + "_word-learning-events_" + date + ".csv";
-                Log.i(getClass().getName(), "csvFilename: " + csvFilename);
+                Timber.i("csvFilename: " + csvFilename);
 
                 csvPrinter.printRecord(
                         wordLearningEvent.getId(),
@@ -233,18 +232,18 @@ public class ExportEventsToCsvWorker extends Worker {
                 FileUtils.writeStringToFile(csvFile, csvFileContent, "UTF-8");
             }
         } catch (IOException e) {
-            Log.e(getClass().getName(), null, e);
+            Timber.e(e);
         }
     }
 
     private void exportWordAssessmentEventsToCsv() {
-        Log.i(getClass().getName(), "exportWordAssessmentEventsToCsv");
+        Timber.i("exportWordAssessmentEventsToCsv");
 
         // Extract WordAssessmentEvents from the database that have not yet been exported to CSV.
         RoomDb roomDb = RoomDb.getDatabase(getApplicationContext());
         WordAssessmentEventDao wordAssessmentEventDao = roomDb.wordAssessmentEventDao();
         List<WordAssessmentEvent> wordAssessmentEvents = wordAssessmentEventDao.loadAllOrderedByTimeAsc();
-        Log.i(getClass().getName(), "wordAssessmentEvents.size(): " + wordAssessmentEvents.size());
+        Timber.i("wordAssessmentEvents.size(): " + wordAssessmentEvents.size());
 
         CSVFormat csvFormat = CSVFormat.DEFAULT
                 .withHeader(
@@ -274,7 +273,7 @@ public class ExportEventsToCsvWorker extends Worker {
                 }
                 dateOfPreviousEvent = date;
                 String csvFilename = wordAssessmentEvent.getAndroidId() + "_word-assessment-events_" + date + ".csv";
-                Log.i(getClass().getName(), "csvFilename: " + csvFilename);
+                Timber.i("csvFilename: " + csvFilename);
 
                 csvPrinter.printRecord(
                         wordAssessmentEvent.getId(),
@@ -297,18 +296,18 @@ public class ExportEventsToCsvWorker extends Worker {
                 FileUtils.writeStringToFile(csvFile, csvFileContent, "UTF-8");
             }
         } catch (IOException e) {
-            Log.e(getClass().getName(), null, e);
+            Timber.e(e);
         }
     }
     
     private void exportStoryBookLearningEventsToCsv() {
-        Log.i(getClass().getName(), "exportStoryBookLearningEventsToCsv");
+        Timber.i("exportStoryBookLearningEventsToCsv");
         
         // Extract StoryBookLearningEvents from the database that have not yet been exported to CSV.
         RoomDb roomDb = RoomDb.getDatabase(getApplicationContext());
         StoryBookLearningEventDao storyBookLearningEventDao = roomDb.storyBookLearningEventDao();
         List<StoryBookLearningEvent> storyBookLearningEvents = storyBookLearningEventDao.loadAll();
-        Log.i(getClass().getName(), "storyBookLearningEvents.size(): " + storyBookLearningEvents.size());
+        Timber.i("storyBookLearningEvents.size(): " + storyBookLearningEvents.size());
 
         CSVFormat csvFormat = CSVFormat.DEFAULT
                 .withHeader(
@@ -336,7 +335,7 @@ public class ExportEventsToCsvWorker extends Worker {
                 }
                 dateOfPreviousEvent = date;
                 String csvFilename = storyBookLearningEvent.getAndroidId() + "_storybook-learning-events_" + date + ".csv";
-                Log.i(getClass().getName(), "csvFilename: " + csvFilename);
+                Timber.i("csvFilename: " + csvFilename);
 
                 csvPrinter.printRecord(
                         storyBookLearningEvent.getId(),
@@ -357,7 +356,7 @@ public class ExportEventsToCsvWorker extends Worker {
                 FileUtils.writeStringToFile(csvFile, csvFileContent, "UTF-8");
             }
         } catch (IOException e) {
-            Log.e(getClass().getName(), null, e);
+            Timber.e(e);
         }
     }
 }

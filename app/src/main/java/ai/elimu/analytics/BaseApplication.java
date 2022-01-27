@@ -14,6 +14,10 @@ public class BaseApplication extends Application {
         Log.i(getClass().getName(), "onCreate");
         super.onCreate();
 
+        // Log config 🪵
+        Timber.plant(new Timber.DebugTree());
+        Timber.i("onCreate");
+
         VersionHelper.updateAppVersion(getApplicationContext());
     }
 

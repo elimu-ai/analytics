@@ -1,7 +1,6 @@
 package ai.elimu.analytics;
 
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,7 +18,7 @@ public class EventListActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        Log.i(getClass().getName(), "onCreate");
+        Timber.i("onCreate");
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_event_list);
@@ -37,14 +36,14 @@ public class EventListActivity extends AppCompatActivity {
         StoryBookLearningEventDao storyBookLearningEventDao = roomDb.storyBookLearningEventDao();
         RoomDb.databaseWriteExecutor.execute(() -> {
             List<StoryBookLearningEvent> storyBookLearningEvents = storyBookLearningEventDao.loadAll();
-            Log.d(getClass().getName(), "storyBookLearningEvents.size(): " + storyBookLearningEvents.size());
+            Timber.d("storyBookLearningEvents.size(): " + storyBookLearningEvents.size());
             eventListAdapter.setStoryBookLearningEvents(storyBookLearningEvents);
         });
     }
 
     @Override
     protected void onStart() {
-        Log.i(getClass().getName(), "onStart");
+        Timber.i( "onStart");
         super.onStart();
     }
 }

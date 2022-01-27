@@ -1,7 +1,6 @@
 package ai.elimu.analytics.language;
 
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,7 +10,7 @@ public class SelectLanguageActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.i(getClass().getName(), "onCreate");
+        Timber.i("onCreate");
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_select_language);
@@ -19,7 +18,7 @@ public class SelectLanguageActivity extends AppCompatActivity {
 
     @Override
     protected void onStart() {
-        Log.i(getClass().getName(), "onStart");
+        Timber.i("onStart");
         super.onStart();
 
         LanguageListDialogFragment.newInstance().show(getSupportFragmentManager(), "dialog");
