@@ -1,7 +1,6 @@
 package ai.elimu.analytics.utils.converter;
 
 import android.database.Cursor;
-import android.util.Log;
 
 import java.util.Arrays;
 import java.util.Calendar;
@@ -11,44 +10,44 @@ import ai.elimu.model.v2.gson.analytics.LetterAssessmentEventGson;
 public class CursorToLetterAssessmentEventGsonConverter {
 
     public static LetterAssessmentEventGson getLetterAssessmentEventGson(Cursor cursor) {
-        Log.i(CursorToLetterAssessmentEventGsonConverter.class.getName(), "getLetterAssessmentEventGson");
+        Timber.i("getLetterAssessmentEventGson");
 
-        Log.i(CursorToLetterAssessmentEventGsonConverter.class.getName(), "Arrays.toString(cursor.getColumnNames()): " + Arrays.toString(cursor.getColumnNames()));
+        Timber.i("Arrays.toString(cursor.getColumnNames()): " + Arrays.toString(cursor.getColumnNames()));
 
         int columnId = cursor.getColumnIndex("id");
         Long id = cursor.getLong(columnId);
-        Log.i(CursorToLetterAssessmentEventGsonConverter.class.getName(), "id: " + id);
+        Timber.i("id: " + id);
 
         int columnAndroidId = cursor.getColumnIndex("androidId");
         String androidId = cursor.getString(columnAndroidId);
-        Log.i(CursorToLetterAssessmentEventGsonConverter.class.getName(), "androidId: \"" + androidId + "\"");
+        Timber.i("androidId: \"" + androidId + "\"");
 
         int columnPackageName = cursor.getColumnIndex("packageName");
         String packageName = cursor.getString(columnPackageName);
-        Log.i(CursorToLetterAssessmentEventGsonConverter.class.getName(), "packageName: \"" + packageName + "\"");
+        Timber.i("packageName: \"" + packageName + "\"");
 
         int columnTime = cursor.getColumnIndex("time");
         Long timeAsLong = cursor.getLong(columnTime);
-        Log.i(CursorToLetterAssessmentEventGsonConverter.class.getName(), "timeAsLong: " + timeAsLong);
+        Timber.i("timeAsLong: " + timeAsLong);
         Calendar time = Calendar.getInstance();
         time.setTimeInMillis(timeAsLong);
-        Log.i(CursorToLetterAssessmentEventGsonConverter.class.getName(), "time.getTime(): " + time.getTime());
+        Timber.i("time.getTime(): " + time.getTime());
 
         int columnLetterId = cursor.getColumnIndex("letterId");
         Long letterId = cursor.getLong(columnLetterId);
-        Log.i(CursorToLetterAssessmentEventGsonConverter.class.getName(), "letterId: " + letterId);
+        Timber.i("letterId: " + letterId);
 
         int columnLetterText = cursor.getColumnIndex("letterText");
         String letterText = cursor.getString(columnLetterText);
-        Log.i(CursorToLetterAssessmentEventGsonConverter.class.getName(), "letterText: \"" + letterText + "\"");
+        Timber.i("letterText: \"" + letterText + "\"");
 
         int columnMasteryScore = cursor.getColumnIndex("masteryScore");
         Float masteryScore = cursor.getFloat(columnMasteryScore);
-        Log.i(CursorToLetterAssessmentEventGsonConverter.class.getName(), "masteryScore: " + masteryScore);
+        Timber.i("masteryScore: " + masteryScore);
 
         int columnTimeSpentMs = cursor.getColumnIndex("timeSpentMs");
         Long timeSpentMs = cursor.getLong(columnTimeSpentMs);
-        Log.i(CursorToLetterAssessmentEventGsonConverter.class.getName(), "timeSpentMs: " + masteryScore);
+        Timber.i("timeSpentMs: " + masteryScore);
 
         LetterAssessmentEventGson letterAssessmentEventGson = new LetterAssessmentEventGson();
         letterAssessmentEventGson.setId(id);

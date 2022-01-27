@@ -2,7 +2,6 @@ package ai.elimu.analytics.utils;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 
 import ai.elimu.model.v2.gson.content.LetterGson;
 import ai.elimu.model.v2.gson.content.WordGson;
@@ -13,7 +12,7 @@ import ai.elimu.model.v2.gson.content.WordGson;
 public class AssessmentEventUtil {
 
     public static void reportLetterAssessmentEvent(LetterGson letterGson, Float masteryScore, Long timeSpentMs, Context context, String analyticsApplicationId) {
-        Log.i(AssessmentEventUtil.class.getName(), "reportLetterAssessmentEvent");
+        Timber.i("reportLetterAssessmentEvent");
 
         Intent broadcastIntent = new Intent();
         broadcastIntent.setAction("ai.elimu.intent.action.LETTER_ASSESSMENT_EVENT");
@@ -27,7 +26,7 @@ public class AssessmentEventUtil {
     }
 
     public static void reportWordAssessmentEvent(WordGson wordGson, Float masteryScore, Long timeSpentMs, Context context, String analyticsApplicationId) {
-        Log.i(AssessmentEventUtil.class.getName(), "reportWordAssessmentEvent");
+        Timber.i("reportWordAssessmentEvent");
 
         Intent broadcastIntent = new Intent();
         broadcastIntent.setAction("ai.elimu.intent.action.WORD_ASSESSMENT_EVENT");

@@ -1,7 +1,6 @@
 package ai.elimu.analytics.utils.converter;
 
 import android.database.Cursor;
-import android.util.Log;
 
 import java.util.Arrays;
 import java.util.Calendar;
@@ -12,41 +11,41 @@ import ai.elimu.model.v2.gson.analytics.WordLearningEventGson;
 public class CursorToWordLearningEventGsonConverter {
 
     public static WordLearningEventGson getWordLearningEventGson(Cursor cursor) {
-        Log.i(CursorToWordLearningEventGsonConverter.class.getName(), "getWordLearningEventGson");
+        Timber.i("getWordLearningEventGson");
 
-        Log.i(CursorToWordLearningEventGsonConverter.class.getName(), "Arrays.toString(cursor.getColumnNames()): " + Arrays.toString(cursor.getColumnNames()));
+        Timber.i("Arrays.toString(cursor.getColumnNames()): " + Arrays.toString(cursor.getColumnNames()));
 
         int columnId = cursor.getColumnIndex("id");
         Long id = cursor.getLong(columnId);
-        Log.i(CursorToWordLearningEventGsonConverter.class.getName(), "id: " + id);
+        Timber.i("id: " + id);
 
         int columnAndroidId = cursor.getColumnIndex("androidId");
         String androidId = cursor.getString(columnAndroidId);
-        Log.i(CursorToWordLearningEventGsonConverter.class.getName(), "androidId: \"" + androidId + "\"");
+        Timber.i("androidId: \"" + androidId + "\"");
 
         int columnPackageName = cursor.getColumnIndex("packageName");
         String packageName = cursor.getString(columnPackageName);
-        Log.i(CursorToWordLearningEventGsonConverter.class.getName(), "packageName: \"" + packageName + "\"");
+        Timber.i("packageName: \"" + packageName + "\"");
 
         int columnTime = cursor.getColumnIndex("time");
         Long timeAsLong = cursor.getLong(columnTime);
-        Log.i(CursorToWordLearningEventGsonConverter.class.getName(), "timeAsLong: " + timeAsLong);
+        Timber.i("timeAsLong: " + timeAsLong);
         Calendar time = Calendar.getInstance();
         time.setTimeInMillis(timeAsLong);
-        Log.i(CursorToWordLearningEventGsonConverter.class.getName(), "time.getTime(): " + time.getTime());
+        Timber.i("time.getTime(): " + time.getTime());
 
         int columnWordId = cursor.getColumnIndex("wordId");
         Long wordId = cursor.getLong(columnWordId);
-        Log.i(CursorToWordLearningEventGsonConverter.class.getName(), "wordId: " + wordId);
+        Timber.i("wordId: " + wordId);
 
         int columnWordText = cursor.getColumnIndex("wordText");
         String wordText = cursor.getString(columnWordText);
-        Log.i(CursorToWordLearningEventGsonConverter.class.getName(), "wordText: \"" + wordText + "\"");
+        Timber.i("wordText: \"" + wordText + "\"");
 
         int columnLearningEventType = cursor.getColumnIndex("learningEventType");
         String learningEventTypeAsString = cursor.getString(columnLearningEventType);
         LearningEventType learningEventType = LearningEventType.valueOf(learningEventTypeAsString);
-        Log.i(CursorToWordLearningEventGsonConverter.class.getName(), "learningEventType: " + learningEventType);
+        Timber.i("learningEventType: " + learningEventType);
 
         WordLearningEventGson wordLearningEventGson = new WordLearningEventGson();
         wordLearningEventGson.setId(id);
