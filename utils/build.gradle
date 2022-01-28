@@ -10,7 +10,7 @@ android {
     defaultConfig {
         minSdkVersion 24
         targetSdkVersion 30
-        versionName "3.1.9-SNAPSHOT"
+        versionName "3.1.9"
         setProperty("archivesBaseName", "utils-${versionName}")
     }
 
@@ -26,7 +26,7 @@ android {
 }
 
 dependencies {
-    implementation 'com.github.elimu-ai:model:model-2.0.48' // See https://jitpack.io/#elimu-ai/model
+    implementation 'com.github.elimu-ai:model:model-2.0.52' // See https://jitpack.io/#elimu-ai/model
     implementation 'com.jakewharton.timber:timber:5.0.1'
     testImplementation 'junit:junit:4.13.2'
 }
@@ -38,7 +38,7 @@ publishing {
         utils(MavenPublication) {
             groupId 'ai.elimu.analytics'
             artifactId 'utils'
-            version '3.1.9-SNAPSHOT'
+            version '3.1.9'
             artifact("${buildDir}/outputs/aar/utils-${version}-release.aar")
         }
     }

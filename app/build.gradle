@@ -8,7 +8,7 @@ android {
         minSdkVersion 24
         targetSdkVersion 30
         versionCode 3001009
-        versionName "3.1.9-SNAPSHOT"
+        versionName "3.1.9"
         setProperty("archivesBaseName", "${applicationId}-${versionCode}")
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
@@ -40,7 +40,7 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation 'com.github.elimu-ai:model:model-2.0.48' // See https://jitpack.io/#elimu-ai/model
+    implementation 'com.github.elimu-ai:model:model-2.0.52' // See https://jitpack.io/#elimu-ai/model
 
     implementation 'com.jakewharton.timber:timber:5.0.1'
     implementation 'com.google.android.material:material:1.4.0'
