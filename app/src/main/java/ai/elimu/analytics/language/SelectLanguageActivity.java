@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import ai.elimu.analytics.R;
+import timber.log.Timber;
 
 public class SelectLanguageActivity extends AppCompatActivity {
 

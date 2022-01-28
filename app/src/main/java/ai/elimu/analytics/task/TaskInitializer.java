@@ -10,6 +10,8 @@ import androidx.work.WorkManager;
 
 import java.util.concurrent.TimeUnit;
 
+import timber.log.Timber;
+
 public class TaskInitializer {
 
     public static void initializePeriodicWork(Context context) {

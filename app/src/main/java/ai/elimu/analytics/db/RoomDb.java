@@ -23,6 +23,7 @@ import ai.elimu.analytics.entity.LetterLearningEvent;
 import ai.elimu.analytics.entity.StoryBookLearningEvent;
 import ai.elimu.analytics.entity.WordAssessmentEvent;
 import ai.elimu.analytics.entity.WordLearningEvent;
+import timber.log.Timber;
 
 @Database(version = 5, entities = {LetterLearningEvent.class, LetterAssessmentEvent.class, WordLearningEvent.class, WordAssessmentEvent.class, StoryBookLearningEvent.class})
 @TypeConverters({Converters.class})

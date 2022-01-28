@@ -3,9 +3,12 @@ package ai.elimu.analytics;
 import android.app.Application;
 import android.util.Log;
 
+import ai.elimu.analytics.util.SharedPreferencesHelper;
+import ai.elimu.analytics.util.VersionHelper;
 import ai.elimu.model.v2.enums.Language;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import timber.log.Timber;
 
 public class BaseApplication extends Application {
 

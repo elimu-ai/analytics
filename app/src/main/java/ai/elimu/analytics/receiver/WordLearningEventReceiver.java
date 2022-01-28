@@ -11,6 +11,7 @@ import ai.elimu.analytics.dao.WordLearningEventDao;
 import ai.elimu.analytics.db.RoomDb;
 import ai.elimu.analytics.entity.WordLearningEvent;
 import ai.elimu.model.v2.enums.analytics.LearningEventType;
+import timber.log.Timber;
 
 public class WordLearningEventReceiver extends BroadcastReceiver {
 

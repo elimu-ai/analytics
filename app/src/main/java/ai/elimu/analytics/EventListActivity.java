@@ -13,6 +13,7 @@ import java.util.List;
 import ai.elimu.analytics.dao.StoryBookLearningEventDao;
 import ai.elimu.analytics.db.RoomDb;
 import ai.elimu.analytics.entity.StoryBookLearningEvent;
+import timber.log.Timber;
 
 public class EventListActivity extends AppCompatActivity {
 

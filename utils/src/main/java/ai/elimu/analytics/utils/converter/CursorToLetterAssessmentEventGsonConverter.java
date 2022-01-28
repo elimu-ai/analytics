@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 
 import ai.elimu.model.v2.gson.analytics.LetterAssessmentEventGson;
+import timber.log.Timber;
 
 public class CursorToLetterAssessmentEventGsonConverter {
 

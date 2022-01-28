@@ -11,6 +11,7 @@ import ai.elimu.analytics.dao.LetterLearningEventDao;
 import ai.elimu.analytics.db.RoomDb;
 import ai.elimu.analytics.entity.LetterLearningEvent;
 import ai.elimu.model.v2.enums.analytics.LearningEventType;
+import timber.log.Timber;
 
 public class LetterLearningEventReceiver extends BroadcastReceiver {
 

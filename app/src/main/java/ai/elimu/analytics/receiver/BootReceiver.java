@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import ai.elimu.analytics.task.TaskInitializer;
+import timber.log.Timber;
 
 public class BootReceiver extends BroadcastReceiver {
 

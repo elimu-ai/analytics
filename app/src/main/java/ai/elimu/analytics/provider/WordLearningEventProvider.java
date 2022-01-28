@@ -10,6 +10,7 @@ import android.net.Uri;
 import ai.elimu.analytics.BuildConfig;
 import ai.elimu.analytics.dao.WordLearningEventDao;
 import ai.elimu.analytics.db.RoomDb;
+import timber.log.Timber;
 
 public class WordLearningEventProvider extends ContentProvider {
 

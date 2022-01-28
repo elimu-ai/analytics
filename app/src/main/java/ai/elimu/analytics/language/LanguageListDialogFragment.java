@@ -19,6 +19,7 @@ import ai.elimu.analytics.MainActivity;
 import ai.elimu.analytics.R;
 import ai.elimu.analytics.util.SharedPreferencesHelper;
 import ai.elimu.model.v2.enums.Language;
+import timber.log.Timber;
 
 /**
  * <p>A fragment that shows a list of items as a modal bottom sheet.</p>

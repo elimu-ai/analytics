@@ -7,6 +7,7 @@ import java.util.Calendar;
 
 import ai.elimu.model.v2.enums.analytics.LearningEventType;
 import ai.elimu.model.v2.gson.analytics.WordLearningEventGson;
+import timber.log.Timber;
 
 public class CursorToWordLearningEventGsonConverter {
 

@@ -11,6 +11,7 @@ import ai.elimu.analytics.dao.StoryBookLearningEventDao;
 import ai.elimu.analytics.db.RoomDb;
 import ai.elimu.analytics.entity.StoryBookLearningEvent;
 import ai.elimu.model.v2.enums.analytics.LearningEventType;
+import timber.log.Timber;
 
 public class StoryBookLearningEventReceiver extends BroadcastReceiver {
 

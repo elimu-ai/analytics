@@ -12,6 +12,7 @@ import java.util.List;
 import ai.elimu.analytics.BuildConfig;
 import ai.elimu.analytics.dao.LetterAssessmentEventDao;
 import ai.elimu.analytics.db.RoomDb;
+import timber.log.Timber;
 
 public class LetterAssessmentEventProvider extends ContentProvider {
 

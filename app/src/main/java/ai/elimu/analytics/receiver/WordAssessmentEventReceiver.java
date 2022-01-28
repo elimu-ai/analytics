@@ -10,6 +10,7 @@ import java.util.Calendar;
 import ai.elimu.analytics.dao.WordAssessmentEventDao;
 import ai.elimu.analytics.db.RoomDb;
 import ai.elimu.analytics.entity.WordAssessmentEvent;
+import timber.log.Timber;
 
 public class WordAssessmentEventReceiver extends BroadcastReceiver {
 

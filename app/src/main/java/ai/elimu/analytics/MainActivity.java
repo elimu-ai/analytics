@@ -14,7 +14,9 @@ import ai.elimu.analytics.entity.StoryBookLearningEvent;
 import ai.elimu.analytics.entity.WordLearningEvent;
 import ai.elimu.analytics.language.SelectLanguageActivity;
 import ai.elimu.analytics.task.TaskInitializer;
+import ai.elimu.analytics.util.SharedPreferencesHelper;
 import ai.elimu.model.v2.enums.Language;
+import timber.log.Timber;
 
 public class MainActivity extends AppCompatActivity {
 

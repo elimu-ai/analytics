@@ -7,6 +7,7 @@ import ai.elimu.model.v2.enums.analytics.LearningEventType;
 import ai.elimu.model.v2.gson.content.LetterGson;
 import ai.elimu.model.v2.gson.content.StoryBookGson;
 import ai.elimu.model.v2.gson.content.WordGson;
+import timber.log.Timber;
 
 /**
  * A utility class that makes it easier for other apps to report learning events.

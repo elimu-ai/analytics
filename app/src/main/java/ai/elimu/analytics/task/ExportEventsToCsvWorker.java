@@ -27,6 +27,7 @@ import ai.elimu.analytics.entity.LetterLearningEvent;
 import ai.elimu.analytics.entity.StoryBookLearningEvent;
 import ai.elimu.analytics.entity.WordAssessmentEvent;
 import ai.elimu.analytics.entity.WordLearningEvent;
+import timber.log.Timber;
 
 public class ExportEventsToCsvWorker extends Worker {
 
