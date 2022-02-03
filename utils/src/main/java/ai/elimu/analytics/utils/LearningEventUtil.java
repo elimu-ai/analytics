@@ -2,12 +2,12 @@ package ai.elimu.analytics.utils;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 import ai.elimu.model.v2.enums.analytics.LearningEventType;
 import ai.elimu.model.v2.gson.content.LetterGson;
 import ai.elimu.model.v2.gson.content.StoryBookGson;
 import ai.elimu.model.v2.gson.content.WordGson;
-import timber.log.Timber;
 
 /**
  * A utility class that makes it easier for other apps to report learning events.
@@ -21,7 +21,7 @@ public class LearningEventUtil {
      * @param analyticsApplicationId The package name of the analytics application that will receive an store the event.
      */
     public static void reportLetterLearningEvent(LetterGson letterGson, LearningEventType learningEventType, Context context, String analyticsApplicationId) {
-        Timber.i("reportLetterLearningEvent");
+        Log.i(LearningEventUtil.class.getName(),"reportLetterLearningEvent");
 
         Intent broadcastIntent = new Intent();
         broadcastIntent.setAction("ai.elimu.intent.action.LETTER_LEARNING_EVENT");
@@ -40,7 +40,7 @@ public class LearningEventUtil {
      * @param analyticsApplicationId The package name of the analytics application that will receive an store the event.
      */
     public static void reportWordLearningEvent(WordGson wordGson, LearningEventType learningEventType, Context context, String analyticsApplicationId) {
-        Timber.i("reportWordLearningEvent");
+        Log.i(LearningEventUtil.class.getName(),"reportWordLearningEvent");
 
         Intent broadcastIntent = new Intent();
         broadcastIntent.setAction("ai.elimu.intent.action.WORD_LEARNING_EVENT");
@@ -59,7 +59,7 @@ public class LearningEventUtil {
      * @param analyticsApplicationId The package name of the analytics application that will receive an store the event.
      */
     public static void reportStoryBookLearningEvent(StoryBookGson storyBookGson, LearningEventType learningEventType, Context context, String analyticsApplicationId) {
-        Timber.i("reportStoryBookLearningEvent");
+        Log.i(LearningEventUtil.class.getName(),"reportStoryBookLearningEvent");
 
         Intent broadcastIntent = new Intent();
         broadcastIntent.setAction("ai.elimu.intent.action.STORYBOOK_LEARNING_EVENT");

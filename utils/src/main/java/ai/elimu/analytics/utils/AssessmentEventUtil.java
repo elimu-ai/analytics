@@ -2,10 +2,10 @@ package ai.elimu.analytics.utils;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 import ai.elimu.model.v2.gson.content.LetterGson;
 import ai.elimu.model.v2.gson.content.WordGson;
-import timber.log.Timber;
 
 /**
  * A utility class that makes it easier for other apps to report assessments events.
@@ -13,7 +13,7 @@ import timber.log.Timber;
 public class AssessmentEventUtil {
 
     public static void reportLetterAssessmentEvent(LetterGson letterGson, Float masteryScore, Long timeSpentMs, Context context, String analyticsApplicationId) {
-        Timber.i("reportLetterAssessmentEvent");
+        Log.i(AssessmentEventUtil.class.getName(), "reportLetterAssessmentEvent");
 
         Intent broadcastIntent = new Intent();
         broadcastIntent.setAction("ai.elimu.intent.action.LETTER_ASSESSMENT_EVENT");
@@ -27,7 +27,7 @@ public class AssessmentEventUtil {
     }
 
     public static void reportWordAssessmentEvent(WordGson wordGson, Float masteryScore, Long timeSpentMs, Context context, String analyticsApplicationId) {
-        Timber.i("reportWordAssessmentEvent");
+        Log.i(AssessmentEventUtil.class.getName(),"reportWordAssessmentEvent");
 
         Intent broadcastIntent = new Intent();
         broadcastIntent.setAction("ai.elimu.intent.action.WORD_ASSESSMENT_EVENT");
