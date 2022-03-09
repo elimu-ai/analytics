@@ -14,9 +14,9 @@ The various types of _learning events_ are handled by the Android receivers at [
 
 A _learning event_ is an event without any corresponding testing of the student's mastery of a concept. For example; A student presses a word in a storybook and listens to its pronunciation.
 
-  * StoryBookLearningEvent
-  * WordLearningEvent
-  * LetterLearningEvent
+  * `StoryBookLearningEvent`
+  * `WordLearningEvent`
+  * `LetterLearningEvent`
 
 ## Assessment Events
 
@@ -24,8 +24,14 @@ The various types of _assessment events_ are handled by the Android receivers at
 
 An _assessment event_ is an event that involves testing of whether or not the student is able to master a concept. For example; A word is sounded out, and the student is asked select the corresponding written text amongst a list of alternatives (multiple choice).
 
-  * WordAssessmentEvent
-  * LetterAssessmentEvent
+  * `WordAssessmentEvent`
+  * `LetterAssessmentEvent`
+
+## Utils Library 📦
+
+A [utils](`utils`) library (`.aar`) makes it easier for other Android apps to fetch and report learning/assessment events.
+
+See https://jitpack.io/#elimu-ai/content-provider/
 
 ## Usage Sample
 
