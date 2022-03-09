@@ -29,7 +29,7 @@ An _assessment event_ is an event that involves testing of whether or not the st
 
 ## Utils Library 📦
 
-A [utils](`utils`) library (`.aar`) makes it easier for other Android apps to fetch and report learning/assessment events.
+A [`utils`](utils) library (`.aar`) makes it easier for other Android apps to fetch and report learning/assessment events.
 
 See https://jitpack.io/#elimu-ai/content-provider/
 
