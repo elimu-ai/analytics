@@ -1,12 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 31
-    buildToolsVersion "30.0.3"
+    compileSdkVersion 32
+
     defaultConfig {
         applicationId "ai.elimu.analytics"
         minSdkVersion 24
-        targetSdkVersion 31
+        targetSdkVersion 32
         versionCode 3001012
         versionName "3.1.12-SNAPSHOT"
         setProperty("archivesBaseName", "${applicationId}-${versionCode}")
