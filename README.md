@@ -33,7 +33,7 @@ A [`utils`](utils) library (`.aar`) makes it easier for other Android apps to fe
 
 See https://jitpack.io/#elimu-ai/content-provider/
 
-## Usage Sample
+## Usage Sample 👩🏽‍💻
 
 ```java
 // Report WordLearningEvent to the Analytics application
