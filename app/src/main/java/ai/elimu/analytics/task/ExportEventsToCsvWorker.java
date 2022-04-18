@@ -27,6 +27,7 @@ import ai.elimu.analytics.entity.LetterLearningEvent;
 import ai.elimu.analytics.entity.StoryBookLearningEvent;
 import ai.elimu.analytics.entity.WordAssessmentEvent;
 import ai.elimu.analytics.entity.WordLearningEvent;
+import ai.elimu.analytics.util.VersionHelper;
 import timber.log.Timber;
 
 public class ExportEventsToCsvWorker extends Worker {
@@ -75,7 +76,9 @@ public class ExportEventsToCsvWorker extends Worker {
             // Generate one CSV file per day of events
             String dateOfPreviousEvent = null;
             for (LetterLearningEvent letterLearningEvent : letterLearningEvents) {
-                // Export event to CSV file. Example format: "files/letter-learning-events/7161a85a0e4751cd_letter-learning-events_2020-03-21.csv"
+                // Export event to CSV file. Example format:
+                //   files/letter-learning-events/7161a85a0e4751cd_3001012_letter-learning-events_2020-03-21.csv
+                Integer versionCode = VersionHelper.getAppVersionCode(getApplicationContext());
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 String date = simpleDateFormat.format(letterLearningEvent.getTime().getTime());
                 if (!date.equals(dateOfPreviousEvent)) {
@@ -84,7 +87,7 @@ public class ExportEventsToCsvWorker extends Worker {
                     csvPrinter = new CSVPrinter(stringWriter, csvFormat);
                 }
                 dateOfPreviousEvent = date;
-                String csvFilename = letterLearningEvent.getAndroidId() + "_letter-learning-events_" + date + ".csv";
+                String csvFilename = letterLearningEvent.getAndroidId() + "_" + versionCode + "_letter-learning-events_" + date + ".csv";
                 Timber.i("csvFilename: " + csvFilename);
 
                 csvPrinter.printRecord(
@@ -138,7 +141,9 @@ public class ExportEventsToCsvWorker extends Worker {
             // Generate one CSV file per day of events
             String dateOfPreviousEvent = null;
             for (LetterAssessmentEvent letterAssessmentEvent : letterAssessmentEvents) {
-                // Export event to CSV file. Example format: "files/letter-assessment-events/7161a85a0e4751cd_letter-assessment-events_2020-03-21.csv"
+                // Export event to CSV file. Example format:
+                //   files/letter-assessment-events/7161a85a0e4751cd_3001012_letter-assessment-events_2020-03-21.csv
+                Integer versionCode = VersionHelper.getAppVersionCode(getApplicationContext());
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 String date = simpleDateFormat.format(letterAssessmentEvent.getTime().getTime());
                 if (!date.equals(dateOfPreviousEvent)) {
@@ -147,7 +152,7 @@ public class ExportEventsToCsvWorker extends Worker {
                     csvPrinter = new CSVPrinter(stringWriter, csvFormat);
                 }
                 dateOfPreviousEvent = date;
-                String csvFilename = letterAssessmentEvent.getAndroidId() + "_letter-assessment-events_" + date + ".csv";
+                String csvFilename = letterAssessmentEvent.getAndroidId() + "_" + versionCode + "_letter-assessment-events_" + date + ".csv";
                 Timber.i("csvFilename: " + csvFilename);
 
                 csvPrinter.printRecord(
@@ -201,7 +206,9 @@ public class ExportEventsToCsvWorker extends Worker {
             // Generate one CSV file per day of events
             String dateOfPreviousEvent = null;
             for (WordLearningEvent wordLearningEvent : wordLearningEvents) {
-                // Export event to CSV file. Example format: "files/word-learning-events/7161a85a0e4751cd_word-learning-events_2020-03-21.csv"
+                // Export event to CSV file. Example format:
+                //   files/word-learning-events/7161a85a0e4751cd_3001012_word-learning-events_2020-03-21.csv
+                Integer versionCode = VersionHelper.getAppVersionCode(getApplicationContext());
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 String date = simpleDateFormat.format(wordLearningEvent.getTime().getTime());
                 if (!date.equals(dateOfPreviousEvent)) {
@@ -210,7 +217,7 @@ public class ExportEventsToCsvWorker extends Worker {
                     csvPrinter = new CSVPrinter(stringWriter, csvFormat);
                 }
                 dateOfPreviousEvent = date;
-                String csvFilename = wordLearningEvent.getAndroidId() + "_word-learning-events_" + date + ".csv";
+                String csvFilename = wordLearningEvent.getAndroidId() + "_" + versionCode + "_word-learning-events_" + date + ".csv";
                 Timber.i("csvFilename: " + csvFilename);
 
                 csvPrinter.printRecord(
@@ -264,7 +271,9 @@ public class ExportEventsToCsvWorker extends Worker {
             // Generate one CSV file per day of events
             String dateOfPreviousEvent = null;
             for (WordAssessmentEvent wordAssessmentEvent : wordAssessmentEvents) {
-                // Export event to CSV file. Example format: "files/word-assessment-events/7161a85a0e4751cd_word-assessment-events_2020-03-21.csv"
+                // Export event to CSV file. Example format:
+                //   files/word-assessment-events/7161a85a0e4751cd_3001012_word-assessment-events_2020-03-21.csv
+                Integer versionCode = VersionHelper.getAppVersionCode(getApplicationContext());
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 String date = simpleDateFormat.format(wordAssessmentEvent.getTime().getTime());
                 if (!date.equals(dateOfPreviousEvent)) {
@@ -273,7 +282,7 @@ public class ExportEventsToCsvWorker extends Worker {
                     csvPrinter = new CSVPrinter(stringWriter, csvFormat);
                 }
                 dateOfPreviousEvent = date;
-                String csvFilename = wordAssessmentEvent.getAndroidId() + "_word-assessment-events_" + date + ".csv";
+                String csvFilename = wordAssessmentEvent.getAndroidId() + "_" + versionCode + "_word-assessment-events_" + date + ".csv";
                 Timber.i("csvFilename: " + csvFilename);
 
                 csvPrinter.printRecord(
@@ -326,7 +335,9 @@ public class ExportEventsToCsvWorker extends Worker {
             // Generate one CSV file per day of events
             String dateOfPreviousEvent = null;
             for (StoryBookLearningEvent storyBookLearningEvent : storyBookLearningEvents) {
-                // Export event to CSV file. Example format: "files/storybook-learning-events/7161a85a0e4751cd_storybook-learning-events_2020-03-21.csv"
+                // Export event to CSV file. Example format:
+                //   files/storybook-learning-events/7161a85a0e4751cd_3001012_storybook-learning-events_2020-03-21.csv
+                Integer versionCode = VersionHelper.getAppVersionCode(getApplicationContext());
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 String date = simpleDateFormat.format(storyBookLearningEvent.getTime().getTime());
                 if (!date.equals(dateOfPreviousEvent)) {
@@ -335,7 +346,7 @@ public class ExportEventsToCsvWorker extends Worker {
                     csvPrinter = new CSVPrinter(stringWriter, csvFormat);
                 }
                 dateOfPreviousEvent = date;
-                String csvFilename = storyBookLearningEvent.getAndroidId() + "_storybook-learning-events_" + date + ".csv";
+                String csvFilename = storyBookLearningEvent.getAndroidId() + "_" + versionCode + "_storybook-learning-events_" + date + ".csv";
                 Timber.i("csvFilename: " + csvFilename);
 
                 csvPrinter.printRecord(
