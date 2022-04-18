@@ -106,7 +106,7 @@ public class VersionHelper {
                     }
                 }
                 Timber.w("Deleting " + wordLearningEventsDir);
-                Timber.w("wordLearningEventsDir.delete(): " + wordLearningEventsDir.delete())
+                Timber.w("wordLearningEventsDir.delete(): " + wordLearningEventsDir.delete());
             }
 
 //            if (oldVersionCode < ???) {
