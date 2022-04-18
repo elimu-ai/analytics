@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 
+import java.io.File;
+
 import timber.log.Timber;
 
 /**
@@ -45,6 +47,71 @@ public class VersionHelper {
         // Handle upgrade from previous version
         if (oldVersionCode < newVersionCode) {
             Timber.i("Upgrading application from version " + oldVersionCode + " to " + newVersionCode + "...");
+
+            if (oldVersionCode < 3001015) {
+                // Delete CSV files stored under the old folder structure
+
+                File filesDir = context.getFilesDir();
+
+                File letterAssessmentEventsDir = new File(filesDir, "letter-assessment-events");
+                File[] files = letterAssessmentEventsDir.listFiles();
+                if (files != null) {
+                    for (int i = 0; i < files.length; i++) {
+                        Timber.w("Deleting " + files[i]);
+                        Timber.w("files[i].delete(): " + files[i].delete());
+                    }
+                }
+                Timber.w("Deleting " + letterAssessmentEventsDir);
+                Timber.w("letterAssessmentEventsDir.delete(): " + letterAssessmentEventsDir.delete());
+
+                File letterLearningEventsDir = new File(filesDir, "letter-learning-events");
+                files = letterLearningEventsDir.listFiles();
+                if (files != null) {
+                    for (int i = 0; i < files.length; i++) {
+                        Timber.w("Deleting " + files[i]);
+                        Timber.w("files[i].delete(): " + files[i].delete());
+                    }
+                }
+                Timber.w("Deleting " + letterLearningEventsDir);
+                Timber.w("letterLearningEventsDir.delete(): " + letterLearningEventsDir.delete());
+
+                File storyBookLearningEventsDir = new File(filesDir, "storybook-learning-events");
+                files = storyBookLearningEventsDir.listFiles();
+                if (files != null) {
+                    for (int i = 0; i < files.length; i++) {
+                        Timber.w("Deleting " + files[i]);
+                        Timber.w("files[i].delete(): " + files[i].delete());
+                    }
+                }
+                Timber.w("Deleting " + storyBookLearningEventsDir);
+                Timber.w("storyBookLearningEventsDir.delete(): " + storyBookLearningEventsDir.delete());
+
+                File wordAssessmentEventsDir = new File(filesDir, "word-assessment-events");
+                files = wordAssessmentEventsDir.listFiles();
+                if (files != null) {
+                    for (int i = 0; i < files.length; i++) {
+                        Timber.w("Deleting " + files[i]);
+                        Timber.w("files[i].delete(): " + files[i].delete());
+                    }
+                }
+                Timber.w("Deleting " + wordAssessmentEventsDir);
+                Timber.w("wordAssessmentEventsDir.delete(): " + wordAssessmentEventsDir.delete());
+
+                File wordLearningEventsDir = new File(filesDir, "word-learning-events");
+                files = wordLearningEventsDir.listFiles();
+                if (files != null) {
+                    for (int i = 0; i < files.length; i++) {
+                        Timber.w("Deleting " + files[i]);
+                        Timber.w("files[i].delete(): " + files[i].delete());
+                    }
+                }
+                Timber.w("Deleting " + wordLearningEventsDir);
+                Timber.w("wordLearningEventsDir.delete(): " + wordLearningEventsDir.delete())
+            }
+
+//            if (oldVersionCode < ???) {
+//                ...
+//            }
 
 //            if (oldVersionCode < ???) {
 //                ...
