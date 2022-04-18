@@ -77,7 +77,7 @@ public class ExportEventsToCsvWorker extends Worker {
             String dateOfPreviousEvent = null;
             for (LetterLearningEvent letterLearningEvent : letterLearningEvents) {
                 // Export event to CSV file. Example format:
-                //   files/letter-learning-events/7161a85a0e4751cd_3001012_letter-learning-events_2020-03-21.csv
+                //   files/version-code-3001012/letter-learning-events/7161a85a0e4751cd_3001012_letter-learning-events_2020-03-21.csv
                 Integer versionCode = VersionHelper.getAppVersionCode(getApplicationContext());
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 String date = simpleDateFormat.format(letterLearningEvent.getTime().getTime());
@@ -105,7 +105,8 @@ public class ExportEventsToCsvWorker extends Worker {
 
                 // Write the content to the CSV file
                 File filesDir = getApplicationContext().getFilesDir();
-                File letterLearningEventsDir = new File(filesDir, "letter-learning-events");
+                File versionCodeDir = new File(filesDir, "version-code-" + versionCode);
+                File letterLearningEventsDir = new File(versionCodeDir, "letter-learning-events");
                 File csvFile = new File(letterLearningEventsDir, csvFilename);
                 FileUtils.writeStringToFile(csvFile, csvFileContent, "UTF-8");
             }
@@ -142,7 +143,7 @@ public class ExportEventsToCsvWorker extends Worker {
             String dateOfPreviousEvent = null;
             for (LetterAssessmentEvent letterAssessmentEvent : letterAssessmentEvents) {
                 // Export event to CSV file. Example format:
-                //   files/letter-assessment-events/7161a85a0e4751cd_3001012_letter-assessment-events_2020-03-21.csv
+                //   files/version-code-3001012/letter-assessment-events/7161a85a0e4751cd_3001012_letter-assessment-events_2020-03-21.csv
                 Integer versionCode = VersionHelper.getAppVersionCode(getApplicationContext());
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 String date = simpleDateFormat.format(letterAssessmentEvent.getTime().getTime());
@@ -171,7 +172,8 @@ public class ExportEventsToCsvWorker extends Worker {
 
                 // Write the content to the CSV file
                 File filesDir = getApplicationContext().getFilesDir();
-                File letterAssessmentEventsDir = new File(filesDir, "letter-assessment-events");
+                File versionCodeDir = new File(filesDir, "version-code-" + versionCode);
+                File letterAssessmentEventsDir = new File(versionCodeDir, "letter-assessment-events");
                 File csvFile = new File(letterAssessmentEventsDir, csvFilename);
                 FileUtils.writeStringToFile(csvFile, csvFileContent, "UTF-8");
             }
@@ -207,7 +209,7 @@ public class ExportEventsToCsvWorker extends Worker {
             String dateOfPreviousEvent = null;
             for (WordLearningEvent wordLearningEvent : wordLearningEvents) {
                 // Export event to CSV file. Example format:
-                //   files/word-learning-events/7161a85a0e4751cd_3001012_word-learning-events_2020-03-21.csv
+                //   files/version-code-3001012/word-learning-events/7161a85a0e4751cd_3001012_word-learning-events_2020-03-21.csv
                 Integer versionCode = VersionHelper.getAppVersionCode(getApplicationContext());
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 String date = simpleDateFormat.format(wordLearningEvent.getTime().getTime());
@@ -235,7 +237,8 @@ public class ExportEventsToCsvWorker extends Worker {
 
                 // Write the content to the CSV file
                 File filesDir = getApplicationContext().getFilesDir();
-                File wordLearningEventsDir = new File(filesDir, "word-learning-events");
+                File versionCodeDir = new File(filesDir, "version-code-" + versionCode);
+                File wordLearningEventsDir = new File(versionCodeDir, "word-learning-events");
                 File csvFile = new File(wordLearningEventsDir, csvFilename);
                 FileUtils.writeStringToFile(csvFile, csvFileContent, "UTF-8");
             }
@@ -272,7 +275,7 @@ public class ExportEventsToCsvWorker extends Worker {
             String dateOfPreviousEvent = null;
             for (WordAssessmentEvent wordAssessmentEvent : wordAssessmentEvents) {
                 // Export event to CSV file. Example format:
-                //   files/word-assessment-events/7161a85a0e4751cd_3001012_word-assessment-events_2020-03-21.csv
+                //   files/version-code-3001012/word-assessment-events/7161a85a0e4751cd_3001012_word-assessment-events_2020-03-21.csv
                 Integer versionCode = VersionHelper.getAppVersionCode(getApplicationContext());
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 String date = simpleDateFormat.format(wordAssessmentEvent.getTime().getTime());
@@ -301,7 +304,8 @@ public class ExportEventsToCsvWorker extends Worker {
 
                 // Write the content to the CSV file
                 File filesDir = getApplicationContext().getFilesDir();
-                File wordAssessmentEventsDir = new File(filesDir, "word-assessment-events");
+                File versionCodeDir = new File(filesDir, "version-code-" + versionCode);
+                File wordAssessmentEventsDir = new File(versionCodeDir, "word-assessment-events");
                 File csvFile = new File(wordAssessmentEventsDir, csvFilename);
                 FileUtils.writeStringToFile(csvFile, csvFileContent, "UTF-8");
             }
@@ -336,7 +340,7 @@ public class ExportEventsToCsvWorker extends Worker {
             String dateOfPreviousEvent = null;
             for (StoryBookLearningEvent storyBookLearningEvent : storyBookLearningEvents) {
                 // Export event to CSV file. Example format:
-                //   files/storybook-learning-events/7161a85a0e4751cd_3001012_storybook-learning-events_2020-03-21.csv
+                //   files/version-code-3001012/storybook-learning-events/7161a85a0e4751cd_3001012_storybook-learning-events_2020-03-21.csv
                 Integer versionCode = VersionHelper.getAppVersionCode(getApplicationContext());
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 String date = simpleDateFormat.format(storyBookLearningEvent.getTime().getTime());
@@ -363,7 +367,8 @@ public class ExportEventsToCsvWorker extends Worker {
 
                 // Write the content to the CSV file
                 File filesDir = getApplicationContext().getFilesDir();
-                File storyBookLearningEventsDir = new File(filesDir, "storybook-learning-events");
+                File versionCodeDir = new File(filesDir, "version-code-" + versionCode);
+                File storyBookLearningEventsDir = new File(versionCodeDir, "storybook-learning-events");
                 File csvFile = new File(storyBookLearningEventsDir, csvFilename);
                 FileUtils.writeStringToFile(csvFile, csvFileContent, "UTF-8");
             }
