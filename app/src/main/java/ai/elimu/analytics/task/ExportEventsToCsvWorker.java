@@ -30,6 +30,10 @@ import ai.elimu.analytics.entity.WordLearningEvent;
 import ai.elimu.analytics.util.VersionHelper;
 import timber.log.Timber;
 
+/**
+ * Exports events from the database into CSV files, that will later be uploaded to the server by
+ * the {@link UploadEventsWorker}.
+ */
 public class ExportEventsToCsvWorker extends Worker {
 
     public ExportEventsToCsvWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
