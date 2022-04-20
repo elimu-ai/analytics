@@ -27,26 +27,41 @@ An _assessment event_ is an event that involves testing of whether or not the st
   * `WordAssessmentEvent`
   * `LetterAssessmentEvent`
 
-## Utils Library 📦
+## Development 👩🏽‍💻
 
-A [`utils`](utils) library (`.aar`) makes it easier for other Android apps to fetch and report learning/assessment events.
+Compile APK:
 
-See https://jitpack.io/#elimu-ai/content-provider/
-
-## Usage Sample 👩🏽‍💻
-
-```java
-// Report WordLearningEvent to the Analytics application
-Intent broadcastIntent = new Intent();
-broadcastIntent.setPackage(BuildConfig.ANALYTICS_APPLICATION_ID);
-broadcastIntent.setAction("ai.elimu.intent.action.WORD_LEARNING_EVENT");
-broadcastIntent.putExtra("packageName", BuildConfig.APPLICATION_ID);
-broadcastIntent.putExtra("wordText", wordText);
-broadcastIntent.putExtra("learningEventType", "WORD_PRESSED");
-sendBroadcast(broadcastIntent);
+```
+./gradlew clean build
 ```
 
-For an example of an app that is reporting learning events, see https://github.com/elimu-ai/vitabu.
+Install APK:
+
+```
+adb install app/build/outputs/apk/debug/ai.elimu.analytics-<versionCode>-debug.apk
+```
+
+### Utils Library 📦
+
+A [`utils`](utils) library (`.aar`) makes it easier for other Android apps to report learning/assessment events.
+
+  * [`LearningEventUtil`](https://github.com/elimu-ai/analytics/blob/main/utils/src/main/java/ai/elimu/analytics/utils/LearningEventUtil.java)
+  * [`AssessmentEventUtil`](https://github.com/elimu-ai/analytics/blob/main/utils/src/main/java/ai/elimu/analytics/utils/AssessmentEventUtil.java)
+
+See https://jitpack.io/#elimu-ai/analytics/
+
+#### Utils Usage Sample
+
+To use the `utils` library in another Android app, add the dependency in `app/build.gradle`:
+
+```java
+implementation 'com.github.elimu-ai:analytics:<version>@aar'
+```
+
+For an example of an app that is reporting learning events, see https://github.com/elimu-ai/vitabu:
+
+  * https://github.com/elimu-ai/vitabu/blob/main/app/build.gradle#L51
+  * https://github.com/elimu-ai/vitabu/blob/main/app/src/main/java/ai/elimu/vitabu/ui/storybook/ChapterFragment.java#L150
 
 ---
 
