@@ -11,6 +11,8 @@ public class StoryBookLearningEvent extends LearningEvent {
     @NonNull
     private Long storyBookId;
 
+    private String storyBookTitle;
+
     @NonNull
     private LearningEventType learningEventType;
 
@@ -20,6 +22,14 @@ public class StoryBookLearningEvent extends LearningEvent {
 
     public void setStoryBookId(Long storyBookId) {
         this.storyBookId = storyBookId;
+    }
+
+    public String getStoryBookTitle() {
+        return storyBookTitle;
+    }
+
+    public void setStoryBookTitle(String storyBookTitle) {
+        this.storyBookTitle = storyBookTitle;
     }
 
     public LearningEventType getLearningEventType() {

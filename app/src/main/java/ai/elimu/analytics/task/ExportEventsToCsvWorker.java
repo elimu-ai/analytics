@@ -334,6 +334,7 @@ public class ExportEventsToCsvWorker extends Worker {
                         "android_id",
                         "package_name",
                         "storybook_id",
+                        "storybook_title",
                         "learning_event_type"
                 );
         StringWriter stringWriter = new StringWriter();
@@ -363,6 +364,7 @@ public class ExportEventsToCsvWorker extends Worker {
                         storyBookLearningEvent.getAndroidId(),
                         storyBookLearningEvent.getPackageName(),
                         storyBookLearningEvent.getStoryBookId(),
+                        storyBookLearningEvent.getStoryBookTitle(),
                         storyBookLearningEvent.getLearningEventType()
                 );
                 csvPrinter.flush();
