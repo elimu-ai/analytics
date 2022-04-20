@@ -44,7 +44,7 @@ public class StoryBookLearningEventReceiver extends BroadcastReceiver {
         storyBookLearningEvent.setPackageName(packageName);
         storyBookLearningEvent.setTime(timestamp);
         storyBookLearningEvent.setStoryBookId(storyBookId);
-//        storyBookLearningEvent.setStoryBookTitle(storyBookTitle);
+        storyBookLearningEvent.setStoryBookTitle(storyBookTitle);
         storyBookLearningEvent.setLearningEventType(learningEventType);
 
         // Store in database
