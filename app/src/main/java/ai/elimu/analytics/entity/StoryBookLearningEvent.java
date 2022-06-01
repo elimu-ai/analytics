@@ -12,6 +12,8 @@ public class StoryBookLearningEvent extends LearningEvent {
     private Long storyBookId;
     private String storyBookTitle;
 
+    private String storyBookTitle;
+
     @NonNull
     private LearningEventType learningEventType;
 
