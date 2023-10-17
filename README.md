@@ -63,11 +63,9 @@ For an example of an app that is reporting learning events, see https://github.c
   * https://github.com/elimu-ai/vitabu/blob/main/app/build.gradle#L51
   * https://github.com/elimu-ai/vitabu/blob/main/app/src/main/java/ai/elimu/vitabu/ui/storybook/ChapterFragment.java#L150
 
+
 ---
 
-## About the elimu.ai Community
+elimu.ai - Free personalized learning for every child on Earth 🌍🌏🌎
 
-![elimu ai-tagline](https://user-images.githubusercontent.com/15718174/54360503-e8e88980-465c-11e9-9792-32b513105cf3.png)
-
- * For a high-level description of the project, see https://github.com/elimu-ai/wiki/blob/master/README.md.
- * For project milestones, see https://github.com/elimu-ai/wiki/projects.
+[Website 🌐](https://elimu.ai) | [Wiki 📃](https://github.com/elimu-ai/wiki#readme) | [Projects 👩🏽‍💻](https://github.com/elimu-ai/wiki/projects) | [Milestones 🎯](https://github.com/elimu-ai/wiki/milestones) | [Community 👋🏽](https://github.com/elimu-ai/wiki#open-source-community)
