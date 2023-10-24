@@ -6,7 +6,7 @@ Android application which collects, provides and uploads learning event data.
 
 [
   <img width="320" alt="Software Architecture" src="https://user-images.githubusercontent.com/15718174/83595568-fb6a1e00-a594-11ea-990a-10c0bd62ed11.png">
-](https://github.com/elimu-ai/wiki/blob/master/SOFTWARE_ARCHITECTURE.md)
+](https://github.com/elimu-ai/wiki/blob/main/SOFTWARE_ARCHITECTURE.md)
 
 ## Learning Events
 
@@ -48,7 +48,7 @@ A [`utils`](utils) library (`.aar`) makes it easier for other Android apps to re
   * [`LearningEventUtil`](https://github.com/elimu-ai/analytics/blob/main/utils/src/main/java/ai/elimu/analytics/utils/LearningEventUtil.java)
   * [`AssessmentEventUtil`](https://github.com/elimu-ai/analytics/blob/main/utils/src/main/java/ai/elimu/analytics/utils/AssessmentEventUtil.java)
 
-See https://jitpack.io/#elimu-ai/analytics/
+See https://jitpack.io/#elimu-ai/analytics/ for the latest version.
 
 #### Utils Usage Sample
 
