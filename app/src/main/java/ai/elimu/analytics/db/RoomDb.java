@@ -15,22 +15,25 @@ import java.util.concurrent.Executors;
 
 import ai.elimu.analytics.dao.LetterAssessmentEventDao;
 import ai.elimu.analytics.dao.LetterLearningEventDao;
+import ai.elimu.analytics.dao.LetterSoundCorrespondenceLearningEventDao;
 import ai.elimu.analytics.dao.StoryBookLearningEventDao;
 import ai.elimu.analytics.dao.WordAssessmentEventDao;
 import ai.elimu.analytics.dao.WordLearningEventDao;
 import ai.elimu.analytics.entity.LetterAssessmentEvent;
 import ai.elimu.analytics.entity.LetterLearningEvent;
+import ai.elimu.analytics.entity.LetterSoundCorrespondenceLearningEvent;
 import ai.elimu.analytics.entity.StoryBookLearningEvent;
 import ai.elimu.analytics.entity.WordAssessmentEvent;
 import ai.elimu.analytics.entity.WordLearningEvent;
 import timber.log.Timber;
 
-@Database(version = 5, entities = {LetterLearningEvent.class, LetterAssessmentEvent.class, WordLearningEvent.class, WordAssessmentEvent.class, StoryBookLearningEvent.class})
+@Database(version = 6, entities = {LetterLearningEvent.class, LetterAssessmentEvent.class, LetterSoundCorrespondenceLearningEvent.class, WordLearningEvent.class, WordAssessmentEvent.class, StoryBookLearningEvent.class})
 @TypeConverters({Converters.class})
 public abstract class RoomDb extends RoomDatabase {
 
     public abstract LetterLearningEventDao letterLearningEventDao();
     public abstract LetterAssessmentEventDao letterAssessmentEventDao();
+    public abstract LetterSoundCorrespondenceLearningEventDao letterSoundCorrespondenceLearningEventDao();
     public abstract WordLearningEventDao wordLearningEventDao();
     public abstract WordAssessmentEventDao wordAssessmentEventDao();
     public abstract StoryBookLearningEventDao storyBookLearningEventDao();
@@ -54,7 +57,8 @@ public abstract class RoomDb extends RoomDatabase {
                                     MIGRATION_1_2,
                                     MIGRATION_2_3,
                                     MIGRATION_3_4,
-                                    MIGRATION_4_5
+                                    MIGRATION_4_5,
+                                    MIGRATION_5_6
                             )
                             .build();
                 }
@@ -103,6 +107,17 @@ public abstract class RoomDb extends RoomDatabase {
             Timber.i("migrate (" + database.getVersion() + " --> 5)");
 
             String sql = "CREATE TABLE IF NOT EXISTS `LetterAssessmentEvent` (`letterId` INTEGER, `letterText` TEXT NOT NULL, `masteryScore` REAL NOT NULL, `timeSpentMs` INTEGER NOT NULL, `androidId` TEXT NOT NULL, `packageName` TEXT NOT NULL, `time` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT)";
+            Timber.i("sql: " + sql);
+            database.execSQL(sql);
+        }
+    };
+
+    private static final Migration MIGRATION_5_6 = new Migration(5, 6) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            Timber.i("migrate (" + database.getVersion() + " --> 6)");
+
+            String sql = "CREATE TABLE IF NOT EXISTS `LetterSoundCorrespondenceLearningEvent` (`letterSoundCorrespondenceLearningEventId` INTEGER, `androidId` TEXT NOT NULL, `packageName` TEXT NOT NULL, `time` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT)";
             Timber.i("sql: " + sql);
             database.execSQL(sql);
         }
