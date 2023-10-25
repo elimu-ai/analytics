@@ -10,7 +10,7 @@ Android application which collects, provides and uploads learning event data.
 
 ## Learning Events
 
-The various types of _learning events_ are handled by the Android receivers at [app/src/main/java/ai/elimu/analytics/receiver](app/src/main/java/ai/elimu/analytics/receiver).
+The various types of _learning events_ are handled by the Android receivers at [`app/src/main/java/ai/elimu/analytics/receiver`](app/src/main/java/ai/elimu/analytics/receiver).
 
 A _learning event_ is an event without any corresponding testing of the student's mastery of a concept. For example; A student presses a word in a storybook and listens to its pronunciation.
 
@@ -20,7 +20,7 @@ A _learning event_ is an event without any corresponding testing of the student'
 
 ## Assessment Events
 
-The various types of _assessment events_ are handled by the Android receivers at [app/src/main/java/ai/elimu/analytics/receiver](app/src/main/java/ai/elimu/analytics/receiver).
+The various types of _assessment events_ are handled by the Android receivers at [`app/src/main/java/ai/elimu/analytics/receiver`](app/src/main/java/ai/elimu/analytics/receiver).
 
 An _assessment event_ is an event that involves testing of whether or not the student is able to master a concept. For example; A word is sounded out, and the student is asked select the corresponding written text amongst a list of alternatives (multiple choice).
 
@@ -45,8 +45,8 @@ adb install app/build/outputs/apk/debug/ai.elimu.analytics-<versionCode>-debug.a
 
 A [`utils`](utils) library (`.aar`) makes it easier for other Android apps to report learning/assessment events.
 
-  * [`LearningEventUtil`](https://github.com/elimu-ai/analytics/blob/main/utils/src/main/java/ai/elimu/analytics/utils/LearningEventUtil.java)
-  * [`AssessmentEventUtil`](https://github.com/elimu-ai/analytics/blob/main/utils/src/main/java/ai/elimu/analytics/utils/AssessmentEventUtil.java)
+* [`LearningEventUtil`](https://github.com/elimu-ai/analytics/blob/main/utils/src/main/java/ai/elimu/analytics/utils/LearningEventUtil.java)
+* [`AssessmentEventUtil`](https://github.com/elimu-ai/analytics/blob/main/utils/src/main/java/ai/elimu/analytics/utils/AssessmentEventUtil.java)
 
 See https://jitpack.io/#elimu-ai/analytics/ for the latest version.
 
@@ -63,9 +63,12 @@ For an example of an app that is reporting learning events, see https://github.c
   * https://github.com/elimu-ai/vitabu/blob/main/app/build.gradle#L51
   * https://github.com/elimu-ai/vitabu/blob/main/app/src/main/java/ai/elimu/vitabu/ui/storybook/ChapterFragment.java#L150
 
+### Database Migration 🔀
+
+
 
 ---
 
-elimu.ai - Free personalized learning for every child on Earth 🌍🌏🌎
+elimu.ai - Free open source learning software for out-of-school children ✨🚀
 
-[Website 🌐](https://elimu.ai) | [Wiki 📃](https://github.com/elimu-ai/wiki#readme) | [Projects 👩🏽‍💻](https://github.com/elimu-ai/wiki/projects) | [Milestones 🎯](https://github.com/elimu-ai/wiki/milestones) | [Community 👋🏽](https://github.com/elimu-ai/wiki#open-source-community)
+[Website 🌐](https://elimu.ai) &nbsp; [Wiki 📃](https://github.com/elimu-ai/wiki#readme) &nbsp; [Projects 👩🏽‍💻](https://github.com/elimu-ai/wiki/projects) &nbsp; [Milestones 🎯](https://github.com/elimu-ai/wiki/milestones) &nbsp; [Community 👋🏽](https://github.com/elimu-ai/wiki#open-source-community)
