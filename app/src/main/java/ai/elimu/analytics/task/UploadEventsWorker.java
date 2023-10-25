@@ -14,6 +14,7 @@ import ai.elimu.analytics.BaseApplication;
 import ai.elimu.analytics.BuildConfig;
 import ai.elimu.analytics.rest.LetterAssessmentEventService;
 import ai.elimu.analytics.rest.LetterLearningEventService;
+import ai.elimu.analytics.rest.LetterSoundLearningEventService;
 import ai.elimu.analytics.rest.StoryBookLearningEventService;
 import ai.elimu.analytics.rest.WordAssessmentEventService;
 import ai.elimu.analytics.rest.WordLearningEventService;
@@ -43,6 +44,7 @@ public class UploadEventsWorker extends Worker {
         if (!"debug".equals(BuildConfig.BUILD_TYPE)) {
             uploadLetterLearningEvents();
             uploadLetterAssessmentEvents();
+            uploadLetterSoundLearningEvents();
             uploadWordLearningEvents();
             uploadWordAssessmentEvents();
             uploadStoryBookLearningEvents();
@@ -69,6 +71,7 @@ public class UploadEventsWorker extends Worker {
                     Arrays.sort(files);
                     for (int i = 0; i < files.length; i++) {
                         File file = files[i];
+                        Timber.i("file.getAbsoluteFile(): " + file.getAbsoluteFile());
                         Timber.i("file.getName(): " + file.getName());
 
                         BaseApplication baseApplication = (BaseApplication) getApplicationContext();
@@ -117,6 +120,7 @@ public class UploadEventsWorker extends Worker {
                     Arrays.sort(files);
                     for (int i = 0; i < files.length; i++) {
                         File file = files[i];
+                        Timber.i("file.getAbsoluteFile(): " + file.getAbsoluteFile());
                         Timber.i("file.getName(): " + file.getName());
 
                         BaseApplication baseApplication = (BaseApplication) getApplicationContext();
@@ -125,6 +129,55 @@ public class UploadEventsWorker extends Worker {
                         RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
                         MultipartBody.Part part = MultipartBody.Part.createFormData("file", file.getName(), requestBody);
                         Call<ResponseBody> call = letterAssessmentEventService.uploadCsvFile(part);
+                        Timber.i("call.request(): " + call.request());
+                        try {
+                            Response<ResponseBody> response = call.execute();
+                            Timber.i("response: " + response);
+                            Timber.i("response.isSuccessful(): " + response.isSuccessful());
+                            if (response.isSuccessful()) {
+                                String bodyString = response.body().string();
+                                Timber.i("bodyString: " + bodyString);
+                            } else {
+                                String errorBodyString = response.errorBody().string();
+                                Timber.e("errorBodyString: " + errorBodyString);
+                                // TODO: Handle error
+                            }
+                        } catch (IOException e) {
+                            Timber.e(e);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private void uploadLetterSoundLearningEvents() {
+        Timber.i("uploadLetterSoundLearningEvents");
+
+        // Upload CSV files to the server
+        // Example format:
+        //   files/version-code-3001017/letter-sound-learning-events/7161a85a0e4751cd_3001017_letter-sound-learning-events_2023-10-25.csv
+        File filesDir = getApplicationContext().getFilesDir();
+        for (File versionCodeDir : filesDir.listFiles()) {
+            Timber.i("versionCodeDir: " + versionCodeDir);
+            if (versionCodeDir.getName().startsWith("version-code-")) {
+                File letterSoundLearningEventsDir = new File(versionCodeDir, "letter-sound-learning-events");
+                Timber.i("Uploading CSV files from " + letterSoundLearningEventsDir);
+                File[] files = letterSoundLearningEventsDir.listFiles();
+                if (files != null) {
+                    Timber.i("files.length: " + files.length);
+                    Arrays.sort(files);
+                    for (int i = 0; i < files.length; i++) {
+                        File file = files[i];
+                        Timber.i("file.getAbsoluteFile(): " + file.getAbsoluteFile());
+                        Timber.i("file.getName(): " + file.getName());
+
+                        BaseApplication baseApplication = (BaseApplication) getApplicationContext();
+                        Retrofit retrofit = baseApplication.getRetrofit();
+                        LetterSoundLearningEventService letterSoundLearningEventService = retrofit.create(LetterSoundLearningEventService.class);
+                        RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+                        MultipartBody.Part part = MultipartBody.Part.createFormData("file", file.getName(), requestBody);
+                        Call<ResponseBody> call = letterSoundLearningEventService.uploadCsvFile(part);
                         Timber.i("call.request(): " + call.request());
                         try {
                             Response<ResponseBody> response = call.execute();
@@ -165,6 +218,7 @@ public class UploadEventsWorker extends Worker {
                     Arrays.sort(files);
                     for (int i = 0; i < files.length; i++) {
                         File file = files[i];
+                        Timber.i("file.getAbsoluteFile(): " + file.getAbsoluteFile());
                         Timber.i("file.getName(): " + file.getName());
 
                         BaseApplication baseApplication = (BaseApplication) getApplicationContext();
@@ -213,6 +267,7 @@ public class UploadEventsWorker extends Worker {
                     Arrays.sort(files);
                     for (int i = 0; i < files.length; i++) {
                         File file = files[i];
+                        Timber.i("file.getAbsoluteFile(): " + file.getAbsoluteFile());
                         Timber.i("file.getName(): " + file.getName());
 
                         BaseApplication baseApplication = (BaseApplication) getApplicationContext();
@@ -261,6 +316,7 @@ public class UploadEventsWorker extends Worker {
                     Arrays.sort(files);
                     for (int i = 0; i < files.length; i++) {
                         File file = files[i];
+                        Timber.i("file.getAbsoluteFile(): " + file.getAbsoluteFile());
                         Timber.i("file.getName(): " + file.getName());
 
                         BaseApplication baseApplication = (BaseApplication) getApplicationContext();
