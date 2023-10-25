@@ -25,7 +25,7 @@ import ai.elimu.analytics.dao.WordLearningEventDao;
 import ai.elimu.analytics.db.RoomDb;
 import ai.elimu.analytics.entity.LetterAssessmentEvent;
 import ai.elimu.analytics.entity.LetterLearningEvent;
-import ai.elimu.analytics.entity.LetterSoundCorrespondenceLearningEvent;
+import ai.elimu.analytics.entity.LetterSoundLearningEvent;
 import ai.elimu.analytics.entity.StoryBookLearningEvent;
 import ai.elimu.analytics.entity.WordAssessmentEvent;
 import ai.elimu.analytics.entity.WordLearningEvent;
@@ -195,7 +195,7 @@ public class ExportEventsToCsvWorker extends Worker {
         // Extract LetterSoundLearningEvents from the database that have not yet been exported to CSV.
         RoomDb roomDb = RoomDb.getDatabase(getApplicationContext());
         LetterSoundLearningEventDao letterSoundLearningEventDao = roomDb.letterSoundLearningEventDao();
-        List<LetterSoundCorrespondenceLearningEvent> letterSoundLearningEvents = letterSoundLearningEventDao.loadAllOrderedByTime();
+        List<LetterSoundLearningEvent> letterSoundLearningEvents = letterSoundLearningEventDao.loadAllOrderedByTime();
         Timber.i("letterSoundLearningEvents.size(): " + letterSoundLearningEvents.size());
 
         CSVFormat csvFormat = CSVFormat.DEFAULT
@@ -215,7 +215,7 @@ public class ExportEventsToCsvWorker extends Worker {
 
             // Generate one CSV file per day of events
             String dateOfPreviousEvent = null;
-            for (LetterSoundCorrespondenceLearningEvent letterSoundLearningEvent : letterSoundLearningEvents) {
+            for (LetterSoundLearningEvent letterSoundLearningEvent : letterSoundLearningEvents) {
                 // Export event to CSV file. Example format:
                 //   files/version-code-3001017/letter-sound-learning-events/7161a85a0e4751cd_3001017_letter-sound-learning-events_2023-10-25.csv
                 Integer versionCode = VersionHelper.getAppVersionCode(getApplicationContext());

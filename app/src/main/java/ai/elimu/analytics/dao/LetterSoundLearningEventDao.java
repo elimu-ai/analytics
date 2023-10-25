@@ -8,17 +8,17 @@ import androidx.room.Query;
 
 import java.util.List;
 
-import ai.elimu.analytics.entity.LetterSoundCorrespondenceLearningEvent;
+import ai.elimu.analytics.entity.LetterSoundLearningEvent;
 
 @Dao
 public interface LetterSoundLearningEventDao {
 
     @Insert
-    void insert(LetterSoundCorrespondenceLearningEvent letterSoundLearningEvent);
+    void insert(LetterSoundLearningEvent letterSoundLearningEvent);
 
-    @Query("SELECT * FROM LetterSoundCorrespondenceLearningEvent ORDER BY time")
-    List<LetterSoundCorrespondenceLearningEvent> loadAllOrderedByTime();
+    @Query("SELECT * FROM LetterSoundLearningEvent ORDER BY time")
+    List<LetterSoundLearningEvent> loadAllOrderedByTime();
 
-    @Query("SELECT * FROM LetterSoundCorrespondenceLearningEvent ORDER BY time")
+    @Query("SELECT * FROM LetterSoundLearningEvent ORDER BY time")
     Cursor loadAllOrderedByTimeCursor();
 }

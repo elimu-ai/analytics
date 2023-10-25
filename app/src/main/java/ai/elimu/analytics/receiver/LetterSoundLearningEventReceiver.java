@@ -9,7 +9,7 @@ import java.util.Calendar;
 
 import ai.elimu.analytics.dao.LetterSoundLearningEventDao;
 import ai.elimu.analytics.db.RoomDb;
-import ai.elimu.analytics.entity.LetterSoundCorrespondenceLearningEvent;
+import ai.elimu.analytics.entity.LetterSoundLearningEvent;
 import timber.log.Timber;
 
 public class LetterSoundLearningEventReceiver extends BroadcastReceiver {
@@ -44,11 +44,11 @@ public class LetterSoundLearningEventReceiver extends BroadcastReceiver {
         }
         Timber.i("letterSoundSoundValuesIpa: " + letterSoundSoundValuesIpa);
 
-        LetterSoundCorrespondenceLearningEvent letterSoundLearningEvent = new LetterSoundCorrespondenceLearningEvent();
+        LetterSoundLearningEvent letterSoundLearningEvent = new LetterSoundLearningEvent();
         letterSoundLearningEvent.setAndroidId(androidId);
         letterSoundLearningEvent.setPackageName(packageName);
         letterSoundLearningEvent.setTime(timestamp);
-        letterSoundLearningEvent.setLetterSoundCorrespondenceId(letterSoundId);
+        letterSoundLearningEvent.setLetterSoundId(letterSoundId);
         // TODO: set letterSoundLetterTexts
         // TODO: set letterSoundSoundValuesIpa
 

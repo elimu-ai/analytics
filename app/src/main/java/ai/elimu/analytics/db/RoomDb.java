@@ -21,13 +21,13 @@ import ai.elimu.analytics.dao.WordAssessmentEventDao;
 import ai.elimu.analytics.dao.WordLearningEventDao;
 import ai.elimu.analytics.entity.LetterAssessmentEvent;
 import ai.elimu.analytics.entity.LetterLearningEvent;
-import ai.elimu.analytics.entity.LetterSoundCorrespondenceLearningEvent;
+import ai.elimu.analytics.entity.LetterSoundLearningEvent;
 import ai.elimu.analytics.entity.StoryBookLearningEvent;
 import ai.elimu.analytics.entity.WordAssessmentEvent;
 import ai.elimu.analytics.entity.WordLearningEvent;
 import timber.log.Timber;
 
-@Database(version = 6, entities = {LetterLearningEvent.class, LetterAssessmentEvent.class, LetterSoundCorrespondenceLearningEvent.class, WordLearningEvent.class, WordAssessmentEvent.class, StoryBookLearningEvent.class})
+@Database(version = 6, entities = {LetterLearningEvent.class, LetterAssessmentEvent.class, LetterSoundLearningEvent.class, WordLearningEvent.class, WordAssessmentEvent.class, StoryBookLearningEvent.class})
 @TypeConverters({Converters.class})
 public abstract class RoomDb extends RoomDatabase {
 
@@ -117,7 +117,7 @@ public abstract class RoomDb extends RoomDatabase {
         public void migrate(@NonNull SupportSQLiteDatabase database) {
             Timber.i("migrate (" + database.getVersion() + " --> 6)");
 
-            String sql = "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`letterSoundCorrespondenceId` INTEGER, `androidId` TEXT NOT NULL, `packageName` TEXT NOT NULL, `time` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT)";
+            String sql = "CREATE TABLE IF NOT EXISTS `LetterSoundLearningEvent` (`letterSoundId` INTEGER, `androidId` TEXT NOT NULL, `packageName` TEXT NOT NULL, `time` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT)";
             Timber.i("sql: " + sql);
             database.execSQL(sql);
         }
