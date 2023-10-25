@@ -196,7 +196,7 @@ public class ExportEventsToCsvWorker extends Worker {
         RoomDb roomDb = RoomDb.getDatabase(getApplicationContext());
         LetterSoundCorrespondenceLearningEventDao letterSoundCorrespondenceLearningEventDao = roomDb.letterSoundCorrespondenceLearningEventDao();
         List<LetterSoundCorrespondenceLearningEvent> letterSoundCorrespondenceLearningEvents = letterSoundCorrespondenceLearningEventDao.loadAllOrderedByTime();
-        Timber.i("letterSoundCorrespondenceLearningEvents.size(): " + letterSoundCorrespondenceLearningEvents);
+        Timber.i("letterSoundCorrespondenceLearningEvents.size(): " + letterSoundCorrespondenceLearningEvents.size());
 
         CSVFormat csvFormat = CSVFormat.DEFAULT
                 .withHeader(
