@@ -49,7 +49,7 @@ public class ExportEventsToCsvWorker extends Worker {
 
         exportLetterLearningEventsToCsv();
         exportLetterAssessmentEventsToCsv();
-        exportLetterSoundCorrespondenceLearningEventsToCsv();
+        exportLetterSoundLearningEventsToCsv();
         exportWordLearningEventsToCsv();
         exportWordAssessmentEventsToCsv();
         exportStoryBookLearningEventsToCsv();
@@ -189,14 +189,14 @@ public class ExportEventsToCsvWorker extends Worker {
         }
     }
 
-    private void exportLetterSoundCorrespondenceLearningEventsToCsv() {
-        Timber.i("exportLetterSoundCorrespondenceLearningEventsToCsv");
+    private void exportLetterSoundLearningEventsToCsv() {
+        Timber.i("exportLetterSoundLearningEventsToCsv");
 
-        // Extract LetterSoundCorrespondenceLearningEvents from the database that have not yet been exported to CSV.
+        // Extract LetterSoundLearningEvents from the database that have not yet been exported to CSV.
         RoomDb roomDb = RoomDb.getDatabase(getApplicationContext());
         LetterSoundLearningEventDao letterSoundLearningEventDao = roomDb.letterSoundLearningEventDao();
-        List<LetterSoundCorrespondenceLearningEvent> letterSoundCorrespondenceLearningEvents = letterSoundLearningEventDao.loadAllOrderedByTime();
-        Timber.i("letterSoundCorrespondenceLearningEvents.size(): " + letterSoundCorrespondenceLearningEvents.size());
+        List<LetterSoundCorrespondenceLearningEvent> letterSoundLearningEvents = letterSoundLearningEventDao.loadAllOrderedByTime();
+        Timber.i("letterSoundLearningEvents.size(): " + letterSoundLearningEvents.size());
 
         CSVFormat csvFormat = CSVFormat.DEFAULT
                 .withHeader(
@@ -204,9 +204,9 @@ public class ExportEventsToCsvWorker extends Worker {
                         "time",
                         "android_id",
                         "package_name",
-                        "letter_sound_correspondence_id",
-                        "letter_sound_correspondence_letter_texts",
-                        "letter_sound_correspondence_sound_values_ipa"
+                        "letter_sound_id",
+                        "letter_sound_letter_texts",
+                        "letter_sound_sound_values_ipa"
                 );
         StringWriter stringWriter = new StringWriter();
         try {
@@ -215,27 +215,27 @@ public class ExportEventsToCsvWorker extends Worker {
 
             // Generate one CSV file per day of events
             String dateOfPreviousEvent = null;
-            for (LetterSoundCorrespondenceLearningEvent letterSoundCorrespondenceLearningEvent : letterSoundCorrespondenceLearningEvents) {
+            for (LetterSoundCorrespondenceLearningEvent letterSoundLearningEvent : letterSoundLearningEvents) {
                 // Export event to CSV file. Example format:
-                //   files/version-code-3001017/letter-sound-correspondence-learning-events/7161a85a0e4751cd_3001017_letter-sound-correspondence-learning-events_2023-10-25.csv
+                //   files/version-code-3001017/letter-sound-learning-events/7161a85a0e4751cd_3001017_letter-sound-learning-events_2023-10-25.csv
                 Integer versionCode = VersionHelper.getAppVersionCode(getApplicationContext());
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                String date = simpleDateFormat.format(letterSoundCorrespondenceLearningEvent.getTime().getTime());
+                String date = simpleDateFormat.format(letterSoundLearningEvent.getTime().getTime());
                 if (!date.equals(dateOfPreviousEvent)) {
                     // Reset file content
                     stringWriter = new StringWriter();
                     csvPrinter = new CSVPrinter(stringWriter, csvFormat);
                 }
                 dateOfPreviousEvent = date;
-                String csvFilename = letterSoundCorrespondenceLearningEvent.getAndroidId() + "_" + versionCode + "_letter-sound-correspondence-learning-events_" + date + ".csv";
+                String csvFilename = letterSoundLearningEvent.getAndroidId() + "_" + versionCode + "_letter-sound-learning-events_" + date + ".csv";
                 Timber.i("csvFilename: " + csvFilename);
 
                 csvPrinter.printRecord(
-                        letterSoundCorrespondenceLearningEvent.getId(),
-                        letterSoundCorrespondenceLearningEvent.getTime().getTimeInMillis(),
-                        letterSoundCorrespondenceLearningEvent.getAndroidId(),
-                        letterSoundCorrespondenceLearningEvent.getPackageName(),
-                        letterSoundCorrespondenceLearningEvent.getId(),
+                        letterSoundLearningEvent.getId(),
+                        letterSoundLearningEvent.getTime().getTimeInMillis(),
+                        letterSoundLearningEvent.getAndroidId(),
+                        letterSoundLearningEvent.getPackageName(),
+                        letterSoundLearningEvent.getId(),
                         null,
                         null
                 );
@@ -246,8 +246,8 @@ public class ExportEventsToCsvWorker extends Worker {
                 // Write the content to the CSV file
                 File filesDir = getApplicationContext().getFilesDir();
                 File versionCodeDir = new File(filesDir, "version-code-" + versionCode);
-                File letterSoundCorrespondenceLearningEventsDir = new File(versionCodeDir, "letter-sound-correspondence-learning-events");
-                File csvFile = new File(letterSoundCorrespondenceLearningEventsDir, csvFilename);
+                File letterSoundLearningEventsDir = new File(versionCodeDir, "letter-sound-learning-events");
+                File csvFile = new File(letterSoundLearningEventsDir, csvFilename);
                 FileUtils.writeStringToFile(csvFile, csvFileContent, "UTF-8");
             }
         } catch (IOException e) {

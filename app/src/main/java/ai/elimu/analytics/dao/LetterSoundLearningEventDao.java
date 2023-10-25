@@ -14,7 +14,7 @@ import ai.elimu.analytics.entity.LetterSoundCorrespondenceLearningEvent;
 public interface LetterSoundLearningEventDao {
 
     @Insert
-    void insert(LetterSoundCorrespondenceLearningEvent letterSoundCorrespondenceLearningEvent);
+    void insert(LetterSoundCorrespondenceLearningEvent letterSoundLearningEvent);
 
     @Query("SELECT * FROM LetterSoundCorrespondenceLearningEvent ORDER BY time")
     List<LetterSoundCorrespondenceLearningEvent> loadAllOrderedByTime();

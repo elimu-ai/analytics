@@ -26,29 +26,31 @@ public class LetterSoundLearningEventReceiver extends BroadcastReceiver {
         Calendar timestamp = Calendar.getInstance();
         Timber.i("timestamp.getTime(): " + timestamp.getTime());
 
-        Long letterSoundCorrespondenceId = null;
-        if (intent.hasExtra("letterSoundCorrespondenceId")) {
-            letterSoundCorrespondenceId = intent.getLongExtra("letterSoundCorrespondenceId", 0);
+        Long letterSoundId = null;
+        if (intent.hasExtra("letterSoundId")) {
+            letterSoundId = intent.getLongExtra("letterSoundId", 0);
         }
-        Timber.i("letterSoundCorrespondenceId: " + letterSoundCorrespondenceId);
+        Timber.i("letterSoundId: " + letterSoundId);
 
-        String[] letterSoundCorrespondenceLetterTexts = null;
-        if (intent.hasExtra("letterSoundCorrespondenceLetterTexts")) {
-            letterSoundCorrespondenceLetterTexts = intent.getStringArrayExtra("letterSoundCorrespondenceLetterTexts");
+        String[] letterSoundLetterTexts = null;
+        if (intent.hasExtra("letterSoundLetterTexts")) {
+            letterSoundLetterTexts = intent.getStringArrayExtra("letterSoundLetterTexts");
         }
-        Timber.i("letterSoundCorrespondenceLetterTexts: " + letterSoundCorrespondenceLetterTexts);
+        Timber.i("letterSoundLetterTexts: " + letterSoundLetterTexts);
 
-        String[] letterSoundCorrespondenceSoundValuesIpa = null;
-        if (intent.hasExtra("letterSoundCorrespondenceSoundValuesIpa")) {
-            letterSoundCorrespondenceSoundValuesIpa = intent.getStringArrayExtra("letterSoundCorrespondenceSoundValuesIpa");
+        String[] letterSoundSoundValuesIpa = null;
+        if (intent.hasExtra("letterSoundSoundValuesIpa")) {
+            letterSoundSoundValuesIpa = intent.getStringArrayExtra("letterSoundSoundValuesIpa");
         }
-        Timber.i("letterSoundCorrespondenceSoundValuesIpa: " + letterSoundCorrespondenceSoundValuesIpa);
+        Timber.i("letterSoundSoundValuesIpa: " + letterSoundSoundValuesIpa);
 
         LetterSoundCorrespondenceLearningEvent letterSoundLearningEvent = new LetterSoundCorrespondenceLearningEvent();
         letterSoundLearningEvent.setAndroidId(androidId);
         letterSoundLearningEvent.setPackageName(packageName);
         letterSoundLearningEvent.setTime(timestamp);
-        letterSoundLearningEvent.setLetterSoundCorrespondenceId(letterSoundCorrespondenceId);
+        letterSoundLearningEvent.setLetterSoundCorrespondenceId(letterSoundId);
+        // TODO: set letterSoundLetterTexts
+        // TODO: set letterSoundSoundValuesIpa
 
         // Store in database
         RoomDb roomDb = RoomDb.getDatabase(context);

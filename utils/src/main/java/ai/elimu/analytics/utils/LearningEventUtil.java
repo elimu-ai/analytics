@@ -4,9 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import java.util.stream.Collectors;
+
 import ai.elimu.model.v2.enums.analytics.LearningEventType;
 import ai.elimu.model.v2.gson.content.LetterGson;
 import ai.elimu.model.v2.gson.content.LetterSoundCorrespondenceGson;
+import ai.elimu.model.v2.gson.content.SoundGson;
 import ai.elimu.model.v2.gson.content.StoryBookGson;
 import ai.elimu.model.v2.gson.content.WordGson;
 
@@ -40,12 +43,14 @@ public class LearningEventUtil {
      * @param analyticsApplicationId The package name of the analytics application that will receive the Intent and store the event.
      */
     public static void reportLetterSoundLearningEvent(LetterSoundCorrespondenceGson letterSoundGson, Context context, String analyticsApplicationId) {
-        Log.i(LearningEventUtil.class.getName(),"reportLetterLearningEvent");
+        Log.i(LearningEventUtil.class.getName(),"reportLetterSoundLearningEvent");
 
         Intent broadcastIntent = new Intent();
         broadcastIntent.setAction("ai.elimu.intent.action.LETTER_SOUND_LEARNING_EVENT");
         broadcastIntent.putExtra("packageName", context.getPackageName());
         broadcastIntent.putExtra("letterSoundId", letterSoundGson.getId());
+        broadcastIntent.putExtra("letterSoundLetterTexts", letterSoundGson.getLetters().stream().map(LetterGson::getText).toArray());
+        broadcastIntent.putExtra("letterSoundSoundValuesIpa", letterSoundGson.getSounds().stream().map(SoundGson::getValueIpa).toArray());
         broadcastIntent.setPackage(analyticsApplicationId);
         context.sendBroadcast(broadcastIntent);
     }
