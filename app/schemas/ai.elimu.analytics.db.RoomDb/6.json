@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 6,
-    "identityHash": "4f8b7560cdb36ff509b2ecddbec9d942",
+    "identityHash": "c18b0a63048c3e3f5b716fe35015f20d",
     "entities": [
       {
         "tableName": "LetterLearningEvent",
@@ -124,11 +124,11 @@
       },
       {
         "tableName": "LetterSoundCorrespondenceLearningEvent",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`letterSoundCorrespondenceLearningEventId` INTEGER, `androidId` TEXT NOT NULL, `packageName` TEXT NOT NULL, `time` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`letterSoundCorrespondenceId` INTEGER, `androidId` TEXT NOT NULL, `packageName` TEXT NOT NULL, `time` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT)",
         "fields": [
           {
-            "fieldPath": "letterSoundCorrespondenceLearningEventId",
-            "columnName": "letterSoundCorrespondenceLearningEventId",
+            "fieldPath": "letterSoundCorrespondenceId",
+            "columnName": "letterSoundCorrespondenceId",
             "affinity": "INTEGER",
             "notNull": false
           },
@@ -338,7 +338,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '4f8b7560cdb36ff509b2ecddbec9d942')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'c18b0a63048c3e3f5b716fe35015f20d')"
     ]
   }
 }

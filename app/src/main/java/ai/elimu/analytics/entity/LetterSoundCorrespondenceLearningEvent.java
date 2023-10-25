@@ -5,13 +5,13 @@ import androidx.room.Entity;
 @Entity
 public class LetterSoundCorrespondenceLearningEvent extends LearningEvent {
 
-    private Long letterSoundCorrespondenceLearningEventId;
+    private Long letterSoundCorrespondenceId;
 
-    public Long getLetterSoundCorrespondenceLearningEventId() {
-        return letterSoundCorrespondenceLearningEventId;
+    public Long getLetterSoundCorrespondenceId() {
+        return letterSoundCorrespondenceId;
     }
 
-    public void setLetterSoundCorrespondenceLearningEventId(Long letterSoundCorrespondenceLearningEventId) {
-        this.letterSoundCorrespondenceLearningEventId = letterSoundCorrespondenceLearningEventId;
+    public void setLetterSoundCorrespondenceId(Long letterSoundCorrespondenceId) {
+        this.letterSoundCorrespondenceId = letterSoundCorrespondenceId;
     }
 }
