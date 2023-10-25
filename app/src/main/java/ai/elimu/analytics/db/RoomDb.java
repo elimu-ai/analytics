@@ -15,7 +15,7 @@ import java.util.concurrent.Executors;
 
 import ai.elimu.analytics.dao.LetterAssessmentEventDao;
 import ai.elimu.analytics.dao.LetterLearningEventDao;
-import ai.elimu.analytics.dao.LetterSoundCorrespondenceLearningEventDao;
+import ai.elimu.analytics.dao.LetterSoundLearningEventDao;
 import ai.elimu.analytics.dao.StoryBookLearningEventDao;
 import ai.elimu.analytics.dao.WordAssessmentEventDao;
 import ai.elimu.analytics.dao.WordLearningEventDao;
@@ -33,7 +33,7 @@ public abstract class RoomDb extends RoomDatabase {
 
     public abstract LetterLearningEventDao letterLearningEventDao();
     public abstract LetterAssessmentEventDao letterAssessmentEventDao();
-    public abstract LetterSoundCorrespondenceLearningEventDao letterSoundCorrespondenceLearningEventDao();
+    public abstract LetterSoundLearningEventDao letterSoundLearningEventDao();
     public abstract WordLearningEventDao wordLearningEventDao();
     public abstract WordAssessmentEventDao wordAssessmentEventDao();
     public abstract StoryBookLearningEventDao storyBookLearningEventDao();

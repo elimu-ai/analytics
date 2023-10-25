@@ -18,7 +18,7 @@ import java.util.List;
 
 import ai.elimu.analytics.dao.LetterAssessmentEventDao;
 import ai.elimu.analytics.dao.LetterLearningEventDao;
-import ai.elimu.analytics.dao.LetterSoundCorrespondenceLearningEventDao;
+import ai.elimu.analytics.dao.LetterSoundLearningEventDao;
 import ai.elimu.analytics.dao.StoryBookLearningEventDao;
 import ai.elimu.analytics.dao.WordAssessmentEventDao;
 import ai.elimu.analytics.dao.WordLearningEventDao;
@@ -194,8 +194,8 @@ public class ExportEventsToCsvWorker extends Worker {
 
         // Extract LetterSoundCorrespondenceLearningEvents from the database that have not yet been exported to CSV.
         RoomDb roomDb = RoomDb.getDatabase(getApplicationContext());
-        LetterSoundCorrespondenceLearningEventDao letterSoundCorrespondenceLearningEventDao = roomDb.letterSoundCorrespondenceLearningEventDao();
-        List<LetterSoundCorrespondenceLearningEvent> letterSoundCorrespondenceLearningEvents = letterSoundCorrespondenceLearningEventDao.loadAllOrderedByTime();
+        LetterSoundLearningEventDao letterSoundLearningEventDao = roomDb.letterSoundLearningEventDao();
+        List<LetterSoundCorrespondenceLearningEvent> letterSoundCorrespondenceLearningEvents = letterSoundLearningEventDao.loadAllOrderedByTime();
         Timber.i("letterSoundCorrespondenceLearningEvents.size(): " + letterSoundCorrespondenceLearningEvents.size());
 
         CSVFormat csvFormat = CSVFormat.DEFAULT

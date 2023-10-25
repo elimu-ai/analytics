@@ -7,12 +7,12 @@ import android.provider.Settings;
 
 import java.util.Calendar;
 
-import ai.elimu.analytics.dao.LetterSoundCorrespondenceLearningEventDao;
+import ai.elimu.analytics.dao.LetterSoundLearningEventDao;
 import ai.elimu.analytics.db.RoomDb;
 import ai.elimu.analytics.entity.LetterSoundCorrespondenceLearningEvent;
 import timber.log.Timber;
 
-public class LetterSoundCorrespondenceLearningEventReceiver extends BroadcastReceiver {
+public class LetterSoundLearningEventReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Timber.i("onReceive");
@@ -44,17 +44,17 @@ public class LetterSoundCorrespondenceLearningEventReceiver extends BroadcastRec
         }
         Timber.i("letterSoundCorrespondenceSoundValuesIpa: " + letterSoundCorrespondenceSoundValuesIpa);
 
-        LetterSoundCorrespondenceLearningEvent letterSoundCorrespondenceLearningEvent = new LetterSoundCorrespondenceLearningEvent();
-        letterSoundCorrespondenceLearningEvent.setAndroidId(androidId);
-        letterSoundCorrespondenceLearningEvent.setPackageName(packageName);
-        letterSoundCorrespondenceLearningEvent.setTime(timestamp);
-        letterSoundCorrespondenceLearningEvent.setLetterSoundCorrespondenceId(letterSoundCorrespondenceId);
+        LetterSoundCorrespondenceLearningEvent letterSoundLearningEvent = new LetterSoundCorrespondenceLearningEvent();
+        letterSoundLearningEvent.setAndroidId(androidId);
+        letterSoundLearningEvent.setPackageName(packageName);
+        letterSoundLearningEvent.setTime(timestamp);
+        letterSoundLearningEvent.setLetterSoundCorrespondenceId(letterSoundCorrespondenceId);
 
         // Store in database
         RoomDb roomDb = RoomDb.getDatabase(context);
-        LetterSoundCorrespondenceLearningEventDao letterSoundCorrespondenceLearningEventDao = roomDb.letterSoundCorrespondenceLearningEventDao();
+        LetterSoundLearningEventDao letterSoundLearningEventDao = roomDb.letterSoundLearningEventDao();
         RoomDb.databaseWriteExecutor.execute(() -> {
-            letterSoundCorrespondenceLearningEventDao.insert(letterSoundCorrespondenceLearningEvent);
+            letterSoundLearningEventDao.insert(letterSoundLearningEvent);
         });
     }
 }
