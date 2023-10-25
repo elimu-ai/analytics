@@ -4,6 +4,7 @@ import android.text.TextUtils;
 
 import androidx.room.TypeConverter;
 
+import java.util.Arrays;
 import java.util.Calendar;
 
 import ai.elimu.model.v2.enums.analytics.LearningEventType;
@@ -39,5 +40,16 @@ public class Converters {
     public static String toString(LearningEventType learningEventType) {
         String value = learningEventType.toString();
         return value;
+    }
+
+
+    @TypeConverter
+    public static String[] fromArrayString(String value) {
+        return value.substring(1, value.length() - 1).split(", ");
+    }
+
+    @TypeConverter
+    public static String toString(String[] array) {
+        return Arrays.toString(array);
     }
 }

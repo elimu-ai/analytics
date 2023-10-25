@@ -32,16 +32,10 @@ public class LetterSoundLearningEventReceiver extends BroadcastReceiver {
         }
         Timber.i("letterSoundId: " + letterSoundId);
 
-        String[] letterSoundLetterTexts = null;
-        if (intent.hasExtra("letterSoundLetterTexts")) {
-            letterSoundLetterTexts = intent.getStringArrayExtra("letterSoundLetterTexts");
-        }
+        String[] letterSoundLetterTexts = intent.getStringArrayExtra("letterSoundLetterTexts");
         Timber.i("letterSoundLetterTexts: " + letterSoundLetterTexts);
 
-        String[] letterSoundSoundValuesIpa = null;
-        if (intent.hasExtra("letterSoundSoundValuesIpa")) {
-            letterSoundSoundValuesIpa = intent.getStringArrayExtra("letterSoundSoundValuesIpa");
-        }
+        String[] letterSoundSoundValuesIpa = intent.getStringArrayExtra("letterSoundSoundValuesIpa");
         Timber.i("letterSoundSoundValuesIpa: " + letterSoundSoundValuesIpa);
 
         LetterSoundLearningEvent letterSoundLearningEvent = new LetterSoundLearningEvent();
@@ -49,8 +43,8 @@ public class LetterSoundLearningEventReceiver extends BroadcastReceiver {
         letterSoundLearningEvent.setPackageName(packageName);
         letterSoundLearningEvent.setTime(timestamp);
         letterSoundLearningEvent.setLetterSoundId(letterSoundId);
-        // TODO: set letterSoundLetterTexts
-        // TODO: set letterSoundSoundValuesIpa
+        letterSoundLearningEvent.setLetterSoundLetterTexts(letterSoundLetterTexts);
+        letterSoundLearningEvent.setLetterSoundSoundValuesIpa(letterSoundSoundValuesIpa);
 
         // Store in database
         RoomDb roomDb = RoomDb.getDatabase(context);

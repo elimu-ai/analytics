@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 6,
-    "identityHash": "72ce0cb5ec75bdab92b339839a991788",
+    "identityHash": "c3a52792bec08bab3b672d9e5f3bd140",
     "entities": [
       {
         "tableName": "LetterLearningEvent",
@@ -124,13 +124,25 @@
       },
       {
         "tableName": "LetterSoundLearningEvent",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`letterSoundId` INTEGER, `androidId` TEXT NOT NULL, `packageName` TEXT NOT NULL, `time` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`letterSoundId` INTEGER, `letterSoundLetterTexts` TEXT NOT NULL, `letterSoundSoundValuesIpa` TEXT NOT NULL, `androidId` TEXT NOT NULL, `packageName` TEXT NOT NULL, `time` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT)",
         "fields": [
           {
             "fieldPath": "letterSoundId",
             "columnName": "letterSoundId",
             "affinity": "INTEGER",
             "notNull": false
+          },
+          {
+            "fieldPath": "letterSoundLetterTexts",
+            "columnName": "letterSoundLetterTexts",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "letterSoundSoundValuesIpa",
+            "columnName": "letterSoundSoundValuesIpa",
+            "affinity": "TEXT",
+            "notNull": true
           },
           {
             "fieldPath": "androidId",
@@ -338,7 +350,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '72ce0cb5ec75bdab92b339839a991788')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'c3a52792bec08bab3b672d9e5f3bd140')"
     ]
   }
 }
