@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 import ai.elimu.model.v2.enums.analytics.LearningEventType;
 import ai.elimu.model.v2.gson.content.LetterGson;
-import ai.elimu.model.v2.gson.content.LetterSoundCorrespondenceGson;
+import ai.elimu.model.v2.gson.content.LetterSoundGson;
 import ai.elimu.model.v2.gson.content.SoundGson;
 import ai.elimu.model.v2.gson.content.StoryBookGson;
 import ai.elimu.model.v2.gson.content.WordGson;
@@ -38,11 +38,11 @@ public class LearningEventUtil {
     }
 
     /**
-     * @param letterSoundGson The letter sound that the student is learning.
+     * @param letterSoundGson The letter-sound correspondence that the student is learning.
      * @param context Needed to fetch the {@code packageName} of the application where the learning event occurred.
      * @param analyticsApplicationId The package name of the analytics application that will receive the Intent and store the event.
      */
-    public static void reportLetterSoundLearningEvent(LetterSoundCorrespondenceGson letterSoundGson, Context context, String analyticsApplicationId) {
+    public static void reportLetterSoundLearningEvent(LetterSoundGson letterSoundGson, Context context, String analyticsApplicationId) {
         Log.i(LearningEventUtil.class.getName(),"reportLetterSoundLearningEvent");
 
         Intent broadcastIntent = new Intent();
