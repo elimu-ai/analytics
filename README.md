@@ -78,10 +78,10 @@ Follow these steps:
 1. Bump the `@Database` version in [`app/src/main/java/ai/elimu/analytics/db/RoomDb.java`](app/src/main/java/ai/elimu/analytics/db/RoomDb.java)
 1. Build the code with `./gradlew clean build`
 1. Open the new database schema generated at `app/schemas/ai.elimu.analytics.db.RoomDb/<version>.json`
-  - Under `entities`, find the matching `tableName` and copy its SQL script from the `createSql` property.
+   - Under `entities`, find the matching `tableName` and copy its SQL script from the `createSql` property.
 1. Open `RoomDb.java` and add a new method for the latest migration
-  - Paste the SQL script from the above JSON schema, and replace `${TABLE_NAME}` with the name of the table you created/modified.
-  - Include the migration in the `getDatabase` method in `RoomDb.java`.
+   - Paste the SQL script from the above JSON schema, and replace `${TABLE_NAME}` with the name of the table you created/modified.
+   - Include the migration in the `getDatabase` method in `RoomDb.java`.
 1. To run the database migration, launch the application on your device.
 
 **Tip #1:** To verify that your database migration ran successfully, look at the Logcat output and 
