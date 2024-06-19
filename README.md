@@ -84,14 +84,17 @@ Follow these steps:
    - Include the migration in the `getDatabase` method in `RoomDb.java`.
 1. To run the database migration, launch the application on your device.
 
-**Tip #1:** To verify that your database migration ran successfully, look at the Logcat output and 
+> [!TIP]
+> To verify that your database migration ran successfully, look at the Logcat output and 
 ensure that there are no RoomDb errors:
+
 ```
 2023-10-25 15:40:55.640 15303-914   RoomDb                  ai.elimu.analytics.debug             I  migrate (5 --> 6)
 2023-10-25 15:40:55.641 15303-914   RoomDb                  ai.elimu.analytics.debug             I  sql: CREATE TABLE IF NOT EXISTS `LetterSoundCorrespondenceLearningEvent` (`letterSoundCorrespondenceLearningEventId` INTEGER, `androidId` TEXT NOT NULL, `packageName` TEXT NOT NULL, `time` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT)
 ```
 
-**Tip #2:** You can also use Android Studio's _Database Inspector_ to verify that the database 
+> [!TIP]
+> You can also use Android Studio's _Database Inspector_ to verify that the database 
 migration succeeded:
 
 ![Database Inspector](https://github.com/elimu-ai/analytics/assets/1451036/64eb7aa2-40a3-4347-91b8-971b1f833241)
