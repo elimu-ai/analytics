@@ -52,7 +52,8 @@ See https://jitpack.io/#elimu-ai/analytics/ for the latest version.
 
 #### Utils Usage Sample
 
-To use the `utils` library in another Android app, add the dependency in `app/build.gradle`:
+> [!NOTE]
+> To use the `utils` library in another Android app, add the dependency in `app/build.gradle`:
 
 ```java
 implementation 'com.github.elimu-ai:analytics:<version>@aar'
@@ -65,7 +66,8 @@ For an example of an app that is reporting learning events, see https://github.c
 
 ### Database Migration 🔀
 
-When adding a new database `@Entity` (or modifying an existing one), you need to prepare a database 
+> [!IMPORTANT]
+> When adding a new database `@Entity` (or modifying an existing one), you need to prepare a database 
 migration (SQL script) in 
 [`app/src/main/java/ai/elimu/analytics/db/RoomDb.java`](app/src/main/java/ai/elimu/analytics/db/RoomDb.java).
 
@@ -83,15 +85,14 @@ Follow these steps:
    - Paste the SQL script from the above JSON schema, and replace `${TABLE_NAME}` with the name of the table you created/modified.
    - Include the migration in the `getDatabase` method in `RoomDb.java`.
 1. To run the database migration, launch the application on your device.
-
-> [!TIP]
-> To verify that your database migration ran successfully, look at the Logcat output and 
+1. To verify that your database migration ran successfully, look at the Logcat output and 
 ensure that there are no RoomDb errors:
-
-```
-2023-10-25 15:40:55.640 15303-914   RoomDb                  ai.elimu.analytics.debug             I  migrate (5 --> 6)
-2023-10-25 15:40:55.641 15303-914   RoomDb                  ai.elimu.analytics.debug             I  sql: CREATE TABLE IF NOT EXISTS `LetterSoundCorrespondenceLearningEvent` (`letterSoundCorrespondenceLearningEventId` INTEGER, `androidId` TEXT NOT NULL, `packageName` TEXT NOT NULL, `time` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT)
-```
+   ```
+   2023-10-25 15:40:55.640 15303-914   RoomDb                  ai.elimu.analytics.debug             I  migrate (5 --> 6)
+   2023-10-25 15:40:55.641 15303-914   RoomDb                  ai.elimu.analytics.debug             I  sql: CREATE TABLE IF NOT EXISTS 
+   `LetterSoundCorrespondenceLearningEvent` (`letterSoundCorrespondenceLearningEventId` INTEGER, `androidId` TEXT NOT NULL, `packageName` TEXT NOT NULL, `time` 
+   INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT)
+   ```
 
 > [!TIP]
 > You can also use Android Studio's _Database Inspector_ to verify that the database 
