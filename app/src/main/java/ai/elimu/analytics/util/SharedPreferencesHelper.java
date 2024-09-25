@@ -9,7 +9,7 @@ import timber.log.Timber;
 
 public class SharedPreferencesHelper {
 
-    private static final String SHARED_PREFS = "shared_prefs";
+    public static final String SHARED_PREFS = "shared_prefs";
 
     public static final String PREF_APP_VERSION_CODE = "pref_app_version_code";
     public static final String PREF_LANGUAGE = "pref_language";
