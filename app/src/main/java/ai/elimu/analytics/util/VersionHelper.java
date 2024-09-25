@@ -114,7 +114,7 @@ public class VersionHelper {
 
             if (oldVersionCode < 3001020) {
                 Timber.w("oldVersionCode < 3001020");
-                // Handle renaming from "FIL" to "TGL"
+                // Handle renaming from Language.FIL to Language.TGL
                 SharedPreferences sharedPreferences = context.getSharedPreferences(SharedPreferencesHelper.SHARED_PREFS, Context.MODE_PRIVATE);
                 String languageAsString = sharedPreferences.getString(SharedPreferencesHelper.PREF_LANGUAGE, null);
                 Timber.w("languageAsString: " + languageAsString);

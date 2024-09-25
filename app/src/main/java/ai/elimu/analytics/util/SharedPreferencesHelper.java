@@ -47,8 +47,11 @@ public class SharedPreferencesHelper {
         if (TextUtils.isEmpty(languageAsString)) {
             return null;
         } else {
-            Language language = Language.valueOf(languageAsString);
-            return language;
+            try {
+                return Language.valueOf(languageAsString);
+            } catch (IllegalArgumentException e) {
+                return null;
+            }
         }
     }
 }
