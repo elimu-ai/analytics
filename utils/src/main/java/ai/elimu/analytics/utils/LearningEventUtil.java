@@ -11,6 +11,7 @@ import ai.elimu.model.v2.gson.content.LetterGson;
 import ai.elimu.model.v2.gson.content.LetterSoundGson;
 import ai.elimu.model.v2.gson.content.SoundGson;
 import ai.elimu.model.v2.gson.content.StoryBookGson;
+import ai.elimu.model.v2.gson.content.VideoGson;
 import ai.elimu.model.v2.gson.content.WordGson;
 
 /**
@@ -88,6 +89,25 @@ public class LearningEventUtil {
         broadcastIntent.putExtra("packageName", context.getPackageName());
         broadcastIntent.putExtra("storyBookId", storyBookGson.getId());
         broadcastIntent.putExtra("storyBookTitle", storyBookGson.getTitle());
+        broadcastIntent.putExtra("learningEventType", learningEventType.toString());
+        broadcastIntent.setPackage(analyticsApplicationId);
+        context.sendBroadcast(broadcastIntent);
+    }
+
+    /**
+     * @param videoGson The video that the student is learning from.
+     * @param learningEventType The type of learning (i.e. the learning format) that is presented to the student in the application ({@code packageName}).
+     * @param context Needed to fetch the {@code packageName} of the application where the learning event occurred.
+     * @param analyticsApplicationId The package name of the analytics application that will receive the Intent and store the event.
+     */
+    public static void reportVideoLearningEvent(VideoGson videoGson, LearningEventType learningEventType, Context context, String analyticsApplicationId) {
+        Log.i(LearningEventUtil.class.getName(),"reportVideoLearningEvent");
+
+        Intent broadcastIntent = new Intent();
+        broadcastIntent.setAction("ai.elimu.intent.action.VIDEO_LEARNING_EVENT");
+        broadcastIntent.putExtra("packageName", context.getPackageName());
+        broadcastIntent.putExtra("videoId", videoGson.getId());
+        broadcastIntent.putExtra("videoTitle", videoGson.getTitle());
         broadcastIntent.putExtra("learningEventType", learningEventType.toString());
         broadcastIntent.setPackage(analyticsApplicationId);
         context.sendBroadcast(broadcastIntent);
