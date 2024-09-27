@@ -74,8 +74,6 @@ migration (SQL script) in
 Follow these steps:
 
 1. Add the new/modified `@Entity` to [`app/src/main/java/ai/elimu/analytics/entity/`](app/src/main/java/ai/elimu/analytics/entity/)
-1. Add the entity's DAO interface to [`app/src/main/java/ai/elimu/analytics/dao/`](app/src/main/java/ai/elimu/analytics/dao/)
-1. Include the DAO interface in [`app/src/main/java/ai/elimu/analytics/db/RoomDb.java`](app/src/main/java/ai/elimu/analytics/db/RoomDb.java)
 1. Include the entity in the `entities` section of the `@Database` in [`app/src/main/java/ai/elimu/analytics/db/RoomDb.java`](app/src/main/java/ai/elimu/analytics/db/RoomDb.java)
 1. Bump the `@Database` version in [`app/src/main/java/ai/elimu/analytics/db/RoomDb.java`](app/src/main/java/ai/elimu/analytics/db/RoomDb.java)
 1. Build the code with `./gradlew clean build`

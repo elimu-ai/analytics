@@ -23,11 +23,12 @@ import ai.elimu.analytics.entity.LetterAssessmentEvent;
 import ai.elimu.analytics.entity.LetterLearningEvent;
 import ai.elimu.analytics.entity.LetterSoundLearningEvent;
 import ai.elimu.analytics.entity.StoryBookLearningEvent;
+import ai.elimu.analytics.entity.VideoLearningEvent;
 import ai.elimu.analytics.entity.WordAssessmentEvent;
 import ai.elimu.analytics.entity.WordLearningEvent;
 import timber.log.Timber;
 
-@Database(version = 6, entities = {LetterLearningEvent.class, LetterAssessmentEvent.class, LetterSoundLearningEvent.class, WordLearningEvent.class, WordAssessmentEvent.class, StoryBookLearningEvent.class})
+@Database(version = 7, entities = {LetterLearningEvent.class, LetterAssessmentEvent.class, LetterSoundLearningEvent.class, WordLearningEvent.class, WordAssessmentEvent.class, StoryBookLearningEvent.class, VideoLearningEvent.class})
 @TypeConverters({Converters.class})
 public abstract class RoomDb extends RoomDatabase {
 
@@ -58,7 +59,8 @@ public abstract class RoomDb extends RoomDatabase {
                                     MIGRATION_2_3,
                                     MIGRATION_3_4,
                                     MIGRATION_4_5,
-                                    MIGRATION_5_6
+                                    MIGRATION_5_6,
+                                    MIGRATION_6_7
                             )
                             .build();
                 }
@@ -118,6 +120,17 @@ public abstract class RoomDb extends RoomDatabase {
             Timber.i("migrate (" + database.getVersion() + " --> 6)");
 
             String sql = "CREATE TABLE IF NOT EXISTS `LetterSoundLearningEvent` (`letterSoundId` INTEGER, `androidId` TEXT NOT NULL, `packageName` TEXT NOT NULL, `time` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT)";
+            Timber.i("sql: " + sql);
+            database.execSQL(sql);
+        }
+    };
+
+    private static final Migration MIGRATION_6_7 = new Migration(6, 7) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            Timber.i("migrate (" + database.getVersion() + " --> 7)");
+
+            String sql = "CREATE TABLE IF NOT EXISTS `VideoLearningEvent` (`videoId` INTEGER, `videoTitle` TEXT NOT NULL, `learningEventType` TEXT NOT NULL, `androidId` TEXT NOT NULL, `packageName` TEXT NOT NULL, `time` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT)";
             Timber.i("sql: " + sql);
             database.execSQL(sql);
         }
