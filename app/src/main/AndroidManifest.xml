@@ -67,6 +67,13 @@
                 <action android:name="ai.elimu.intent.action.STORYBOOK_LEARNING_EVENT" />
             </intent-filter>
         </receiver>
+        <receiver android:name=".receiver.VideoLearningEventReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="ai.elimu.intent.action.VIDEO_LEARNING_EVENT" />
+            </intent-filter>
+        </receiver>
         <receiver android:name=".receiver.BootReceiver"
             android:exported="true">
             <intent-filter>
