@@ -1,11 +1,13 @@
 package ai.elimu.analytics.util;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 
 import java.io.File;
 
+import ai.elimu.model.v2.enums.Language;
 import timber.log.Timber;
 
 /**
@@ -49,6 +51,7 @@ public class VersionHelper {
             Timber.i("Upgrading application from version " + oldVersionCode + " to " + newVersionCode + "...");
 
             if (oldVersionCode < 3001015) {
+                Timber.w("oldVersionCode < 3001015");
                 // Delete CSV files stored under the old folder structure
 
                 File filesDir = context.getFilesDir();
@@ -109,9 +112,16 @@ public class VersionHelper {
                 Timber.w("wordLearningEventsDir.delete(): " + wordLearningEventsDir.delete());
             }
 
-//            if (oldVersionCode < ???) {
-//                ...
-//            }
+            if (oldVersionCode < 3001020) {
+                Timber.w("oldVersionCode < 3001020");
+                // Handle renaming from Language.FIL to Language.TGL
+                SharedPreferences sharedPreferences = context.getSharedPreferences(SharedPreferencesHelper.SHARED_PREFS, Context.MODE_PRIVATE);
+                String languageAsString = sharedPreferences.getString(SharedPreferencesHelper.PREF_LANGUAGE, null);
+                Timber.w("languageAsString: " + languageAsString);
+                if ("FIL".equals(languageAsString)) {
+                    SharedPreferencesHelper.storeLanguage(context, Language.TGL);
+                }
+            }
 
 //            if (oldVersionCode < ???) {
 //                ...
