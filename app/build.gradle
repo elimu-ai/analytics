@@ -2,7 +2,8 @@ apply plugin: 'com.android.application'
 
 android {
     namespace "ai.elimu.analytics"
-    compileSdk 33
+    compileSdk 35
+
 
     defaultConfig {
         applicationId "ai.elimu.analytics"
@@ -40,6 +41,10 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    buildFeatures {
+        buildConfig = true
     }
 }
 

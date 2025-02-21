@@ -5,7 +5,8 @@ plugins {
 
 android {
     namespace "ai.elimu.analytics.utils"
-    compileSdk 33
+    compileSdk 35
+    
 
     defaultConfig {
         minSdkVersion 24
