@@ -34,7 +34,7 @@ dependencies {
 // Usage: ./gradlew clean build publish -PmavenUsername=***** -PmavenPassword=*****
 publishing {
     publications {
-        utils(MavenPublication) {
+        release(MavenPublication) {
             groupId 'ai.elimu.analytics'
             artifactId 'utils'
             version '3.1.23'
