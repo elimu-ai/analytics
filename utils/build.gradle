@@ -37,7 +37,7 @@ publishing {
         utils(MavenPublication) {
             groupId 'ai.elimu.analytics'
             artifactId 'utils'
-            version '3.1.22'
+            version '3.1.23'
             artifact("${buildDir}/outputs/aar/utils-${version}-release.aar")
         }
     }
