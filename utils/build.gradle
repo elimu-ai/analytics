@@ -32,21 +32,23 @@ dependencies {
 
 // See https://docs.gradle.org/current/dsl/org.gradle.api.publish.maven.MavenPublication.html
 // Usage: ./gradlew clean build publish -PmavenUsername=***** -PmavenPassword=*****
-afterEvaluate {
-    publishing {
-        publications {
-            release(MavenPublication) {
-                groupId 'ai.elimu.analytics'
-                artifactId 'utils'
-                version '3.1.26'
-                artifact("${buildDir}/outputs/aar/utils-${version}-release.aar")
+publishing {
+    publications {
+        release(MavenPublication) {
+            groupId 'ai.elimu.analytics'
+            artifactId 'utils'
+            version '3.1.26'
+            artifact("${buildDir}/outputs/aar/utils-${version}-release.aar")
+
+            afterEvaluate {
+                from components.release
             }
         }
-        repositories {
-            maven {
-                credentials(PasswordCredentials)
-                url "https://maven.pkg.github.com/elimu-ai/analytics"
-            }
+    }
+    repositories {
+        maven {
+            credentials(PasswordCredentials)
+            url "https://maven.pkg.github.com/elimu-ai/analytics"
         }
     }
 }
