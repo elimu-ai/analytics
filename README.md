@@ -50,6 +50,9 @@ A [`utils`](utils) library (`.aar`) makes it easier for other Android apps to re
 
 See https://jitpack.io/#elimu-ai/analytics/ for the latest version.
 
+> [!TIP]
+> To find all Android app repos that depend on this library, go to https://github.com/search?q=org%3Aelimu-ai+com.github.elimu-ai%3Aanalytics%3A&type=code
+
 #### Utils Usage Sample
 
 > [!NOTE]
