@@ -43,9 +43,9 @@ public class WordLearningEventReceiver extends BroadcastReceiver {
         Timber.i("learningEventType: " + learningEventType);
 
         WordLearningEvent wordLearningEvent = new WordLearningEvent();
-        wordLearningEvent.setAndroidId(androidId);
-        wordLearningEvent.setPackageName(packageName);
-        wordLearningEvent.setTime(timestamp);
+        wordLearningEvent.androidId = androidId;
+        wordLearningEvent.packageName = packageName;
+        wordLearningEvent.time = timestamp;
         wordLearningEvent.setWordId(wordId);
         wordLearningEvent.setWordText(wordText);
         wordLearningEvent.setLearningEventType(learningEventType);

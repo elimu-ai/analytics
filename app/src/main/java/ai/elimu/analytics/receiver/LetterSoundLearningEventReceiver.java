@@ -39,9 +39,9 @@ public class LetterSoundLearningEventReceiver extends BroadcastReceiver {
         Timber.i("letterSoundSoundValuesIpa: " + letterSoundSoundValuesIpa);
 
         LetterSoundLearningEvent letterSoundLearningEvent = new LetterSoundLearningEvent();
-        letterSoundLearningEvent.setAndroidId(androidId);
-        letterSoundLearningEvent.setPackageName(packageName);
-        letterSoundLearningEvent.setTime(timestamp);
+        letterSoundLearningEvent.androidId = androidId;
+        letterSoundLearningEvent.packageName = packageName;
+        letterSoundLearningEvent.time = timestamp;
         letterSoundLearningEvent.setLetterSoundId(letterSoundId);
         letterSoundLearningEvent.setLetterSoundLetterTexts(letterSoundLetterTexts);
         letterSoundLearningEvent.setLetterSoundSoundValuesIpa(letterSoundSoundValuesIpa);

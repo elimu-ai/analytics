@@ -87,21 +87,21 @@ public class ExportEventsToCsvWorker extends Worker {
                 //   files/version-code-3001012/letter-learning-events/7161a85a0e4751cd_3001012_letter-learning-events_2020-03-21.csv
                 Integer versionCode = VersionHelper.getAppVersionCode(getApplicationContext());
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                String date = simpleDateFormat.format(letterLearningEvent.getTime().getTime());
+                String date = simpleDateFormat.format(letterLearningEvent.time.getTime());
                 if (!date.equals(dateOfPreviousEvent)) {
                     // Reset file content
                     stringWriter = new StringWriter();
                     csvPrinter = new CSVPrinter(stringWriter, csvFormat);
                 }
                 dateOfPreviousEvent = date;
-                String csvFilename = letterLearningEvent.getAndroidId() + "_" + versionCode + "_letter-learning-events_" + date + ".csv";
+                String csvFilename = letterLearningEvent.androidId + "_" + versionCode + "_letter-learning-events_" + date + ".csv";
                 Timber.i("csvFilename: " + csvFilename);
 
                 csvPrinter.printRecord(
                         letterLearningEvent.getId(),
-                        letterLearningEvent.getTime().getTimeInMillis(),
-                        letterLearningEvent.getAndroidId(),
-                        letterLearningEvent.getPackageName(),
+                        letterLearningEvent.time.getTimeInMillis(),
+                        letterLearningEvent.androidId,
+                        letterLearningEvent.packageName,
                         letterLearningEvent.getLetterId(),
                         letterLearningEvent.getLetterText(),
                         letterLearningEvent.getLearningEventType()
@@ -220,21 +220,21 @@ public class ExportEventsToCsvWorker extends Worker {
                 //   files/version-code-3001017/letter-sound-learning-events/7161a85a0e4751cd_3001017_letter-sound-learning-events_2023-10-25.csv
                 Integer versionCode = VersionHelper.getAppVersionCode(getApplicationContext());
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                String date = simpleDateFormat.format(letterSoundLearningEvent.getTime().getTime());
+                String date = simpleDateFormat.format(letterSoundLearningEvent.time.getTime());
                 if (!date.equals(dateOfPreviousEvent)) {
                     // Reset file content
                     stringWriter = new StringWriter();
                     csvPrinter = new CSVPrinter(stringWriter, csvFormat);
                 }
                 dateOfPreviousEvent = date;
-                String csvFilename = letterSoundLearningEvent.getAndroidId() + "_" + versionCode + "_letter-sound-learning-events_" + date + ".csv";
+                String csvFilename = letterSoundLearningEvent.androidId + "_" + versionCode + "_letter-sound-learning-events_" + date + ".csv";
                 Timber.i("csvFilename: " + csvFilename);
 
                 csvPrinter.printRecord(
                         letterSoundLearningEvent.getId(),
-                        letterSoundLearningEvent.getTime().getTimeInMillis(),
-                        letterSoundLearningEvent.getAndroidId(),
-                        letterSoundLearningEvent.getPackageName(),
+                        letterSoundLearningEvent.time.getTimeInMillis(),
+                        letterSoundLearningEvent.androidId,
+                        letterSoundLearningEvent.packageName,
                         letterSoundLearningEvent.getId(),
                         null,
                         null
@@ -285,21 +285,21 @@ public class ExportEventsToCsvWorker extends Worker {
                 //   files/version-code-3001012/word-learning-events/7161a85a0e4751cd_3001012_word-learning-events_2020-03-21.csv
                 Integer versionCode = VersionHelper.getAppVersionCode(getApplicationContext());
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                String date = simpleDateFormat.format(wordLearningEvent.getTime().getTime());
+                String date = simpleDateFormat.format(wordLearningEvent.time.getTime());
                 if (!date.equals(dateOfPreviousEvent)) {
                     // Reset file content
                     stringWriter = new StringWriter();
                     csvPrinter = new CSVPrinter(stringWriter, csvFormat);
                 }
                 dateOfPreviousEvent = date;
-                String csvFilename = wordLearningEvent.getAndroidId() + "_" + versionCode + "_word-learning-events_" + date + ".csv";
+                String csvFilename = wordLearningEvent.androidId + "_" + versionCode + "_word-learning-events_" + date + ".csv";
                 Timber.i("csvFilename: " + csvFilename);
 
                 csvPrinter.printRecord(
                         wordLearningEvent.getId(),
-                        wordLearningEvent.getTime().getTimeInMillis(),
-                        wordLearningEvent.getAndroidId(),
-                        wordLearningEvent.getPackageName(),
+                        wordLearningEvent.time.getTimeInMillis(),
+                        wordLearningEvent.androidId,
+                        wordLearningEvent.packageName,
                         wordLearningEvent.getWordId(),
                         wordLearningEvent.getWordText(),
                         wordLearningEvent.getLearningEventType()
@@ -416,21 +416,21 @@ public class ExportEventsToCsvWorker extends Worker {
                 //   files/version-code-3001012/storybook-learning-events/7161a85a0e4751cd_3001012_storybook-learning-events_2020-03-21.csv
                 Integer versionCode = VersionHelper.getAppVersionCode(getApplicationContext());
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                String date = simpleDateFormat.format(storyBookLearningEvent.getTime().getTime());
+                String date = simpleDateFormat.format(storyBookLearningEvent.time.getTime());
                 if (!date.equals(dateOfPreviousEvent)) {
                     // Reset file content
                     stringWriter = new StringWriter();
                     csvPrinter = new CSVPrinter(stringWriter, csvFormat);
                 }
                 dateOfPreviousEvent = date;
-                String csvFilename = storyBookLearningEvent.getAndroidId() + "_" + versionCode + "_storybook-learning-events_" + date + ".csv";
+                String csvFilename = storyBookLearningEvent.androidId + "_" + versionCode + "_storybook-learning-events_" + date + ".csv";
                 Timber.i("csvFilename: " + csvFilename);
 
                 csvPrinter.printRecord(
                         storyBookLearningEvent.getId(),
-                        storyBookLearningEvent.getTime().getTimeInMillis(),
-                        storyBookLearningEvent.getAndroidId(),
-                        storyBookLearningEvent.getPackageName(),
+                        storyBookLearningEvent.time.getTimeInMillis(),
+                        storyBookLearningEvent.androidId,
+                        storyBookLearningEvent.packageName,
                         storyBookLearningEvent.getStoryBookId(),
                         storyBookLearningEvent.getLearningEventType()
                 );
