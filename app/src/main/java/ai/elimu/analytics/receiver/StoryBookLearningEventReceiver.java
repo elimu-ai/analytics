@@ -40,9 +40,9 @@ public class StoryBookLearningEventReceiver extends BroadcastReceiver {
         Timber.i("learningEventType: " + learningEventType);
 
         StoryBookLearningEvent storyBookLearningEvent = new StoryBookLearningEvent();
-        storyBookLearningEvent.setAndroidId(androidId);
-        storyBookLearningEvent.setPackageName(packageName);
-        storyBookLearningEvent.setTime(timestamp);
+        storyBookLearningEvent.androidId = androidId;
+        storyBookLearningEvent.packageName = packageName;
+        storyBookLearningEvent.time = timestamp;
         storyBookLearningEvent.setStoryBookId(storyBookId);
 //        storyBookLearningEvent.setStoryBookTitle(storyBookTitle);
         storyBookLearningEvent.setLearningEventType(learningEventType);

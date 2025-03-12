@@ -38,9 +38,9 @@ public class VideoLearningEventReceiver extends BroadcastReceiver {
         Timber.i("videoTitle: \"" + videoTitle + "\"");
 
         VideoLearningEvent videoLearningEvent = new VideoLearningEvent();
-        videoLearningEvent.setTime(timestamp);
-        videoLearningEvent.setAndroidId(androidId);
-        videoLearningEvent.setPackageName(packageName);
+        videoLearningEvent.time = timestamp;
+        videoLearningEvent.androidId = androidId;
+        videoLearningEvent.packageName = packageName;
         videoLearningEvent.setLearningEventType(learningEventType);
         videoLearningEvent.setVideoId(videoId);
         videoLearningEvent.setVideoTitle(videoTitle);

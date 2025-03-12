@@ -43,9 +43,9 @@ public class LetterLearningEventReceiver extends BroadcastReceiver {
         Timber.i("learningEventType: " + learningEventType);
 
         LetterLearningEvent letterLearningEvent = new LetterLearningEvent();
-        letterLearningEvent.setAndroidId(androidId);
-        letterLearningEvent.setPackageName(packageName);
-        letterLearningEvent.setTime(timestamp);
+        letterLearningEvent.androidId = androidId;
+        letterLearningEvent.packageName = packageName;
+        letterLearningEvent.time = timestamp;
         letterLearningEvent.setLetterId(letterId);
         letterLearningEvent.setLetterText(letterText);
         letterLearningEvent.setLearningEventType(learningEventType);
