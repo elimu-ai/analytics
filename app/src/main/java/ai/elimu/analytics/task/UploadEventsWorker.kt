@@ -1,7 +1,6 @@
 package ai.elimu.analytics.task
 
 import ai.elimu.analytics.BaseApplication
-import ai.elimu.analytics.BuildConfig
 import ai.elimu.analytics.rest.LetterAssessmentEventService
 import ai.elimu.analytics.rest.LetterLearningEventService
 import ai.elimu.analytics.rest.LetterSoundLearningEventService
@@ -27,14 +26,12 @@ class UploadEventsWorker(context: Context, workerParams: WorkerParameters) :
     override fun doWork(): Result {
         Timber.i("doWork")
 
-        if ("debug" != BuildConfig.BUILD_TYPE) {
-            uploadLetterLearningEvents()
-            uploadLetterAssessmentEvents()
-            uploadLetterSoundLearningEvents()
-            uploadWordLearningEvents()
-            uploadWordAssessmentEvents()
-            uploadStoryBookLearningEvents()
-        }
+        uploadLetterLearningEvents()
+        uploadLetterAssessmentEvents()
+        uploadLetterSoundLearningEvents()
+        uploadWordLearningEvents()
+        uploadWordAssessmentEvents()
+        uploadStoryBookLearningEvents()
 
         return Result.success()
     }
