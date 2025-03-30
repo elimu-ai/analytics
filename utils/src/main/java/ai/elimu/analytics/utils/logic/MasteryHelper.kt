@@ -1,59 +1,56 @@
-package ai.elimu.analytics.utils.logic;
+package ai.elimu.analytics.utils.logic
 
-import java.util.List;
+import ai.elimu.model.v2.gson.analytics.LetterAssessmentEventGson
+import ai.elimu.model.v2.gson.analytics.WordAssessmentEventGson
 
-import ai.elimu.model.v2.gson.analytics.LetterAssessmentEventGson;
-import ai.elimu.model.v2.gson.analytics.WordAssessmentEventGson;
-
-public class MasteryHelper {
-
+object MasteryHelper {
     /**
      * Definition of letter mastery: Answered correctly in the 3 most recent assessments.
      */
-    public static boolean isLetterMastered(List<LetterAssessmentEventGson> letterAssessmentEventGsons) {
+    fun isLetterMastered(letterAssessmentEventGsons: List<LetterAssessmentEventGson>): Boolean {
         // Verify minimum number of assessment events
-        if (letterAssessmentEventGsons.size() < 3) {
-            return false;
+        if (letterAssessmentEventGsons.size < 3) {
+            return false
         }
 
         // Verify assessment correctness
-        int correctInARowCount = 0;
-        for (LetterAssessmentEventGson letterAssessmentEventGson : letterAssessmentEventGsons) {
-            if (letterAssessmentEventGson.getMasteryScore() == 1.00f) {
-                correctInARowCount++;
+        var correctInARowCount = 0
+        for (letterAssessmentEventGson in letterAssessmentEventGsons) {
+            if (letterAssessmentEventGson.masteryScore == 1.00f) {
+                correctInARowCount++
             } else {
-                correctInARowCount = 0;
+                correctInARowCount = 0
             }
 
             if (correctInARowCount == 3) {
-                return true;
+                return true
             }
         }
-        return false;
+        return false
     }
 
     /**
      * Definition of word mastery: Answered correctly in the 3 most recent assessments.
      */
-    public static boolean isWordMastered(List<WordAssessmentEventGson> wordAssessmentEventGsons) {
+    fun isWordMastered(wordAssessmentEventGsons: List<WordAssessmentEventGson>): Boolean {
         // Verify minimum number of assessment events
-        if (wordAssessmentEventGsons.size() < 3) {
-            return false;
+        if (wordAssessmentEventGsons.size < 3) {
+            return false
         }
 
         // Verify assessment correctness
-        int correctInARowCount = 0;
-        for (WordAssessmentEventGson wordAssessmentEventGson : wordAssessmentEventGsons) {
-            if (wordAssessmentEventGson.getMasteryScore() == 1.00f) {
-                correctInARowCount++;
+        var correctInARowCount = 0
+        for (wordAssessmentEventGson in wordAssessmentEventGsons) {
+            if (wordAssessmentEventGson.masteryScore == 1.00f) {
+                correctInARowCount++
             } else {
-                correctInARowCount = 0;
+                correctInARowCount = 0
             }
 
             if (correctInARowCount == 3) {
-                return true;
+                return true
             }
         }
-        return false;
+        return false
     }
 }
