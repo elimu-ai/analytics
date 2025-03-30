@@ -145,4 +145,41 @@ public class MasteryHelperTest {
         wordAssessmentEventGsons.add(wordAssessmentEventGson30MinutesAgo);
         assertThat(MasteryHelper.isWordMastered(wordAssessmentEventGsons), is(true));
     }
+
+    @Test
+    public void testIsWordMastered_NotRecent_False() {
+        List<WordAssessmentEventGson> wordAssessmentEventGsons = new ArrayList<>();
+        assertThat(MasteryHelper.isWordMastered(wordAssessmentEventGsons), is(false));
+
+        WordAssessmentEventGson wordAssessmentEventGsonNow = new WordAssessmentEventGson();
+        Calendar calendarNow = Calendar.getInstance();
+        wordAssessmentEventGsonNow.setTime(calendarNow);
+        wordAssessmentEventGsonNow.setMasteryScore(0.00f);
+        wordAssessmentEventGsons.add(wordAssessmentEventGsonNow);
+        assertThat(MasteryHelper.isWordMastered(wordAssessmentEventGsons), is(false));
+
+        WordAssessmentEventGson wordAssessmentEventGson10MinutesAgo = new WordAssessmentEventGson();
+        Calendar calendar10MinutesAgo = Calendar.getInstance();
+        calendar10MinutesAgo.add(Calendar.MINUTE, -10);
+        wordAssessmentEventGson10MinutesAgo.setTime(calendar10MinutesAgo);
+        wordAssessmentEventGson10MinutesAgo.setMasteryScore(1.00f);
+        wordAssessmentEventGsons.add(wordAssessmentEventGson10MinutesAgo);
+        assertThat(MasteryHelper.isWordMastered(wordAssessmentEventGsons), is(false));
+
+        WordAssessmentEventGson wordAssessmentEventGson20MinutesAgo = new WordAssessmentEventGson();
+        Calendar calendar20MinutesAgo = Calendar.getInstance();
+        calendar20MinutesAgo.add(Calendar.MINUTE, -20);
+        wordAssessmentEventGson20MinutesAgo.setTime(calendar20MinutesAgo);
+        wordAssessmentEventGson20MinutesAgo.setMasteryScore(1.00f);
+        wordAssessmentEventGsons.add(wordAssessmentEventGson20MinutesAgo);
+        assertThat(MasteryHelper.isWordMastered(wordAssessmentEventGsons), is(false));
+
+        WordAssessmentEventGson wordAssessmentEventGson30MinutesAgo = new WordAssessmentEventGson();
+        Calendar calendar30MinutesAgo = Calendar.getInstance();
+        calendar30MinutesAgo.add(Calendar.MINUTE, -30);
+        wordAssessmentEventGson30MinutesAgo.setTime(calendar30MinutesAgo);
+        wordAssessmentEventGson30MinutesAgo.setMasteryScore(1.00f);
+        wordAssessmentEventGsons.add(wordAssessmentEventGson30MinutesAgo);
+        assertThat(MasteryHelper.isWordMastered(wordAssessmentEventGsons), is(false));
+    }
 }

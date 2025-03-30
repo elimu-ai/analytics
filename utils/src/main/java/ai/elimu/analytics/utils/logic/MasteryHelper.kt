@@ -7,6 +7,7 @@ object MasteryHelper {
     /**
      * Definition of letter mastery: Answered correctly in the 3 most recent assessments.
      */
+    @JvmStatic
     fun isLetterMastered(letterAssessmentEventGsons: List<LetterAssessmentEventGson>): Boolean {
         // Verify minimum number of assessment events
         if (letterAssessmentEventGsons.size < 3) {
@@ -21,7 +22,6 @@ object MasteryHelper {
             } else {
                 correctInARowCount = 0
             }
-
             if (correctInARowCount == 3) {
                 return true
             }
@@ -32,6 +32,7 @@ object MasteryHelper {
     /**
      * Definition of word mastery: Answered correctly in the 3 most recent assessments.
      */
+    @JvmStatic
     fun isWordMastered(wordAssessmentEventGsons: List<WordAssessmentEventGson>): Boolean {
         // Verify minimum number of assessment events
         if (wordAssessmentEventGsons.size < 3) {
@@ -39,18 +40,9 @@ object MasteryHelper {
         }
 
         // Verify assessment correctness
-        var correctInARowCount = 0
-        for (wordAssessmentEventGson in wordAssessmentEventGsons) {
-            if (wordAssessmentEventGson.masteryScore == 1.00f) {
-                correctInARowCount++
-            } else {
-                correctInARowCount = 0
-            }
-
-            if (correctInARowCount == 3) {
-                return true
-            }
+        wordAssessmentEventGsons.sortedBy { it.time }.takeLast(3).forEach {
+            if (it.masteryScore != 1.00f) return false
         }
-        return false
+        return true
     }
 }
