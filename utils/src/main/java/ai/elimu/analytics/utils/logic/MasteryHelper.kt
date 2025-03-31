@@ -15,18 +15,10 @@ object MasteryHelper {
         }
 
         // Verify assessment correctness
-        var correctInARowCount = 0
-        for (letterAssessmentEventGson in letterAssessmentEventGsons) {
-            if (letterAssessmentEventGson.masteryScore == 1.00f) {
-                correctInARowCount++
-            } else {
-                correctInARowCount = 0
-            }
-            if (correctInARowCount == 3) {
-                return true
-            }
+        letterAssessmentEventGsons.sortedBy { it.time }.takeLast(3).forEach {
+            if (it.masteryScore != 1.00f) return false
         }
-        return false
+        return true
     }
 
     /**
