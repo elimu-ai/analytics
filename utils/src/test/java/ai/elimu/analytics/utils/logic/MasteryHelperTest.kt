@@ -93,7 +93,7 @@ class MasteryHelperTest {
 
         val letterAssessmentEventGson30MinutesAgo = LetterAssessmentEventGson()
         val calendar30MinutesAgo = Calendar.getInstance()
-        calendar20MinutesAgo.add(Calendar.MINUTE, -30)
+        calendar30MinutesAgo.add(Calendar.MINUTE, -30)
         letterAssessmentEventGson30MinutesAgo.time = calendar30MinutesAgo
         letterAssessmentEventGson30MinutesAgo.masteryScore = 1.00f
         letterAssessmentEventGsons.add(letterAssessmentEventGson30MinutesAgo)
