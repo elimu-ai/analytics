@@ -1,223 +1,261 @@
-package ai.elimu.analytics.utils.logic;
+package ai.elimu.analytics.utils.logic
 
-import org.junit.Test;
+import ai.elimu.analytics.utils.logic.MasteryHelper.isLetterMastered
+import ai.elimu.analytics.utils.logic.MasteryHelper.isWordMastered
+import ai.elimu.model.v2.gson.analytics.LetterAssessmentEventGson
+import ai.elimu.model.v2.gson.analytics.WordAssessmentEventGson
+import org.hamcrest.CoreMatchers
+import org.hamcrest.MatcherAssert
+import org.junit.Test
+import java.util.Calendar
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-
-import ai.elimu.model.v2.gson.analytics.LetterAssessmentEventGson;
-import ai.elimu.model.v2.gson.analytics.WordAssessmentEventGson;
-
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
-
-public class MasteryHelperTest {
-
+class MasteryHelperTest {
     @Test
-    public void testIsLetterMastered_False() {
-        List<LetterAssessmentEventGson> letterAssessmentEventGsons = new ArrayList<>();
-        assertThat(MasteryHelper.isLetterMastered(letterAssessmentEventGsons), is(false));
+    fun testIsLetterMastered_False() {
+        val letterAssessmentEventGsons: MutableList<LetterAssessmentEventGson> = ArrayList()
+        MatcherAssert.assertThat(
+            isLetterMastered(letterAssessmentEventGsons),
+            CoreMatchers.`is`(false)
+        )
 
-        LetterAssessmentEventGson letterAssessmentEventGsonNow = new LetterAssessmentEventGson();
-        Calendar calendarNow = Calendar.getInstance();
-        letterAssessmentEventGsonNow.setTime(calendarNow);
-        letterAssessmentEventGsonNow.setMasteryScore(0.00f);
-        letterAssessmentEventGsons.add(letterAssessmentEventGsonNow);
-        assertThat(MasteryHelper.isLetterMastered(letterAssessmentEventGsons), is(false));
+        val letterAssessmentEventGsonNow = LetterAssessmentEventGson()
+        val calendarNow = Calendar.getInstance()
+        letterAssessmentEventGsonNow.time = calendarNow
+        letterAssessmentEventGsonNow.masteryScore = 0.00f
+        letterAssessmentEventGsons.add(letterAssessmentEventGsonNow)
+        MatcherAssert.assertThat(
+            isLetterMastered(letterAssessmentEventGsons),
+            CoreMatchers.`is`(false)
+        )
 
-        LetterAssessmentEventGson letterAssessmentEventGson10MinutesAgo = new LetterAssessmentEventGson();
-        Calendar calendar10MinutesAgo = Calendar.getInstance();
-        calendar10MinutesAgo.add(Calendar.MINUTE, -10);
-        letterAssessmentEventGson10MinutesAgo.setTime(calendar10MinutesAgo);
-        letterAssessmentEventGson10MinutesAgo.setMasteryScore(0.00f);
-        letterAssessmentEventGsons.add(letterAssessmentEventGson10MinutesAgo);
-        assertThat(MasteryHelper.isLetterMastered(letterAssessmentEventGsons), is(false));
+        val letterAssessmentEventGson10MinutesAgo = LetterAssessmentEventGson()
+        val calendar10MinutesAgo = Calendar.getInstance()
+        calendar10MinutesAgo.add(Calendar.MINUTE, -10)
+        letterAssessmentEventGson10MinutesAgo.time = calendar10MinutesAgo
+        letterAssessmentEventGson10MinutesAgo.masteryScore = 0.00f
+        letterAssessmentEventGsons.add(letterAssessmentEventGson10MinutesAgo)
+        MatcherAssert.assertThat(
+            isLetterMastered(letterAssessmentEventGsons),
+            CoreMatchers.`is`(false)
+        )
 
-        LetterAssessmentEventGson letterAssessmentEventGson20MinutesAgo = new LetterAssessmentEventGson();
-        Calendar calendar20MinutesAgo = Calendar.getInstance();
-        calendar20MinutesAgo.add(Calendar.MINUTE, -20);
-        letterAssessmentEventGson20MinutesAgo.setTime(calendar20MinutesAgo);
-        letterAssessmentEventGson20MinutesAgo.setMasteryScore(0.00f);
-        letterAssessmentEventGsons.add(letterAssessmentEventGson20MinutesAgo);
-        assertThat(MasteryHelper.isLetterMastered(letterAssessmentEventGsons), is(false));
+        val letterAssessmentEventGson20MinutesAgo = LetterAssessmentEventGson()
+        val calendar20MinutesAgo = Calendar.getInstance()
+        calendar20MinutesAgo.add(Calendar.MINUTE, -20)
+        letterAssessmentEventGson20MinutesAgo.time = calendar20MinutesAgo
+        letterAssessmentEventGson20MinutesAgo.masteryScore = 0.00f
+        letterAssessmentEventGsons.add(letterAssessmentEventGson20MinutesAgo)
+        MatcherAssert.assertThat(
+            isLetterMastered(letterAssessmentEventGsons),
+            CoreMatchers.`is`(false)
+        )
     }
 
     @Test
-    public void testIsLetterMastered_NotRecent_False() {
-        List<LetterAssessmentEventGson> letterAssessmentEventGsons = new ArrayList<>();
-        assertThat(MasteryHelper.isLetterMastered(letterAssessmentEventGsons), is(false));
+    fun testIsLetterMastered_NotRecent_False() {
+        val letterAssessmentEventGsons: MutableList<LetterAssessmentEventGson> = ArrayList()
+        MatcherAssert.assertThat(
+            isLetterMastered(letterAssessmentEventGsons),
+            CoreMatchers.`is`(false)
+        )
 
-        LetterAssessmentEventGson letterAssessmentEventGsonNow = new LetterAssessmentEventGson();
-        Calendar calendarNow = Calendar.getInstance();
-        letterAssessmentEventGsonNow.setTime(calendarNow);
-        letterAssessmentEventGsonNow.setMasteryScore(0.00f);
-        letterAssessmentEventGsons.add(letterAssessmentEventGsonNow);
-        assertThat(MasteryHelper.isLetterMastered(letterAssessmentEventGsons), is(false));
+        val letterAssessmentEventGsonNow = LetterAssessmentEventGson()
+        val calendarNow = Calendar.getInstance()
+        letterAssessmentEventGsonNow.time = calendarNow
+        letterAssessmentEventGsonNow.masteryScore = 0.00f
+        letterAssessmentEventGsons.add(letterAssessmentEventGsonNow)
+        MatcherAssert.assertThat(
+            isLetterMastered(letterAssessmentEventGsons),
+            CoreMatchers.`is`(false)
+        )
 
-        LetterAssessmentEventGson letterAssessmentEventGson10MinutesAgo = new LetterAssessmentEventGson();
-        Calendar calendar10MinutesAgo = Calendar.getInstance();
-        calendar10MinutesAgo.add(Calendar.MINUTE, -10);
-        letterAssessmentEventGson10MinutesAgo.setTime(calendar10MinutesAgo);
-        letterAssessmentEventGson10MinutesAgo.setMasteryScore(1.00f);
-        letterAssessmentEventGsons.add(letterAssessmentEventGson10MinutesAgo);
-        assertThat(MasteryHelper.isLetterMastered(letterAssessmentEventGsons), is(false));
+        val letterAssessmentEventGson10MinutesAgo = LetterAssessmentEventGson()
+        val calendar10MinutesAgo = Calendar.getInstance()
+        calendar10MinutesAgo.add(Calendar.MINUTE, -10)
+        letterAssessmentEventGson10MinutesAgo.time = calendar10MinutesAgo
+        letterAssessmentEventGson10MinutesAgo.masteryScore = 1.00f
+        letterAssessmentEventGsons.add(letterAssessmentEventGson10MinutesAgo)
+        MatcherAssert.assertThat(
+            isLetterMastered(letterAssessmentEventGsons),
+            CoreMatchers.`is`(false)
+        )
 
-        LetterAssessmentEventGson letterAssessmentEventGson20MinutesAgo = new LetterAssessmentEventGson();
-        Calendar calendar20MinutesAgo = Calendar.getInstance();
-        calendar20MinutesAgo.add(Calendar.MINUTE, -20);
-        letterAssessmentEventGson20MinutesAgo.setTime(calendar20MinutesAgo);
-        letterAssessmentEventGson20MinutesAgo.setMasteryScore(1.00f);
-        letterAssessmentEventGsons.add(letterAssessmentEventGson20MinutesAgo);
-        assertThat(MasteryHelper.isLetterMastered(letterAssessmentEventGsons), is(false));
+        val letterAssessmentEventGson20MinutesAgo = LetterAssessmentEventGson()
+        val calendar20MinutesAgo = Calendar.getInstance()
+        calendar20MinutesAgo.add(Calendar.MINUTE, -20)
+        letterAssessmentEventGson20MinutesAgo.time = calendar20MinutesAgo
+        letterAssessmentEventGson20MinutesAgo.masteryScore = 1.00f
+        letterAssessmentEventGsons.add(letterAssessmentEventGson20MinutesAgo)
+        MatcherAssert.assertThat(
+            isLetterMastered(letterAssessmentEventGsons),
+            CoreMatchers.`is`(false)
+        )
 
-        LetterAssessmentEventGson letterAssessmentEventGson30MinutesAgo = new LetterAssessmentEventGson();
-        Calendar calendar30MinutesAgo = Calendar.getInstance();
-        calendar20MinutesAgo.add(Calendar.MINUTE, -30);
-        letterAssessmentEventGson30MinutesAgo.setTime(calendar30MinutesAgo);
-        letterAssessmentEventGson30MinutesAgo.setMasteryScore(1.00f);
-        letterAssessmentEventGsons.add(letterAssessmentEventGson30MinutesAgo);
-        assertThat(MasteryHelper.isLetterMastered(letterAssessmentEventGsons), is(false));
+        val letterAssessmentEventGson30MinutesAgo = LetterAssessmentEventGson()
+        val calendar30MinutesAgo = Calendar.getInstance()
+        calendar20MinutesAgo.add(Calendar.MINUTE, -30)
+        letterAssessmentEventGson30MinutesAgo.time = calendar30MinutesAgo
+        letterAssessmentEventGson30MinutesAgo.masteryScore = 1.00f
+        letterAssessmentEventGsons.add(letterAssessmentEventGson30MinutesAgo)
+        MatcherAssert.assertThat(
+            isLetterMastered(letterAssessmentEventGsons),
+            CoreMatchers.`is`(false)
+        )
     }
 
     @Test
-    public void testIsLetterMastered_True() {
-        List<LetterAssessmentEventGson> letterAssessmentEventGsons = new ArrayList<>();
-        assertThat(MasteryHelper.isLetterMastered(letterAssessmentEventGsons), is(false));
+    fun testIsLetterMastered_True() {
+        val letterAssessmentEventGsons: MutableList<LetterAssessmentEventGson> = ArrayList()
+        MatcherAssert.assertThat(
+            isLetterMastered(letterAssessmentEventGsons),
+            CoreMatchers.`is`(false)
+        )
 
-        LetterAssessmentEventGson letterAssessmentEventGsonNow = new LetterAssessmentEventGson();
-        Calendar calendarNow = Calendar.getInstance();
-        letterAssessmentEventGsonNow.setTime(calendarNow);
-        letterAssessmentEventGsonNow.setMasteryScore(1.00f);
-        letterAssessmentEventGsons.add(letterAssessmentEventGsonNow);
-        assertThat(MasteryHelper.isLetterMastered(letterAssessmentEventGsons), is(false));
+        val letterAssessmentEventGsonNow = LetterAssessmentEventGson()
+        val calendarNow = Calendar.getInstance()
+        letterAssessmentEventGsonNow.time = calendarNow
+        letterAssessmentEventGsonNow.masteryScore = 1.00f
+        letterAssessmentEventGsons.add(letterAssessmentEventGsonNow)
+        MatcherAssert.assertThat(
+            isLetterMastered(letterAssessmentEventGsons),
+            CoreMatchers.`is`(false)
+        )
 
-        LetterAssessmentEventGson letterAssessmentEventGson10MinutesAgo = new LetterAssessmentEventGson();
-        Calendar calendar10MinutesAgo = Calendar.getInstance();
-        calendar10MinutesAgo.add(Calendar.MINUTE, -10);
-        letterAssessmentEventGson10MinutesAgo.setTime(calendar10MinutesAgo);
-        letterAssessmentEventGson10MinutesAgo.setMasteryScore(1.00f);
-        letterAssessmentEventGsons.add(letterAssessmentEventGson10MinutesAgo);
-        assertThat(MasteryHelper.isLetterMastered(letterAssessmentEventGsons), is(false));
+        val letterAssessmentEventGson10MinutesAgo = LetterAssessmentEventGson()
+        val calendar10MinutesAgo = Calendar.getInstance()
+        calendar10MinutesAgo.add(Calendar.MINUTE, -10)
+        letterAssessmentEventGson10MinutesAgo.time = calendar10MinutesAgo
+        letterAssessmentEventGson10MinutesAgo.masteryScore = 1.00f
+        letterAssessmentEventGsons.add(letterAssessmentEventGson10MinutesAgo)
+        MatcherAssert.assertThat(
+            isLetterMastered(letterAssessmentEventGsons),
+            CoreMatchers.`is`(false)
+        )
 
-        LetterAssessmentEventGson letterAssessmentEventGson20MinutesAgo = new LetterAssessmentEventGson();
-        Calendar calendar20MinutesAgo = Calendar.getInstance();
-        calendar20MinutesAgo.add(Calendar.MINUTE, -20);
-        letterAssessmentEventGson20MinutesAgo.setTime(calendar20MinutesAgo);
-        letterAssessmentEventGson20MinutesAgo.setMasteryScore(1.00f);
-        letterAssessmentEventGsons.add(letterAssessmentEventGson20MinutesAgo);
-        assertThat(MasteryHelper.isLetterMastered(letterAssessmentEventGsons), is(true));
+        val letterAssessmentEventGson20MinutesAgo = LetterAssessmentEventGson()
+        val calendar20MinutesAgo = Calendar.getInstance()
+        calendar20MinutesAgo.add(Calendar.MINUTE, -20)
+        letterAssessmentEventGson20MinutesAgo.time = calendar20MinutesAgo
+        letterAssessmentEventGson20MinutesAgo.masteryScore = 1.00f
+        letterAssessmentEventGsons.add(letterAssessmentEventGson20MinutesAgo)
+        MatcherAssert.assertThat(
+            isLetterMastered(letterAssessmentEventGsons),
+            CoreMatchers.`is`(true)
+        )
 
-        LetterAssessmentEventGson letterAssessmentEventGson30MinutesAgo = new LetterAssessmentEventGson();
-        Calendar calendar30MinutesAgo = Calendar.getInstance();
-        calendar30MinutesAgo.add(Calendar.MINUTE, -30);
-        letterAssessmentEventGson30MinutesAgo.setTime(calendar30MinutesAgo);
-        letterAssessmentEventGson30MinutesAgo.setMasteryScore(0.00f);
-        letterAssessmentEventGsons.add(letterAssessmentEventGson30MinutesAgo);
-        assertThat(MasteryHelper.isLetterMastered(letterAssessmentEventGsons), is(true));
+        val letterAssessmentEventGson30MinutesAgo = LetterAssessmentEventGson()
+        val calendar30MinutesAgo = Calendar.getInstance()
+        calendar30MinutesAgo.add(Calendar.MINUTE, -30)
+        letterAssessmentEventGson30MinutesAgo.time = calendar30MinutesAgo
+        letterAssessmentEventGson30MinutesAgo.masteryScore = 0.00f
+        letterAssessmentEventGsons.add(letterAssessmentEventGson30MinutesAgo)
+        MatcherAssert.assertThat(
+            isLetterMastered(letterAssessmentEventGsons),
+            CoreMatchers.`is`(true)
+        )
     }
 
     @Test
-    public void testIsWordMastered_False() {
-        List<WordAssessmentEventGson> wordAssessmentEventGsons = new ArrayList<>();
-        assertThat(MasteryHelper.isWordMastered(wordAssessmentEventGsons), is(false));
+    fun testIsWordMastered_False() {
+        val wordAssessmentEventGsons: MutableList<WordAssessmentEventGson> = ArrayList()
+        MatcherAssert.assertThat(isWordMastered(wordAssessmentEventGsons), CoreMatchers.`is`(false))
 
-        WordAssessmentEventGson wordAssessmentEventGsonNow = new WordAssessmentEventGson();
-        Calendar calendarNow = Calendar.getInstance();
-        wordAssessmentEventGsonNow.setTime(calendarNow);
-        wordAssessmentEventGsonNow.setMasteryScore(0.00f);
-        wordAssessmentEventGsons.add(wordAssessmentEventGsonNow);
-        assertThat(MasteryHelper.isWordMastered(wordAssessmentEventGsons), is(false));
+        val wordAssessmentEventGsonNow = WordAssessmentEventGson()
+        val calendarNow = Calendar.getInstance()
+        wordAssessmentEventGsonNow.time = calendarNow
+        wordAssessmentEventGsonNow.masteryScore = 0.00f
+        wordAssessmentEventGsons.add(wordAssessmentEventGsonNow)
+        MatcherAssert.assertThat(isWordMastered(wordAssessmentEventGsons), CoreMatchers.`is`(false))
 
-        WordAssessmentEventGson wordAssessmentEventGson10MinutesAgo = new WordAssessmentEventGson();
-        Calendar calendar10MinutesAgo = Calendar.getInstance();
-        calendar10MinutesAgo.add(Calendar.MINUTE, -10);
-        wordAssessmentEventGson10MinutesAgo.setTime(calendar10MinutesAgo);
-        wordAssessmentEventGson10MinutesAgo.setMasteryScore(0.00f);
-        wordAssessmentEventGsons.add(wordAssessmentEventGson10MinutesAgo);
-        assertThat(MasteryHelper.isWordMastered(wordAssessmentEventGsons), is(false));
+        val wordAssessmentEventGson10MinutesAgo = WordAssessmentEventGson()
+        val calendar10MinutesAgo = Calendar.getInstance()
+        calendar10MinutesAgo.add(Calendar.MINUTE, -10)
+        wordAssessmentEventGson10MinutesAgo.time = calendar10MinutesAgo
+        wordAssessmentEventGson10MinutesAgo.masteryScore = 0.00f
+        wordAssessmentEventGsons.add(wordAssessmentEventGson10MinutesAgo)
+        MatcherAssert.assertThat(isWordMastered(wordAssessmentEventGsons), CoreMatchers.`is`(false))
 
-        WordAssessmentEventGson wordAssessmentEventGson20MinutesAgo = new WordAssessmentEventGson();
-        Calendar calendar20MinutesAgo = Calendar.getInstance();
-        calendar20MinutesAgo.add(Calendar.MINUTE, -20);
-        wordAssessmentEventGson20MinutesAgo.setTime(calendar20MinutesAgo);
-        wordAssessmentEventGson20MinutesAgo.setMasteryScore(0.00f);
-        wordAssessmentEventGsons.add(wordAssessmentEventGson20MinutesAgo);
-        assertThat(MasteryHelper.isWordMastered(wordAssessmentEventGsons), is(false));
+        val wordAssessmentEventGson20MinutesAgo = WordAssessmentEventGson()
+        val calendar20MinutesAgo = Calendar.getInstance()
+        calendar20MinutesAgo.add(Calendar.MINUTE, -20)
+        wordAssessmentEventGson20MinutesAgo.time = calendar20MinutesAgo
+        wordAssessmentEventGson20MinutesAgo.masteryScore = 0.00f
+        wordAssessmentEventGsons.add(wordAssessmentEventGson20MinutesAgo)
+        MatcherAssert.assertThat(isWordMastered(wordAssessmentEventGsons), CoreMatchers.`is`(false))
     }
 
 
     @Test
-    public void testIsWordMastered_True() {
-        List<WordAssessmentEventGson> wordAssessmentEventGsons = new ArrayList<>();
-        assertThat(MasteryHelper.isWordMastered(wordAssessmentEventGsons), is(false));
+    fun testIsWordMastered_True() {
+        val wordAssessmentEventGsons: MutableList<WordAssessmentEventGson> = ArrayList()
+        MatcherAssert.assertThat(isWordMastered(wordAssessmentEventGsons), CoreMatchers.`is`(false))
 
-        WordAssessmentEventGson wordAssessmentEventGsonNow = new WordAssessmentEventGson();
-        Calendar calendarNow = Calendar.getInstance();
-        wordAssessmentEventGsonNow.setTime(calendarNow);
-        wordAssessmentEventGsonNow.setMasteryScore(1.00f);
-        wordAssessmentEventGsons.add(wordAssessmentEventGsonNow);
-        assertThat(MasteryHelper.isWordMastered(wordAssessmentEventGsons), is(false));
+        val wordAssessmentEventGsonNow = WordAssessmentEventGson()
+        val calendarNow = Calendar.getInstance()
+        wordAssessmentEventGsonNow.time = calendarNow
+        wordAssessmentEventGsonNow.masteryScore = 1.00f
+        wordAssessmentEventGsons.add(wordAssessmentEventGsonNow)
+        MatcherAssert.assertThat(isWordMastered(wordAssessmentEventGsons), CoreMatchers.`is`(false))
 
-        WordAssessmentEventGson wordAssessmentEventGson10MinutesAgo = new WordAssessmentEventGson();
-        Calendar calendar10MinutesAgo = Calendar.getInstance();
-        calendar10MinutesAgo.add(Calendar.MINUTE, -10);
-        wordAssessmentEventGson10MinutesAgo.setTime(calendar10MinutesAgo);
-        wordAssessmentEventGson10MinutesAgo.setMasteryScore(1.00f);
-        wordAssessmentEventGsons.add(wordAssessmentEventGson10MinutesAgo);
-        assertThat(MasteryHelper.isWordMastered(wordAssessmentEventGsons), is(false));
+        val wordAssessmentEventGson10MinutesAgo = WordAssessmentEventGson()
+        val calendar10MinutesAgo = Calendar.getInstance()
+        calendar10MinutesAgo.add(Calendar.MINUTE, -10)
+        wordAssessmentEventGson10MinutesAgo.time = calendar10MinutesAgo
+        wordAssessmentEventGson10MinutesAgo.masteryScore = 1.00f
+        wordAssessmentEventGsons.add(wordAssessmentEventGson10MinutesAgo)
+        MatcherAssert.assertThat(isWordMastered(wordAssessmentEventGsons), CoreMatchers.`is`(false))
 
-        WordAssessmentEventGson wordAssessmentEventGson20MinutesAgo = new WordAssessmentEventGson();
-        Calendar calendar20MinutesAgo = Calendar.getInstance();
-        calendar20MinutesAgo.add(Calendar.MINUTE, -20);
-        wordAssessmentEventGson20MinutesAgo.setTime(calendar20MinutesAgo);
-        wordAssessmentEventGson20MinutesAgo.setMasteryScore(1.00f);
-        wordAssessmentEventGsons.add(wordAssessmentEventGson20MinutesAgo);
-        assertThat(MasteryHelper.isWordMastered(wordAssessmentEventGsons), is(true));
+        val wordAssessmentEventGson20MinutesAgo = WordAssessmentEventGson()
+        val calendar20MinutesAgo = Calendar.getInstance()
+        calendar20MinutesAgo.add(Calendar.MINUTE, -20)
+        wordAssessmentEventGson20MinutesAgo.time = calendar20MinutesAgo
+        wordAssessmentEventGson20MinutesAgo.masteryScore = 1.00f
+        wordAssessmentEventGsons.add(wordAssessmentEventGson20MinutesAgo)
+        MatcherAssert.assertThat(isWordMastered(wordAssessmentEventGsons), CoreMatchers.`is`(true))
 
-        WordAssessmentEventGson wordAssessmentEventGson30MinutesAgo = new WordAssessmentEventGson();
-        Calendar calendar30MinutesAgo = Calendar.getInstance();
-        calendar30MinutesAgo.add(Calendar.MINUTE, -30);
-        wordAssessmentEventGson30MinutesAgo.setTime(calendar30MinutesAgo);
-        wordAssessmentEventGson30MinutesAgo.setMasteryScore(0.00f);
-        wordAssessmentEventGsons.add(wordAssessmentEventGson30MinutesAgo);
-        assertThat(MasteryHelper.isWordMastered(wordAssessmentEventGsons), is(true));
+        val wordAssessmentEventGson30MinutesAgo = WordAssessmentEventGson()
+        val calendar30MinutesAgo = Calendar.getInstance()
+        calendar30MinutesAgo.add(Calendar.MINUTE, -30)
+        wordAssessmentEventGson30MinutesAgo.time = calendar30MinutesAgo
+        wordAssessmentEventGson30MinutesAgo.masteryScore = 0.00f
+        wordAssessmentEventGsons.add(wordAssessmentEventGson30MinutesAgo)
+        MatcherAssert.assertThat(isWordMastered(wordAssessmentEventGsons), CoreMatchers.`is`(true))
     }
 
     @Test
-    public void testIsWordMastered_NotRecent_False() {
-        List<WordAssessmentEventGson> wordAssessmentEventGsons = new ArrayList<>();
-        assertThat(MasteryHelper.isWordMastered(wordAssessmentEventGsons), is(false));
+    fun testIsWordMastered_NotRecent_False() {
+        val wordAssessmentEventGsons: MutableList<WordAssessmentEventGson> = ArrayList()
+        MatcherAssert.assertThat(isWordMastered(wordAssessmentEventGsons), CoreMatchers.`is`(false))
 
-        WordAssessmentEventGson wordAssessmentEventGsonNow = new WordAssessmentEventGson();
-        Calendar calendarNow = Calendar.getInstance();
-        wordAssessmentEventGsonNow.setTime(calendarNow);
-        wordAssessmentEventGsonNow.setMasteryScore(0.00f);
-        wordAssessmentEventGsons.add(wordAssessmentEventGsonNow);
-        assertThat(MasteryHelper.isWordMastered(wordAssessmentEventGsons), is(false));
+        val wordAssessmentEventGsonNow = WordAssessmentEventGson()
+        val calendarNow = Calendar.getInstance()
+        wordAssessmentEventGsonNow.time = calendarNow
+        wordAssessmentEventGsonNow.masteryScore = 0.00f
+        wordAssessmentEventGsons.add(wordAssessmentEventGsonNow)
+        MatcherAssert.assertThat(isWordMastered(wordAssessmentEventGsons), CoreMatchers.`is`(false))
 
-        WordAssessmentEventGson wordAssessmentEventGson10MinutesAgo = new WordAssessmentEventGson();
-        Calendar calendar10MinutesAgo = Calendar.getInstance();
-        calendar10MinutesAgo.add(Calendar.MINUTE, -10);
-        wordAssessmentEventGson10MinutesAgo.setTime(calendar10MinutesAgo);
-        wordAssessmentEventGson10MinutesAgo.setMasteryScore(1.00f);
-        wordAssessmentEventGsons.add(wordAssessmentEventGson10MinutesAgo);
-        assertThat(MasteryHelper.isWordMastered(wordAssessmentEventGsons), is(false));
+        val wordAssessmentEventGson10MinutesAgo = WordAssessmentEventGson()
+        val calendar10MinutesAgo = Calendar.getInstance()
+        calendar10MinutesAgo.add(Calendar.MINUTE, -10)
+        wordAssessmentEventGson10MinutesAgo.time = calendar10MinutesAgo
+        wordAssessmentEventGson10MinutesAgo.masteryScore = 1.00f
+        wordAssessmentEventGsons.add(wordAssessmentEventGson10MinutesAgo)
+        MatcherAssert.assertThat(isWordMastered(wordAssessmentEventGsons), CoreMatchers.`is`(false))
 
-        WordAssessmentEventGson wordAssessmentEventGson20MinutesAgo = new WordAssessmentEventGson();
-        Calendar calendar20MinutesAgo = Calendar.getInstance();
-        calendar20MinutesAgo.add(Calendar.MINUTE, -20);
-        wordAssessmentEventGson20MinutesAgo.setTime(calendar20MinutesAgo);
-        wordAssessmentEventGson20MinutesAgo.setMasteryScore(1.00f);
-        wordAssessmentEventGsons.add(wordAssessmentEventGson20MinutesAgo);
-        assertThat(MasteryHelper.isWordMastered(wordAssessmentEventGsons), is(false));
+        val wordAssessmentEventGson20MinutesAgo = WordAssessmentEventGson()
+        val calendar20MinutesAgo = Calendar.getInstance()
+        calendar20MinutesAgo.add(Calendar.MINUTE, -20)
+        wordAssessmentEventGson20MinutesAgo.time = calendar20MinutesAgo
+        wordAssessmentEventGson20MinutesAgo.masteryScore = 1.00f
+        wordAssessmentEventGsons.add(wordAssessmentEventGson20MinutesAgo)
+        MatcherAssert.assertThat(isWordMastered(wordAssessmentEventGsons), CoreMatchers.`is`(false))
 
-        WordAssessmentEventGson wordAssessmentEventGson30MinutesAgo = new WordAssessmentEventGson();
-        Calendar calendar30MinutesAgo = Calendar.getInstance();
-        calendar30MinutesAgo.add(Calendar.MINUTE, -30);
-        wordAssessmentEventGson30MinutesAgo.setTime(calendar30MinutesAgo);
-        wordAssessmentEventGson30MinutesAgo.setMasteryScore(1.00f);
-        wordAssessmentEventGsons.add(wordAssessmentEventGson30MinutesAgo);
-        assertThat(MasteryHelper.isWordMastered(wordAssessmentEventGsons), is(false));
+        val wordAssessmentEventGson30MinutesAgo = WordAssessmentEventGson()
+        val calendar30MinutesAgo = Calendar.getInstance()
+        calendar30MinutesAgo.add(Calendar.MINUTE, -30)
+        wordAssessmentEventGson30MinutesAgo.time = calendar30MinutesAgo
+        wordAssessmentEventGson30MinutesAgo.masteryScore = 1.00f
+        wordAssessmentEventGsons.add(wordAssessmentEventGson30MinutesAgo)
+        MatcherAssert.assertThat(isWordMastered(wordAssessmentEventGsons), CoreMatchers.`is`(false))
     }
 }
