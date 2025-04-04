@@ -32,9 +32,9 @@ public class CursorToWordLearningEventGsonConverter {
         int columnTime = cursor.getColumnIndex("time");
         Long timeAsLong = cursor.getLong(columnTime);
         Log.i(CursorToWordLearningEventGsonConverter.class.getName(),"timeAsLong: " + timeAsLong);
-        Calendar time = Calendar.getInstance();
-        time.setTimeInMillis(timeAsLong);
-        Log.i(CursorToWordLearningEventGsonConverter.class.getName(),"time.getTime(): " + time.getTime());
+        Calendar timestamp = Calendar.getInstance();
+        timestamp.setTimeInMillis(timeAsLong);
+        Log.i(CursorToWordLearningEventGsonConverter.class.getName(),"time.getTime(): " + timestamp.getTime());
 
         int columnWordId = cursor.getColumnIndex("wordId");
         Long wordId = cursor.getLong(columnWordId);
@@ -53,7 +53,7 @@ public class CursorToWordLearningEventGsonConverter {
         wordLearningEventGson.setId(id);
         wordLearningEventGson.setAndroidId(androidId);
         wordLearningEventGson.setPackageName(packageName);
-        wordLearningEventGson.setTime(time);
+        wordLearningEventGson.setTimestamp(timestamp);
         wordLearningEventGson.setWordId(wordId);
         wordLearningEventGson.setWordText(wordText);
         wordLearningEventGson.setLearningEventType(learningEventType);

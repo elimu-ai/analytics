@@ -15,7 +15,7 @@ object MasteryHelper {
         }
 
         // Verify assessment correctness
-        letterAssessmentEventGsons.sortedBy { it.time }.takeLast(3).forEach {
+        letterAssessmentEventGsons.sortedBy { it.timestamp }.takeLast(3).forEach {
             if (it.masteryScore != 1.00f) return false
         }
         return true
@@ -32,7 +32,7 @@ object MasteryHelper {
         }
 
         // Verify assessment correctness
-        wordAssessmentEventGsons.sortedBy { it.time }.takeLast(3).forEach {
+        wordAssessmentEventGsons.sortedBy { it.timestamp }.takeLast(3).forEach {
             if (it.masteryScore != 1.00f) return false
         }
         return true
