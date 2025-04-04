@@ -30,9 +30,9 @@ public class CursorToLetterAssessmentEventGsonConverter {
         int columnTime = cursor.getColumnIndex("time");
         Long timeAsLong = cursor.getLong(columnTime);
         Log.i(CursorToLetterAssessmentEventGsonConverter.class.getName(),"timeAsLong: " + timeAsLong);
-        Calendar time = Calendar.getInstance();
-        time.setTimeInMillis(timeAsLong);
-        Log.i(CursorToLetterAssessmentEventGsonConverter.class.getName(),"time.getTime(): " + time.getTime());
+        Calendar timestamp = Calendar.getInstance();
+        timestamp.setTimeInMillis(timeAsLong);
+        Log.i(CursorToLetterAssessmentEventGsonConverter.class.getName(),"time.getTime(): " + timestamp.getTime());
 
         int columnLetterId = cursor.getColumnIndex("letterId");
         Long letterId = cursor.getLong(columnLetterId);
@@ -54,7 +54,7 @@ public class CursorToLetterAssessmentEventGsonConverter {
         letterAssessmentEventGson.setId(id);
         letterAssessmentEventGson.setAndroidId(androidId);
         letterAssessmentEventGson.setPackageName(packageName);
-        letterAssessmentEventGson.setTime(time);
+        letterAssessmentEventGson.setTimestamp(timestamp);
         letterAssessmentEventGson.setLetterId(letterId);
         letterAssessmentEventGson.setLetterText(letterText);
         letterAssessmentEventGson.setMasteryScore(masteryScore);
