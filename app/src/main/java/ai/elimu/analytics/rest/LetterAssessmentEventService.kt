@@ -7,8 +7,8 @@ import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
 
-interface LetterAssessmentEventService {
+interface LetterAssessmentEventService: UploadService {
     @Multipart
     @POST("analytics/letter-assessment-events/csv")
-    fun uploadCsvFile(@Part part: MultipartBody.Part?): Call<ResponseBody?>
+    override fun uploadCsvFile(@Part part: MultipartBody.Part?): Call<ResponseBody?>
 }
