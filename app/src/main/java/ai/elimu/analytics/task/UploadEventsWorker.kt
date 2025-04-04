@@ -3,7 +3,6 @@ package ai.elimu.analytics.task
 import ai.elimu.analytics.BaseApplication
 import ai.elimu.analytics.entity.LearningEventUploadType
 import ai.elimu.analytics.entity.toServiceClass
-import ai.elimu.analytics.rest.UploadService
 import android.content.Context
 import androidx.work.Worker
 import androidx.work.WorkerParameters
@@ -56,9 +55,7 @@ class UploadEventsWorker(context: Context, workerParams: WorkerParameters) :
 
                         val baseApplication = applicationContext as BaseApplication
                         val retrofit = baseApplication.retrofit
-                        val uploadService = retrofit.create(
-                            eventType.toServiceClass()
-                        ) as UploadService
+                        val uploadService = retrofit.create(eventType.toServiceClass())
                         val requestBody =
                             RequestBody.create(MediaType.parse("multipart/form-data"), file)
                         val part = MultipartBody.Part.createFormData("file", file.name, requestBody)
