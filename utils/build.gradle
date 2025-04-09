@@ -30,8 +30,8 @@ android {
 }
 
 dependencies {
-    implementation 'com.github.elimu-ai:model:model-2.0.83'
-    implementation 'androidx.core:core-ktx:1.15.0'// See https://jitpack.io/#elimu-ai/model
+    implementation 'com.github.elimu-ai:model:model-2.0.88' // See https://jitpack.io/#elimu-ai/model
+    implementation 'androidx.core:core-ktx:1.15.0'
     testImplementation 'junit:junit:4.13.2'
 }
 
