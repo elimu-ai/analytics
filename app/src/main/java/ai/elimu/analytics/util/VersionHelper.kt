@@ -124,9 +124,10 @@ object VersionHelper {
                 }
             }
 
-            //            if (oldVersionCode < ???) {
+//            if (oldVersionCode < ???) {
 //                ...
 //            }
+
             SharedPreferencesHelper.storeAppVersionCode(context, newVersionCode)
         }
     }
