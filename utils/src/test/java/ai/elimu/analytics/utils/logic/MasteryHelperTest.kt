@@ -20,7 +20,7 @@ class MasteryHelperTest {
 
         val letterAssessmentEventGsonNow = LetterAssessmentEventGson()
         val calendarNow = Calendar.getInstance()
-        letterAssessmentEventGsonNow.time = calendarNow
+        letterAssessmentEventGsonNow.timestamp = calendarNow
         letterAssessmentEventGsonNow.masteryScore = 0.00f
         letterAssessmentEventGsons.add(letterAssessmentEventGsonNow)
         MatcherAssert.assertThat(
@@ -31,7 +31,7 @@ class MasteryHelperTest {
         val letterAssessmentEventGson10MinutesAgo = LetterAssessmentEventGson()
         val calendar10MinutesAgo = Calendar.getInstance()
         calendar10MinutesAgo.add(Calendar.MINUTE, -10)
-        letterAssessmentEventGson10MinutesAgo.time = calendar10MinutesAgo
+        letterAssessmentEventGson10MinutesAgo.timestamp = calendar10MinutesAgo
         letterAssessmentEventGson10MinutesAgo.masteryScore = 0.00f
         letterAssessmentEventGsons.add(letterAssessmentEventGson10MinutesAgo)
         MatcherAssert.assertThat(
@@ -42,7 +42,7 @@ class MasteryHelperTest {
         val letterAssessmentEventGson20MinutesAgo = LetterAssessmentEventGson()
         val calendar20MinutesAgo = Calendar.getInstance()
         calendar20MinutesAgo.add(Calendar.MINUTE, -20)
-        letterAssessmentEventGson20MinutesAgo.time = calendar20MinutesAgo
+        letterAssessmentEventGson20MinutesAgo.timestamp = calendar20MinutesAgo
         letterAssessmentEventGson20MinutesAgo.masteryScore = 0.00f
         letterAssessmentEventGsons.add(letterAssessmentEventGson20MinutesAgo)
         MatcherAssert.assertThat(
@@ -61,7 +61,7 @@ class MasteryHelperTest {
 
         val letterAssessmentEventGsonNow = LetterAssessmentEventGson()
         val calendarNow = Calendar.getInstance()
-        letterAssessmentEventGsonNow.time = calendarNow
+        letterAssessmentEventGsonNow.timestamp = calendarNow
         letterAssessmentEventGsonNow.masteryScore = 0.00f
         letterAssessmentEventGsons.add(letterAssessmentEventGsonNow)
         MatcherAssert.assertThat(
@@ -72,7 +72,7 @@ class MasteryHelperTest {
         val letterAssessmentEventGson10MinutesAgo = LetterAssessmentEventGson()
         val calendar10MinutesAgo = Calendar.getInstance()
         calendar10MinutesAgo.add(Calendar.MINUTE, -10)
-        letterAssessmentEventGson10MinutesAgo.time = calendar10MinutesAgo
+        letterAssessmentEventGson10MinutesAgo.timestamp = calendar10MinutesAgo
         letterAssessmentEventGson10MinutesAgo.masteryScore = 1.00f
         letterAssessmentEventGsons.add(letterAssessmentEventGson10MinutesAgo)
         MatcherAssert.assertThat(
@@ -83,7 +83,7 @@ class MasteryHelperTest {
         val letterAssessmentEventGson20MinutesAgo = LetterAssessmentEventGson()
         val calendar20MinutesAgo = Calendar.getInstance()
         calendar20MinutesAgo.add(Calendar.MINUTE, -20)
-        letterAssessmentEventGson20MinutesAgo.time = calendar20MinutesAgo
+        letterAssessmentEventGson20MinutesAgo.timestamp = calendar20MinutesAgo
         letterAssessmentEventGson20MinutesAgo.masteryScore = 1.00f
         letterAssessmentEventGsons.add(letterAssessmentEventGson20MinutesAgo)
         MatcherAssert.assertThat(
@@ -94,7 +94,7 @@ class MasteryHelperTest {
         val letterAssessmentEventGson30MinutesAgo = LetterAssessmentEventGson()
         val calendar30MinutesAgo = Calendar.getInstance()
         calendar30MinutesAgo.add(Calendar.MINUTE, -30)
-        letterAssessmentEventGson30MinutesAgo.time = calendar30MinutesAgo
+        letterAssessmentEventGson30MinutesAgo.timestamp = calendar30MinutesAgo
         letterAssessmentEventGson30MinutesAgo.masteryScore = 1.00f
         letterAssessmentEventGsons.add(letterAssessmentEventGson30MinutesAgo)
         MatcherAssert.assertThat(
@@ -113,7 +113,7 @@ class MasteryHelperTest {
 
         val letterAssessmentEventGsonNow = LetterAssessmentEventGson()
         val calendarNow = Calendar.getInstance()
-        letterAssessmentEventGsonNow.time = calendarNow
+        letterAssessmentEventGsonNow.timestamp = calendarNow
         letterAssessmentEventGsonNow.masteryScore = 1.00f
         letterAssessmentEventGsons.add(letterAssessmentEventGsonNow)
         MatcherAssert.assertThat(
@@ -124,7 +124,7 @@ class MasteryHelperTest {
         val letterAssessmentEventGson10MinutesAgo = LetterAssessmentEventGson()
         val calendar10MinutesAgo = Calendar.getInstance()
         calendar10MinutesAgo.add(Calendar.MINUTE, -10)
-        letterAssessmentEventGson10MinutesAgo.time = calendar10MinutesAgo
+        letterAssessmentEventGson10MinutesAgo.timestamp = calendar10MinutesAgo
         letterAssessmentEventGson10MinutesAgo.masteryScore = 1.00f
         letterAssessmentEventGsons.add(letterAssessmentEventGson10MinutesAgo)
         MatcherAssert.assertThat(
@@ -135,7 +135,7 @@ class MasteryHelperTest {
         val letterAssessmentEventGson20MinutesAgo = LetterAssessmentEventGson()
         val calendar20MinutesAgo = Calendar.getInstance()
         calendar20MinutesAgo.add(Calendar.MINUTE, -20)
-        letterAssessmentEventGson20MinutesAgo.time = calendar20MinutesAgo
+        letterAssessmentEventGson20MinutesAgo.timestamp = calendar20MinutesAgo
         letterAssessmentEventGson20MinutesAgo.masteryScore = 1.00f
         letterAssessmentEventGsons.add(letterAssessmentEventGson20MinutesAgo)
         MatcherAssert.assertThat(
@@ -146,7 +146,7 @@ class MasteryHelperTest {
         val letterAssessmentEventGson30MinutesAgo = LetterAssessmentEventGson()
         val calendar30MinutesAgo = Calendar.getInstance()
         calendar30MinutesAgo.add(Calendar.MINUTE, -30)
-        letterAssessmentEventGson30MinutesAgo.time = calendar30MinutesAgo
+        letterAssessmentEventGson30MinutesAgo.timestamp = calendar30MinutesAgo
         letterAssessmentEventGson30MinutesAgo.masteryScore = 0.00f
         letterAssessmentEventGsons.add(letterAssessmentEventGson30MinutesAgo)
         MatcherAssert.assertThat(
@@ -162,7 +162,7 @@ class MasteryHelperTest {
 
         val wordAssessmentEventGsonNow = WordAssessmentEventGson()
         val calendarNow = Calendar.getInstance()
-        wordAssessmentEventGsonNow.time = calendarNow
+        wordAssessmentEventGsonNow.timestamp = calendarNow
         wordAssessmentEventGsonNow.masteryScore = 0.00f
         wordAssessmentEventGsons.add(wordAssessmentEventGsonNow)
         MatcherAssert.assertThat(isWordMastered(wordAssessmentEventGsons), CoreMatchers.`is`(false))
@@ -170,7 +170,7 @@ class MasteryHelperTest {
         val wordAssessmentEventGson10MinutesAgo = WordAssessmentEventGson()
         val calendar10MinutesAgo = Calendar.getInstance()
         calendar10MinutesAgo.add(Calendar.MINUTE, -10)
-        wordAssessmentEventGson10MinutesAgo.time = calendar10MinutesAgo
+        wordAssessmentEventGson10MinutesAgo.timestamp = calendar10MinutesAgo
         wordAssessmentEventGson10MinutesAgo.masteryScore = 0.00f
         wordAssessmentEventGsons.add(wordAssessmentEventGson10MinutesAgo)
         MatcherAssert.assertThat(isWordMastered(wordAssessmentEventGsons), CoreMatchers.`is`(false))
@@ -178,7 +178,7 @@ class MasteryHelperTest {
         val wordAssessmentEventGson20MinutesAgo = WordAssessmentEventGson()
         val calendar20MinutesAgo = Calendar.getInstance()
         calendar20MinutesAgo.add(Calendar.MINUTE, -20)
-        wordAssessmentEventGson20MinutesAgo.time = calendar20MinutesAgo
+        wordAssessmentEventGson20MinutesAgo.timestamp = calendar20MinutesAgo
         wordAssessmentEventGson20MinutesAgo.masteryScore = 0.00f
         wordAssessmentEventGsons.add(wordAssessmentEventGson20MinutesAgo)
         MatcherAssert.assertThat(isWordMastered(wordAssessmentEventGsons), CoreMatchers.`is`(false))
@@ -192,7 +192,7 @@ class MasteryHelperTest {
 
         val wordAssessmentEventGsonNow = WordAssessmentEventGson()
         val calendarNow = Calendar.getInstance()
-        wordAssessmentEventGsonNow.time = calendarNow
+        wordAssessmentEventGsonNow.timestamp = calendarNow
         wordAssessmentEventGsonNow.masteryScore = 1.00f
         wordAssessmentEventGsons.add(wordAssessmentEventGsonNow)
         MatcherAssert.assertThat(isWordMastered(wordAssessmentEventGsons), CoreMatchers.`is`(false))
@@ -200,7 +200,7 @@ class MasteryHelperTest {
         val wordAssessmentEventGson10MinutesAgo = WordAssessmentEventGson()
         val calendar10MinutesAgo = Calendar.getInstance()
         calendar10MinutesAgo.add(Calendar.MINUTE, -10)
-        wordAssessmentEventGson10MinutesAgo.time = calendar10MinutesAgo
+        wordAssessmentEventGson10MinutesAgo.timestamp = calendar10MinutesAgo
         wordAssessmentEventGson10MinutesAgo.masteryScore = 1.00f
         wordAssessmentEventGsons.add(wordAssessmentEventGson10MinutesAgo)
         MatcherAssert.assertThat(isWordMastered(wordAssessmentEventGsons), CoreMatchers.`is`(false))
@@ -208,7 +208,7 @@ class MasteryHelperTest {
         val wordAssessmentEventGson20MinutesAgo = WordAssessmentEventGson()
         val calendar20MinutesAgo = Calendar.getInstance()
         calendar20MinutesAgo.add(Calendar.MINUTE, -20)
-        wordAssessmentEventGson20MinutesAgo.time = calendar20MinutesAgo
+        wordAssessmentEventGson20MinutesAgo.timestamp = calendar20MinutesAgo
         wordAssessmentEventGson20MinutesAgo.masteryScore = 1.00f
         wordAssessmentEventGsons.add(wordAssessmentEventGson20MinutesAgo)
         MatcherAssert.assertThat(isWordMastered(wordAssessmentEventGsons), CoreMatchers.`is`(true))
@@ -216,7 +216,7 @@ class MasteryHelperTest {
         val wordAssessmentEventGson30MinutesAgo = WordAssessmentEventGson()
         val calendar30MinutesAgo = Calendar.getInstance()
         calendar30MinutesAgo.add(Calendar.MINUTE, -30)
-        wordAssessmentEventGson30MinutesAgo.time = calendar30MinutesAgo
+        wordAssessmentEventGson30MinutesAgo.timestamp = calendar30MinutesAgo
         wordAssessmentEventGson30MinutesAgo.masteryScore = 0.00f
         wordAssessmentEventGsons.add(wordAssessmentEventGson30MinutesAgo)
         MatcherAssert.assertThat(isWordMastered(wordAssessmentEventGsons), CoreMatchers.`is`(true))
@@ -229,7 +229,7 @@ class MasteryHelperTest {
 
         val wordAssessmentEventGsonNow = WordAssessmentEventGson()
         val calendarNow = Calendar.getInstance()
-        wordAssessmentEventGsonNow.time = calendarNow
+        wordAssessmentEventGsonNow.timestamp = calendarNow
         wordAssessmentEventGsonNow.masteryScore = 0.00f
         wordAssessmentEventGsons.add(wordAssessmentEventGsonNow)
         MatcherAssert.assertThat(isWordMastered(wordAssessmentEventGsons), CoreMatchers.`is`(false))
@@ -237,7 +237,7 @@ class MasteryHelperTest {
         val wordAssessmentEventGson10MinutesAgo = WordAssessmentEventGson()
         val calendar10MinutesAgo = Calendar.getInstance()
         calendar10MinutesAgo.add(Calendar.MINUTE, -10)
-        wordAssessmentEventGson10MinutesAgo.time = calendar10MinutesAgo
+        wordAssessmentEventGson10MinutesAgo.timestamp = calendar10MinutesAgo
         wordAssessmentEventGson10MinutesAgo.masteryScore = 1.00f
         wordAssessmentEventGsons.add(wordAssessmentEventGson10MinutesAgo)
         MatcherAssert.assertThat(isWordMastered(wordAssessmentEventGsons), CoreMatchers.`is`(false))
@@ -245,7 +245,7 @@ class MasteryHelperTest {
         val wordAssessmentEventGson20MinutesAgo = WordAssessmentEventGson()
         val calendar20MinutesAgo = Calendar.getInstance()
         calendar20MinutesAgo.add(Calendar.MINUTE, -20)
-        wordAssessmentEventGson20MinutesAgo.time = calendar20MinutesAgo
+        wordAssessmentEventGson20MinutesAgo.timestamp = calendar20MinutesAgo
         wordAssessmentEventGson20MinutesAgo.masteryScore = 1.00f
         wordAssessmentEventGsons.add(wordAssessmentEventGson20MinutesAgo)
         MatcherAssert.assertThat(isWordMastered(wordAssessmentEventGsons), CoreMatchers.`is`(false))
@@ -253,7 +253,7 @@ class MasteryHelperTest {
         val wordAssessmentEventGson30MinutesAgo = WordAssessmentEventGson()
         val calendar30MinutesAgo = Calendar.getInstance()
         calendar30MinutesAgo.add(Calendar.MINUTE, -30)
-        wordAssessmentEventGson30MinutesAgo.time = calendar30MinutesAgo
+        wordAssessmentEventGson30MinutesAgo.timestamp = calendar30MinutesAgo
         wordAssessmentEventGson30MinutesAgo.masteryScore = 1.00f
         wordAssessmentEventGsons.add(wordAssessmentEventGson30MinutesAgo)
         MatcherAssert.assertThat(isWordMastered(wordAssessmentEventGsons), CoreMatchers.`is`(false))
