@@ -8,12 +8,12 @@ updates:
     schedule:
       interval: "daily"
 
-  - package-ecosystem: "github-actions"
-    directory: "/app"
+  - package-ecosystem: "gradle" # See documentation for possible values
+    directory: "/utils" # Location of package manifests
     schedule:
       interval: "daily"
 
   - package-ecosystem: "github-actions"
-    directory: "/utils"
+    directory: "/"
     schedule:
       interval: "daily"
