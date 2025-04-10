@@ -50,9 +50,6 @@ A [`utils`](utils) library (`.aar`) makes it easier for other Android apps to re
 
 See https://jitpack.io/#elimu-ai/analytics/ for the latest version.
 
-> [!TIP]
-> To find all Android app repos that depend on this library, go to https://github.com/search?q=org%3Aelimu-ai+com.github.elimu-ai%3Aanalytics%3A&type=code
-
 #### Utils Usage Sample
 
 > [!NOTE]
@@ -106,6 +103,16 @@ migration succeeded:
 ```
 ./gradlew wrapper --gradle-version x.x.x
 ```
+
+### Release 📦
+
+> [!IMPORTANT]
+> After you publish a new release, remember to also bump the version in all Android app repos that depend on the `utils` library:
+> * https://github.com/elimu-ai/content-provider/blob/main/gradle/libs.versions.toml
+> * https://github.com/elimu-ai/kukariri/blob/main/gradle/libs.versions.toml
+> * https://github.com/elimu-ai/herufi/blob/main/gradle/libs.versions.toml
+> * https://github.com/elimu-ai/vitabu/blob/main/gradle/libs.versions.toml
+> * https://github.com/elimu-ai/filamu/blob/main/gradle/libs.versions.toml
 
 ---
 
