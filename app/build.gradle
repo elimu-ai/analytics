@@ -47,7 +47,7 @@ dependencies {
     implementation 'com.github.elimu-ai:model:model-2.0.88' // See https://jitpack.io/#elimu-ai/model
 
     implementation 'com.jakewharton.timber:timber:5.0.1'
-    implementation 'com.google.android.material:material:1.5.0'
+    implementation 'com.google.android.material:material:1.12.0'
     implementation 'org.apache.commons:commons-csv:1.14.0'
     implementation 'commons-io:commons-io:2.18.0'
 
