@@ -11,7 +11,8 @@ android {
     defaultConfig {
         minSdkVersion 26
         targetSdkVersion 35
-        versionName "3.1.30-SNAPSHOT"
+        versionCode 3001031
+        versionName "3.1.31-SNAPSHOT"
         setProperty("archivesBaseName", "utils-${versionName}")
     }
 
@@ -42,7 +43,7 @@ publishing {
         release(MavenPublication) {
             groupId 'ai.elimu.analytics'
             artifactId 'utils'
-            version '3.1.30-SNAPSHOT'
+            version '3.1.31-SNAPSHOT'
             artifact("${buildDir}/outputs/aar/utils-${version}-release.aar")
         }
     }
