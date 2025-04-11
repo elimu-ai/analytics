@@ -1,11 +1,8 @@
 package ai.elimu.analytics.task
 
 import ai.elimu.analytics.BaseApplication
-import ai.elimu.analytics.rest.LetterAssessmentEventService
-import ai.elimu.analytics.rest.LetterSoundLearningEventService
-import ai.elimu.analytics.rest.StoryBookLearningEventService
-import ai.elimu.analytics.rest.WordAssessmentEventService
-import ai.elimu.analytics.rest.WordLearningEventService
+import ai.elimu.analytics.entity.LearningEventUploadType
+import ai.elimu.analytics.entity.toServiceClass
 import android.content.Context
 import androidx.work.Worker
 import androidx.work.WorkerParameters
@@ -25,17 +22,18 @@ class UploadEventsWorker(context: Context, workerParams: WorkerParameters) :
     override fun doWork(): Result {
         Timber.i("doWork")
 
-        uploadLetterAssessmentEvents()
-        uploadLetterSoundLearningEvents()
-        uploadWordLearningEvents()
-        uploadWordAssessmentEvents()
-        uploadStoryBookLearningEvents()
+        uploadLearningEvents(eventType = LearningEventUploadType.LETTER_LEARNING)
+        uploadLearningEvents(eventType = LearningEventUploadType.LETTER_ASSESSMENT)
+        uploadLearningEvents(eventType = LearningEventUploadType.LETTER_SOUND_LEARNING)
+        uploadLearningEvents(eventType = LearningEventUploadType.WORD_LEARNING)
+        uploadLearningEvents(eventType = LearningEventUploadType.WORD_ASSESSMENT)
+        uploadLearningEvents(eventType = LearningEventUploadType.STORY_BOOK_LEARNING)
 
         return Result.success()
     }
 
-    private fun uploadLetterAssessmentEvents() {
-        Timber.i("uploadLetterAssessmentEvents")
+    private fun uploadLearningEvents(eventType: LearningEventUploadType) {
+        Timber.i("uploadLearningEvents: $eventType")
 
         // Upload CSV files to the server
         // Example format:
@@ -44,112 +42,7 @@ class UploadEventsWorker(context: Context, workerParams: WorkerParameters) :
         for (versionCodeDir in filesDir.listFiles() ?: emptyArray()) {
             Timber.i("versionCodeDir: $versionCodeDir")
             if (versionCodeDir.name.startsWith("version-code-")) {
-                val letterAssessmentEventsDir = File(versionCodeDir, "letter-assessment-events")
-                Timber.i("Uploading CSV files from $letterAssessmentEventsDir")
-                val files = letterAssessmentEventsDir.listFiles()
-                if (files != null) {
-                    Timber.i("files.length: " + files.size)
-                    Arrays.sort(files)
-                    for (i in files.indices) {
-                        val file = files[i]
-                        Timber.i("file.getAbsoluteFile(): " + file.absoluteFile)
-                        Timber.i("file.getName(): " + file.name)
-
-                        val baseApplication = applicationContext as BaseApplication
-                        val retrofit = baseApplication.retrofit
-                        val letterAssessmentEventService = retrofit.create(
-                            LetterAssessmentEventService::class.java
-                        )
-                        val requestBody =
-                            RequestBody.create(MediaType.parse("multipart/form-data"), file)
-                        val part = MultipartBody.Part.createFormData("file", file.name, requestBody)
-                        val call = letterAssessmentEventService.uploadCsvFile(part)
-                        Timber.i("call.request(): " + call.request())
-                        try {
-                            val response = call.execute()
-                            Timber.i("response: $response")
-                            Timber.i("response.isSuccessful(): " + response.isSuccessful)
-                            if (response.isSuccessful) {
-                                val bodyString = response.body()!!.string()
-                                Timber.i("bodyString: $bodyString")
-                            } else {
-                                val errorBodyString = response.errorBody()!!.string()
-                                Timber.e("errorBodyString: $errorBodyString")
-                                // TODO: Handle error
-                            }
-                        } catch (e: IOException) {
-                            Timber.e(e)
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    private fun uploadLetterSoundLearningEvents() {
-        Timber.i("uploadLetterSoundLearningEvents")
-
-        // Upload CSV files to the server
-        // Example format:
-        //   files/version-code-3001017/letter-sound-learning-events/7161a85a0e4751cd_3001017_letter-sound-learning-events_2023-10-25.csv
-        val filesDir = applicationContext.filesDir
-        for (versionCodeDir in filesDir.listFiles() ?: emptyArray()) {
-            Timber.i("versionCodeDir: $versionCodeDir")
-            if (versionCodeDir.name.startsWith("version-code-")) {
-                val letterSoundLearningEventsDir =
-                    File(versionCodeDir, "letter-sound-learning-events")
-                Timber.i("Uploading CSV files from $letterSoundLearningEventsDir")
-                val files = letterSoundLearningEventsDir.listFiles()
-                if (files != null) {
-                    Timber.i("files.length: " + files.size)
-                    Arrays.sort(files)
-                    for (i in files.indices) {
-                        val file = files[i]
-                        Timber.i("file.getAbsoluteFile(): " + file.absoluteFile)
-                        Timber.i("file.getName(): " + file.name)
-
-                        val baseApplication = applicationContext as BaseApplication
-                        val retrofit = baseApplication.retrofit
-                        val letterSoundLearningEventService = retrofit.create(
-                            LetterSoundLearningEventService::class.java
-                        )
-                        val requestBody =
-                            RequestBody.create(MediaType.parse("multipart/form-data"), file)
-                        val part = MultipartBody.Part.createFormData("file", file.name, requestBody)
-                        val call = letterSoundLearningEventService.uploadCsvFile(part)
-                        Timber.i("call.request(): " + call.request())
-                        try {
-                            val response = call.execute()
-                            Timber.i("response: $response")
-                            Timber.i("response.isSuccessful(): " + response.isSuccessful)
-                            if (response.isSuccessful) {
-                                val bodyString = response.body()!!.string()
-                                Timber.i("bodyString: $bodyString")
-                            } else {
-                                val errorBodyString = response.errorBody()!!.string()
-                                Timber.e("errorBodyString: $errorBodyString")
-                                // TODO: Handle error
-                            }
-                        } catch (e: IOException) {
-                            Timber.e(e)
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    private fun uploadWordLearningEvents() {
-        Timber.i("uploadWordLearningEvents")
-
-        // Upload CSV files to the server
-        // Example format:
-        //   files/version-code-3001012/word-learning-events/7161a85a0e4751cd_3001012_word-learning-events_2020-03-21.csv
-        val filesDir = applicationContext.filesDir
-        for (versionCodeDir in filesDir.listFiles() ?: emptyArray()) {
-            Timber.i("versionCodeDir: $versionCodeDir")
-            if (versionCodeDir.name.startsWith("version-code-")) {
-                val wordLearningEventsDir = File(versionCodeDir, "word-learning-events")
+                val wordLearningEventsDir = File(versionCodeDir, eventType.type)
                 Timber.i("Uploading CSV files from $wordLearningEventsDir")
                 val files = wordLearningEventsDir.listFiles()
                 if (files != null) {
@@ -162,127 +55,22 @@ class UploadEventsWorker(context: Context, workerParams: WorkerParameters) :
 
                         val baseApplication = applicationContext as BaseApplication
                         val retrofit = baseApplication.retrofit
-                        val wordLearningEventService = retrofit.create(
-                            WordLearningEventService::class.java
-                        )
+                        val uploadService = retrofit.create(eventType.toServiceClass())
                         val requestBody =
                             RequestBody.create(MediaType.parse("multipart/form-data"), file)
                         val part = MultipartBody.Part.createFormData("file", file.name, requestBody)
-                        val call = wordLearningEventService.uploadCsvFile(part)
+                        val call = uploadService.uploadCsvFile(part)
+
                         Timber.i("call.request(): " + call.request())
                         try {
                             val response = call.execute()
                             Timber.i("response: $response")
                             Timber.i("response.isSuccessful(): " + response.isSuccessful)
                             if (response.isSuccessful) {
-                                val bodyString = response.body()!!.string()
+                                val bodyString = response.body()?.string()
                                 Timber.i("bodyString: $bodyString")
                             } else {
-                                val errorBodyString = response.errorBody()!!.string()
-                                Timber.e("errorBodyString: $errorBodyString")
-                                // TODO: Handle error
-                            }
-                        } catch (e: IOException) {
-                            Timber.e(e)
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    private fun uploadWordAssessmentEvents() {
-        Timber.i("uploadWordAssessmentEvents")
-
-        // Upload CSV files to the server
-        // Example format:
-        //   files/version-code-3001012/word-assessment-events/7161a85a0e4751cd_3001012_word-assessment-events_2020-03-21.csv
-        val filesDir = applicationContext.filesDir
-        for (versionCodeDir in filesDir.listFiles() ?: emptyArray()) {
-            Timber.i("versionCodeDir: $versionCodeDir")
-            if (versionCodeDir.name.startsWith("version-code-")) {
-                val wordAssessmentEventsDir = File(versionCodeDir, "word-assessment-events")
-                Timber.i("Uploading CSV files from $wordAssessmentEventsDir")
-                val files = wordAssessmentEventsDir.listFiles()
-                if (files != null) {
-                    Timber.i("files.length: " + files.size)
-                    Arrays.sort(files)
-                    for (i in files.indices) {
-                        val file = files[i]
-                        Timber.i("file.getAbsoluteFile(): " + file.absoluteFile)
-                        Timber.i("file.getName(): " + file.name)
-
-                        val baseApplication = applicationContext as BaseApplication
-                        val retrofit = baseApplication.retrofit
-                        val wordAssessmentEventService = retrofit.create(
-                            WordAssessmentEventService::class.java
-                        )
-                        val requestBody =
-                            RequestBody.create(MediaType.parse("multipart/form-data"), file)
-                        val part = MultipartBody.Part.createFormData("file", file.name, requestBody)
-                        val call = wordAssessmentEventService.uploadCsvFile(part)
-                        Timber.i("call.request(): " + call.request())
-                        try {
-                            val response = call.execute()
-                            Timber.i("response: $response")
-                            Timber.i("response.isSuccessful(): " + response.isSuccessful)
-                            if (response.isSuccessful) {
-                                val bodyString = response.body()!!.string()
-                                Timber.i("bodyString: $bodyString")
-                            } else {
-                                val errorBodyString = response.errorBody()!!.string()
-                                Timber.e("errorBodyString: $errorBodyString")
-                                // TODO: Handle error
-                            }
-                        } catch (e: IOException) {
-                            Timber.e(e)
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    private fun uploadStoryBookLearningEvents() {
-        Timber.i("uploadStoryBookLearningEvents")
-
-        // Upload CSV files to the server
-        // Example format:
-        //   files/version-code-3001012/storybook-learning-events/7161a85a0e4751cd_3001012_storybook-learning-events_2020-03-21.csv
-        val filesDir = applicationContext.filesDir
-        for (versionCodeDir in filesDir.listFiles() ?: emptyArray()) {
-            Timber.i("versionCodeDir: $versionCodeDir")
-            if (versionCodeDir.name.startsWith("version-code-")) {
-                val storyBookLearningEventsDir = File(versionCodeDir, "storybook-learning-events")
-                Timber.i("Uploading CSV files from $storyBookLearningEventsDir")
-                val files = storyBookLearningEventsDir.listFiles()
-                if (files != null) {
-                    Timber.i("files.length: " + files.size)
-                    Arrays.sort(files)
-                    for (i in files.indices) {
-                        val file = files[i]
-                        Timber.i("file.getAbsoluteFile(): " + file.absoluteFile)
-                        Timber.i("file.getName(): " + file.name)
-
-                        val baseApplication = applicationContext as BaseApplication
-                        val retrofit = baseApplication.retrofit
-                        val storyBookLearningEventService = retrofit.create(
-                            StoryBookLearningEventService::class.java
-                        )
-                        val requestBody =
-                            RequestBody.create(MediaType.parse("multipart/form-data"), file)
-                        val part = MultipartBody.Part.createFormData("file", file.name, requestBody)
-                        val call = storyBookLearningEventService.uploadCsvFile(part)
-                        Timber.i("call.request(): " + call.request())
-                        try {
-                            val response = call.execute()
-                            Timber.i("response: $response")
-                            Timber.i("response.isSuccessful(): " + response.isSuccessful)
-                            if (response.isSuccessful) {
-                                val bodyString = response.body()!!.string()
-                                Timber.i("bodyString: $bodyString")
-                            } else {
-                                val errorBodyString = response.errorBody()!!.string()
+                                val errorBodyString = response.errorBody()?.string()
                                 Timber.e("errorBodyString: $errorBodyString")
                                 // TODO: Handle error
                             }
