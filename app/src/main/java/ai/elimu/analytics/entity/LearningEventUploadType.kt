@@ -9,7 +9,6 @@ import ai.elimu.analytics.rest.WordAssessmentEventService
 import ai.elimu.analytics.rest.WordLearningEventService
 
 enum class LearningEventUploadType(val type: String) {
-    LETTER_LEARNING("letter-learning-events"),
     LETTER_ASSESSMENT("letter-assessment-events"),
     LETTER_SOUND_LEARNING("letter-sound-learning-events"),
     STORY_BOOK_LEARNING("storybook-learning-events"),
@@ -19,7 +18,6 @@ enum class LearningEventUploadType(val type: String) {
 
 fun LearningEventUploadType.toServiceClass(): Class<out UploadService> {
     return when (this) {
-        LearningEventUploadType.LETTER_LEARNING -> LetterLearningEventService::class.java
         LearningEventUploadType.LETTER_ASSESSMENT -> LetterAssessmentEventService::class.java
         LearningEventUploadType.LETTER_SOUND_LEARNING -> LetterSoundLearningEventService::class.java
         LearningEventUploadType.STORY_BOOK_LEARNING -> StoryBookLearningEventService::class.java
