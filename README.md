@@ -16,7 +16,7 @@ A _learning event_ is an event without any corresponding testing of the student'
 
   * `StoryBookLearningEvent`
   * `WordLearningEvent`
-  * `LetterLearningEvent`
+  * `LetterSoundLearningEvent` (letter-sound correspondence)
 
 ## Assessment Events
 

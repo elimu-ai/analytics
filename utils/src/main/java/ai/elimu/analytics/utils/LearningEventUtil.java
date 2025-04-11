@@ -20,25 +20,6 @@ import ai.elimu.model.v2.gson.content.WordGson;
 public class LearningEventUtil {
 
     /**
-     * @param letterGson The letter that the student is learning.
-     * @param learningEventType The type of learning (i.e. the learning format) that is presented to the student in the application ({@code packageName}).
-     * @param context Needed to fetch the {@code packageName} of the application where the learning event occurred.
-     * @param analyticsApplicationId The package name of the analytics application that will receive the Intent and store the event.
-     */
-    public static void reportLetterLearningEvent(LetterGson letterGson, LearningEventType learningEventType, Context context, String analyticsApplicationId) {
-        Log.i(LearningEventUtil.class.getName(),"reportLetterLearningEvent");
-
-        Intent broadcastIntent = new Intent();
-        broadcastIntent.setAction("ai.elimu.intent.action.LETTER_LEARNING_EVENT");
-        broadcastIntent.putExtra("packageName", context.getPackageName());
-        broadcastIntent.putExtra("letterId", letterGson.getId());
-        broadcastIntent.putExtra("letterText", letterGson.getText());
-        broadcastIntent.putExtra("learningEventType", learningEventType.toString());
-        broadcastIntent.setPackage(analyticsApplicationId);
-        context.sendBroadcast(broadcastIntent);
-    }
-
-    /**
      * @param letterSoundGson The letter-sound correspondence that the student is learning.
      * @param context Needed to fetch the {@code packageName} of the application where the learning event occurred.
      * @param analyticsApplicationId The package name of the analytics application that will receive the Intent and store the event.
