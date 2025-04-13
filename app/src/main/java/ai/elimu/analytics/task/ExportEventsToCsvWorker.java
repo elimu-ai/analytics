@@ -16,13 +16,11 @@ import java.io.StringWriter;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-import ai.elimu.analytics.dao.LetterAssessmentEventDao;
 import ai.elimu.analytics.dao.LetterSoundLearningEventDao;
 import ai.elimu.analytics.dao.StoryBookLearningEventDao;
 import ai.elimu.analytics.dao.WordAssessmentEventDao;
 import ai.elimu.analytics.dao.WordLearningEventDao;
 import ai.elimu.analytics.db.RoomDb;
-import ai.elimu.analytics.entity.LetterAssessmentEvent;
 import ai.elimu.analytics.entity.LetterSoundLearningEvent;
 import ai.elimu.analytics.entity.StoryBookLearningEvent;
 import ai.elimu.analytics.entity.WordAssessmentEvent;
@@ -45,80 +43,12 @@ public class ExportEventsToCsvWorker extends Worker {
     public Result doWork() {
         Timber.i("doWork");
 
-        exportLetterAssessmentEventsToCsv();
         exportLetterSoundLearningEventsToCsv();
         exportWordLearningEventsToCsv();
         exportWordAssessmentEventsToCsv();
         exportStoryBookLearningEventsToCsv();
 
         return Result.success();
-    }
-
-    private void exportLetterAssessmentEventsToCsv() {
-        Timber.i("exportLetterAssessmentEventsToCsv");
-
-        // Extract LetterAssessmentEvents from the database that have not yet been exported to CSV.
-        RoomDb roomDb = RoomDb.getDatabase(getApplicationContext());
-        LetterAssessmentEventDao letterAssessmentEventDao = roomDb.letterAssessmentEventDao();
-        List<LetterAssessmentEvent> letterAssessmentEvents = letterAssessmentEventDao.loadAllOrderedByTimeAsc();
-        Timber.i("letterAssessmentEvents.size(): " + letterAssessmentEvents.size());
-
-        CSVFormat csvFormat = CSVFormat.DEFAULT
-                .withHeader(
-                        "id",
-                        "time",
-                        "android_id",
-                        "package_name",
-                        "letter_id",
-                        "letter_text",
-                        "mastery_score",
-                        "time_spent_ms"
-                );
-        StringWriter stringWriter = new StringWriter();
-        try {
-            CSVPrinter csvPrinter = new CSVPrinter(stringWriter, csvFormat);
-
-            // Generate one CSV file per day of events
-            String dateOfPreviousEvent = null;
-            for (LetterAssessmentEvent letterAssessmentEvent : letterAssessmentEvents) {
-                // Export event to CSV file. Example format:
-                //   files/version-code-3001012/letter-assessment-events/7161a85a0e4751cd_3001012_letter-assessment-events_2020-03-21.csv
-                Integer versionCode = VersionHelper.getAppVersionCode(getApplicationContext());
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                String date = simpleDateFormat.format(letterAssessmentEvent.getTime().getTime());
-                if (!date.equals(dateOfPreviousEvent)) {
-                    // Reset file content
-                    stringWriter = new StringWriter();
-                    csvPrinter = new CSVPrinter(stringWriter, csvFormat);
-                }
-                dateOfPreviousEvent = date;
-                String csvFilename = letterAssessmentEvent.getAndroidId() + "_" + versionCode + "_letter-assessment-events_" + date + ".csv";
-                Timber.i("csvFilename: " + csvFilename);
-
-                csvPrinter.printRecord(
-                        letterAssessmentEvent.getId(),
-                        letterAssessmentEvent.getTime().getTimeInMillis(),
-                        letterAssessmentEvent.getAndroidId(),
-                        letterAssessmentEvent.getPackageName(),
-                        letterAssessmentEvent.getLetterId(),
-                        letterAssessmentEvent.getLetterText(),
-                        letterAssessmentEvent.getMasteryScore(),
-                        letterAssessmentEvent.getTimeSpentMs()
-                );
-                csvPrinter.flush();
-
-                String csvFileContent = stringWriter.toString();
-
-                // Write the content to the CSV file
-                File filesDir = getApplicationContext().getFilesDir();
-                File versionCodeDir = new File(filesDir, "version-code-" + versionCode);
-                File letterAssessmentEventsDir = new File(versionCodeDir, "letter-assessment-events");
-                File csvFile = new File(letterAssessmentEventsDir, csvFilename);
-                FileUtils.writeStringToFile(csvFile, csvFileContent, "UTF-8");
-            }
-        } catch (IOException e) {
-            Timber.e(e);
-        }
     }
 
     private void exportLetterSoundLearningEventsToCsv() {
