@@ -15,7 +15,7 @@ androidXJunit = "1.2.1"
 androidXEspresso = "3.6.1"
 coreKtx = "1.15.0"
 kotlin = "2.1.20"
-workRuntime = "2.7.1"
+workRuntime = "2.10.0"
 
 [libraries]
 elimu-model = { group = "com.github.elimu-ai", name = "model", version.ref = "elimuModel" }
