@@ -1,18 +1,15 @@
-package ai.elimu.analytics.receiver;
+package ai.elimu.analytics.receiver
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
+import ai.elimu.analytics.task.TaskInitializer
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import timber.log.Timber
 
-import ai.elimu.analytics.task.TaskInitializer;
-import timber.log.Timber;
+class BootReceiver : BroadcastReceiver() {
+    override fun onReceive(context: Context, intent: Intent) {
+        Timber.i("onReceive")
 
-public class BootReceiver extends BroadcastReceiver {
-
-    @Override
-    public void onReceive(Context context, Intent intent) {
-        Timber.i("onReceive");
-
-        TaskInitializer.initializePeriodicWork(context);
+        TaskInitializer.initializePeriodicWork(context)
     }
 }
