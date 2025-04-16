@@ -86,10 +86,12 @@ class LanguageListDialogFragment : BottomSheetDialogFragment() {
             holder.text.setOnClickListener {
                 Timber.i("onClick")
                 Timber.i("language: $language")
-                storeLanguage(context!!, language)
+                context?.let {
+                    storeLanguage(it, language)
+                }
                 val mainActivityIntent = Intent(context, MainActivity::class.java)
                 startActivity(mainActivityIntent)
-                activity!!.finish()
+                activity?.finish()
             }
         }
 
