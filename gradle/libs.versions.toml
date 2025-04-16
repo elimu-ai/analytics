@@ -1,21 +1,21 @@
 [versions]
-elimuModel = "model-2.0.93"
+elimuModel = "model-2.0.95"
 material = "1.5.0"
 retrofit = "2.11.0"
 junit = "4.13.2"
 timber = "5.0.1"
 commonsCsv = "1.14.0"
-commonsIO = "2.18.0"
+commonsIO = "2.19.0"
 
 constraintLayout = "2.2.1"
-appCompat = "1.4.1"
+appCompat = "1.7.0"
 recyclerView = "1.2.1"
 room = "2.7.0"
 androidXJunit = "1.2.1"
 androidXEspresso = "3.6.1"
-coreKtx = "1.15.0"
+coreKtx = "1.16.0"
 kotlin = "2.1.20"
-workRuntime = "2.7.1"
+workRuntime = "2.10.0"
 
 [libraries]
 elimu-model = { group = "com.github.elimu-ai", name = "model", version.ref = "elimuModel" }
