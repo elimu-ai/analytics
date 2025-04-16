@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">elimu.ai Analytics</string>
+    <string name="language_selection_value">%1$s (%2$s)</string>
 </resources>
