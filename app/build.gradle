@@ -50,6 +50,7 @@ dependencies {
     implementation libs.material
     implementation libs.common.csv
     implementation libs.common.io
+    implementation libs.elimu.common.utils
 
     // AndroidX
     implementation libs.androidx.appcompat

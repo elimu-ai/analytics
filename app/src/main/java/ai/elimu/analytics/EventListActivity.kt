@@ -1,6 +1,8 @@
 package ai.elimu.analytics
 
 import ai.elimu.analytics.db.RoomDb
+import ai.elimu.common.utils.ui.setLightStatusBar
+import ai.elimu.common.utils.ui.setStatusBarColorCompat
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -33,10 +35,10 @@ class EventListActivity : AppCompatActivity() {
             Timber.d("storyBookLearningEvents.size(): " + storyBookLearningEvents.size)
             eventListAdapter.setStoryBookLearningEvents(storyBookLearningEvents)
         }
-    }
 
-    override fun onStart() {
-        Timber.i("onStart")
-        super.onStart()
+        window.apply {
+            setLightStatusBar()
+            setStatusBarColorCompat(R.color.colorPrimaryDark)
+        }
     }
 }

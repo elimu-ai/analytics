@@ -4,6 +4,7 @@ import ai.elimu.analytics.db.RoomDb
 import ai.elimu.analytics.language.SelectLanguageActivity
 import ai.elimu.analytics.task.TaskInitializer
 import ai.elimu.analytics.util.SharedPreferencesHelper.getLanguage
+import ai.elimu.common.utils.ui.setLightStatusBar
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -15,6 +16,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_main)
+
+        window.apply {
+            setLightStatusBar()
+        }
     }
 
     override fun onStart() {
