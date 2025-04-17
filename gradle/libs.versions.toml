@@ -6,6 +6,7 @@ junit = "4.13.2"
 timber = "5.0.1"
 commonsCsv = "1.14.0"
 commonsIO = "2.19.0"
+elimuCommonutils = "1.0.8"
 
 constraintLayout = "2.2.1"
 appCompat = "1.7.0"
@@ -19,6 +20,7 @@ workRuntime = "2.10.0"
 
 [libraries]
 elimu-model = { group = "com.github.elimu-ai", name = "model", version.ref = "elimuModel" }
+elimu-common-utils = { group = "com.github.elimu-ai", name = "common-utils", version.ref = "elimuCommonutils" }
 timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appCompat" }
