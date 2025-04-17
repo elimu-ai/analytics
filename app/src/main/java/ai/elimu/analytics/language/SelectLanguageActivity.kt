@@ -1,27 +1,23 @@
-package ai.elimu.analytics.language;
+package ai.elimu.analytics.language
 
-import android.os.Bundle;
+import ai.elimu.analytics.R
+import ai.elimu.analytics.language.LanguageListDialogFragment.Companion.newInstance
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import timber.log.Timber
 
-import androidx.appcompat.app.AppCompatActivity;
+class SelectLanguageActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        Timber.i("onCreate")
+        super.onCreate(savedInstanceState)
 
-import ai.elimu.analytics.R;
-import timber.log.Timber;
-
-public class SelectLanguageActivity extends AppCompatActivity {
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        Timber.i("onCreate");
-        super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.activity_select_language);
+        setContentView(R.layout.activity_select_language)
     }
 
-    @Override
-    protected void onStart() {
-        Timber.i("onStart");
-        super.onStart();
+    override fun onStart() {
+        Timber.i("onStart")
+        super.onStart()
 
-        LanguageListDialogFragment.newInstance().show(getSupportFragmentManager(), "dialog");
+        newInstance().show(supportFragmentManager, "dialog")
     }
 }
