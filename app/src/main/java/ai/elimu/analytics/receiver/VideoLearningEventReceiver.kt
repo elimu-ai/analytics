@@ -1,49 +1,48 @@
-package ai.elimu.analytics.receiver;
+package ai.elimu.analytics.receiver
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.provider.Settings;
+import ai.elimu.analytics.entity.VideoLearningEvent
+import ai.elimu.model.v2.enums.analytics.LearningEventType
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.provider.Settings
+import timber.log.Timber
+import java.util.Calendar
 
-import java.util.Calendar;
+class VideoLearningEventReceiver : BroadcastReceiver() {
+    override fun onReceive(context: Context, intent: Intent) {
+        Timber.i("onReceive")
 
-import ai.elimu.analytics.entity.VideoLearningEvent;
-import ai.elimu.model.v2.enums.analytics.LearningEventType;
-import timber.log.Timber;
+        val timestamp = Calendar.getInstance()
+        Timber.i("timestamp.getTime(): " + timestamp.time)
 
-public class VideoLearningEventReceiver extends BroadcastReceiver {
+        val androidId =
+            Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
+        Timber.i("androidId: \"$androidId\"")
 
-    @Override
-    public void onReceive(Context context, Intent intent) {
-        Timber.i("onReceive");
+        val packageName = intent.getStringExtra("packageName")
+        Timber.i("packageName: \"$packageName\"")
 
-        Calendar timestamp = Calendar.getInstance();
-        Timber.i("timestamp.getTime(): " + timestamp.getTime());
+        val learningEventTypeAsString = intent.getStringExtra("learningEventType")
+        Timber.i("learningEventTypeAsString: \"$learningEventTypeAsString\"")
+        val learningEventType = LearningEventType.valueOf(
+            learningEventTypeAsString!!
+        )
+        Timber.i("learningEventType: $learningEventType")
 
-        String androidId = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
-        Timber.i("androidId: \"" + androidId + "\"");
+        val videoId = intent.getLongExtra("videoId", 0)
+        Timber.i("videoId: $videoId")
 
-        String packageName = intent.getStringExtra("packageName");
-        Timber.i("packageName: \"" + packageName + "\"");
+        val videoTitle = intent.getStringExtra("videoTitle")
+        Timber.i("videoTitle: \"$videoTitle\"")
 
-        String learningEventTypeAsString = intent.getStringExtra("learningEventType");
-        Timber.i("learningEventTypeAsString: \"" + learningEventTypeAsString + "\"");
-        LearningEventType learningEventType = LearningEventType.valueOf(learningEventTypeAsString);
-        Timber.i("learningEventType: " + learningEventType);
-
-        Long videoId = intent.getLongExtra("videoId", 0);
-        Timber.i("videoId: " + videoId);
-
-        String videoTitle = intent.getStringExtra("videoTitle");
-        Timber.i("videoTitle: \"" + videoTitle + "\"");
-
-        VideoLearningEvent videoLearningEvent = new VideoLearningEvent();
-        videoLearningEvent.time = timestamp;
-        videoLearningEvent.androidId = androidId;
-        videoLearningEvent.packageName = packageName;
-        videoLearningEvent.setLearningEventType(learningEventType);
-        videoLearningEvent.setVideoId(videoId);
-        videoLearningEvent.setVideoTitle(videoTitle);
+        val videoLearningEvent = VideoLearningEvent()
+        videoLearningEvent.time = timestamp
+        videoLearningEvent.androidId = androidId
+        videoLearningEvent.packageName = packageName!!
+        videoLearningEvent.learningEventType = learningEventType
+        videoLearningEvent.videoId = videoId
+        videoLearningEvent.videoTitle = videoTitle
 
         // TODO: Store in database
     }
