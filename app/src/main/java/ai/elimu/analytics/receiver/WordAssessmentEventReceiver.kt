@@ -1,61 +1,57 @@
-package ai.elimu.analytics.receiver;
+package ai.elimu.analytics.receiver
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.provider.Settings;
+import ai.elimu.analytics.db.RoomDb
+import ai.elimu.analytics.entity.WordAssessmentEvent
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.provider.Settings
+import timber.log.Timber
+import java.util.Calendar
 
-import java.util.Calendar;
+class WordAssessmentEventReceiver : BroadcastReceiver() {
+    override fun onReceive(context: Context, intent: Intent) {
+        Timber.i("onReceive")
 
-import ai.elimu.analytics.dao.WordAssessmentEventDao;
-import ai.elimu.analytics.db.RoomDb;
-import ai.elimu.analytics.entity.WordAssessmentEvent;
-import timber.log.Timber;
+        val androidId =
+            Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
+        Timber.i("androidId: \"$androidId\"")
 
-public class WordAssessmentEventReceiver extends BroadcastReceiver {
+        val packageName = intent.getStringExtra("packageName")
+        Timber.i("packageName: \"$packageName\"")
 
-    @Override
-    public void onReceive(Context context, Intent intent) {
-        Timber.i("onReceive");
+        val timestamp = Calendar.getInstance()
+        Timber.i("timestamp.getTime(): " + timestamp.time)
 
-        String androidId = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
-        Timber.i("androidId: \"" + androidId + "\"");
-
-        String packageName = intent.getStringExtra("packageName");
-        Timber.i("packageName: \"" + packageName + "\"");
-
-        Calendar timestamp = Calendar.getInstance();
-        Timber.i("timestamp.getTime(): " + timestamp.getTime());
-
-        Long wordId = null;
+        var wordId: Long? = null
         if (intent.hasExtra("wordId")) {
-            wordId = intent.getLongExtra("wordId", 0);
+            wordId = intent.getLongExtra("wordId", 0)
         }
-        Timber.i("wordId: " + wordId);
+        Timber.i("wordId: $wordId")
 
-        String wordText = intent.getStringExtra("wordText");
-        Timber.i("wordText: \"" + wordText + "\"");
+        val wordText = intent.getStringExtra("wordText")
+        Timber.i("wordText: \"$wordText\"")
 
-        float masteryScore = intent.getFloatExtra("masteryScore", 0);
-        Timber.i("masteryScore: " + masteryScore);
+        val masteryScore = intent.getFloatExtra("masteryScore", 0f)
+        Timber.i("masteryScore: $masteryScore")
 
-        long timeSpentMs = intent.getLongExtra("timeSpentMs", 0);
-        Timber.i("timeSpentMs: " + timeSpentMs);
+        val timeSpentMs = intent.getLongExtra("timeSpentMs", 0)
+        Timber.i("timeSpentMs: $timeSpentMs")
 
-        WordAssessmentEvent wordAssessmentEvent = new WordAssessmentEvent();
-        wordAssessmentEvent.setAndroidId(androidId);
-        wordAssessmentEvent.setPackageName(packageName);
-        wordAssessmentEvent.setTime(timestamp);
-        wordAssessmentEvent.setWordId(wordId);
-        wordAssessmentEvent.setWordText(wordText);
-        wordAssessmentEvent.setMasteryScore(masteryScore);
-        wordAssessmentEvent.setTimeSpentMs(timeSpentMs);
+        val wordAssessmentEvent = WordAssessmentEvent()
+        wordAssessmentEvent.androidId = androidId
+        wordAssessmentEvent.packageName = packageName
+        wordAssessmentEvent.time = timestamp
+        wordAssessmentEvent.wordId = wordId
+        wordAssessmentEvent.wordText = wordText
+        wordAssessmentEvent.masteryScore = masteryScore
+        wordAssessmentEvent.timeSpentMs = timeSpentMs
 
         // Store in database
-        RoomDb roomDb = RoomDb.getDatabase(context);
-        WordAssessmentEventDao wordAssessmentEventDao = roomDb.wordAssessmentEventDao();
-        RoomDb.databaseWriteExecutor.execute(() -> {
-            wordAssessmentEventDao.insert(wordAssessmentEvent);
-        });
+        val roomDb = RoomDb.getDatabase(context)
+        val wordAssessmentEventDao = roomDb.wordAssessmentEventDao()
+        RoomDb.databaseWriteExecutor.execute {
+            wordAssessmentEventDao.insert(wordAssessmentEvent)
+        }
     }
 }
