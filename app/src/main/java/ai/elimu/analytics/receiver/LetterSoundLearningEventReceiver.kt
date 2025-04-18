@@ -1,56 +1,53 @@
-package ai.elimu.analytics.receiver;
+package ai.elimu.analytics.receiver
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.provider.Settings;
+import ai.elimu.analytics.db.RoomDb
+import ai.elimu.analytics.entity.LetterSoundLearningEvent
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.provider.Settings
+import timber.log.Timber
+import java.util.Calendar
 
-import java.util.Calendar;
+class LetterSoundLearningEventReceiver : BroadcastReceiver() {
+    override fun onReceive(context: Context, intent: Intent) {
+        Timber.i("onReceive")
 
-import ai.elimu.analytics.dao.LetterSoundLearningEventDao;
-import ai.elimu.analytics.db.RoomDb;
-import ai.elimu.analytics.entity.LetterSoundLearningEvent;
-import timber.log.Timber;
+        val androidId =
+            Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
+        Timber.i("androidId: \"$androidId\"")
 
-public class LetterSoundLearningEventReceiver extends BroadcastReceiver {
-    @Override
-    public void onReceive(Context context, Intent intent) {
-        Timber.i("onReceive");
+        val packageName = intent.getStringExtra("packageName")
+        Timber.i("packageName: \"$packageName\"")
 
-        String androidId = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
-        Timber.i("androidId: \"" + androidId + "\"");
+        val timestamp = Calendar.getInstance()
+        Timber.i("timestamp.getTime(): " + timestamp.time)
 
-        String packageName = intent.getStringExtra("packageName");
-        Timber.i("packageName: \"" + packageName + "\"");
-
-        Calendar timestamp = Calendar.getInstance();
-        Timber.i("timestamp.getTime(): " + timestamp.getTime());
-
-        Long letterSoundId = null;
+        var letterSoundId: Long? = null
         if (intent.hasExtra("letterSoundId")) {
-            letterSoundId = intent.getLongExtra("letterSoundId", 0);
+            letterSoundId = intent.getLongExtra("letterSoundId", 0)
         }
-        Timber.i("letterSoundId: " + letterSoundId);
+        Timber.i("letterSoundId: $letterSoundId")
 
-        String[] letterSoundLetterTexts = intent.getStringArrayExtra("letterSoundLetterTexts");
-        Timber.i("letterSoundLetterTexts: " + letterSoundLetterTexts);
+        val letterSoundLetterTexts = intent.getStringArrayExtra("letterSoundLetterTexts")
+        Timber.i("letterSoundLetterTexts: $letterSoundLetterTexts")
 
-        String[] letterSoundSoundValuesIpa = intent.getStringArrayExtra("letterSoundSoundValuesIpa");
-        Timber.i("letterSoundSoundValuesIpa: " + letterSoundSoundValuesIpa);
+        val letterSoundSoundValuesIpa = intent.getStringArrayExtra("letterSoundSoundValuesIpa")
+        Timber.i("letterSoundSoundValuesIpa: $letterSoundSoundValuesIpa")
 
-        LetterSoundLearningEvent letterSoundLearningEvent = new LetterSoundLearningEvent();
-        letterSoundLearningEvent.androidId = androidId;
-        letterSoundLearningEvent.packageName = packageName;
-        letterSoundLearningEvent.time = timestamp;
-        letterSoundLearningEvent.setLetterSoundId(letterSoundId);
-        letterSoundLearningEvent.setLetterSoundLetterTexts(letterSoundLetterTexts);
-        letterSoundLearningEvent.setLetterSoundSoundValuesIpa(letterSoundSoundValuesIpa);
+        val letterSoundLearningEvent = LetterSoundLearningEvent()
+        letterSoundLearningEvent.androidId = androidId
+        letterSoundLearningEvent.packageName = packageName!!
+        letterSoundLearningEvent.time = timestamp
+        letterSoundLearningEvent.letterSoundId = letterSoundId
+        letterSoundLearningEvent.letterSoundLetterTexts = letterSoundLetterTexts!!
+        letterSoundLearningEvent.letterSoundSoundValuesIpa = letterSoundSoundValuesIpa!!
 
         // Store in database
-        RoomDb roomDb = RoomDb.getDatabase(context);
-        LetterSoundLearningEventDao letterSoundLearningEventDao = roomDb.letterSoundLearningEventDao();
-        RoomDb.databaseWriteExecutor.execute(() -> {
-            letterSoundLearningEventDao.insert(letterSoundLearningEvent);
-        });
+        val roomDb = RoomDb.getDatabase(context)
+        val letterSoundLearningEventDao = roomDb.letterSoundLearningEventDao()
+        RoomDb.databaseWriteExecutor.execute {
+            letterSoundLearningEventDao.insert(letterSoundLearningEvent)
+        }
     }
 }
