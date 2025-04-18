@@ -17,7 +17,7 @@ class LetterSoundLearningEventReceiver : BroadcastReceiver() {
             Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
         Timber.i("androidId: \"$androidId\"")
 
-        val packageName = intent.getStringExtra("packageName")
+        val packageName = intent.getStringExtra("packageName") ?: ""
         Timber.i("packageName: \"$packageName\"")
 
         val timestamp = Calendar.getInstance()
@@ -30,18 +30,20 @@ class LetterSoundLearningEventReceiver : BroadcastReceiver() {
         Timber.i("letterSoundId: $letterSoundId")
 
         val letterSoundLetterTexts = intent.getStringArrayExtra("letterSoundLetterTexts")
+            ?: emptyArray()
         Timber.i("letterSoundLetterTexts: $letterSoundLetterTexts")
 
         val letterSoundSoundValuesIpa = intent.getStringArrayExtra("letterSoundSoundValuesIpa")
+            ?: emptyArray()
         Timber.i("letterSoundSoundValuesIpa: $letterSoundSoundValuesIpa")
 
         val letterSoundLearningEvent = LetterSoundLearningEvent()
         letterSoundLearningEvent.androidId = androidId
-        letterSoundLearningEvent.packageName = packageName!!
+        letterSoundLearningEvent.packageName = packageName
         letterSoundLearningEvent.time = timestamp
         letterSoundLearningEvent.letterSoundId = letterSoundId
-        letterSoundLearningEvent.letterSoundLetterTexts = letterSoundLetterTexts!!
-        letterSoundLearningEvent.letterSoundSoundValuesIpa = letterSoundSoundValuesIpa!!
+        letterSoundLearningEvent.letterSoundLetterTexts = letterSoundLetterTexts
+        letterSoundLearningEvent.letterSoundSoundValuesIpa = letterSoundSoundValuesIpa
 
         // Store in database
         val roomDb = RoomDb.getDatabase(context)
