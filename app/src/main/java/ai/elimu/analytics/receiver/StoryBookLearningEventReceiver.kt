@@ -18,7 +18,7 @@ class StoryBookLearningEventReceiver : BroadcastReceiver() {
             Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
         Timber.i("androidId: \"$androidId\"")
 
-        val packageName = intent.getStringExtra("packageName")
+        val packageName = intent.getStringExtra("packageName") ?: ""
         Timber.i("packageName: \"$packageName\"")
 
         val timestamp = Calendar.getInstance()
@@ -30,16 +30,16 @@ class StoryBookLearningEventReceiver : BroadcastReceiver() {
         val storyBookTitle = intent.getStringExtra("storyBookTitle")
         Timber.i("storyBookTitle: \"$storyBookTitle\"")
 
-        val learningEventTypeAsString = intent.getStringExtra("learningEventType")
+        val learningEventTypeAsString = intent.getStringExtra("learningEventType") ?: ""
         Timber.i("learningEventTypeAsString: \"$learningEventTypeAsString\"")
         val learningEventType = LearningEventType.valueOf(
-            learningEventTypeAsString!!
+            learningEventTypeAsString
         )
         Timber.i("learningEventType: $learningEventType")
 
         val storyBookLearningEvent = StoryBookLearningEvent()
         storyBookLearningEvent.androidId = androidId
-        storyBookLearningEvent.packageName = packageName!!
+        storyBookLearningEvent.packageName = packageName
         storyBookLearningEvent.time = timestamp
         storyBookLearningEvent.storyBookId = storyBookId
         //        storyBookLearningEvent.setStoryBookTitle(storyBookTitle);

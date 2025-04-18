@@ -20,13 +20,13 @@ class VideoLearningEventReceiver : BroadcastReceiver() {
             Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
         Timber.i("androidId: \"$androidId\"")
 
-        val packageName = intent.getStringExtra("packageName")
+        val packageName = intent.getStringExtra("packageName") ?: ""
         Timber.i("packageName: \"$packageName\"")
 
-        val learningEventTypeAsString = intent.getStringExtra("learningEventType")
+        val learningEventTypeAsString = intent.getStringExtra("learningEventType") ?: ""
         Timber.i("learningEventTypeAsString: \"$learningEventTypeAsString\"")
         val learningEventType = LearningEventType.valueOf(
-            learningEventTypeAsString!!
+            learningEventTypeAsString
         )
         Timber.i("learningEventType: $learningEventType")
 
@@ -39,7 +39,7 @@ class VideoLearningEventReceiver : BroadcastReceiver() {
         val videoLearningEvent = VideoLearningEvent()
         videoLearningEvent.time = timestamp
         videoLearningEvent.androidId = androidId
-        videoLearningEvent.packageName = packageName!!
+        videoLearningEvent.packageName = packageName
         videoLearningEvent.learningEventType = learningEventType
         videoLearningEvent.videoId = videoId
         videoLearningEvent.videoTitle = videoTitle

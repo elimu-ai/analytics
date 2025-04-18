@@ -18,7 +18,7 @@ class WordLearningEventReceiver : BroadcastReceiver() {
             Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
         Timber.i("androidId: \"$androidId\"")
 
-        val packageName = intent.getStringExtra("packageName")
+        val packageName = intent.getStringExtra("packageName") ?: ""
         Timber.i("packageName: \"$packageName\"")
 
         val timestamp = Calendar.getInstance()
@@ -33,16 +33,16 @@ class WordLearningEventReceiver : BroadcastReceiver() {
         val wordText = intent.getStringExtra("wordText")
         Timber.i("wordText: \"$wordText\"")
 
-        val learningEventTypeAsString = intent.getStringExtra("learningEventType")
+        val learningEventTypeAsString = intent.getStringExtra("learningEventType") ?: ""
         Timber.i("learningEventTypeAsString: \"$learningEventTypeAsString\"")
         val learningEventType = LearningEventType.valueOf(
-            learningEventTypeAsString!!
+            learningEventTypeAsString
         )
         Timber.i("learningEventType: $learningEventType")
 
         val wordLearningEvent = WordLearningEvent()
         wordLearningEvent.androidId = androidId
-        wordLearningEvent.packageName = packageName!!
+        wordLearningEvent.packageName = packageName
         wordLearningEvent.time = timestamp
         wordLearningEvent.wordId = wordId
         wordLearningEvent.wordText = wordText
