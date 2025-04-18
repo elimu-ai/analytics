@@ -40,13 +40,14 @@ class WordLearningEventReceiver : BroadcastReceiver() {
         )
         Timber.i("learningEventType: $learningEventType")
 
-        val wordLearningEvent = WordLearningEvent()
-        wordLearningEvent.androidId = androidId
-        wordLearningEvent.packageName = packageName
-        wordLearningEvent.time = timestamp
-        wordLearningEvent.wordId = wordId
-        wordLearningEvent.wordText = wordText
-        wordLearningEvent.learningEventType = learningEventType
+        val wordLearningEvent = WordLearningEvent().apply {
+            this.androidId = androidId
+            this.packageName = packageName
+            this.time = timestamp
+            this.wordId = wordId
+            this.wordText = wordText
+            this.learningEventType = learningEventType
+        }
 
         // Store in database
         val roomDb = RoomDb.getDatabase(context)
