@@ -6,7 +6,7 @@ junit = "4.13.2"
 timber = "5.0.1"
 commonsCsv = "1.14.0"
 commonsIO = "2.19.0"
-elimuCommonutils = "1.0.8"
+elimuCommonutils = "1.0.10"
 
 constraintLayout = "2.2.1"
 appCompat = "1.7.0"
