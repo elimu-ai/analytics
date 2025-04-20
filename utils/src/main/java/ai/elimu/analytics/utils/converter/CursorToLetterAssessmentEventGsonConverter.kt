@@ -1,65 +1,67 @@
-package ai.elimu.analytics.utils.converter;
+package ai.elimu.analytics.utils.converter
 
-import android.database.Cursor;
-import android.util.Log;
+import ai.elimu.model.v2.gson.analytics.LetterAssessmentEventGson
+import android.database.Cursor
+import android.util.Log
+import java.util.Calendar
 
-import java.util.Arrays;
-import java.util.Calendar;
+object CursorToLetterAssessmentEventGsonConverter {
 
-import ai.elimu.model.v2.gson.analytics.LetterAssessmentEventGson;
+    private val TAG = CursorToLetterAssessmentEventGsonConverter::class.java.name
 
-public class CursorToLetterAssessmentEventGsonConverter {
+    @JvmStatic
+    fun getLetterAssessmentEventGson(cursor: Cursor): LetterAssessmentEventGson {
+        Log.i(TAG, "getLetterAssessmentEventGson")
 
-    public static LetterAssessmentEventGson getLetterAssessmentEventGson(Cursor cursor) {
-        Log.i(CursorToLetterAssessmentEventGsonConverter.class.getName(),"getLetterAssessmentEventGson");
+        Log.i(TAG,"Arrays.toString(cursor.getColumnNames()): "
+                + cursor.columnNames.contentToString())
 
-        Log.i(CursorToLetterAssessmentEventGsonConverter.class.getName(),"Arrays.toString(cursor.getColumnNames()): " + Arrays.toString(cursor.getColumnNames()));
+        val columnId = cursor.getColumnIndex("id")
+        val id = cursor.getLong(columnId)
+        Log.i(TAG, "id: $id")
 
-        int columnId = cursor.getColumnIndex("id");
-        Long id = cursor.getLong(columnId);
-        Log.i(CursorToLetterAssessmentEventGsonConverter.class.getName(),"id: " + id);
+        val columnAndroidId = cursor.getColumnIndex("androidId")
+        val androidId = cursor.getString(columnAndroidId)
+        Log.i(TAG, "androidId: \"$androidId\"")
 
-        int columnAndroidId = cursor.getColumnIndex("androidId");
-        String androidId = cursor.getString(columnAndroidId);
-        Log.i(CursorToLetterAssessmentEventGsonConverter.class.getName(),"androidId: \"" + androidId + "\"");
+        val columnPackageName = cursor.getColumnIndex("packageName")
+        val packageName = cursor.getString(columnPackageName)
+        Log.i(TAG, "packageName: \"$packageName\"")
 
-        int columnPackageName = cursor.getColumnIndex("packageName");
-        String packageName = cursor.getString(columnPackageName);
-        Log.i(CursorToLetterAssessmentEventGsonConverter.class.getName(),"packageName: \"" + packageName + "\"");
+        val columnTime = cursor.getColumnIndex("time")
+        val timeAsLong = cursor.getLong(columnTime)
+        Log.i(TAG, "timeAsLong: $timeAsLong")
+        val timestamp = Calendar.getInstance()
+        timestamp.timeInMillis = timeAsLong
+        Log.i(TAG, "time.getTime(): " + timestamp.time)
 
-        int columnTime = cursor.getColumnIndex("time");
-        Long timeAsLong = cursor.getLong(columnTime);
-        Log.i(CursorToLetterAssessmentEventGsonConverter.class.getName(),"timeAsLong: " + timeAsLong);
-        Calendar timestamp = Calendar.getInstance();
-        timestamp.setTimeInMillis(timeAsLong);
-        Log.i(CursorToLetterAssessmentEventGsonConverter.class.getName(),"time.getTime(): " + timestamp.getTime());
+        val columnLetterId = cursor.getColumnIndex("letterId")
+        val letterId = cursor.getLong(columnLetterId)
+        Log.i(TAG, "letterId: $letterId")
 
-        int columnLetterId = cursor.getColumnIndex("letterId");
-        Long letterId = cursor.getLong(columnLetterId);
-        Log.i(CursorToLetterAssessmentEventGsonConverter.class.getName(),"letterId: " + letterId);
+        val columnLetterText = cursor.getColumnIndex("letterText")
+        val letterText = cursor.getString(columnLetterText)
+        Log.i(TAG, "letterText: \"$letterText\"")
 
-        int columnLetterText = cursor.getColumnIndex("letterText");
-        String letterText = cursor.getString(columnLetterText);
-        Log.i(CursorToLetterAssessmentEventGsonConverter.class.getName(),"letterText: \"" + letterText + "\"");
+        val columnMasteryScore = cursor.getColumnIndex("masteryScore")
+        val masteryScore = cursor.getFloat(columnMasteryScore)
+        Log.i(TAG, "masteryScore: $masteryScore")
 
-        int columnMasteryScore = cursor.getColumnIndex("masteryScore");
-        Float masteryScore = cursor.getFloat(columnMasteryScore);
-        Log.i(CursorToLetterAssessmentEventGsonConverter.class.getName(),"masteryScore: " + masteryScore);
+        val columnTimeSpentMs = cursor.getColumnIndex("timeSpentMs")
+        val timeSpentMs = cursor.getLong(columnTimeSpentMs)
+        Log.i(TAG, "timeSpentMs: $masteryScore")
 
-        int columnTimeSpentMs = cursor.getColumnIndex("timeSpentMs");
-        Long timeSpentMs = cursor.getLong(columnTimeSpentMs);
-        Log.i(CursorToLetterAssessmentEventGsonConverter.class.getName(),"timeSpentMs: " + masteryScore);
+        val letterAssessmentEventGson = LetterAssessmentEventGson().apply {
+            this.id = id
+            this.androidId = androidId
+            this.packageName = packageName
+            this.timestamp = timestamp
+            this.letterId = letterId
+            this.letterText = letterText
+            this.masteryScore = masteryScore
+            this.timeSpentMs = timeSpentMs
+        }
 
-        LetterAssessmentEventGson letterAssessmentEventGson = new LetterAssessmentEventGson();
-        letterAssessmentEventGson.setId(id);
-        letterAssessmentEventGson.setAndroidId(androidId);
-        letterAssessmentEventGson.setPackageName(packageName);
-        letterAssessmentEventGson.setTimestamp(timestamp);
-        letterAssessmentEventGson.setLetterId(letterId);
-        letterAssessmentEventGson.setLetterText(letterText);
-        letterAssessmentEventGson.setMasteryScore(masteryScore);
-        letterAssessmentEventGson.setTimeSpentMs(timeSpentMs);
-
-        return letterAssessmentEventGson;
+        return letterAssessmentEventGson
     }
 }
