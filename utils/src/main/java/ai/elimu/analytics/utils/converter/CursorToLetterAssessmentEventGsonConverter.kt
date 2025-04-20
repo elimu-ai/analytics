@@ -49,7 +49,7 @@ object CursorToLetterAssessmentEventGsonConverter {
 
         val columnTimeSpentMs = cursor.getColumnIndex("timeSpentMs")
         val timeSpentMs = cursor.getLong(columnTimeSpentMs)
-        Log.i(TAG, "timeSpentMs: $masteryScore")
+        Log.i(TAG, "timeSpentMs: $timeSpentMs")
 
         val letterAssessmentEventGson = LetterAssessmentEventGson().apply {
             this.id = id
