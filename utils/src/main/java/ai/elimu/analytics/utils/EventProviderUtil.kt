@@ -14,38 +14,41 @@ import android.util.Log
 import android.widget.Toast
 
 object EventProviderUtil {
+    
+    private const val TAG = "EventProviderUtil"
+    
     fun getLetterAssessmentEventGsons(
         context: Context,
         analyticsApplicationId: String
     ): List<LetterAssessmentEventGson> {
-        Log.i(EventProviderUtil::class.java.name, "getLetterAssessmentEventGsons")
+        Log.i(TAG, "getLetterAssessmentEventGsons")
 
         val letterAssessmentEventGsons: MutableList<LetterAssessmentEventGson> = ArrayList()
 
         val letterAssessmentEventsUri =
             Uri.parse("content://$analyticsApplicationId.provider.letter_assessment_event_provider/events")
         Log.i(
-            EventProviderUtil::class.java.name,
+            TAG,
             "letterAssessmentEventsUri: $letterAssessmentEventsUri"
         )
         val letterAssessmentEventsCursor =
             context.contentResolver.query(letterAssessmentEventsUri, null, null, null, null)
         Log.i(
-            EventProviderUtil::class.java.name,
+            TAG,
             "letterAssessmentEventsCursor: $letterAssessmentEventsCursor"
         )
         if (letterAssessmentEventsCursor == null) {
-            Log.e(EventProviderUtil::class.java.name, "letterAssessmentEventsCursor == null")
+            Log.e(TAG, "letterAssessmentEventsCursor == null")
             Toast.makeText(context, "letterAssessmentEventsCursor == null", Toast.LENGTH_LONG)
                 .show()
         } else {
             Log.i(
-                EventProviderUtil::class.java.name,
+                TAG,
                 "letterAssessmentEventsCursor.getCount(): " + letterAssessmentEventsCursor.count
             )
             if (letterAssessmentEventsCursor.count == 0) {
                 Log.e(
-                    EventProviderUtil::class.java.name,
+                    TAG,
                     "letterAssessmentEventsCursor.getCount() == 0"
                 )
             } else {
@@ -64,13 +67,13 @@ object EventProviderUtil {
 
                 letterAssessmentEventsCursor.close()
                 Log.i(
-                    EventProviderUtil::class.java.name,
+                    TAG,
                     "letterAssessmentEventsCursor.isClosed(): " + letterAssessmentEventsCursor.isClosed
                 )
             }
         }
         Log.i(
-            EventProviderUtil::class.java.name,
+            TAG,
             "letterAssessmentEventGsons.size(): " + letterAssessmentEventGsons.size
         )
 
@@ -82,34 +85,34 @@ object EventProviderUtil {
         context: Context,
         analyticsApplicationId: String
     ): List<LetterAssessmentEventGson> {
-        Log.i(EventProviderUtil::class.java.name, "getLetterAssessmentEventGsonsByLetter")
+        Log.i(TAG, "getLetterAssessmentEventGsonsByLetter")
 
         val letterAssessmentEventGsons: MutableList<LetterAssessmentEventGson> = ArrayList()
 
         val letterAssessmentEventsUri =
             Uri.parse("content://" + analyticsApplicationId + ".provider.letter_assessment_event_provider/events/by-letter-id/" + letterGson.id)
         Log.i(
-            EventProviderUtil::class.java.name,
+            TAG,
             "letterAssessmentEventsUri: $letterAssessmentEventsUri"
         )
         val letterAssessmentEventsCursor =
             context.contentResolver.query(letterAssessmentEventsUri, null, null, null, null)
         Log.i(
-            EventProviderUtil::class.java.name,
+            TAG,
             "letterAssessmentEventsCursor: $letterAssessmentEventsCursor"
         )
         if (letterAssessmentEventsCursor == null) {
-            Log.e(EventProviderUtil::class.java.name, "letterAssessmentEventsCursor == null")
+            Log.e(TAG, "letterAssessmentEventsCursor == null")
             Toast.makeText(context, "letterAssessmentEventsCursor == null", Toast.LENGTH_LONG)
                 .show()
         } else {
             Log.i(
-                EventProviderUtil::class.java.name,
+                TAG,
                 "letterAssessmentEventsCursor.getCount(): " + letterAssessmentEventsCursor.count
             )
             if (letterAssessmentEventsCursor.count == 0) {
                 Log.e(
-                    EventProviderUtil::class.java.name,
+                    TAG,
                     "letterAssessmentEventsCursor.getCount() == 0"
                 )
             } else {
@@ -128,13 +131,13 @@ object EventProviderUtil {
 
                 letterAssessmentEventsCursor.close()
                 Log.i(
-                    EventProviderUtil::class.java.name,
+                    TAG,
                     "letterAssessmentEventsCursor.isClosed(): " + letterAssessmentEventsCursor.isClosed
                 )
             }
         }
         Log.i(
-            EventProviderUtil::class.java.name,
+            TAG,
             "letterAssessmentEventGsons.size(): " + letterAssessmentEventGsons.size
         )
 
@@ -145,33 +148,33 @@ object EventProviderUtil {
         context: Context,
         analyticsApplicationId: String
     ): List<WordLearningEventGson> {
-        Log.i(EventProviderUtil::class.java.name, "getWordLearningEventGsons")
+        Log.i(TAG, "getWordLearningEventGsons")
 
         val wordLearningEventGsons: MutableList<WordLearningEventGson> = ArrayList()
 
         val wordLearningEventsUri =
             Uri.parse("content://$analyticsApplicationId.provider.word_learning_event_provider/events")
         Log.i(
-            EventProviderUtil::class.java.name,
+            TAG,
             "wordLearningEventsUri: $wordLearningEventsUri"
         )
         val wordLearningEventsCursor =
             context.contentResolver.query(wordLearningEventsUri, null, null, null, null)
         Log.i(
-            EventProviderUtil::class.java.name,
+            TAG,
             "wordLearningEventsCursor: $wordLearningEventsCursor"
         )
         if (wordLearningEventsCursor == null) {
-            Log.e(EventProviderUtil::class.java.name, "wordLearningEventsCursor == null")
+            Log.e(TAG, "wordLearningEventsCursor == null")
             Toast.makeText(context, "wordLearningEventsCursor == null", Toast.LENGTH_LONG).show()
         } else {
             Log.i(
-                EventProviderUtil::class.java.name,
+                TAG,
                 "wordLearningEventsCursor.getCount(): " + wordLearningEventsCursor.count
             )
             if (wordLearningEventsCursor.count == 0) {
                 Log.e(
-                    EventProviderUtil::class.java.name,
+                    TAG,
                     "wordLearningEventsCursor.getCount() == 0"
                 )
             } else {
@@ -192,13 +195,13 @@ object EventProviderUtil {
 
                 wordLearningEventsCursor.close()
                 Log.i(
-                    EventProviderUtil::class.java.name,
+                    TAG,
                     "wordLearningEventsCursor.isClosed(): " + wordLearningEventsCursor.isClosed
                 )
             }
         }
         Log.i(
-            EventProviderUtil::class.java.name,
+            TAG,
             "wordLearningEventGsons.size(): " + wordLearningEventGsons.size
         )
 
@@ -209,33 +212,33 @@ object EventProviderUtil {
         context: Context,
         analyticsApplicationId: String
     ): Set<Long> {
-        Log.i(EventProviderUtil::class.java.name, "getIdsOfWordsInWordLearningEvents")
+        Log.i(TAG, "getIdsOfWordsInWordLearningEvents")
 
         val wordIdsSet: MutableSet<Long> = HashSet()
 
         val wordLearningEventsUri =
             Uri.parse("content://$analyticsApplicationId.provider.word_learning_event_provider/events")
         Log.i(
-            EventProviderUtil::class.java.name,
+            TAG,
             "wordLearningEventsUri: $wordLearningEventsUri"
         )
         val wordLearningEventsCursor =
             context.contentResolver.query(wordLearningEventsUri, null, null, null, null)
         Log.i(
-            EventProviderUtil::class.java.name,
+            TAG,
             "wordLearningEventsCursor: $wordLearningEventsCursor"
         )
         if (wordLearningEventsCursor == null) {
-            Log.e(EventProviderUtil::class.java.name, "wordLearningEventsCursor == null")
+            Log.e(TAG, "wordLearningEventsCursor == null")
             Toast.makeText(context, "wordLearningEventsCursor == null", Toast.LENGTH_LONG).show()
         } else {
             Log.i(
-                EventProviderUtil::class.java.name,
+                TAG,
                 "wordLearningEventsCursor.getCount(): " + wordLearningEventsCursor.count
             )
             if (wordLearningEventsCursor.count == 0) {
                 Log.e(
-                    EventProviderUtil::class.java.name,
+                    TAG,
                     "wordLearningEventsCursor.getCount() == 0"
                 )
             } else {
@@ -256,12 +259,12 @@ object EventProviderUtil {
 
                 wordLearningEventsCursor.close()
                 Log.i(
-                    EventProviderUtil::class.java.name,
+                    TAG,
                     "wordLearningEventsCursor.isClosed(): " + wordLearningEventsCursor.isClosed
                 )
             }
         }
-        Log.i(EventProviderUtil::class.java.name, "wordIdsSet.size(): " + wordIdsSet.size)
+        Log.i(TAG, "wordIdsSet.size(): " + wordIdsSet.size)
 
         return wordIdsSet
     }
@@ -270,33 +273,33 @@ object EventProviderUtil {
         context: Context,
         analyticsApplicationId: String
     ): List<WordAssessmentEventGson> {
-        Log.i(EventProviderUtil::class.java.name, "getWordAssessmentEventGsons")
+        Log.i(TAG, "getWordAssessmentEventGsons")
 
         val wordAssessmentEventGsons: MutableList<WordAssessmentEventGson> = ArrayList()
 
         val wordAssessmentEventsUri =
             Uri.parse("content://$analyticsApplicationId.provider.word_assessment_event_provider/events")
         Log.i(
-            EventProviderUtil::class.java.name,
+            TAG,
             "wordAssessmentEventsUri: $wordAssessmentEventsUri"
         )
         val wordAssessmentEventsCursor =
             context.contentResolver.query(wordAssessmentEventsUri, null, null, null, null)
         Log.i(
-            EventProviderUtil::class.java.name,
+            TAG,
             "wordAssessmentEventsCursor: $wordAssessmentEventsCursor"
         )
         if (wordAssessmentEventsCursor == null) {
-            Log.e(EventProviderUtil::class.java.name, "wordAssessmentEventsCursor == null")
+            Log.e(TAG, "wordAssessmentEventsCursor == null")
             Toast.makeText(context, "wordAssessmentEventsCursor == null", Toast.LENGTH_LONG).show()
         } else {
             Log.i(
-                EventProviderUtil::class.java.name,
+                TAG,
                 "wordAssessmentEventsCursor.getCount(): " + wordAssessmentEventsCursor.count
             )
             if (wordAssessmentEventsCursor.count == 0) {
                 Log.e(
-                    EventProviderUtil::class.java.name,
+                    TAG,
                     "wordAssessmentEventsCursor.getCount() == 0"
                 )
             } else {
@@ -317,13 +320,13 @@ object EventProviderUtil {
 
                 wordAssessmentEventsCursor.close()
                 Log.i(
-                    EventProviderUtil::class.java.name,
+                    TAG,
                     "wordAssessmentEventsCursor.isClosed(): " + wordAssessmentEventsCursor.isClosed
                 )
             }
         }
         Log.i(
-            EventProviderUtil::class.java.name,
+            TAG,
             "wordAssessmentEventGsons.size(): " + wordAssessmentEventGsons.size
         )
 
@@ -335,33 +338,33 @@ object EventProviderUtil {
         context: Context,
         analyticsApplicationId: String
     ): List<WordAssessmentEventGson> {
-        Log.i(EventProviderUtil::class.java.name, "getWordAssessmentEventGsonsByWord")
+        Log.i(TAG, "getWordAssessmentEventGsonsByWord")
 
         val wordAssessmentEventGsons: MutableList<WordAssessmentEventGson> = ArrayList()
 
         val wordAssessmentEventsUri =
             Uri.parse("content://" + analyticsApplicationId + ".provider.word_assessment_event_provider/events/by-word-id/" + wordGson.id)
         Log.i(
-            EventProviderUtil::class.java.name,
+            TAG,
             "wordAssessmentEventsUri: $wordAssessmentEventsUri"
         )
         val wordAssessmentEventsCursor =
             context.contentResolver.query(wordAssessmentEventsUri, null, null, null, null)
         Log.i(
-            EventProviderUtil::class.java.name,
+            TAG,
             "wordAssessmentEventsCursor: $wordAssessmentEventsCursor"
         )
         if (wordAssessmentEventsCursor == null) {
-            Log.e(EventProviderUtil::class.java.name, "wordAssessmentEventsCursor == null")
+            Log.e(TAG, "wordAssessmentEventsCursor == null")
             Toast.makeText(context, "wordAssessmentEventsCursor == null", Toast.LENGTH_LONG).show()
         } else {
             Log.i(
-                EventProviderUtil::class.java.name,
+                TAG,
                 "wordAssessmentEventsCursor.getCount(): " + wordAssessmentEventsCursor.count
             )
             if (wordAssessmentEventsCursor.count == 0) {
                 Log.e(
-                    EventProviderUtil::class.java.name,
+                    TAG,
                     "wordAssessmentEventsCursor.getCount() == 0"
                 )
             } else {
@@ -382,13 +385,13 @@ object EventProviderUtil {
 
                 wordAssessmentEventsCursor.close()
                 Log.i(
-                    EventProviderUtil::class.java.name,
+                    TAG,
                     "wordAssessmentEventsCursor.isClosed(): " + wordAssessmentEventsCursor.isClosed
                 )
             }
         }
         Log.i(
-            EventProviderUtil::class.java.name,
+            TAG,
             "wordAssessmentEventGsons.size(): " + wordAssessmentEventGsons.size
         )
 
