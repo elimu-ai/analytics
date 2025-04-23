@@ -10,87 +10,57 @@ object CursorToWordAssessmentEventGsonConverter {
     private const val TAG = "CursorToWordAssessmentEventGsonConverter"
     
     fun getWordAssessmentEventGson(cursor: Cursor): WordAssessmentEventGson {
-        Log.i(
-            TAG,
-            "getWordAssessmentEventGson"
-        )
+        Log.i(TAG, "getWordAssessmentEventGson")
 
-        Log.i(
-            TAG,
+        Log.i(TAG,
             "Arrays.toString(cursor.getColumnNames()): " + cursor.columnNames.contentToString()
         )
 
         val columnId = cursor.getColumnIndex("id")
         val id = cursor.getLong(columnId)
-        Log.i(
-            TAG,
-            "id: $id"
-        )
+        Log.i(TAG, "id: $id")
 
         val columnAndroidId = cursor.getColumnIndex("androidId")
         val androidId = cursor.getString(columnAndroidId)
-        Log.i(
-            TAG,
-            "androidId: \"$androidId\""
-        )
+        Log.i(TAG, "androidId: \"$androidId\"")
 
         val columnPackageName = cursor.getColumnIndex("packageName")
         val packageName = cursor.getString(columnPackageName)
-        Log.i(
-            TAG,
-            "packageName: \"$packageName\""
-        )
+        Log.i(TAG, "packageName: \"$packageName\"")
 
         val columnTime = cursor.getColumnIndex("time")
         val timeAsLong = cursor.getLong(columnTime)
-        Log.i(
-            TAG,
-            "timeAsLong: $timeAsLong"
-        )
+        Log.i(TAG, "timeAsLong: $timeAsLong")
         val timestamp = Calendar.getInstance()
         timestamp.timeInMillis = timeAsLong
-        Log.i(
-            TAG,
-            "time.getTime(): " + timestamp.time
-        )
+        Log.i(TAG, "time.getTime(): " + timestamp.time)
 
         val columnWordId = cursor.getColumnIndex("wordId")
         val wordId = cursor.getLong(columnWordId)
-        Log.i(
-            TAG,
-            "wordId: $wordId"
-        )
+        Log.i(TAG, "wordId: $wordId")
 
         val columnWordText = cursor.getColumnIndex("wordText")
         val wordText = cursor.getString(columnWordText)
-        Log.i(
-            TAG,
-            "wordText: \"$wordText\""
-        )
+        Log.i(TAG, "wordText: \"$wordText\"")
 
         val columnMasteryScore = cursor.getColumnIndex("masteryScore")
         val masteryScore = cursor.getFloat(columnMasteryScore)
-        Log.i(
-            TAG,
-            "masteryScore: $masteryScore"
-        )
+        Log.i(TAG, "masteryScore: $masteryScore")
 
         val columnTimeSpentMs = cursor.getColumnIndex("timeSpentMs")
         val timeSpentMs = cursor.getLong(columnTimeSpentMs)
-        Log.i(
-            TAG,
-            "timeSpentMs: $timeSpentMs"
-        )
+        Log.i(TAG, "timeSpentMs: $timeSpentMs")
 
-        val wordAssessmentEventGson = WordAssessmentEventGson()
-        wordAssessmentEventGson.id = id
-        wordAssessmentEventGson.androidId = androidId
-        wordAssessmentEventGson.packageName = packageName
-        wordAssessmentEventGson.timestamp = timestamp
-        wordAssessmentEventGson.wordId = wordId
-        wordAssessmentEventGson.wordText = wordText
-        wordAssessmentEventGson.masteryScore = masteryScore
-        wordAssessmentEventGson.timeSpentMs = timeSpentMs
+        val wordAssessmentEventGson = WordAssessmentEventGson().apply {
+            this.id = id
+            this.androidId = androidId
+            this.packageName = packageName
+            this.timestamp = timestamp
+            this.wordId = wordId
+            this.wordText = wordText
+            this.masteryScore = masteryScore
+            this.timeSpentMs = timeSpentMs
+        }
 
         return wordAssessmentEventGson
     }
