@@ -79,7 +79,7 @@ object CursorToWordAssessmentEventGsonConverter {
         val timeSpentMs = cursor.getLong(columnTimeSpentMs)
         Log.i(
             TAG,
-            "timeSpentMs: $masteryScore"
+            "timeSpentMs: $timeSpentMs"
         )
 
         val wordAssessmentEventGson = WordAssessmentEventGson()
