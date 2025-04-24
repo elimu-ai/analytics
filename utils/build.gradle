@@ -31,7 +31,7 @@ android {
 }
 
 dependencies {
-    implementation libs.elimu.model // See https://jitpack.io/#elimu-ai/model
+    implementation libs.elimu.model // See https://jitpack.io/#ai.elimu/model
     implementation libs.androidx.core.ktx
     testImplementation libs.junit
 }
