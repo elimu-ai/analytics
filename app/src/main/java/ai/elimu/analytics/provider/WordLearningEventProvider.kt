@@ -8,12 +8,13 @@ import android.content.UriMatcher
 import android.database.Cursor
 import android.net.Uri
 import timber.log.Timber
+import androidx.core.net.toUri
 
 class WordLearningEventProvider : ContentProvider() {
     override fun onCreate(): Boolean {
         Timber.i("onCreate")
 
-        val eventsUri = Uri.parse("content://" + AUTHORITY + "/" + TABLE)
+        val eventsUri = ("content://$AUTHORITY/$TABLE").toUri()
         Timber.i("eventsUri: $eventsUri")
 
         return true
