@@ -43,31 +43,35 @@ class WordAssessmentEventProvider : ContentProvider() {
 
         val code = MATCHER.match(uri)
         Timber.i("code: $code")
-        if (code == CODE_EVENTS) {
-            // Get the Room Cursor
-            val roomDb = RoomDb.getDatabase(context)
-            val wordAssessmentEventDao = roomDb.wordAssessmentEventDao()
-            val cursor = wordAssessmentEventDao.loadAllOrderedByTimeDesc()
-            Timber.i("cursor: $cursor")
-            cursor.setNotificationUri(context.contentResolver, uri)
-            return cursor
-        } else if (code == CODE_EVENTS_BY_WORD_ID) {
-            // Extract the Word ID from the URI
-            val pathSegments = uri.pathSegments
-            Timber.i("pathSegments: $pathSegments")
-            val wordIdAsString = pathSegments[2]
-            val wordId = wordIdAsString.toLong()
-            Timber.i("wordId: $wordId")
+        when (code) {
+            CODE_EVENTS -> {
+                // Get the Room Cursor
+                val roomDb = RoomDb.getDatabase(context)
+                val wordAssessmentEventDao = roomDb.wordAssessmentEventDao()
+                val cursor = wordAssessmentEventDao.loadAllOrderedByTimeDesc()
+                Timber.i("cursor: $cursor")
+                cursor.setNotificationUri(context.contentResolver, uri)
+                return cursor
+            }
+            CODE_EVENTS_BY_WORD_ID -> {
+                // Extract the Word ID from the URI
+                val pathSegments = uri.pathSegments
+                Timber.i("pathSegments: $pathSegments")
+                val wordIdAsString = pathSegments[2]
+                val wordId = wordIdAsString.toLong()
+                Timber.i("wordId: $wordId")
 
-            // Get the Room Cursor
-            val roomDb = RoomDb.getDatabase(context)
-            val wordAssessmentEventDao = roomDb.wordAssessmentEventDao()
-            val cursor = wordAssessmentEventDao.loadAllOrderedByTimeDesc(wordId)
-            Timber.i("cursor: $cursor")
-            cursor.setNotificationUri(context.contentResolver, uri)
-            return cursor
-        } else {
-            throw IllegalArgumentException("Unknown URI: $uri")
+                // Get the Room Cursor
+                val roomDb = RoomDb.getDatabase(context)
+                val wordAssessmentEventDao = roomDb.wordAssessmentEventDao()
+                val cursor = wordAssessmentEventDao.loadAllOrderedByTimeDesc(wordId)
+                Timber.i("cursor: $cursor")
+                cursor.setNotificationUri(context.contentResolver, uri)
+                return cursor
+            }
+            else -> {
+                throw IllegalArgumentException("Unknown URI: $uri")
+            }
         }
     }
 
