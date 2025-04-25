@@ -1,5 +1,7 @@
 # elimu.ai Analytics 📊
 
+[![](https://jitpack.io/v/ai.elimu/analytics.svg)](https://jitpack.io/#ai.elimu/analytics)
+
 Android application which collects, provides and uploads learning event data.
 
 ## Software Architecture
@@ -48,7 +50,7 @@ A [`utils`](utils) library (`.aar`) makes it easier for other Android apps to re
 * [`LearningEventUtil`](https://github.com/elimu-ai/analytics/blob/main/utils/src/main/java/ai/elimu/analytics/utils/LearningEventUtil.java)
 * [`AssessmentEventUtil`](https://github.com/elimu-ai/analytics/blob/main/utils/src/main/java/ai/elimu/analytics/utils/AssessmentEventUtil.java)
 
-See https://jitpack.io/#elimu-ai/analytics/ for the latest version.
+See https://jitpack.io/#ai.elimu/analytics/ for the latest version.
 
 #### Utils Usage Sample
 
@@ -56,7 +58,7 @@ See https://jitpack.io/#elimu-ai/analytics/ for the latest version.
 > To use the `utils` library in another Android app, add the dependency in `app/build.gradle`:
 
 ```java
-implementation 'com.github.elimu-ai:analytics:<version>@aar'
+implementation 'ai.elimu:analytics:<version>@aar'
 ```
 
 For an example of an app that is reporting learning events, see https://github.com/elimu-ai/vitabu:
