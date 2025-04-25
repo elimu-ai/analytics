@@ -8,12 +8,13 @@ import android.content.UriMatcher
 import android.database.Cursor
 import android.net.Uri
 import timber.log.Timber
+import androidx.core.net.toUri
 
 class WordAssessmentEventProvider : ContentProvider() {
     override fun onCreate(): Boolean {
         Timber.i("onCreate")
 
-        val eventsUri = Uri.parse("content://" + AUTHORITY + "/" + TABLE)
+        val eventsUri = ("content://$AUTHORITY/$TABLE").toUri()
         Timber.i("eventsUri: $eventsUri")
 
         return true
@@ -110,7 +111,7 @@ class WordAssessmentEventProvider : ContentProvider() {
 
         init {
             MATCHER.addURI(AUTHORITY, TABLE, CODE_EVENTS)
-            MATCHER.addURI(AUTHORITY, TABLE + "/by-word-id/#", CODE_EVENTS_BY_WORD_ID)
+            MATCHER.addURI(AUTHORITY, "$TABLE/by-word-id/#", CODE_EVENTS_BY_WORD_ID)
         }
     }
 }
