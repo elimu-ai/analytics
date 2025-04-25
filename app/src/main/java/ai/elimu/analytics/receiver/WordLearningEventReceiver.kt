@@ -30,7 +30,7 @@ class WordLearningEventReceiver : BroadcastReceiver() {
         }
         Timber.i("wordId: $wordId")
 
-        val wordText = intent.getStringExtra("wordText")
+        val wordText = intent.getStringExtra("wordText") ?: ""
         Timber.i("wordText: \"$wordText\"")
 
         val learningEventTypeAsString = intent.getStringExtra("learningEventType") ?: ""

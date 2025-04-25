@@ -1,42 +1,14 @@
-package ai.elimu.analytics.entity;
+package ai.elimu.analytics.entity
 
-import androidx.annotation.NonNull;
-import androidx.room.Entity;
-
-import ai.elimu.model.v2.enums.analytics.LearningEventType;
+import ai.elimu.model.v2.enums.analytics.LearningEventType
+import androidx.room.Entity
 
 @Entity
-public class WordLearningEvent extends LearningEvent {
+class WordLearningEvent : LearningEvent() {
+    @JvmField
+    var wordId: Long? = null
 
-    private Long wordId;
+    lateinit var wordText: String
 
-    @NonNull
-    private String wordText;
-
-    @NonNull
-    private LearningEventType learningEventType;
-
-    public Long getWordId() {
-        return wordId;
-    }
-
-    public void setWordId(Long wordId) {
-        this.wordId = wordId;
-    }
-
-    public String getWordText() {
-        return wordText;
-    }
-
-    public void setWordText(String wordText) {
-        this.wordText = wordText;
-    }
-
-    public LearningEventType getLearningEventType() {
-        return learningEventType;
-    }
-
-    public void setLearningEventType(LearningEventType learningEventType) {
-        this.learningEventType = learningEventType;
-    }
+    lateinit var learningEventType: LearningEventType
 }
