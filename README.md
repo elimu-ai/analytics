@@ -122,7 +122,7 @@ To perform a release, follow these steps:
     - to the `versionName` in `app/build.gradle`
     - to the `versionName` in `utils/build.gradle`
 1. Commit the changes (e.g. `chore: prepare for next development iteration`)
-1. Ensure that the release appears at https://jitpack.io/#ai.elimu/content-provider with "Status: ok"
+1. Ensure that the release appears at https://jitpack.io/#ai.elimu/analytics with "Status: ok"
 
 > [!IMPORTANT]
 > After you publish a new release, remember to also bump the version in all Android app repos that depend on the `utils` library:
