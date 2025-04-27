@@ -115,7 +115,6 @@ To perform a release, follow these steps:
     - from the `versionName` in `utils/build.gradle`
 1. Commit the changes (e.g. `chore: prepare release 1.2.3`)
 1. Create a new tag (e.g. `1.2.3`)
-1. Commit the tag
 1. Bump the `versionCode` and `versionName`
     - in `app/build.gradle`
     - in `utils/build.gradle`
