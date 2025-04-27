@@ -13,7 +13,6 @@ android {
         targetSdkVersion 35
         versionCode 3001032
         versionName "3.1.32-SNAPSHOT"
-        setProperty("archivesBaseName", "utils-${versionName}")
     }
 
     buildTypes {
@@ -36,25 +35,13 @@ dependencies {
     testImplementation libs.junit
 }
 
-// See https://docs.gradle.org/current/dsl/org.gradle.api.publish.maven.MavenPublication.html
-// Usage: ./gradlew clean build publish -PmavenUsername=***** -PmavenPassword=*****
 publishing {
     publications {
-        release(MavenPublication) {
-            groupId 'ai.elimu.analytics'
-            artifactId 'utils'
-            version '3.1.32-SNAPSHOT'
-            artifact("${buildDir}/outputs/aar/utils-${version}-release.aar")
-        }
-    }
-    repositories {
-        maven {
-            credentials(PasswordCredentials)
-            url "https://maven.pkg.github.com/elimu-ai/analytics"
+        aar(MavenPublication) {
+            artifact("${buildDir}/outputs/aar/${version}-release.aar")
         }
     }
 }
-
-tasks.named("publishReleasePublicationToMavenLocal") {
+tasks.named("publishAarPublicationToMavenLocal") {
     mustRunAfter(":utils:bundleReleaseAar")
 }
