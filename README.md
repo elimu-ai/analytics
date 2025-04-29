@@ -53,7 +53,7 @@ A [`utils`](utils) library (`.aar`) makes it easier for other Android apps to re
 See https://jitpack.io/#ai.elimu/analytics/ for the latest version.
 
 <a name="utils-snapshot"></a>
-###$ How to Test `-SNAPSHOT` Versions of the Utils Library
+### How to Test `-SNAPSHOT` Versions of the Utils Library
 
 1. Publish the library to your local Maven repository:
     ```sh
