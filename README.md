@@ -52,6 +52,34 @@ A [`utils`](utils) library (`.aar`) makes it easier for other Android apps to re
 
 See https://jitpack.io/#ai.elimu/analytics/ for the latest version.
 
+<a name="utils-snapshot"></a>
+###$ How to Test `-SNAPSHOT` Versions of the Utils Library
+
+1. Publish the library to your local Maven repository:
+    ```sh
+    ./gradlew clean utils:publishReleasePublicationToMavenLocal
+    ```
+2. In the app that will be testing the `-SNAPSHOT` version of the library, add `mavenLocal()`:
+    ```diff
+    allprojects {
+        repositories {
+            google()
+            mavenCentral()
+            maven {
+                url "https://jitpack.io"
+            }
+    +       mavenLocal()
+        }
+    }
+    ```
+3. Then change to your `-SNAPSHOT` version of the library:
+    ```diff
+    [versions]
+    elimuModel = "model-2.0.101"
+    -elimuAnalytics = "3.1.33"
+    +elimuAnalytics = "3.1.34-SNAPSHOT"
+    ```
+
 #### Utils Usage Sample
 
 > [!NOTE]
@@ -110,19 +138,9 @@ migration succeeded:
 
 To perform a release, follow these steps:
 
-1. Remove `-SNAPSHOT`
-    - from the `versionName` in `app/build.gradle`
-    - from the `versionName` in `utils/build.gradle`
-1. Commit the changes (e.g. `chore: prepare release 1.2.3`)
-1. Create a new tag (e.g. `1.2.3`)
-1. Bump the `versionCode` and `versionName`
-    - in `app/build.gradle`
-    - in `utils/build.gradle`
-1. Add `-SNAPSHOT`
-    - to the `versionName` in `app/build.gradle`
-    - to the `versionName` in `utils/build.gradle`
-1. Commit the changes (e.g. `chore: prepare for next development iteration`)
-1. Ensure that the release appears at https://jitpack.io/#ai.elimu/analytics with "Status: ok"
+1. Merge your PR into the `main` branch
+1. Wait for the ["Gradle Release"](https://github.com/elimu-ai/analytics/actions/workflows/gradle-release.yml) workflow to complete
+1. Ensure that the new release version appears at https://jitpack.io/#ai.elimu/analytics with "Status: ok"
 
 > [!IMPORTANT]
 > After you publish a new release, remember to also bump the version in all Android app repos that depend on the `utils` library:
