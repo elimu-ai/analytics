@@ -52,6 +52,34 @@ A [`utils`](utils) library (`.aar`) makes it easier for other Android apps to re
 
 See https://jitpack.io/#ai.elimu/analytics/ for the latest version.
 
+<a name="utils-snapshot"></a>
+###$ How to Test `-SNAPSHOT` Versions of the Utils Library
+
+1. Publish the library to your local Maven repository:
+    ```sh
+    ./gradlew clean utils:publishReleasePublicationToMavenLocal
+    ```
+2. In the app that will be testing the `-SNAPSHOT` version of the library, add `mavenLocal()`:
+    ```diff
+    allprojects {
+        repositories {
+            google()
+            mavenCentral()
+            maven {
+                url "https://jitpack.io"
+            }
+    +       mavenLocal()
+        }
+    }
+    ```
+3. Then change to your `-SNAPSHOT` version of the library:
+    ```diff
+    [versions]
+    elimuModel = "model-2.0.101"
+    -elimuAnalytics = "3.1.33"
+    +elimuAnalytics = "3.1.34-SNAPSHOT"
+    ```
+
 #### Utils Usage Sample
 
 > [!NOTE]
