@@ -41,6 +41,9 @@ dependencies {
 publishing {
     publications {
         aar(MavenPublication) {
+            groupId = "ai.elimu"
+            artifactId = "analytics"
+            version = android.defaultConfig.versionName
             artifact("${buildDir}/outputs/aar/utils-release.aar")
         }
     }

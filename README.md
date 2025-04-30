@@ -57,7 +57,7 @@ See https://jitpack.io/#ai.elimu/analytics/ for the latest version.
 
 1. Publish the library to your local Maven repository:
     ```sh
-    ./gradlew clean utils:publishReleasePublicationToMavenLocal
+    ./gradlew clean assemble utils:publishToMavenLocal
     ```
 2. In the app that will be testing the `-SNAPSHOT` version of the library, add `mavenLocal()`:
     ```diff
