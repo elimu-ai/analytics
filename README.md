@@ -40,15 +40,15 @@ Compile APK:
 Install APK:
 
 ```
-adb install app/build/outputs/apk/debug/ai.elimu.analytics-<versionCode>-debug.apk
+adb install app/build/outputs/apk/debug/app-debug.apk
 ```
 
 ### Utils Library 📦
 
 A [`utils`](utils) library (`.aar`) makes it easier for other Android apps to report learning/assessment events.
 
-* [`LearningEventUtil`](https://github.com/elimu-ai/analytics/blob/main/utils/src/main/java/ai/elimu/analytics/utils/LearningEventUtil.java)
-* [`AssessmentEventUtil`](https://github.com/elimu-ai/analytics/blob/main/utils/src/main/java/ai/elimu/analytics/utils/AssessmentEventUtil.java)
+* [`LearningEventUtil`](https://github.com/elimu-ai/analytics/blob/main/utils/src/main/java/ai/elimu/analytics/utils/LearningEventUtil.kt)
+* [`AssessmentEventUtil`](https://github.com/elimu-ai/analytics/blob/main/utils/src/main/java/ai/elimu/analytics/utils/AssessmentEventUtil.kt)
 
 See https://jitpack.io/#ai.elimu/analytics/ for the latest version.
 
