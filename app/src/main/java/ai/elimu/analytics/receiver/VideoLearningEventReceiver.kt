@@ -33,7 +33,7 @@ class VideoLearningEventReceiver : BroadcastReceiver() {
         val videoId = intent.getLongExtra("videoId", 0)
         Timber.i("videoId: $videoId")
 
-        val videoTitle = intent.getStringExtra("videoTitle")
+        val videoTitle = intent.getStringExtra("videoTitle") ?: ""
         Timber.i("videoTitle: \"$videoTitle\"")
 
         val videoLearningEvent = VideoLearningEvent()
