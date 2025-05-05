@@ -29,7 +29,7 @@ class WordAssessmentEventReceiver : BroadcastReceiver() {
         }
         Timber.i("wordId: $wordId")
 
-        val wordText = intent.getStringExtra("wordText")
+        val wordText = intent.getStringExtra("wordText") ?: ""
         Timber.i("wordText: \"$wordText\"")
 
         val masteryScore = intent.getFloatExtra("masteryScore", 0f)
