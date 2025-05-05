@@ -38,8 +38,7 @@ public class Converters {
 
     @TypeConverter
     public static String toString(LearningEventType learningEventType) {
-        String value = learningEventType.toString();
-        return value;
+        return learningEventType.toString();
     }
 
 
