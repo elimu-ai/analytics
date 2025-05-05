@@ -10,7 +10,7 @@ import java.util.Calendar;
 import ai.elimu.model.v2.enums.analytics.LearningEventType;
 
 /**
- * See https://developer.android.com/training/data-storage/room/referencing-data
+ * See <a href="https://developer.android.com/training/data-storage/room/referencing-data">Referencing complex data using Room</a>
  */
 public class Converters {
 
