@@ -1,27 +1,22 @@
-package ai.elimu.analytics.dao;
+package ai.elimu.analytics.dao
 
-import android.database.Cursor;
-
-import androidx.room.Dao;
-import androidx.room.Insert;
-import androidx.room.Query;
-
-import java.util.List;
-
-import ai.elimu.analytics.entity.WordAssessmentEvent;
+import ai.elimu.analytics.entity.WordAssessmentEvent
+import android.database.Cursor
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.Query
 
 @Dao
-public interface WordAssessmentEventDao {
-
+interface WordAssessmentEventDao {
     @Insert
-    void insert(WordAssessmentEvent wordAssessmentEvent);
+    fun insert(wordAssessmentEvent: WordAssessmentEvent)
 
     @Query("SELECT * FROM WordAssessmentEvent ORDER BY time ASC")
-    List<WordAssessmentEvent> loadAllOrderedByTimeAsc();
+    fun loadAllOrderedByTimeAsc(): List<WordAssessmentEvent>
 
     @Query("SELECT * FROM WordAssessmentEvent ORDER BY time DESC")
-    Cursor loadAllOrderedByTimeDesc();
+    fun loadAllOrderedByTimeDesc(): Cursor
 
     @Query("SELECT * FROM WordAssessmentEvent WHERE wordId = :wordId ORDER BY time DESC")
-    Cursor loadAllOrderedByTimeDesc(Long wordId);
+    fun loadAllOrderedByTimeDesc(wordId: Long?): Cursor
 }
