@@ -71,7 +71,7 @@ public abstract class RoomDb extends RoomDatabase {
             Timber.i("migrate (" + database.getVersion() + " --> 2)");
 
             String sql = "CREATE TABLE IF NOT EXISTS `WordLearningEvent` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `androidId` TEXT NOT NULL, `packageName` TEXT NOT NULL, `time` INTEGER NOT NULL, `wordId` INTEGER, `wordText` TEXT NOT NULL, `learningEventType` TEXT NOT NULL)";
-            Timber.i("sql: " + sql);
+            Timber.i("sql: %s", sql);
             database.execSQL(sql);
         }
     };
@@ -82,7 +82,7 @@ public abstract class RoomDb extends RoomDatabase {
             Timber.i("migrate (" + database.getVersion() + " --> 3)");
 
             String sql = "CREATE TABLE IF NOT EXISTS `WordAssessmentEvent` (`wordId` INTEGER, `wordText` TEXT NOT NULL, `masteryScore` REAL NOT NULL, `timeSpentMs` INTEGER NOT NULL, `androidId` TEXT NOT NULL, `packageName` TEXT NOT NULL, `time` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT)";
-            Timber.i("sql: " + sql);
+            Timber.i("sql: %s", sql);
             database.execSQL(sql);
         }
     };
@@ -93,7 +93,7 @@ public abstract class RoomDb extends RoomDatabase {
             Timber.i("migrate (" + database.getVersion() + " --> 4)");
 
             String sql = "CREATE TABLE IF NOT EXISTS `LetterLearningEvent` (`letterId` INTEGER, `letterText` TEXT NOT NULL, `learningEventType` TEXT NOT NULL, `androidId` TEXT NOT NULL, `packageName` TEXT NOT NULL, `time` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT)";
-            Timber.i("sql: " + sql);
+            Timber.i("sql: %s", sql);
             database.execSQL(sql);
         }
     };
@@ -104,7 +104,7 @@ public abstract class RoomDb extends RoomDatabase {
             Timber.i("migrate (" + database.getVersion() + " --> 5)");
 
             String sql = "CREATE TABLE IF NOT EXISTS `LetterAssessmentEvent` (`letterId` INTEGER, `letterText` TEXT NOT NULL, `masteryScore` REAL NOT NULL, `timeSpentMs` INTEGER NOT NULL, `androidId` TEXT NOT NULL, `packageName` TEXT NOT NULL, `time` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT)";
-            Timber.i("sql: " + sql);
+            Timber.i("sql: %s", sql);
             database.execSQL(sql);
         }
     };
@@ -115,7 +115,7 @@ public abstract class RoomDb extends RoomDatabase {
             Timber.i("migrate (" + database.getVersion() + " --> 6)");
 
             String sql = "CREATE TABLE IF NOT EXISTS `LetterSoundLearningEvent` (`letterSoundId` INTEGER, `androidId` TEXT NOT NULL, `packageName` TEXT NOT NULL, `time` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT)";
-            Timber.i("sql: " + sql);
+            Timber.i("sql: %s", sql);
             database.execSQL(sql);
         }
     };
@@ -126,7 +126,7 @@ public abstract class RoomDb extends RoomDatabase {
             Timber.i("migrate (" + database.getVersion() + " --> 7)");
 
             String sql = "CREATE TABLE IF NOT EXISTS `VideoLearningEvent` (`videoId` INTEGER, `videoTitle` TEXT NOT NULL, `learningEventType` TEXT NOT NULL, `androidId` TEXT NOT NULL, `packageName` TEXT NOT NULL, `time` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT)";
-            Timber.i("sql: " + sql);
+            Timber.i("sql: %s", sql);
             database.execSQL(sql);
         }
     };
@@ -137,7 +137,7 @@ public abstract class RoomDb extends RoomDatabase {
             Timber.i("migrate (" + database.getVersion() + " --> 8)");
 
             String sql = "DROP TABLE `LetterLearningEvent`";
-            Timber.i("sql: " + sql);
+            Timber.i("sql: %s", sql);
             database.execSQL(sql);
         }
     };
@@ -148,7 +148,7 @@ public abstract class RoomDb extends RoomDatabase {
             Timber.i("migrate (" + database.getVersion() + " --> 9)");
 
             String sql = "DROP TABLE `LetterAssessmentEvent`";
-            Timber.i("sql: " + sql);
+            Timber.i("sql: %s", sql);
             database.execSQL(sql);
         }
     };
