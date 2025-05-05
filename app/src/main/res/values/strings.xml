@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">elimu.ai Analytics</string>
     <string name="language_selection_value">%1$s (%2$s)</string>
+    <string name="select_your_language">Select your language</string>
+    <string name="database_no_events">The database does not contain any events.</string>
 </resources>
