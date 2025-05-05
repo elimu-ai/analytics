@@ -1,7 +1,6 @@
 package ai.elimu.analytics.entity
 
 import ai.elimu.analytics.rest.LetterAssessmentEventService
-import ai.elimu.analytics.rest.LetterLearningEventService
 import ai.elimu.analytics.rest.LetterSoundLearningEventService
 import ai.elimu.analytics.rest.StoryBookLearningEventService
 import ai.elimu.analytics.rest.UploadService
