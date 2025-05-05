@@ -1,53 +1,19 @@
-package ai.elimu.analytics.entity;
+package ai.elimu.analytics.entity
 
-import androidx.annotation.NonNull;
-import androidx.room.Entity;
+import androidx.room.Entity
 
 @Entity
-public class WordAssessmentEvent extends AssessmentEvent {
-
-    private Long wordId;
-
-    @NonNull
-    private String wordText;
-
-    @NonNull
-    private Float masteryScore;
-
-    @NonNull
-    private Long timeSpentMs;
-
+class WordAssessmentEvent : AssessmentEvent() {
     // TODO: assessmentEventType
+    @JvmField
+    var wordId: Long? = null
 
-    public Long getWordId() {
-        return wordId;
-    }
+    @JvmField
+    var wordText: String = ""
 
-    public void setWordId(Long wordId) {
-        this.wordId = wordId;
-    }
+    @JvmField
+    var masteryScore: Float = 0f
 
-    public String getWordText() {
-        return wordText;
-    }
-
-    public void setWordText(String wordText) {
-        this.wordText = wordText;
-    }
-
-    public Float getMasteryScore() {
-        return masteryScore;
-    }
-
-    public void setMasteryScore(Float masteryScore) {
-        this.masteryScore = masteryScore;
-    }
-
-    public Long getTimeSpentMs() {
-        return timeSpentMs;
-    }
-
-    public void setTimeSpentMs(Long timeSpentMs) {
-        this.timeSpentMs = timeSpentMs;
-    }
+    @JvmField
+    var timeSpentMs: Long = 0L
 }
