@@ -17,7 +17,7 @@ class WordAssessmentEventReceiver : BroadcastReceiver() {
             Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
         Timber.i("androidId: \"$androidId\"")
 
-        val packageName = intent.getStringExtra("packageName")
+        val packageName = intent.getStringExtra("packageName") ?: ""
         Timber.i("packageName: \"$packageName\"")
 
         val timestamp = Calendar.getInstance()
