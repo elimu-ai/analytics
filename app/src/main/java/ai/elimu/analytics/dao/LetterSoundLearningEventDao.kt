@@ -1,24 +1,19 @@
-package ai.elimu.analytics.dao;
+package ai.elimu.analytics.dao
 
-import android.database.Cursor;
-
-import androidx.room.Dao;
-import androidx.room.Insert;
-import androidx.room.Query;
-
-import java.util.List;
-
-import ai.elimu.analytics.entity.LetterSoundLearningEvent;
+import ai.elimu.analytics.entity.LetterSoundLearningEvent
+import android.database.Cursor
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.Query
 
 @Dao
-public interface LetterSoundLearningEventDao {
-
+interface LetterSoundLearningEventDao {
     @Insert
-    void insert(LetterSoundLearningEvent letterSoundLearningEvent);
+    fun insert(letterSoundLearningEvent: LetterSoundLearningEvent)
 
     @Query("SELECT * FROM LetterSoundLearningEvent ORDER BY time")
-    List<LetterSoundLearningEvent> loadAllOrderedByTime();
+    fun loadAllOrderedByTime(): List<LetterSoundLearningEvent>
 
     @Query("SELECT * FROM LetterSoundLearningEvent ORDER BY time")
-    Cursor loadAllOrderedByTimeCursor();
+    fun loadAllOrderedByTimeCursor(): Cursor
 }
