@@ -1,19 +1,15 @@
-package ai.elimu.analytics.dao;
+package ai.elimu.analytics.dao
 
-import androidx.room.Dao;
-import androidx.room.Insert;
-import androidx.room.Query;
-
-import java.util.List;
-
-import ai.elimu.analytics.entity.StoryBookLearningEvent;
+import ai.elimu.analytics.entity.StoryBookLearningEvent
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.Query
 
 @Dao
-public interface StoryBookLearningEventDao {
-
+interface StoryBookLearningEventDao {
     @Insert
-    void insert(StoryBookLearningEvent storyBookLearningEvent);
+    fun insert(storyBookLearningEvent: StoryBookLearningEvent)
 
     @Query("SELECT * FROM StoryBookLearningEvent ORDER BY time DESC")
-    List<StoryBookLearningEvent> loadAll();
+    fun loadAll(): List<StoryBookLearningEvent>
 }
