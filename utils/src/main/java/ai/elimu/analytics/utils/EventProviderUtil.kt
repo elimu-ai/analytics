@@ -9,9 +9,9 @@ import ai.elimu.model.v2.gson.analytics.WordLearningEventGson
 import ai.elimu.model.v2.gson.content.LetterGson
 import ai.elimu.model.v2.gson.content.WordGson
 import android.content.Context
-import android.net.Uri
 import android.util.Log
 import android.widget.Toast
+import androidx.core.net.toUri
 
 object EventProviderUtil {
     
@@ -26,7 +26,7 @@ object EventProviderUtil {
         val letterAssessmentEventGsons: MutableList<LetterAssessmentEventGson> = ArrayList()
 
         val letterAssessmentEventsUri =
-            Uri.parse("content://$analyticsApplicationId.provider.letter_assessment_event_provider/events")
+            "content://$analyticsApplicationId.provider.letter_assessment_event_provider/events".toUri()
         Log.i(
             TAG,
             "letterAssessmentEventsUri: $letterAssessmentEventsUri"
@@ -90,7 +90,7 @@ object EventProviderUtil {
         val letterAssessmentEventGsons: MutableList<LetterAssessmentEventGson> = ArrayList()
 
         val letterAssessmentEventsUri =
-            Uri.parse("content://" + analyticsApplicationId + ".provider.letter_assessment_event_provider/events/by-letter-id/" + letterGson.id)
+            ("content://" + analyticsApplicationId + ".provider.letter_assessment_event_provider/events/by-letter-id/" + letterGson.id).toUri()
         Log.i(
             TAG,
             "letterAssessmentEventsUri: $letterAssessmentEventsUri"
@@ -153,7 +153,7 @@ object EventProviderUtil {
         val wordLearningEventGsons: MutableList<WordLearningEventGson> = ArrayList()
 
         val wordLearningEventsUri =
-            Uri.parse("content://$analyticsApplicationId.provider.word_learning_event_provider/events")
+            "content://$analyticsApplicationId.provider.word_learning_event_provider/events".toUri()
         Log.i(
             TAG,
             "wordLearningEventsUri: $wordLearningEventsUri"
@@ -217,7 +217,7 @@ object EventProviderUtil {
         val wordIdsSet: MutableSet<Long> = HashSet()
 
         val wordLearningEventsUri =
-            Uri.parse("content://$analyticsApplicationId.provider.word_learning_event_provider/events")
+            "content://$analyticsApplicationId.provider.word_learning_event_provider/events".toUri()
         Log.i(
             TAG,
             "wordLearningEventsUri: $wordLearningEventsUri"
@@ -278,7 +278,7 @@ object EventProviderUtil {
         val wordAssessmentEventGsons: MutableList<WordAssessmentEventGson> = ArrayList()
 
         val wordAssessmentEventsUri =
-            Uri.parse("content://$analyticsApplicationId.provider.word_assessment_event_provider/events")
+            "content://$analyticsApplicationId.provider.word_assessment_event_provider/events".toUri()
         Log.i(
             TAG,
             "wordAssessmentEventsUri: $wordAssessmentEventsUri"
@@ -343,7 +343,7 @@ object EventProviderUtil {
         val wordAssessmentEventGsons: MutableList<WordAssessmentEventGson> = ArrayList()
 
         val wordAssessmentEventsUri =
-            Uri.parse("content://" + analyticsApplicationId + ".provider.word_assessment_event_provider/events/by-word-id/" + wordGson.id)
+            ("content://" + analyticsApplicationId + ".provider.word_assessment_event_provider/events/by-word-id/" + wordGson.id).toUri()
         Log.i(
             TAG,
             "wordAssessmentEventsUri: $wordAssessmentEventsUri"
