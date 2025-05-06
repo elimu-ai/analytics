@@ -30,12 +30,7 @@ class EventListAdapter internal constructor(context: Context?) :
         if (storyBookLearningEvents != null) {
             val storyBookLearningEvent = storyBookLearningEvents!![position]
             viewHolder.textViewFirstLine.text = "StoryBookLearningEvent"
-            viewHolder.textViewSecondLine.text = ("id: " + storyBookLearningEvent.id
-                    + ", time: " + storyBookLearningEvent.time.time
-                    + ", androidId: \"" + storyBookLearningEvent.androidId + "\""
-                    + ", packageName: \"" + storyBookLearningEvent.packageName + "\""
-                    + ", storyBookId: " + storyBookLearningEvent.storyBookId
-                    + ", learningEventType: \"" + storyBookLearningEvent.learningEventType + "\"")
+            viewHolder.textViewSecondLine.text = storyBookLearningEvent.toString()
         }
     }
 
