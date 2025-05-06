@@ -1,54 +1,55 @@
-package ai.elimu.analytics.db;
+package ai.elimu.analytics.db
 
-import android.text.TextUtils;
-
-import androidx.room.TypeConverter;
-
-import java.util.Arrays;
-import java.util.Calendar;
-
-import ai.elimu.model.v2.enums.analytics.LearningEventType;
+import ai.elimu.model.v2.enums.analytics.LearningEventType
+import android.text.TextUtils
+import androidx.room.TypeConverter
+import java.util.Calendar
 
 /**
- * See <a href="https://developer.android.com/training/data-storage/room/referencing-data">Referencing complex data using Room</a>
+ * See [Referencing complex data using Room](https://developer.android.com/training/data-storage/room/referencing-data)
  */
-public class Converters {
-
+object Converters {
+    @JvmStatic
     @TypeConverter
-    public static Calendar fromLong(Long value) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(value);
-        return calendar;
+    fun fromLong(value: Long): Calendar {
+        val calendar = Calendar.getInstance()
+        calendar.setTimeInMillis(value)
+        return calendar
     }
 
+    @JvmStatic
     @TypeConverter
-    public static Long toLong(Calendar calendar) {
-        return calendar.getTimeInMillis();
+    fun toLong(calendar: Calendar): Long {
+        return calendar.getTimeInMillis()
     }
 
 
+    @JvmStatic
     @TypeConverter
-    public static LearningEventType fromString(String value) {
-        LearningEventType learningEventType = null;
+    fun fromString(value: String?): LearningEventType? {
+        var learningEventType: LearningEventType? = null
         if (!TextUtils.isEmpty(value)) {
-            learningEventType = LearningEventType.valueOf(value);
+            learningEventType = LearningEventType.valueOf(value!!)
         }
-        return learningEventType;
+        return learningEventType
+    }
+
+    @JvmStatic
+    @TypeConverter
+    fun toString(learningEventType: LearningEventType): String {
+        return learningEventType.toString()
+    }
+
+
+    @JvmStatic
+    @TypeConverter
+    fun fromArrayString(value: String): Array<String?> {
+        return value.substring(1, value.length - 1).split(", ".toRegex())
+            .dropLastWhile { it.isEmpty() }.toTypedArray()
     }
 
     @TypeConverter
-    public static String toString(LearningEventType learningEventType) {
-        return learningEventType.toString();
-    }
-
-
-    @TypeConverter
-    public static String[] fromArrayString(String value) {
-        return value.substring(1, value.length() - 1).split(", ");
-    }
-
-    @TypeConverter
-    public static String toString(String[] array) {
-        return Arrays.toString(array);
+    fun toString(array: Array<String?>?): String {
+        return array.contentToString()
     }
 }
