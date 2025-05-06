@@ -1,19 +1,11 @@
-package ai.elimu.analytics.entity;
+package ai.elimu.analytics.entity
 
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
 @Entity
-public abstract class BaseEntity {
-
+abstract class BaseEntity {
+    @JvmField
     @PrimaryKey(autoGenerate = true)
-    private Long id;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+    var id: Long? = null
 }
