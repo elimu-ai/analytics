@@ -22,7 +22,7 @@ class StoryBookLearningEventReceiver : BroadcastReceiver() {
         Timber.i("packageName: \"$packageName\"")
 
         val timestamp = Calendar.getInstance()
-        Timber.i("timestamp.getTime(): " + timestamp.time)
+        Timber.i("timestamp.getTime(): %s", timestamp.time)
 
         val storyBookId = intent.getLongExtra("storyBookId", 0)
         Timber.i("storyBookId: $storyBookId")

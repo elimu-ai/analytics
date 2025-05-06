@@ -45,12 +45,12 @@ class UploadEventsWorker(context: Context, workerParams: WorkerParameters) :
                 Timber.i("Uploading CSV files from $wordLearningEventsDir")
                 val files = wordLearningEventsDir.listFiles()
                 if (files != null) {
-                    Timber.i("files.length: " + files.size)
+                    Timber.i("files.length: %s", files.size)
                     Arrays.sort(files)
                     for (i in files.indices) {
                         val file = files[i]
-                        Timber.i("file.getAbsoluteFile(): " + file.absoluteFile)
-                        Timber.i("file.getName(): " + file.name)
+                        Timber.i("file.getAbsoluteFile(): %s", file.absoluteFile)
+                        Timber.i("file.getName(): %s", file.name)
 
                         val baseApplication = applicationContext as BaseApplication
                         val retrofit = baseApplication.retrofit
@@ -60,11 +60,11 @@ class UploadEventsWorker(context: Context, workerParams: WorkerParameters) :
                         val part = MultipartBody.Part.createFormData("file", file.name, requestBody)
                         val call = uploadService.uploadCsvFile(part)
 
-                        Timber.i("call.request(): " + call.request())
+                        Timber.i("call.request(): %s", call.request())
                         try {
                             val response = call.execute()
                             Timber.i("response: $response")
-                            Timber.i("response.isSuccessful(): " + response.isSuccessful)
+                            Timber.i("response.isSuccessful(): %s", response.isSuccessful)
                             if (response.isSuccessful) {
                                 val bodyString = response.body()?.string()
                                 Timber.i("bodyString: $bodyString")
