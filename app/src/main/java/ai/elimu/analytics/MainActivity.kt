@@ -51,11 +51,11 @@ class MainActivity : AppCompatActivity() {
             RoomDb.databaseWriteExecutor.execute {
                 val wordLearningEvents =
                     wordLearningEventDao.loadAllOrderedByTimeDesc()
-                Timber.i("wordLearningEvents.size(): " + wordLearningEvents.size)
+                Timber.i("wordLearningEvents.size(): %s", wordLearningEvents.size)
 
                 val storyBookLearningEvents =
                     storyBookLearningEventDao.loadAll()
-                Timber.i("storyBookLearningEvents.size(): " + storyBookLearningEvents.size)
+                Timber.i("storyBookLearningEvents.size(): %s", storyBookLearningEvents.size)
                 if (storyBookLearningEvents.isNotEmpty()) {
                     startActivity(Intent(applicationContext, EventListActivity::class.java))
                     finish()

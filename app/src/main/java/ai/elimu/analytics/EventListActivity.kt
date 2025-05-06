@@ -32,7 +32,7 @@ class EventListActivity : AppCompatActivity() {
         RoomDb.databaseWriteExecutor.execute {
             val storyBookLearningEvents =
                 storyBookLearningEventDao.loadAll()
-            Timber.d("storyBookLearningEvents.size(): " + storyBookLearningEvents.size)
+            Timber.d("storyBookLearningEvents.size(): %s", storyBookLearningEvents.size)
             eventListAdapter.setStoryBookLearningEvents(storyBookLearningEvents)
         }
 

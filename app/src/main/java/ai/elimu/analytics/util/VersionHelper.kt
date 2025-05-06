@@ -57,56 +57,56 @@ object VersionHelper {
                 var files = letterAssessmentEventsDir.listFiles()
                 if (files != null) {
                     for (i in files.indices) {
-                        Timber.w("Deleting " + files[i])
-                        Timber.w("files[i].delete(): " + files[i].delete())
+                        Timber.w("Deleting %s", files[i])
+                        Timber.w("files[i].delete(): %s", files[i].delete())
                     }
                 }
                 Timber.w("Deleting $letterAssessmentEventsDir")
-                Timber.w("letterAssessmentEventsDir.delete(): " + letterAssessmentEventsDir.delete())
+                Timber.w("letterAssessmentEventsDir.delete(): %s", letterAssessmentEventsDir.delete())
 
                 val letterLearningEventsDir = File(filesDir, "letter-learning-events")
                 files = letterLearningEventsDir.listFiles()
                 if (files != null) {
                     for (i in files.indices) {
-                        Timber.w("Deleting " + files[i])
-                        Timber.w("files[i].delete(): " + files[i].delete())
+                        Timber.w("Deleting %s", files[i])
+                        Timber.w("files[i].delete(): %s", files[i].delete())
                     }
                 }
                 Timber.w("Deleting $letterLearningEventsDir")
-                Timber.w("letterLearningEventsDir.delete(): " + letterLearningEventsDir.delete())
+                Timber.w("letterLearningEventsDir.delete(): %s", letterLearningEventsDir.delete())
 
                 val storyBookLearningEventsDir = File(filesDir, "storybook-learning-events")
                 files = storyBookLearningEventsDir.listFiles()
                 if (files != null) {
                     for (i in files.indices) {
-                        Timber.w("Deleting " + files[i])
-                        Timber.w("files[i].delete(): " + files[i].delete())
+                        Timber.w("Deleting %s", files[i])
+                        Timber.w("files[i].delete(): %s", files[i].delete())
                     }
                 }
                 Timber.w("Deleting $storyBookLearningEventsDir")
-                Timber.w("storyBookLearningEventsDir.delete(): " + storyBookLearningEventsDir.delete())
+                Timber.w("storyBookLearningEventsDir.delete(): %s", storyBookLearningEventsDir.delete())
 
                 val wordAssessmentEventsDir = File(filesDir, "word-assessment-events")
                 files = wordAssessmentEventsDir.listFiles()
                 if (files != null) {
                     for (i in files.indices) {
-                        Timber.w("Deleting " + files[i])
-                        Timber.w("files[i].delete(): " + files[i].delete())
+                        Timber.w("Deleting %s", files[i])
+                        Timber.w("files[i].delete(): %s", files[i].delete())
                     }
                 }
                 Timber.w("Deleting $wordAssessmentEventsDir")
-                Timber.w("wordAssessmentEventsDir.delete(): " + wordAssessmentEventsDir.delete())
+                Timber.w("wordAssessmentEventsDir.delete(): %s", wordAssessmentEventsDir.delete())
 
                 val wordLearningEventsDir = File(filesDir, "word-learning-events")
                 files = wordLearningEventsDir.listFiles()
                 if (files != null) {
                     for (i in files.indices) {
-                        Timber.w("Deleting " + files[i])
-                        Timber.w("files[i].delete(): " + files[i].delete())
+                        Timber.w("Deleting %s", files[i])
+                        Timber.w("files[i].delete(): %s", files[i].delete())
                     }
                 }
                 Timber.w("Deleting $wordLearningEventsDir")
-                Timber.w("wordLearningEventsDir.delete(): " + wordLearningEventsDir.delete())
+                Timber.w("wordLearningEventsDir.delete(): %s", wordLearningEventsDir.delete())
             }
 
             if (oldVersionCode < 3001020) {

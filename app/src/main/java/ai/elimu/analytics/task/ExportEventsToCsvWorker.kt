@@ -38,7 +38,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
         val roomDb = RoomDb.getDatabase(applicationContext)
         val letterSoundLearningEventDao = roomDb.letterSoundLearningEventDao()
         val letterSoundLearningEvents = letterSoundLearningEventDao.loadAllOrderedByTime()
-        Timber.i("letterSoundLearningEvents.size(): " + letterSoundLearningEvents.size)
+        Timber.i("letterSoundLearningEvents.size(): %s", letterSoundLearningEvents.size)
 
         val csvFormat = CSVFormat.DEFAULT
             .withHeader(
@@ -111,7 +111,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
         val roomDb = RoomDb.getDatabase(applicationContext)
         val wordLearningEventDao = roomDb.wordLearningEventDao()
         val wordLearningEvents = wordLearningEventDao.loadAllOrderedByTimeDesc()
-        Timber.i("wordLearningEvents.size(): " + wordLearningEvents.size)
+        Timber.i("wordLearningEvents.size(): %s", wordLearningEvents.size)
 
         val csvFormat = CSVFormat.DEFAULT
             .withHeader(
@@ -182,7 +182,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
         val roomDb = RoomDb.getDatabase(applicationContext)
         val wordAssessmentEventDao = roomDb.wordAssessmentEventDao()
         val wordAssessmentEvents = wordAssessmentEventDao.loadAllOrderedByTimeAsc()
-        Timber.i("wordAssessmentEvents.size(): " + wordAssessmentEvents.size)
+        Timber.i("wordAssessmentEvents.size(): %s", wordAssessmentEvents.size)
 
         val csvFormat = CSVFormat.DEFAULT
             .withHeader(
@@ -256,7 +256,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
         val roomDb = RoomDb.getDatabase(applicationContext)
         val storyBookLearningEventDao = roomDb.storyBookLearningEventDao()
         val storyBookLearningEvents = storyBookLearningEventDao.loadAll()
-        Timber.i("storyBookLearningEvents.size(): " + storyBookLearningEvents.size)
+        Timber.i("storyBookLearningEvents.size(): %s", storyBookLearningEvents.size)
 
         val csvFormat = CSVFormat.DEFAULT
             .withHeader(

@@ -14,7 +14,7 @@ class VideoLearningEventReceiver : BroadcastReceiver() {
         Timber.i("onReceive")
 
         val timestamp = Calendar.getInstance()
-        Timber.i("timestamp.getTime(): " + timestamp.time)
+        Timber.i("timestamp.getTime(): %s", timestamp.time)
 
         val androidId =
             Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)

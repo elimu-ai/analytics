@@ -21,7 +21,7 @@ class LetterSoundLearningEventReceiver : BroadcastReceiver() {
         Timber.i("packageName: \"$packageName\"")
 
         val timestamp = Calendar.getInstance()
-        Timber.i("timestamp.getTime(): " + timestamp.time)
+        Timber.i("timestamp.getTime(): %s", timestamp.time)
 
         var letterSoundId: Long? = null
         if (intent.hasExtra("letterSoundId")) {
