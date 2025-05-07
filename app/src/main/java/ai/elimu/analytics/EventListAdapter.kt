@@ -19,7 +19,7 @@ class EventListAdapter internal constructor(context: Context?) :
 
     private val layoutInflater: LayoutInflater = LayoutInflater.from(context)
 
-    private var storyBookLearningEvents: List<StoryBookLearningEvent>? = null
+    private var storyBookLearningEvents: List<StoryBookLearningEvent> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventViewHolder {
         val itemView = layoutInflater.inflate(R.layout.activity_event_list_item, parent, false)
@@ -27,22 +27,16 @@ class EventListAdapter internal constructor(context: Context?) :
     }
 
     override fun onBindViewHolder(viewHolder: EventViewHolder, position: Int) {
-        if (storyBookLearningEvents != null) {
-            val storyBookLearningEvent = storyBookLearningEvents!![position]
-            viewHolder.textViewFirstLine.text = "StoryBookLearningEvent"
-            viewHolder.textViewSecondLine.text = storyBookLearningEvent.toString()
-        }
+        val storyBookLearningEvent = storyBookLearningEvents[position]
+        viewHolder.textViewFirstLine.text = "StoryBookLearningEvent"
+        viewHolder.textViewSecondLine.text = storyBookLearningEvent.toString()
     }
 
     override fun getItemCount(): Int {
-        return if (storyBookLearningEvents == null) {
-            0
-        } else {
-            storyBookLearningEvents!!.size
-        }
+        return storyBookLearningEvents.size
     }
 
-    fun setStoryBookLearningEvents(storyBookLearningEvents: List<StoryBookLearningEvent>?) {
+    fun setStoryBookLearningEvents(storyBookLearningEvents: List<StoryBookLearningEvent>) {
         this.storyBookLearningEvents = storyBookLearningEvents
         notifyDataSetChanged()
     }
