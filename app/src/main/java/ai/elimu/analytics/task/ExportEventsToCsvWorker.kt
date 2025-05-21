@@ -13,6 +13,7 @@ import java.io.File
 import java.io.IOException
 import java.io.StringWriter
 import java.text.SimpleDateFormat
+import java.util.Locale
 
 /**
  * Exports events from the database into CSV files, that will later be uploaded to the server by
@@ -20,6 +21,9 @@ import java.text.SimpleDateFormat
  */
 class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) :
     Worker(context, workerParams) {
+
+    private val eventDateFormat by lazy { SimpleDateFormat("yyyy-MM-dd", Locale.US) }
+
     override fun doWork(): Result {
         Timber.i("doWork")
 
@@ -63,8 +67,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                 val versionCode = getAppVersionCode(
                     applicationContext
                 )
-                val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
-                val date = simpleDateFormat.format(letterSoundLearningEvent.time.time)
+                val date = eventDateFormat.format(letterSoundLearningEvent.time.time)
                 if (date != dateOfPreviousEvent) {
                     // Reset file content
                     stringWriter = StringWriter()
@@ -135,8 +138,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                 val versionCode = getAppVersionCode(
                     applicationContext
                 )
-                val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
-                val date = simpleDateFormat.format(wordLearningEvent.time.time)
+                val date = eventDateFormat.format(wordLearningEvent.time.time)
                 if (date != dateOfPreviousEvent) {
                     // Reset file content
                     stringWriter = StringWriter()
@@ -207,8 +209,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                 val versionCode = getAppVersionCode(
                     applicationContext
                 )
-                val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
-                val date = simpleDateFormat.format(wordAssessmentEvent.time.time)
+                val date = eventDateFormat.format(wordAssessmentEvent.time.time)
                 if (date != dateOfPreviousEvent) {
                     // Reset file content
                     stringWriter = StringWriter()
@@ -279,8 +280,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                 val versionCode = getAppVersionCode(
                     applicationContext
                 )
-                val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
-                val date = simpleDateFormat.format(storyBookLearningEvent.time.time)
+                val date = eventDateFormat.format(storyBookLearningEvent.time.time)
                 if (date != dateOfPreviousEvent) {
                     // Reset file content
                     stringWriter = StringWriter()
