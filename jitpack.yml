@@ -1,4 +1,0 @@
-# Configuration file for JitPack: https://jitpack.io/#ai.elimu/analytics
-
-jdk:
-  - openjdk17
