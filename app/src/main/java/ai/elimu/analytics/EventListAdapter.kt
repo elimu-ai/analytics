@@ -1,20 +1,20 @@
 package ai.elimu.analytics
 
 import ai.elimu.analytics.EventListAdapter.EventViewHolder
+import ai.elimu.analytics.databinding.ActivityEventListItemBinding
 import ai.elimu.analytics.entity.StoryBookLearningEvent
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 class EventListAdapter internal constructor(context: Context?) :
     RecyclerView.Adapter<EventViewHolder>() {
-    inner class EventViewHolder internal constructor(itemView: View) :
-        RecyclerView.ViewHolder(itemView) {
-        val textViewFirstLine: TextView = itemView.findViewById(R.id.textViewFirstLine)
-        val textViewSecondLine: TextView = itemView.findViewById(R.id.textViewSecondLine)
+    inner class EventViewHolder internal constructor(binding: ActivityEventListItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        val textViewFirstLine: TextView = binding.textViewFirstLine
+        val textViewSecondLine: TextView = binding.textViewSecondLine
     }
 
     private val layoutInflater: LayoutInflater = LayoutInflater.from(context)
@@ -22,8 +22,7 @@ class EventListAdapter internal constructor(context: Context?) :
     private var storyBookLearningEvents: List<StoryBookLearningEvent> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventViewHolder {
-        val itemView = layoutInflater.inflate(R.layout.activity_event_list_item, parent, false)
-        return EventViewHolder(itemView)
+        return EventViewHolder(ActivityEventListItemBinding.inflate(layoutInflater, parent, false))
     }
 
     override fun onBindViewHolder(viewHolder: EventViewHolder, position: Int) {
