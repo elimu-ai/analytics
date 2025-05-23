@@ -1,5 +1,6 @@
 package ai.elimu.analytics
 
+import ai.elimu.analytics.databinding.ActivityEventListBinding
 import ai.elimu.analytics.db.RoomDb
 import ai.elimu.common.utils.ui.setLightStatusBar
 import ai.elimu.common.utils.ui.setStatusBarColorCompat
@@ -7,17 +8,20 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import timber.log.Timber
 
 class EventListActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityEventListBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         Timber.i("onCreate")
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_event_list)
+        binding = ActivityEventListBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        val recyclerView = findViewById<RecyclerView>(R.id.recyclerview)
+        val recyclerView = binding.recyclerview
         val eventListAdapter = EventListAdapter(this)
         recyclerView.adapter = eventListAdapter
         val linearLayoutManager = LinearLayoutManager(this)
