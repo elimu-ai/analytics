@@ -36,7 +36,7 @@ class LetterSoundAssessmentEventReceiver : BroadcastReceiver() {
         Timber.i("masteryScore: ${masteryScore}")
 
         val timeSpentMs: Long = intent.getLongExtra("timeSpentMs", 0)
-        Timber.i("masteryScore: ${timeSpentMs}")
+        Timber.i("timeSpentMs: ${timeSpentMs}")
 
         val additionalData: String? = intent.getStringExtra("additionalData")
         Timber.i("additionalData: \"${additionalData}\"")
