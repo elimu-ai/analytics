@@ -17,16 +17,16 @@ class LetterSoundAssessmentEventReceiver : BroadcastReceiver() {
         val androidId: String = Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
         Timber.i("androidId: \"${androidId}\"")
 
-        val packageName: String? = intent.getStringExtra("packageName")
+        val packageName: String = intent.getStringExtra("packageName") ?: ""
         Timber.i("packageName: \"${packageName}\"")
 
         val timestamp: Calendar = Calendar.getInstance()
         Timber.i("timestamp.time: ${timestamp.time}")
 
-        val letterSoundLetters: String? = intent.getStringExtra("letterSoundLetters")
+        val letterSoundLetters: String = intent.getStringExtra("letterSoundLetters") ?: ""
         Timber.i("letterSoundLetters: \"${letterSoundLetters}\"")
 
-        val letterSoundSounds: String? = intent.getStringExtra("letterSoundSounds")
+        val letterSoundSounds: String = intent.getStringExtra("letterSoundSounds") ?: ""
         Timber.i("letterSoundSounds: \"${letterSoundSounds}\"")
 
         val letterSoundId: Long = intent.getLongExtra("letterSoundId", 0)
@@ -42,7 +42,7 @@ class LetterSoundAssessmentEventReceiver : BroadcastReceiver() {
         Timber.i("additionalData: \"${additionalData}\"")
 
         val letterSoundAssessmentEvent = LetterSoundAssessmentEvent()
-        letterSoundAssessmentEvent.timestamp = timestamp
+        letterSoundAssessmentEvent.time = timestamp
         letterSoundAssessmentEvent.androidId = androidId
         letterSoundAssessmentEvent.packageName = packageName
         letterSoundAssessmentEvent.letterSoundLetters = letterSoundLetters
@@ -50,7 +50,7 @@ class LetterSoundAssessmentEventReceiver : BroadcastReceiver() {
         letterSoundAssessmentEvent.letterSoundId = letterSoundId
         letterSoundAssessmentEvent.masteryScore = masteryScore
         letterSoundAssessmentEvent.timeSpentMs = timeSpentMs
-        letterSoundAssessmentEvent.additionalData = additionalData
+//        letterSoundAssessmentEvent.additionalData = additionalData
 
         // Store in database
         val roomDb = RoomDb.getDatabase(context)
