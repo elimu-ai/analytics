@@ -67,8 +67,8 @@ object CursorToLetterSoundAssessmentEventGsonConverter {
             this.androidId = androidId
             this.packageName = packageName
             this.timestamp = timestamp
-            this.letterSoundLetterTexts = letterSoundLetters.toCharArray().map { it.toString() }.toTypedArray()
-            this.letterSoundSoundValuesIpa = letterSoundSounds.toCharArray().map { it.toString() }.toTypedArray()
+            this.letterSoundLetters = letterSoundLetters
+            this.letterSoundSounds = letterSoundSounds
             this.letterSoundId = letterSoundId
             this.masteryScore = masteryScore
             this.timeSpentMs = timeSpentMs
