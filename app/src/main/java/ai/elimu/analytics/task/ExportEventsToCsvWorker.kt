@@ -27,12 +27,83 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
     override fun doWork(): Result {
         Timber.i("doWork")
 
+        exportLetterSoundAssessmentEventsToCsv()
         exportLetterSoundLearningEventsToCsv()
         exportWordLearningEventsToCsv()
         exportWordAssessmentEventsToCsv()
         exportStoryBookLearningEventsToCsv()
 
         return Result.success()
+    }
+
+    private fun exportLetterSoundAssessmentEventsToCsv() {
+        Timber.i("exportLetterSoundAssessmentEventsToCsv")
+
+        // Extract LetterSoundAssessmentEvents from the database that have not yet been exported to CSV.
+        val roomDb = RoomDb.getDatabase(applicationContext)
+        val letterSoundAssessmentEventDao = roomDb.letterSoundAssessmentEventDao()
+        val letterSoundAssessmentEvents = letterSoundAssessmentEventDao.loadAll()
+        Timber.i("letterSoundAssessmentEvents.size(): %s", letterSoundAssessmentEvents.size)
+
+        val csvFormat = CSVFormat.DEFAULT
+            .withHeader(
+                "id",
+                "timestamp",
+                "android_id",
+                "package_name",
+                "letter_sound_letters",
+                "letter_sound_sounds",
+                "letter_sound_id",
+                "mastery_score",
+                "time_spent_ms",
+//                "additional_data"
+            )
+        var stringWriter = StringWriter()
+        try {
+            var csvPrinter = CSVPrinter(stringWriter, csvFormat)
+
+            // Generate one CSV file per day of events
+            var dateOfPreviousEvent: String? = null
+            for (letterSoundAssessmentEvent in letterSoundAssessmentEvents) {
+                // Export event to CSV file. Example format:
+                //   files/version-code-3002024/letter-sound-assessment-events/7161a85a0e4751cd_3002024_letter-sound-assessment-events_2025-05-29.csv
+                val versionCode = getAppVersionCode(applicationContext)
+                val date = eventDateFormat.format(letterSoundAssessmentEvent.time.time)
+                if (date != dateOfPreviousEvent) {
+                    // Reset file content
+                    stringWriter = StringWriter()
+                    csvPrinter = CSVPrinter(stringWriter, csvFormat)
+                }
+                dateOfPreviousEvent = date
+                val csvFilename = letterSoundAssessmentEvent.androidId + "_" + versionCode + "_letter-sound-assessment-events_" + date + ".csv"
+                Timber.i("csvFilename: ${csvFilename}")
+
+                csvPrinter.printRecord(
+                    letterSoundAssessmentEvent.id,
+                    letterSoundAssessmentEvent.time.timeInMillis,
+                    letterSoundAssessmentEvent.androidId,
+                    letterSoundAssessmentEvent.packageName,
+                    letterSoundAssessmentEvent.letterSoundLetters,
+                    letterSoundAssessmentEvent.letterSoundSounds,
+                    letterSoundAssessmentEvent.letterSoundId,
+                    letterSoundAssessmentEvent.masteryScore,
+                    letterSoundAssessmentEvent.timeSpentMs,
+//                    letterSoundAssessmentEvent.additionalData
+                )
+                csvPrinter.flush()
+
+                val csvFileContent = stringWriter.toString()
+
+                // Write the content to the CSV file
+                val filesDir = applicationContext.filesDir
+                val versionCodeDir = File(filesDir, "version-code-${versionCode}")
+                val letterSoundAssessmentEventsDir = File(versionCodeDir, "letter-sound-assessment-events")
+                val csvFile = File(letterSoundAssessmentEventsDir, csvFilename)
+                FileUtils.writeStringToFile(csvFile, csvFileContent, "UTF-8")
+            }
+        } catch (e: IOException) {
+            Timber.e(e)
+        }
     }
 
     private fun exportLetterSoundLearningEventsToCsv() {
