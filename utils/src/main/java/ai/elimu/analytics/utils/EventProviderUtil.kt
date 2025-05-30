@@ -1,9 +1,11 @@
 package ai.elimu.analytics.utils
 
-import ai.elimu.analytics.utils.converter.CursorToLetterAssessmentEventGsonConverter.getLetterAssessmentEventGson
+import ai.elimu.analytics.utils.converter.CursorToLetterAssessmentEventGsonConverter
+import ai.elimu.analytics.utils.converter.CursorToLetterSoundAssessmentEventGsonConverter
 import ai.elimu.analytics.utils.converter.CursorToWordAssessmentEventGsonConverter
 import ai.elimu.analytics.utils.converter.CursorToWordLearningEventGsonConverter
 import ai.elimu.model.v2.gson.analytics.LetterAssessmentEventGson
+import ai.elimu.model.v2.gson.analytics.LetterSoundAssessmentEventGson
 import ai.elimu.model.v2.gson.analytics.WordAssessmentEventGson
 import ai.elimu.model.v2.gson.analytics.WordLearningEventGson
 import ai.elimu.model.v2.gson.content.LetterGson
@@ -16,6 +18,47 @@ import androidx.core.net.toUri
 object EventProviderUtil {
     
     private const val TAG = "EventProviderUtil"
+
+    fun getLetterSoundAssessmentEventGsons(
+        context: Context,
+        analyticsApplicationId: String
+    ): List<LetterSoundAssessmentEventGson> {
+        Log.i(TAG, "getLetterSoundAssessmentEventGsons")
+
+        val letterSoundAssessmentEventGsons: MutableList<LetterSoundAssessmentEventGson> = ArrayList()
+
+        val letterSoundAssessmentEventsUri = "content://${analyticsApplicationId}.provider.letter_sound_assessment_event_provider/events".toUri()
+        Log.i(TAG, "letterSoundAssessmentEventsUri: ${letterSoundAssessmentEventsUri}")
+        val letterSoundAssessmentEventsCursor = context.contentResolver.query(letterSoundAssessmentEventsUri, null, null, null, null)
+        Log.i(TAG, "letterSoundAssessmentEventsCursor: ${letterSoundAssessmentEventsCursor}")
+        if (letterSoundAssessmentEventsCursor == null) {
+            Log.e(TAG, "letterSoundAssessmentEventsCursor == null")
+            Toast.makeText(context, "letterSoundAssessmentEventsCursor == null", Toast.LENGTH_LONG).show()
+        } else {
+            Log.i(TAG, "letterSoundAssessmentEventsCursor.count: " + letterSoundAssessmentEventsCursor.count)
+            if (letterSoundAssessmentEventsCursor.count == 0) {
+                Log.e(TAG, "letterSoundAssessmentEventsCursor.count == 0")
+            } else {
+                var isLast: Boolean = false
+                while (!isLast) {
+                    letterSoundAssessmentEventsCursor.moveToNext()
+
+                    // Convert from Room to Gson
+                    val letterSoundAssessmentEventGson = CursorToLetterSoundAssessmentEventGsonConverter.getLetterSoundAssessmentEventGson(letterSoundAssessmentEventsCursor)
+
+                    letterSoundAssessmentEventGsons.add(letterSoundAssessmentEventGson)
+
+                    isLast = letterSoundAssessmentEventsCursor.isLast
+                }
+
+                letterSoundAssessmentEventsCursor.close()
+                Log.i(TAG, "letterSoundAssessmentEventsCursor.isClosed: " + letterSoundAssessmentEventsCursor.isClosed)
+            }
+        }
+        Log.i(TAG, "letterSoundAssessmentEventGsons.size: " + letterSoundAssessmentEventGsons.size)
+
+        return letterSoundAssessmentEventGsons
+    }
     
     fun getLetterAssessmentEventGsons(
         context: Context,
@@ -58,7 +101,7 @@ object EventProviderUtil {
 
                     // Convert from Room to Gson
                     val letterAssessmentEventGson =
-                        getLetterAssessmentEventGson(letterAssessmentEventsCursor)
+                        CursorToLetterAssessmentEventGsonConverter.getLetterAssessmentEventGson(letterAssessmentEventsCursor)
 
                     letterAssessmentEventGsons.add(letterAssessmentEventGson)
 
@@ -122,7 +165,7 @@ object EventProviderUtil {
 
                     // Convert from Room to Gson
                     val letterAssessmentEventGson =
-                        getLetterAssessmentEventGson(letterAssessmentEventsCursor)
+                        CursorToLetterAssessmentEventGsonConverter.getLetterAssessmentEventGson(letterAssessmentEventsCursor)
 
                     letterAssessmentEventGsons.add(letterAssessmentEventGson)
 

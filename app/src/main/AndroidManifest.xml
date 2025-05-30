@@ -76,6 +76,11 @@
         </receiver>
 
         <provider
+            android:name=".provider.LetterSoundAssessmentEventProvider"
+            android:authorities="${applicationId}.provider.letter_sound_assessment_event_provider"
+            android:enabled="true"
+            android:exported="true" />
+        <provider
             android:name=".provider.LetterSoundLearningEventProvider"
             android:authorities="${applicationId}.provider.letter_sound_learning_event_provider"
             android:enabled="true"
