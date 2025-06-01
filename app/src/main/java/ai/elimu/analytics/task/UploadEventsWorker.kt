@@ -23,6 +23,7 @@ class UploadEventsWorker(context: Context, workerParams: WorkerParameters) :
         Timber.i("doWork")
 
         uploadLearningEvents(eventType = LearningEventUploadType.LETTER_ASSESSMENT)
+        uploadLearningEvents(eventType = LearningEventUploadType.LETTER_SOUND_ASSESSMENT)
         uploadLearningEvents(eventType = LearningEventUploadType.LETTER_SOUND_LEARNING)
         uploadLearningEvents(eventType = LearningEventUploadType.WORD_LEARNING)
         uploadLearningEvents(eventType = LearningEventUploadType.WORD_ASSESSMENT)
