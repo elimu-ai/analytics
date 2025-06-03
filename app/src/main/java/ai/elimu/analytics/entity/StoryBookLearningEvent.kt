@@ -5,6 +5,8 @@ import androidx.room.Entity
 
 @Entity
 class StoryBookLearningEvent : LearningEvent() {
+    var storyBookTitle: String = ""
+
     @JvmField
     var storyBookId: Long = 0L
 
@@ -16,6 +18,7 @@ class StoryBookLearningEvent : LearningEvent() {
                 ", androidId: \"" + androidId +
                 "\"" + ", packageName: \"" +
                 packageName + "\"" +
+                ", storyBookTitle: \"" + storyBookTitle + "\"" +
                 ", storyBookId: " + storyBookId +
                 ", learningEventType: \"" + learningEventType + "\""
     }

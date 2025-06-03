@@ -24,11 +24,11 @@ class StoryBookLearningEventReceiver : BroadcastReceiver() {
         val timestamp = Calendar.getInstance()
         Timber.i("timestamp.getTime(): %s", timestamp.time)
 
+        val storyBookTitle: String = intent.getStringExtra("storyBookTitle") ?: ""
+        Timber.i("storyBookTitle: \"$storyBookTitle\"")
+
         val storyBookId = intent.getLongExtra("storyBookId", 0)
         Timber.i("storyBookId: $storyBookId")
-
-        val storyBookTitle = intent.getStringExtra("storyBookTitle")
-        Timber.i("storyBookTitle: \"$storyBookTitle\"")
 
         val learningEventTypeAsString = intent.getStringExtra("learningEventType") ?: ""
         Timber.i("learningEventTypeAsString: \"$learningEventTypeAsString\"")
@@ -41,8 +41,8 @@ class StoryBookLearningEventReceiver : BroadcastReceiver() {
         storyBookLearningEvent.androidId = androidId
         storyBookLearningEvent.packageName = packageName
         storyBookLearningEvent.time = timestamp
+        storyBookLearningEvent.storyBookTitle = storyBookTitle
         storyBookLearningEvent.storyBookId = storyBookId
-        //        storyBookLearningEvent.setStoryBookTitle(storyBookTitle);
         storyBookLearningEvent.learningEventType = learningEventType
 
         // Store in database
