@@ -174,7 +174,7 @@ public abstract class RoomDb extends RoomDatabase {
         public void migrate(@NonNull SupportSQLiteDatabase database) {
             Timber.i("migrate (" + database.getVersion() + " --> 11)");
 
-            String sql = "ALTER TABLE `StoryBookLearningEvent` ADD COLUMN `storyBookTitle` TEXT NOT NULL";
+            String sql = "ALTER TABLE `StoryBookLearningEvent` ADD COLUMN `storyBookTitle` TEXT NOT NULL DEFAULT ''";
             Timber.i("sql: %s", sql);
             database.execSQL(sql);
         }
