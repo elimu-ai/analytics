@@ -336,6 +336,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                 "time",
                 "android_id",
                 "package_name",
+                "storybook_title",
                 "storybook_id",
                 "learning_event_type"
             )
@@ -367,6 +368,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                     storyBookLearningEvent.time.timeInMillis,
                     storyBookLearningEvent.androidId,
                     storyBookLearningEvent.packageName,
+                    storyBookLearningEvent.storyBookTitle,
                     storyBookLearningEvent.storyBookId,
                     storyBookLearningEvent.learningEventType
                 )
