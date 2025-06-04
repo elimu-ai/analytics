@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.work.Constraints
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.NetworkType
+import androidx.work.OneTimeWorkRequest
+import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.PeriodicWorkRequest
 import androidx.work.WorkManager
 import timber.log.Timber
@@ -28,15 +30,16 @@ object TaskInitializer {
         val uploadEventsConstraints = Constraints.Builder()
             .setRequiredNetworkType(NetworkType.CONNECTED)
             .build()
-        val uploadEventsWorkRequest = PeriodicWorkRequest.Builder(
-            UploadEventsWorker::class.java, 3, TimeUnit.HOURS
+        val uploadEventsWorkRequest = /*PeriodicWorkRequest.Builder(
+            UploadEventsWorker::class.java, 1, TimeUnit.MINUTES
         )
             .setConstraints(uploadEventsConstraints)
-            .build()
-        WorkManager.getInstance(context).enqueueUniquePeriodicWork(
+            .build()*/
+            OneTimeWorkRequestBuilder<UploadEventsWorker>().build()
+        WorkManager.getInstance(context)./*enqueueUniquePeriodicWork(
             "upload_events",
             ExistingPeriodicWorkPolicy.KEEP,
             uploadEventsWorkRequest
-        )
+        )*/enqueue(uploadEventsWorkRequest)
     }
 }

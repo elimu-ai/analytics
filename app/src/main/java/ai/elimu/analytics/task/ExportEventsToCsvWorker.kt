@@ -96,8 +96,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
 
                 // Write the content to the CSV file
                 val filesDir = applicationContext.filesDir
-                val versionCodeDir = File(filesDir, "version-code-${versionCode}")
-                val letterSoundAssessmentEventsDir = File(versionCodeDir, "letter-sound-assessment-events")
+                val letterSoundAssessmentEventsDir = File(filesDir, "letter-sound-assessment-events")
                 val csvFile = File(letterSoundAssessmentEventsDir, csvFilename)
                 FileUtils.writeStringToFile(csvFile, csvFileContent, "UTF-8")
             }
@@ -164,12 +163,8 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
 
                 // Write the content to the CSV file
                 val filesDir = applicationContext.filesDir
-                val versionCodeDir = File(
-                    filesDir,
-                    "version-code-$versionCode"
-                )
                 val letterSoundLearningEventsDir =
-                    File(versionCodeDir, "letter-sound-learning-events")
+                    File(filesDir, "letter-sound-learning-events")
                 val csvFile = File(letterSoundLearningEventsDir, csvFilename)
                 FileUtils.writeStringToFile(csvFile, csvFileContent, "UTF-8")
             }
@@ -235,11 +230,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
 
                 // Write the content to the CSV file
                 val filesDir = applicationContext.filesDir
-                val versionCodeDir = File(
-                    filesDir,
-                    "version-code-$versionCode"
-                )
-                val wordLearningEventsDir = File(versionCodeDir, "word-learning-events")
+                val wordLearningEventsDir = File(filesDir, "word-learning-events")
                 val csvFile = File(wordLearningEventsDir, csvFilename)
                 FileUtils.writeStringToFile(csvFile, csvFileContent, "UTF-8")
             }
@@ -307,11 +298,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
 
                 // Write the content to the CSV file
                 val filesDir = applicationContext.filesDir
-                val versionCodeDir = File(
-                    filesDir,
-                    "version-code-$versionCode"
-                )
-                val wordAssessmentEventsDir = File(versionCodeDir, "word-assessment-events")
+                val wordAssessmentEventsDir = File(filesDir, "word-assessment-events")
                 val csvFile = File(wordAssessmentEventsDir, csvFilename)
                 FileUtils.writeStringToFile(csvFile, csvFileContent, "UTF-8")
             }
@@ -378,11 +365,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
 
                 // Write the content to the CSV file
                 val filesDir = applicationContext.filesDir
-                val versionCodeDir = File(
-                    filesDir,
-                    "version-code-$versionCode"
-                )
-                val storyBookLearningEventsDir = File(versionCodeDir, "storybook-learning-events")
+                val storyBookLearningEventsDir = File(filesDir, "storybook-learning-events")
                 val csvFile = File(storyBookLearningEventsDir, csvFilename)
                 FileUtils.writeStringToFile(csvFile, csvFileContent, "UTF-8")
             }

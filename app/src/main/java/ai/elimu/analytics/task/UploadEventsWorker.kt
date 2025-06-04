@@ -7,10 +7,10 @@ import android.content.Context
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import timber.log.Timber
-import java.io.File
 import java.io.IOException
 import java.util.Arrays
 
@@ -39,44 +39,42 @@ class UploadEventsWorker(context: Context, workerParams: WorkerParameters) :
         // Example format:
         //   files/version-code-3001012/letter-assessment-events/7161a85a0e4751cd_3001012_letter-assessment-events_2020-03-21.csv
         val filesDir = applicationContext.filesDir
-        for (versionCodeDir in filesDir.listFiles() ?: emptyArray()) {
-            Timber.i("versionCodeDir: $versionCodeDir")
-            if (versionCodeDir.name.startsWith("version-code-")) {
-                val wordLearningEventsDir = File(versionCodeDir, eventType.type)
-                Timber.i("Uploading CSV files from $wordLearningEventsDir")
-                val files = wordLearningEventsDir.listFiles()
-                if (files != null) {
-                    Timber.i("files.length: %s", files.size)
-                    Arrays.sort(files)
-                    for (i in files.indices) {
-                        val file = files[i]
-                        Timber.i("file.getAbsoluteFile(): %s", file.absoluteFile)
-                        Timber.i("file.getName(): %s", file.name)
+        for (learningEventDir in filesDir.listFiles() ?: emptyArray()) {
+            if (learningEventDir.name.startsWith("version-code-")) continue
 
-                        val baseApplication = applicationContext as BaseApplication
-                        val retrofit = baseApplication.retrofit
-                        val uploadService = retrofit.create(eventType.toServiceClass())
-                        val requestBody =
-                            RequestBody.create(MediaType.parse("multipart/form-data"), file)
-                        val part = MultipartBody.Part.createFormData("file", file.name, requestBody)
-                        val call = uploadService.uploadCsvFile(part)
 
-                        Timber.i("call.request(): %s", call.request())
-                        try {
-                            val response = call.execute()
-                            Timber.i("response: $response")
-                            Timber.i("response.isSuccessful(): %s", response.isSuccessful)
-                            if (response.isSuccessful) {
-                                val bodyString = response.body()?.string()
-                                Timber.i("bodyString: $bodyString")
-                            } else {
-                                val errorBodyString = response.errorBody()?.string()
-                                Timber.e("errorBodyString: $errorBodyString")
-                                // TODO: Handle error
-                            }
-                        } catch (e: IOException) {
-                            Timber.e(e)
+            val files = learningEventDir.listFiles()
+            if (files != null) {
+                Timber.i("files.length: %s", files.size)
+                Arrays.sort(files)
+                for (i in files.indices) {
+                    val file = files[i]
+                    Timber.i("file.getAbsoluteFile(): %s", file.absoluteFile)
+                    Timber.i("file.getName(): %s", file.name)
+
+                    val baseApplication = applicationContext as BaseApplication
+                    val retrofit = baseApplication.retrofit
+                    val uploadService = retrofit.create(eventType.toServiceClass())
+                    val requestBody =
+                        RequestBody.create("multipart/form-data".toMediaTypeOrNull(), file)
+                    val part = MultipartBody.Part.createFormData("file", file.name, requestBody)
+                    val call = uploadService.uploadCsvFile(part)
+
+                    Timber.i("call.request(): %s", call.request())
+                    try {
+                        val response = call.execute()
+                        Timber.i("response: $response")
+                        Timber.i("response.isSuccessful(): %s", response.isSuccessful)
+                        if (response.isSuccessful) {
+                            val bodyString = response.body()?.string()
+                            Timber.i("bodyString: $bodyString")
+                        } else {
+                            val errorBodyString = response.errorBody()?.string()
+                            Timber.e("errorBodyString: $errorBodyString")
+                            // TODO: Handle error
                         }
+                    } catch (e: IOException) {
+                        Timber.e(e)
                     }
                 }
             }
