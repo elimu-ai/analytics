@@ -5,6 +5,7 @@ import ai.elimu.analytics.db.RoomDb
 import ai.elimu.common.utils.ui.setLightStatusBar
 import ai.elimu.common.utils.ui.setStatusBarColorCompat
 import android.os.Bundle
+import android.provider.Settings
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,6 +21,10 @@ class EventListActivity : AppCompatActivity() {
 
         binding = ActivityEventListBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID)?.let {
+            binding.tvStudentId.text = getString(R.string.student_id, it)
+        }
 
         val recyclerView = binding.recyclerview
         val eventListAdapter = EventListAdapter(this)
