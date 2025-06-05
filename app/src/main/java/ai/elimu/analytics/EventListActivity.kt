@@ -35,14 +35,34 @@ class EventListActivity : AppCompatActivity() {
             DividerItemDecoration(recyclerView.context, linearLayoutManager.orientation)
         recyclerView.addItemDecoration(dividerItemDecoration)
 
-        // Fetch all learning events from database, and update adapter
+        // Fetch event counts from database, and update adapter
         val roomDb = RoomDb.getDatabase(applicationContext)
-        val storyBookLearningEventDao = roomDb.storyBookLearningEventDao()
         RoomDb.databaseWriteExecutor.execute {
-            val storyBookLearningEvents =
-                storyBookLearningEventDao.loadAll()
-            Timber.d("storyBookLearningEvents.size(): %s", storyBookLearningEvents.size)
-            eventListAdapter.setStoryBookLearningEvents(storyBookLearningEvents)
+            val eventTypeCounts = listOf(
+                EventListAdapter.EventTypeCount(
+                    getString(R.string.event_label_letter_sound_assessment,
+                        roomDb.letterSoundAssessmentEventDao().getCount())
+                ),
+                EventListAdapter.EventTypeCount(
+                    getString(R.string.event_label_word_assessment,
+                        roomDb.wordAssessmentEventDao().getCount())
+                ),
+                EventListAdapter.EventTypeCount(
+                    getString(R.string.event_label_letter_sound_learning,
+                        roomDb.letterSoundLearningEventDao().getCount())
+                ),
+                EventListAdapter.EventTypeCount(
+                    getString(R.string.event_label_word_learning,
+                        roomDb.wordLearningEventDao().getCount())
+                ),
+                EventListAdapter.EventTypeCount(
+                    getString(R.string.event_label_storybook_learning,
+                        roomDb.storyBookLearningEventDao().getCount())
+                )
+            )
+            runOnUiThread {
+                eventListAdapter.setEventTypeCounts(eventTypeCounts)
+            }
         }
 
         window.apply {

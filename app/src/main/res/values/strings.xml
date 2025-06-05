@@ -4,4 +4,9 @@
     <string name="select_your_language">Select your language</string>
     <string name="database_no_events">The database does not contain any events.</string>
     <string name="student_id">Android ID: %s</string>
+    <string name="event_label_letter_sound_assessment">Letter-sound assessment: %d</string>
+    <string name="event_label_word_assessment">Word assessment: %d</string>
+    <string name="event_label_letter_sound_learning">Letter-sound learning: %d</string>
+    <string name="event_label_word_learning">Word learning: %d</string>
+    <string name="event_label_storybook_learning">Storybook learning: %d</string>
 </resources>

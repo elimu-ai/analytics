@@ -1,25 +1,11 @@
-<TwoLineListItem xmlns:android="http://schemas.android.com/apk/res/android"
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:gravity="center_vertical"
+    android:id="@+id/tv_event_count"
     android:minHeight="?attr/listPreferredItemHeight"
-    android:mode="twoLine"
     android:paddingStart="?attr/listPreferredItemPaddingStart"
-    android:paddingEnd="?attr/listPreferredItemPaddingEnd">
-
-    <TextView android:id="@+id/textViewFirstLine"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:textAppearance="?attr/textAppearanceListItem"
-        tools:text="First line..." />
-
-    <TextView android:id="@+id/textViewSecondLine"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/textViewFirstLine"
-        android:layout_alignStart="@id/textViewFirstLine"
-        android:textAppearance="?attr/textAppearanceListItemSecondary"
-        tools:text="Second line..." />
-
-</TwoLineListItem>
+    android:paddingEnd="?attr/listPreferredItemPaddingEnd"
+    android:textAppearance="?attr/textAppearanceListItem"
+    tools:text="Word assessment: 3" />
