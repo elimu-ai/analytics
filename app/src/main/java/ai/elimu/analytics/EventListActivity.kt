@@ -38,30 +38,38 @@ class EventListActivity : AppCompatActivity() {
         // Fetch event counts from database, and update adapter
         val roomDb = RoomDb.getDatabase(applicationContext)
         RoomDb.databaseWriteExecutor.execute {
-            val eventTypeCounts = listOf(
-                EventListAdapter.EventTypeCount(
-                    getString(R.string.event_label_letter_sound_assessment,
-                        roomDb.letterSoundAssessmentEventDao().getCount())
-                ),
-                EventListAdapter.EventTypeCount(
-                    getString(R.string.event_label_word_assessment,
-                        roomDb.wordAssessmentEventDao().getCount())
-                ),
-                EventListAdapter.EventTypeCount(
-                    getString(R.string.event_label_letter_sound_learning,
-                        roomDb.letterSoundLearningEventDao().getCount())
-                ),
-                EventListAdapter.EventTypeCount(
-                    getString(R.string.event_label_word_learning,
-                        roomDb.wordLearningEventDao().getCount())
-                ),
-                EventListAdapter.EventTypeCount(
-                    getString(R.string.event_label_storybook_learning,
-                        roomDb.storyBookLearningEventDao().getCount())
+            try {
+                val eventTypeCounts = listOf(
+                    EventListAdapter.EventTypeCount(
+                        getString(R.string.event_label_letter_sound_assessment,
+                            roomDb.letterSoundAssessmentEventDao().getCount())
+                    ),
+                    EventListAdapter.EventTypeCount(
+                        getString(R.string.event_label_word_assessment,
+                            roomDb.wordAssessmentEventDao().getCount())
+                    ),
+                    EventListAdapter.EventTypeCount(
+                        getString(R.string.event_label_letter_sound_learning,
+                            roomDb.letterSoundLearningEventDao().getCount())
+                    ),
+                    EventListAdapter.EventTypeCount(
+                        getString(R.string.event_label_word_learning,
+                            roomDb.wordLearningEventDao().getCount())
+                    ),
+                    EventListAdapter.EventTypeCount(
+                        getString(R.string.event_label_storybook_learning,
+                            roomDb.storyBookLearningEventDao().getCount())
+                    )
                 )
-            )
-            runOnUiThread {
-                eventListAdapter.setEventTypeCounts(eventTypeCounts)
+                runOnUiThread {
+                    eventListAdapter.setEventTypeCounts(eventTypeCounts)
+                }
+            } catch (e: Exception) {
+                Timber.e(e, "Failed to load event counts")
+                runOnUiThread {
+                    // Show error state or empty list
+                    eventListAdapter.setEventTypeCounts(emptyList())
+                }
             }
         }
 
