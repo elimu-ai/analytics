@@ -19,4 +19,7 @@ interface LetterSoundAssessmentEventDao {
 
     @Query("SELECT * FROM LetterSoundAssessmentEvent WHERE letterSoundId = :letterSoundId ORDER BY id")
     fun loadAllCursor(letterSoundId: Long): Cursor
+
+    @Query("SELECT COUNT(*) FROM LetterSoundAssessmentEvent")
+    fun getCount(): Int
 }

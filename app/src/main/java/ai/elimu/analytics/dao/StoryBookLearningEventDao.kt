@@ -12,4 +12,7 @@ interface StoryBookLearningEventDao {
 
     @Query("SELECT * FROM StoryBookLearningEvent ORDER BY time DESC")
     fun loadAll(): List<StoryBookLearningEvent>
+
+    @Query("SELECT COUNT(*) FROM StoryBookLearningEvent")
+    fun getCount(): Int
 }
