@@ -9,7 +9,7 @@ commonsIO = "2.19.0"
 elimuCommonutils = "1.0.13"
 
 constraintLayout = "2.2.1"
-appCompat = "1.7.0"
+appCompat = "1.7.1"
 recyclerView = "1.4.0"
 room = "2.7.1"
 androidXJunit = "1.2.1"
