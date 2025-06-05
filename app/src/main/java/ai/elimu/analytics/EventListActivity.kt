@@ -23,7 +23,7 @@ class EventListActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID)?.let {
-            binding.tvStudentId.text = getString(R.string.student_id, it)
+            binding.tvAndroidId.text = getString(R.string.student_id, it)
         }
 
         val recyclerView = binding.recyclerview
