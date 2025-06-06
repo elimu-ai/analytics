@@ -2,6 +2,7 @@ package ai.elimu.analytics
 
 import ai.elimu.analytics.databinding.ActivityEventListBinding
 import ai.elimu.analytics.db.RoomDb
+import ai.elimu.analytics.util.Clipboard
 import ai.elimu.common.utils.ui.setLightStatusBar
 import ai.elimu.common.utils.ui.setStatusBarColorCompat
 import android.os.Bundle
@@ -23,7 +24,11 @@ class EventListActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID)?.let {
-            binding.tvAndroidId.text = getString(R.string.student_id, it)
+            binding.tvAndroidIdValue.text = it
+        }
+
+        binding.ivCopy.setOnClickListener {
+            Clipboard.copy(this, binding.tvAndroidIdValue.text.toString())
         }
 
         val recyclerView = binding.recyclerview

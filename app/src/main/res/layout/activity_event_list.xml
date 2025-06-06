@@ -10,13 +10,36 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tv_android_id"
-        tools:text="Android ID: 0d23c5af824b72de"
+        android:id="@+id/tv_android_id_label"
+        android:text="@string/android_id_label"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="?attr/listPreferredItemPaddingStart"
         android:textAppearance="?attr/textAppearanceListItem"
         android:layout_marginTop="10dp"
+        android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_android_id_value"
+        tools:text="0d23c5af824b72de"
+        app:layout_constraintStart_toEndOf="@+id/tv_android_id_label"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_android_id_label"
+        app:layout_constraintTop_toTopOf="@+id/tv_android_id_label"
+        android:layout_marginStart="?attr/listPreferredItemPaddingStart"
+        android:drawablePadding="10dp"
+        android:textAppearance="?attr/textAppearanceListItem" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/iv_copy"
+        android:src="@drawable/ic_copy"
+        app:layout_constraintStart_toEndOf="@+id/tv_android_id_value"
+        app:layout_constraintTop_toTopOf="@+id/tv_android_id_value"
+        android:layout_marginStart="?attr/listPreferredItemPaddingStart"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_android_id_value"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"
@@ -26,7 +49,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_android_id"
+        app:layout_constraintTop_toBottomOf="@+id/tv_android_id_label"
         android:layout_marginTop="10dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
