@@ -2,6 +2,7 @@ package ai.elimu.analytics.task
 
 import ai.elimu.analytics.db.RoomDb
 import ai.elimu.analytics.entity.LearningEventUploadType
+import ai.elimu.analytics.util.DateHelper.eventDateFormat
 import ai.elimu.analytics.util.VersionHelper.getAppVersionCode
 import android.content.Context
 import androidx.work.Worker
@@ -13,8 +14,6 @@ import timber.log.Timber
 import java.io.File
 import java.io.IOException
 import java.io.StringWriter
-import java.text.SimpleDateFormat
-import java.util.Locale
 
 /**
  * Exports events from the database into CSV files, that will later be uploaded to the server by
@@ -22,8 +21,6 @@ import java.util.Locale
  */
 class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) :
     Worker(context, workerParams) {
-
-    private val eventDateFormat by lazy { SimpleDateFormat("yyyy-MM-dd", Locale.US) }
 
     override fun doWork(): Result {
         Timber.i("doWork")
