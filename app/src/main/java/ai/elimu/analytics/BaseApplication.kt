@@ -4,8 +4,6 @@ import ai.elimu.analytics.util.SharedPreferencesHelper.getLanguage
 import ai.elimu.analytics.util.VersionHelper
 import android.app.Application
 import android.util.Log
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import timber.log.Timber
@@ -24,17 +22,10 @@ class BaseApplication : Application() {
         VersionHelper.updateAppVersion(applicationContext)
     }
 
-    val loggingInterceptor by lazy { HttpLoggingInterceptor().apply { level =
-        HttpLoggingInterceptor.Level.BODY
-    } }
-
-    val okHttpClient by lazy { OkHttpClient.Builder().addInterceptor(loggingInterceptor).build() }
-
     val retrofit: Retrofit
         get() {
             val retrofit = Retrofit.Builder()
                 .baseUrl("$restUrl/")
-                .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
             return retrofit

@@ -7,7 +7,7 @@ import ai.elimu.analytics.util.DateHelper
 import android.content.Context
 import androidx.work.Worker
 import androidx.work.WorkerParameters
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import timber.log.Timber
@@ -61,7 +61,7 @@ class UploadEventsWorker(context: Context, workerParams: WorkerParameters) :
                     val retrofit = baseApplication.retrofit
                     val uploadService = retrofit.create(eventType.toServiceClass())
                     val requestBody =
-                        RequestBody.create("multipart/form-data".toMediaTypeOrNull(), file)
+                        RequestBody.create(MediaType.parse("multipart/form-data"), file)
                     val part = MultipartBody.Part.createFormData("file", file.name, requestBody)
                     val call = uploadService.uploadCsvFile(part)
 
