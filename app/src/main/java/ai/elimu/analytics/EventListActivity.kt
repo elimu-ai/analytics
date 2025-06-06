@@ -7,6 +7,7 @@ import ai.elimu.common.utils.ui.setLightStatusBar
 import ai.elimu.common.utils.ui.setStatusBarColorCompat
 import android.os.Bundle
 import android.provider.Settings
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,8 +24,12 @@ class EventListActivity : AppCompatActivity() {
         binding = ActivityEventListBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID)?.let {
-            binding.tvAndroidIdValue.text = it
+        val androidId: String? = Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID)
+        if (androidId?.isEmpty() == false) {
+            binding.ivCopy.visibility = View.VISIBLE
+            binding.tvAndroidIdValue.text = androidId
+        } else {
+            binding.ivCopy.visibility = View.GONE
         }
 
         binding.ivCopy.setOnClickListener {
