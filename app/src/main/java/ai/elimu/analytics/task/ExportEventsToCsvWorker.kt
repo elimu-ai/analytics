@@ -76,7 +76,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                     csvPrinter = CSVPrinter(stringWriter, csvFormat)
                 }
                 dateOfPreviousEvent = date
-                val csvFilename = letterSoundAssessmentEvent.androidId + "_" + versionCode + "_letter-sound-assessment-events_" + date + ".csv"
+                val csvFilename = letterSoundAssessmentEvent.androidId + "_" + versionCode + "_" + LearningEventUploadType.LETTER_SOUND_ASSESSMENT.type + "_" + date + ".csv"
                 Timber.i("csvFilename: ${csvFilename}")
 
                 csvPrinter.printRecord(
@@ -147,7 +147,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                 }
                 dateOfPreviousEvent = date
                 val csvFilename =
-                    letterSoundLearningEvent.androidId + "_" + versionCode + "_letter-sound-learning-events_" + date + ".csv"
+                    letterSoundLearningEvent.androidId + "_" + versionCode + "_" + LearningEventUploadType.LETTER_SOUND_LEARNING + "_" + date + ".csv"
                 Timber.i("csvFilename: $csvFilename")
 
                 csvPrinter.printRecord(
@@ -214,7 +214,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                 }
                 dateOfPreviousEvent = date
                 val csvFilename =
-                    wordLearningEvent.androidId + "_" + versionCode + "_word-learning-events_" + date + ".csv"
+                    wordLearningEvent.androidId + "_" + versionCode + "_" + LearningEventUploadType.WORD_LEARNING.type + "_" + date + ".csv"
                 Timber.i("csvFilename: $csvFilename")
 
                 csvPrinter.printRecord(
@@ -281,7 +281,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                 }
                 dateOfPreviousEvent = date
                 val csvFilename =
-                    wordAssessmentEvent.androidId + "_" + versionCode + "_word-assessment-events_" + date + ".csv"
+                    wordAssessmentEvent.androidId + "_" + versionCode + "_" + LearningEventUploadType.WORD_ASSESSMENT.type + "_" + date + ".csv"
                 Timber.i("csvFilename: $csvFilename")
 
                 csvPrinter.printRecord(
@@ -349,7 +349,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                 }
                 dateOfPreviousEvent = date
                 val csvFilename =
-                    storyBookLearningEvent.androidId + "_" + versionCode + "_storybook-learning-events_" + date + ".csv"
+                    storyBookLearningEvent.androidId + "_" + versionCode + "_" + LearningEventUploadType.STORY_BOOK_LEARNING.type + "_" + date + ".csv"
                 Timber.i("csvFilename: $csvFilename")
 
                 csvPrinter.printRecord(
