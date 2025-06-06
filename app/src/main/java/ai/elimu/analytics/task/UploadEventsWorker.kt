@@ -41,6 +41,9 @@ class UploadEventsWorker(context: Context, workerParams: WorkerParameters) :
         val filesDir = applicationContext.filesDir
         for (learningEventDir in filesDir.listFiles() ?: emptyArray()) {
             if (learningEventDir.name.startsWith("version-code-")) continue
+            if (learningEventDir.name != eventType.type) continue
+
+            Timber.tag("tuancoltech").v("Inside learningEventDir: ${learningEventDir.name}. Type: ${eventType.type}")
 
 
             val files = learningEventDir.listFiles()
@@ -49,8 +52,9 @@ class UploadEventsWorker(context: Context, workerParams: WorkerParameters) :
                 Arrays.sort(files)
                 for (i in files.indices) {
                     val file = files[i]
-                    Timber.i("file.getAbsoluteFile(): %s", file.absoluteFile)
+                    Timber.i("file.getAbsoluteFile(): %s %s", file.absoluteFile, "\nlearningEventDir: " + learningEventDir.name)
                     Timber.i("file.getName(): %s", file.name)
+                    Timber.tag("tuancoltech").i("Uploading file: ${file.absoluteFile}")
 
                     val baseApplication = applicationContext as BaseApplication
                     val retrofit = baseApplication.retrofit

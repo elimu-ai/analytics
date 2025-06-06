@@ -1,6 +1,7 @@
 package ai.elimu.analytics.task
 
 import ai.elimu.analytics.db.RoomDb
+import ai.elimu.analytics.entity.LearningEventUploadType
 import ai.elimu.analytics.util.VersionHelper.getAppVersionCode
 import android.content.Context
 import androidx.work.Worker
@@ -96,7 +97,8 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
 
                 // Write the content to the CSV file
                 val filesDir = applicationContext.filesDir
-                val letterSoundAssessmentEventsDir = File(filesDir, "letter-sound-assessment-events")
+                val letterSoundAssessmentEventsDir = File(filesDir,
+                    LearningEventUploadType.LETTER_SOUND_ASSESSMENT.type)
                 val csvFile = File(letterSoundAssessmentEventsDir, csvFilename)
                 FileUtils.writeStringToFile(csvFile, csvFileContent, "UTF-8")
             }
@@ -164,7 +166,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                 // Write the content to the CSV file
                 val filesDir = applicationContext.filesDir
                 val letterSoundLearningEventsDir =
-                    File(filesDir, "letter-sound-learning-events")
+                    File(filesDir, LearningEventUploadType.LETTER_SOUND_LEARNING.type)
                 val csvFile = File(letterSoundLearningEventsDir, csvFilename)
                 FileUtils.writeStringToFile(csvFile, csvFileContent, "UTF-8")
             }
@@ -230,7 +232,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
 
                 // Write the content to the CSV file
                 val filesDir = applicationContext.filesDir
-                val wordLearningEventsDir = File(filesDir, "word-learning-events")
+                val wordLearningEventsDir = File(filesDir, LearningEventUploadType.WORD_LEARNING.type)
                 val csvFile = File(wordLearningEventsDir, csvFilename)
                 FileUtils.writeStringToFile(csvFile, csvFileContent, "UTF-8")
             }
@@ -298,7 +300,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
 
                 // Write the content to the CSV file
                 val filesDir = applicationContext.filesDir
-                val wordAssessmentEventsDir = File(filesDir, "word-assessment-events")
+                val wordAssessmentEventsDir = File(filesDir, LearningEventUploadType.WORD_ASSESSMENT.type)
                 val csvFile = File(wordAssessmentEventsDir, csvFilename)
                 FileUtils.writeStringToFile(csvFile, csvFileContent, "UTF-8")
             }
@@ -365,7 +367,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
 
                 // Write the content to the CSV file
                 val filesDir = applicationContext.filesDir
-                val storyBookLearningEventsDir = File(filesDir, "storybook-learning-events")
+                val storyBookLearningEventsDir = File(filesDir, LearningEventUploadType.STORY_BOOK_LEARNING.type)
                 val csvFile = File(storyBookLearningEventsDir, csvFilename)
                 FileUtils.writeStringToFile(csvFile, csvFileContent, "UTF-8")
             }

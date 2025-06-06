@@ -1,5 +1,6 @@
 package ai.elimu.analytics.util
 
+import ai.elimu.analytics.entity.LearningEventUploadType
 import ai.elimu.model.v2.enums.Language
 import android.content.Context
 import android.content.pm.PackageManager
@@ -53,7 +54,7 @@ object VersionHelper {
                 // Delete CSV files stored under the old folder structure
                 val filesDir = context.filesDir
 
-                val letterAssessmentEventsDir = File(filesDir, "letter-assessment-events")
+                val letterAssessmentEventsDir = File(filesDir, LearningEventUploadType.LETTER_ASSESSMENT.type)
                 var files = letterAssessmentEventsDir.listFiles()
                 if (files != null) {
                     for (i in files.indices) {
