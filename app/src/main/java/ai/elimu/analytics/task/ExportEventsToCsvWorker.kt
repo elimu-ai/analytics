@@ -1,6 +1,8 @@
 package ai.elimu.analytics.task
 
 import ai.elimu.analytics.db.RoomDb
+import ai.elimu.analytics.entity.LearningEventUploadType
+import ai.elimu.analytics.util.DateHelper.eventDateFormat
 import ai.elimu.analytics.util.VersionHelper.getAppVersionCode
 import android.content.Context
 import androidx.work.Worker
@@ -12,8 +14,6 @@ import timber.log.Timber
 import java.io.File
 import java.io.IOException
 import java.io.StringWriter
-import java.text.SimpleDateFormat
-import java.util.Locale
 
 /**
  * Exports events from the database into CSV files, that will later be uploaded to the server by
@@ -21,8 +21,6 @@ import java.util.Locale
  */
 class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) :
     Worker(context, workerParams) {
-
-    private val eventDateFormat by lazy { SimpleDateFormat("yyyy-MM-dd", Locale.US) }
 
     override fun doWork(): Result {
         Timber.i("doWork")
@@ -75,7 +73,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                     csvPrinter = CSVPrinter(stringWriter, csvFormat)
                 }
                 dateOfPreviousEvent = date
-                val csvFilename = letterSoundAssessmentEvent.androidId + "_" + versionCode + "_letter-sound-assessment-events_" + date + ".csv"
+                val csvFilename = letterSoundAssessmentEvent.androidId + "_" + versionCode + "_" + LearningEventUploadType.LETTER_SOUND_ASSESSMENT.type + "_" + date + ".csv"
                 Timber.i("csvFilename: ${csvFilename}")
 
                 csvPrinter.printRecord(
@@ -96,8 +94,8 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
 
                 // Write the content to the CSV file
                 val filesDir = applicationContext.filesDir
-                val versionCodeDir = File(filesDir, "version-code-${versionCode}")
-                val letterSoundAssessmentEventsDir = File(versionCodeDir, "letter-sound-assessment-events")
+                val letterSoundAssessmentEventsDir = File(filesDir,
+                    LearningEventUploadType.LETTER_SOUND_ASSESSMENT.type)
                 val csvFile = File(letterSoundAssessmentEventsDir, csvFilename)
                 FileUtils.writeStringToFile(csvFile, csvFileContent, "UTF-8")
             }
@@ -146,7 +144,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                 }
                 dateOfPreviousEvent = date
                 val csvFilename =
-                    letterSoundLearningEvent.androidId + "_" + versionCode + "_letter-sound-learning-events_" + date + ".csv"
+                    letterSoundLearningEvent.androidId + "_" + versionCode + "_" + LearningEventUploadType.LETTER_SOUND_LEARNING + "_" + date + ".csv"
                 Timber.i("csvFilename: $csvFilename")
 
                 csvPrinter.printRecord(
@@ -164,12 +162,8 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
 
                 // Write the content to the CSV file
                 val filesDir = applicationContext.filesDir
-                val versionCodeDir = File(
-                    filesDir,
-                    "version-code-$versionCode"
-                )
                 val letterSoundLearningEventsDir =
-                    File(versionCodeDir, "letter-sound-learning-events")
+                    File(filesDir, LearningEventUploadType.LETTER_SOUND_LEARNING.type)
                 val csvFile = File(letterSoundLearningEventsDir, csvFilename)
                 FileUtils.writeStringToFile(csvFile, csvFileContent, "UTF-8")
             }
@@ -217,7 +211,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                 }
                 dateOfPreviousEvent = date
                 val csvFilename =
-                    wordLearningEvent.androidId + "_" + versionCode + "_word-learning-events_" + date + ".csv"
+                    wordLearningEvent.androidId + "_" + versionCode + "_" + LearningEventUploadType.WORD_LEARNING.type + "_" + date + ".csv"
                 Timber.i("csvFilename: $csvFilename")
 
                 csvPrinter.printRecord(
@@ -235,11 +229,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
 
                 // Write the content to the CSV file
                 val filesDir = applicationContext.filesDir
-                val versionCodeDir = File(
-                    filesDir,
-                    "version-code-$versionCode"
-                )
-                val wordLearningEventsDir = File(versionCodeDir, "word-learning-events")
+                val wordLearningEventsDir = File(filesDir, LearningEventUploadType.WORD_LEARNING.type)
                 val csvFile = File(wordLearningEventsDir, csvFilename)
                 FileUtils.writeStringToFile(csvFile, csvFileContent, "UTF-8")
             }
@@ -288,7 +278,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                 }
                 dateOfPreviousEvent = date
                 val csvFilename =
-                    wordAssessmentEvent.androidId + "_" + versionCode + "_word-assessment-events_" + date + ".csv"
+                    wordAssessmentEvent.androidId + "_" + versionCode + "_" + LearningEventUploadType.WORD_ASSESSMENT.type + "_" + date + ".csv"
                 Timber.i("csvFilename: $csvFilename")
 
                 csvPrinter.printRecord(
@@ -307,11 +297,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
 
                 // Write the content to the CSV file
                 val filesDir = applicationContext.filesDir
-                val versionCodeDir = File(
-                    filesDir,
-                    "version-code-$versionCode"
-                )
-                val wordAssessmentEventsDir = File(versionCodeDir, "word-assessment-events")
+                val wordAssessmentEventsDir = File(filesDir, LearningEventUploadType.WORD_ASSESSMENT.type)
                 val csvFile = File(wordAssessmentEventsDir, csvFilename)
                 FileUtils.writeStringToFile(csvFile, csvFileContent, "UTF-8")
             }
@@ -360,7 +346,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                 }
                 dateOfPreviousEvent = date
                 val csvFilename =
-                    storyBookLearningEvent.androidId + "_" + versionCode + "_storybook-learning-events_" + date + ".csv"
+                    storyBookLearningEvent.androidId + "_" + versionCode + "_" + LearningEventUploadType.STORY_BOOK_LEARNING.type + "_" + date + ".csv"
                 Timber.i("csvFilename: $csvFilename")
 
                 csvPrinter.printRecord(
@@ -378,11 +364,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
 
                 // Write the content to the CSV file
                 val filesDir = applicationContext.filesDir
-                val versionCodeDir = File(
-                    filesDir,
-                    "version-code-$versionCode"
-                )
-                val storyBookLearningEventsDir = File(versionCodeDir, "storybook-learning-events")
+                val storyBookLearningEventsDir = File(filesDir, LearningEventUploadType.STORY_BOOK_LEARNING.type)
                 val csvFile = File(storyBookLearningEventsDir, csvFilename)
                 FileUtils.writeStringToFile(csvFile, csvFileContent, "UTF-8")
             }
