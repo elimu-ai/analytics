@@ -124,6 +124,18 @@ object VersionHelper {
                 }
             }
 
+            if (oldVersionCode < 3003002) {
+                Timber.w("oldVersionCode < 3003002")
+                // Delete old folder structure
+                val filesDir = context.filesDir
+                for (file in filesDir.listFiles()) {
+                    Timber.i("file.name: ${file.name}")
+                    if (file.name.startsWith("version-code-")) {
+                        Timber.w("file.delete(): ${file.delete()}")
+                    }
+                }
+            }
+
 //            if (oldVersionCode < ???) {
 //                ...
 //            }
