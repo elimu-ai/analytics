@@ -3,7 +3,6 @@ package ai.elimu.analytics.task
 import ai.elimu.analytics.BaseApplication
 import ai.elimu.analytics.entity.LearningEventUploadType
 import ai.elimu.analytics.entity.toServiceClass
-import ai.elimu.analytics.util.DateHelper
 import android.content.Context
 import androidx.work.Worker
 import androidx.work.WorkerParameters
@@ -12,7 +11,6 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import timber.log.Timber
 import java.io.IOException
-import java.time.LocalDate
 import java.util.Arrays
 
 /**
@@ -80,17 +78,6 @@ class UploadEventsWorker(context: Context, workerParams: WorkerParameters) :
                         }
                     } catch (e: IOException) {
                         Timber.e(e)
-                    }
-
-                    // Delete log files which are older than 7 days in the past
-                    // to save device storage
-                    if (DateHelper.isDateOlderThanSevenDays(file.name, LocalDate.now())) {
-                        try {
-                            file.delete()
-                            Timber.v("Deleting old log file file.getName: " + file.absoluteFile)
-                        } catch (e: Exception) {
-                            Timber.w(e)
-                        }
                     }
                 }
             }
