@@ -3,6 +3,7 @@ package ai.elimu.analytics.util
 import ai.elimu.model.v2.enums.Language
 import android.content.Context
 import android.content.pm.PackageManager
+import org.apache.commons.io.FileUtils
 import timber.log.Timber
 import java.io.File
 
@@ -131,7 +132,9 @@ object VersionHelper {
                 for (file in filesDir.listFiles()) {
                     Timber.i("file.name: ${file.name}")
                     if (file.name.startsWith("version-code-")) {
-                        Timber.w("file.delete(): ${file.delete()}")
+                        Timber.w("Deleting ${file.name}")
+                        FileUtils.deleteDirectory(file)
+                        Timber.w("file.exists(): ${file.exists()}")
                     }
                 }
             }
