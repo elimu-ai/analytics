@@ -3,6 +3,7 @@ package ai.elimu.analytics.util
 import ai.elimu.model.v2.enums.Language
 import android.content.Context
 import android.content.pm.PackageManager
+import org.apache.commons.io.FileUtils
 import timber.log.Timber
 import java.io.File
 
@@ -121,6 +122,20 @@ object VersionHelper {
                 Timber.w("languageAsString: $languageAsString")
                 if ("FIL" == languageAsString) {
                     SharedPreferencesHelper.storeLanguage(context, Language.TGL)
+                }
+            }
+
+            if (oldVersionCode < 3003002) {
+                Timber.w("oldVersionCode < 3003002")
+                // Delete old folder structure
+                val filesDir = context.filesDir
+                for (file in filesDir.listFiles()) {
+                    Timber.i("file.name: ${file.name}")
+                    if (file.name.startsWith("version-code-")) {
+                        Timber.w("Deleting ${file.name}")
+                        FileUtils.deleteDirectory(file)
+                        Timber.w("file.exists(): ${file.exists()}")
+                    }
                 }
             }
 
