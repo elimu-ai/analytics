@@ -3,6 +3,7 @@ package ai.elimu.analytics.task
 import ai.elimu.analytics.BaseApplication
 import ai.elimu.analytics.entity.LearningEventUploadType
 import ai.elimu.analytics.entity.toServiceClass
+import ai.elimu.analytics.util.SharedPreferencesHelper
 import android.content.Context
 import androidx.work.Worker
 import androidx.work.WorkerParameters
@@ -37,14 +38,16 @@ class UploadEventsWorker(context: Context, workerParams: WorkerParameters) :
 
         // Upload CSV files to the server
         // Example format:
-        //   files/version-code-3001012/letter-assessment-events/7161a85a0e4751cd_3001012_letter-assessment-events_2020-03-21.csv
+        //   files/lang-HIN/letter-assessment-events/7161a85a0e4751cd_3003002_letter-assessment-events_2025-06-07.csv
         val filesDir = applicationContext.filesDir
-        for (versionCodeDir in filesDir.listFiles() ?: emptyArray()) {
-            Timber.i("versionCodeDir: $versionCodeDir")
-            if (versionCodeDir.name.startsWith("version-code-")) {
-                val wordLearningEventsDir = File(versionCodeDir, eventType.type)
-                Timber.i("Uploading CSV files from $wordLearningEventsDir")
-                val files = wordLearningEventsDir.listFiles()
+        val language = SharedPreferencesHelper.getLanguage(applicationContext)
+        Timber.i("language: ${language}")
+        for (file in filesDir.listFiles() ?: emptyArray()) {
+            Timber.i("file.name: ${file.name}")
+            if (file.name.startsWith("lang-${language}")) {
+                val eventsDir = File(file, eventType.type)
+                Timber.i("Uploading CSV files from ${eventsDir}")
+                val files = eventsDir.listFiles()
                 if (files != null) {
                     Timber.i("files.length: %s", files.size)
                     Arrays.sort(files)
