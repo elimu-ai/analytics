@@ -178,7 +178,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
         // Extract WordLearningEvents from the database that have not yet been exported to CSV.
         val roomDb = RoomDb.getDatabase(applicationContext)
         val wordLearningEventDao = roomDb.wordLearningEventDao()
-        val wordLearningEvents = wordLearningEventDao.loadAllOrderedByTimeDesc()
+        val wordLearningEvents = wordLearningEventDao.loadAllOrderedByTimeAsc()
         Timber.i("wordLearningEvents.size(): %s", wordLearningEvents.size)
 
         val csvFormat = CSVFormat.DEFAULT

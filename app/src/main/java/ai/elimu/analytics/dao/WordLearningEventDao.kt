@@ -11,8 +11,8 @@ interface WordLearningEventDao {
     @Insert
     fun insert(wordLearningEvent: WordLearningEvent)
 
-    @Query("SELECT * FROM WordLearningEvent ORDER BY time DESC")
-    fun loadAllOrderedByTimeDesc(): List<WordLearningEvent>
+    @Query("SELECT * FROM WordLearningEvent ORDER BY time")
+    fun loadAllOrderedByTimeAsc(): List<WordLearningEvent>
 
     @Query("SELECT * FROM WordLearningEvent ORDER BY time")
     fun loadAllOrderedByTime(): Cursor
