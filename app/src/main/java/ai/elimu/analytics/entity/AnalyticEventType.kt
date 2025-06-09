@@ -40,7 +40,7 @@ fun AnalyticEventType.getUploadCsvFile(context: Context,
     val filesDir = context.filesDir
     val language = SharedPreferencesHelper.getLanguage(context)
     val languageDir = File(filesDir, "lang-${language}")
-    val letterSoundLearningEventsDir = File(languageDir, "letter-sound-learning-events")
-    val csvFile = File(letterSoundLearningEventsDir, csvFileName)
+    val eventsDir = File(languageDir, this.type)
+    val csvFile = File(eventsDir, csvFileName)
     return csvFile
 }
