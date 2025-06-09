@@ -178,7 +178,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
         // Extract WordLearningEvents from the database that have not yet been exported to CSV.
         val roomDb = RoomDb.getDatabase(applicationContext)
         val wordLearningEventDao = roomDb.wordLearningEventDao()
-        val wordLearningEvents = wordLearningEventDao.loadAllOrderedByTimeDesc()
+        val wordLearningEvents = wordLearningEventDao.loadAllOrderedByTime(isDesc = false)
         Timber.i("wordLearningEvents.size(): %s", wordLearningEvents.size)
 
         val csvFormat = CSVFormat.DEFAULT
@@ -312,7 +312,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
         // Extract StoryBookLearningEvents from the database that have not yet been exported to CSV.
         val roomDb = RoomDb.getDatabase(applicationContext)
         val storyBookLearningEventDao = roomDb.storyBookLearningEventDao()
-        val storyBookLearningEvents = storyBookLearningEventDao.loadAll()
+        val storyBookLearningEvents = storyBookLearningEventDao.loadAll(isDesc = false)
         Timber.i("storyBookLearningEvents.size(): %s", storyBookLearningEvents.size)
 
         val csvFormat = CSVFormat.DEFAULT
