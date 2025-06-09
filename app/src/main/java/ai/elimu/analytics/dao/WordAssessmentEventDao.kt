@@ -19,4 +19,7 @@ interface WordAssessmentEventDao {
 
     @Query("SELECT * FROM WordAssessmentEvent WHERE wordId = :wordId ORDER BY time DESC")
     fun loadAllOrderedByTimeDesc(wordId: Long?): Cursor
+
+    @Query("SELECT COUNT(*) FROM WordAssessmentEvent")
+    fun getCount(): Int
 }

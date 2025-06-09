@@ -16,4 +16,7 @@ interface WordLearningEventDao {
 
     @Query("SELECT * FROM WordLearningEvent ORDER BY time")
     fun loadAllOrderedByTime(): Cursor
+
+    @Query("SELECT COUNT(*) FROM WordLearningEvent")
+    fun getCount(): Int
 }

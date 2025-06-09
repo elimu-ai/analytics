@@ -16,4 +16,7 @@ interface LetterSoundLearningEventDao {
 
     @Query("SELECT * FROM LetterSoundLearningEvent ORDER BY time")
     fun loadAllOrderedByTimeCursor(): Cursor
+
+    @Query("SELECT COUNT(*) FROM LetterSoundLearningEvent")
+    fun getCount(): Int
 }
