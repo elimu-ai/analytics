@@ -146,4 +146,35 @@ object VersionHelper {
             SharedPreferencesHelper.storeAppVersionCode(context, newVersionCode)
         }
     }
+
+    /**
+     * Extracts the version code as an Int from a string with pattern:
+     * <prefix>_<versionCode>_<description>_<yyyy-MM-dd>.csv
+     * Example: a1b2c3d4e5f6g7h8_4004008_word-learning-events_2025-06-01.csv -> 4004008
+     *
+     * @return The version code as an Int, or null if the string is invalid.
+     */
+    fun String.extractVersionCode(): Int? {
+        // Validate input
+        if (this.isBlank()) {
+            Timber.w("Input string is blank")
+            return null
+        }
+
+        // Split by underscores
+        val parts = this.split("_")
+        if (parts.size != 4) {
+            Timber.w("Invalid string format: Expected 4 parts, got ${parts.size} in $this")
+            return null
+        }
+
+        // Extract version code (second part)
+        val versionCodeStr = parts[1]
+        return try {
+            versionCodeStr.toInt()
+        } catch (e: NumberFormatException) {
+            Timber.w("Invalid version code format: $versionCodeStr in $this")
+            null
+        }
+    }
 }
