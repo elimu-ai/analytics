@@ -34,13 +34,13 @@ fun AnalyticEventType.getUploadCsvFile(context: Context,
                                        versionCode: Int,
                                        date: String): File {
 
-    val csvFilename = androidId + "_" + versionCode + "_${this.type}_" + date + ".csv"
-    Timber.i("csvFilename: $csvFilename")
+    val csvFileName = androidId + "_" + versionCode + "_${this.type}_" + date + ".csv"
+    Timber.i("csvFilename: $csvFileName")
 
     val filesDir = context.filesDir
     val language = SharedPreferencesHelper.getLanguage(context)
     val languageDir = File(filesDir, "lang-${language}")
     val letterSoundLearningEventsDir = File(languageDir, "letter-sound-learning-events")
-    val csvFile = File(letterSoundLearningEventsDir, csvFilename)
+    val csvFile = File(letterSoundLearningEventsDir, csvFileName)
     return csvFile
 }
