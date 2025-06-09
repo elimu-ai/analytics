@@ -2,7 +2,7 @@ package ai.elimu.analytics.task
 
 import ai.elimu.analytics.BaseApplication
 import ai.elimu.analytics.BuildConfig
-import ai.elimu.analytics.entity.LearningEventUploadType
+import ai.elimu.analytics.entity.AnalyticEventType
 import ai.elimu.analytics.entity.toServiceClass
 import ai.elimu.analytics.util.SharedPreferencesHelper
 import ai.elimu.analytics.util.VersionHelper.extractVersionCode
@@ -25,16 +25,16 @@ class UploadEventsWorker(context: Context, workerParams: WorkerParameters) :
     override fun doWork(): Result {
         Timber.i("doWork")
 
-        uploadLearningEvents(eventType = LearningEventUploadType.LETTER_SOUND_ASSESSMENT)
-        uploadLearningEvents(eventType = LearningEventUploadType.LETTER_SOUND_LEARNING)
-        uploadLearningEvents(eventType = LearningEventUploadType.WORD_LEARNING)
-        uploadLearningEvents(eventType = LearningEventUploadType.WORD_ASSESSMENT)
-        uploadLearningEvents(eventType = LearningEventUploadType.STORY_BOOK_LEARNING)
+        uploadLearningEvents(eventType = AnalyticEventType.LETTER_SOUND_ASSESSMENT)
+        uploadLearningEvents(eventType = AnalyticEventType.LETTER_SOUND_LEARNING)
+        uploadLearningEvents(eventType = AnalyticEventType.WORD_LEARNING)
+        uploadLearningEvents(eventType = AnalyticEventType.WORD_ASSESSMENT)
+        uploadLearningEvents(eventType = AnalyticEventType.STORY_BOOK_LEARNING)
 
         return Result.success()
     }
 
-    private fun uploadLearningEvents(eventType: LearningEventUploadType) {
+    private fun uploadLearningEvents(eventType: AnalyticEventType) {
         Timber.i("uploadLearningEvents: $eventType")
 
         // Upload CSV files to the server
