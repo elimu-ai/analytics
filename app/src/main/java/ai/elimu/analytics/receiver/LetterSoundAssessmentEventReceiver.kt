@@ -42,7 +42,7 @@ class LetterSoundAssessmentEventReceiver : BroadcastReceiver() {
         Timber.i("additionalData: \"${additionalData}\"")
 
         val letterSoundAssessmentEvent = LetterSoundAssessmentEvent()
-        letterSoundAssessmentEvent.time = timestamp
+        letterSoundAssessmentEvent.timestamp = timestamp
         letterSoundAssessmentEvent.androidId = androidId
         letterSoundAssessmentEvent.packageName = packageName
         letterSoundAssessmentEvent.letterSoundLetters = letterSoundLetters

@@ -22,7 +22,7 @@ class StoryBookLearningEventReceiver : BroadcastReceiver() {
         Timber.i("packageName: \"$packageName\"")
 
         val timestamp = Calendar.getInstance()
-        Timber.i("timestamp.getTime(): %s", timestamp.time)
+        Timber.i("timestamp.time: %s", timestamp.time)
 
         val storyBookTitle: String = intent.getStringExtra("storyBookTitle")
                 ?: throw IllegalArgumentException("storyBookTitle must be provided")
@@ -41,7 +41,7 @@ class StoryBookLearningEventReceiver : BroadcastReceiver() {
         val storyBookLearningEvent = StoryBookLearningEvent()
         storyBookLearningEvent.androidId = androidId
         storyBookLearningEvent.packageName = packageName
-        storyBookLearningEvent.time = timestamp
+        storyBookLearningEvent.timestamp = timestamp
         storyBookLearningEvent.storyBookTitle = storyBookTitle
         storyBookLearningEvent.storyBookId = storyBookId
         storyBookLearningEvent.learningEventType = learningEventType

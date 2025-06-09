@@ -68,7 +68,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                 // Export event to CSV file. Example format:
                 //   files/lang-HIN/letter-sound-assessment-events/7161a85a0e4751cd_3003002_letter-sound-assessment-events_2025-06-07.csv
                 val versionCode = getAppVersionCode(applicationContext)
-                val date = eventDateFormat.format(letterSoundAssessmentEvent.time.time)
+                val date = eventDateFormat.format(letterSoundAssessmentEvent.timestamp.time)
                 if (date != dateOfPreviousEvent) {
                     // Reset file content
                     stringWriter = StringWriter()
@@ -80,7 +80,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
 
                 csvPrinter.printRecord(
                     letterSoundAssessmentEvent.id,
-                    letterSoundAssessmentEvent.time.timeInMillis,
+                    letterSoundAssessmentEvent.timestamp.timeInMillis,
                     letterSoundAssessmentEvent.packageName,
                     letterSoundAssessmentEvent.letterSoundLetters,
                     letterSoundAssessmentEvent.letterSoundSounds,
@@ -118,7 +118,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
         val csvFormat = CSVFormat.DEFAULT
             .withHeader(
                 "id",
-                "time",
+                "timestamp",
                 "package_name",
                 "letter_sound_id",
                 "letter_sound_letter_texts",
@@ -136,7 +136,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                 val versionCode = getAppVersionCode(
                     applicationContext
                 )
-                val date = eventDateFormat.format(letterSoundLearningEvent.time.time)
+                val date = eventDateFormat.format(letterSoundLearningEvent.timestamp.time)
                 if (date != dateOfPreviousEvent) {
                     // Reset file content
                     stringWriter = StringWriter()
@@ -149,7 +149,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
 
                 csvPrinter.printRecord(
                     letterSoundLearningEvent.id,
-                    letterSoundLearningEvent.time.timeInMillis,
+                    letterSoundLearningEvent.timestamp.timeInMillis,
                     letterSoundLearningEvent.packageName,
                     letterSoundLearningEvent.id,
                     null,
@@ -184,7 +184,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
         val csvFormat = CSVFormat.DEFAULT
             .withHeader(
                 "id",
-                "time",
+                "timestamp",
                 "package_name",
                 "word_id",
                 "word_text",
@@ -202,7 +202,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                 val versionCode = getAppVersionCode(
                     applicationContext
                 )
-                val date = eventDateFormat.format(wordLearningEvent.time.time)
+                val date = eventDateFormat.format(wordLearningEvent.timestamp.time)
                 if (date != dateOfPreviousEvent) {
                     // Reset file content
                     stringWriter = StringWriter()
@@ -215,7 +215,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
 
                 csvPrinter.printRecord(
                     wordLearningEvent.id,
-                    wordLearningEvent.time.timeInMillis,
+                    wordLearningEvent.timestamp.timeInMillis,
                     wordLearningEvent.packageName,
                     wordLearningEvent.wordId,
                     wordLearningEvent.wordText,
@@ -250,7 +250,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
         val csvFormat = CSVFormat.DEFAULT
             .withHeader(
                 "id",
-                "time",
+                "timestamp",
                 "package_name",
                 "word_id",
                 "word_text",
@@ -269,7 +269,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                 val versionCode = getAppVersionCode(
                     applicationContext
                 )
-                val date = eventDateFormat.format(wordAssessmentEvent.time.time)
+                val date = eventDateFormat.format(wordAssessmentEvent.timestamp.time)
                 if (date != dateOfPreviousEvent) {
                     // Reset file content
                     stringWriter = StringWriter()
@@ -282,7 +282,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
 
                 csvPrinter.printRecord(
                     wordAssessmentEvent.id,
-                    wordAssessmentEvent.time.timeInMillis,
+                    wordAssessmentEvent.timestamp.timeInMillis,
                     wordAssessmentEvent.packageName,
                     wordAssessmentEvent.wordId,
                     wordAssessmentEvent.wordText,
@@ -318,7 +318,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
         val csvFormat = CSVFormat.DEFAULT
             .withHeader(
                 "id",
-                "time",
+                "timestamp",
                 "package_name",
                 "storybook_title",
                 "storybook_id",
@@ -336,7 +336,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                 val versionCode = getAppVersionCode(
                     applicationContext
                 )
-                val date = eventDateFormat.format(storyBookLearningEvent.time.time)
+                val date = eventDateFormat.format(storyBookLearningEvent.timestamp.time)
                 if (date != dateOfPreviousEvent) {
                     // Reset file content
                     stringWriter = StringWriter()
@@ -349,7 +349,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
 
                 csvPrinter.printRecord(
                     storyBookLearningEvent.id,
-                    storyBookLearningEvent.time.timeInMillis,
+                    storyBookLearningEvent.timestamp.timeInMillis,
                     storyBookLearningEvent.packageName,
                     storyBookLearningEvent.storyBookTitle,
                     storyBookLearningEvent.storyBookId,

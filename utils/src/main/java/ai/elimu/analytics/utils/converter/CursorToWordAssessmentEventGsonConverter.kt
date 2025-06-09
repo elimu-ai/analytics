@@ -33,7 +33,7 @@ object CursorToWordAssessmentEventGsonConverter {
         Log.i(TAG, "timeAsLong: $timeAsLong")
         val timestamp = Calendar.getInstance()
         timestamp.timeInMillis = timeAsLong
-        Log.i(TAG, "time.getTime(): " + timestamp.time)
+        Log.i(TAG, "time.time: " + timestamp.time)
 
         val columnWordId = cursor.getColumnIndex("wordId")
         val wordId = cursor.getLong(columnWordId)

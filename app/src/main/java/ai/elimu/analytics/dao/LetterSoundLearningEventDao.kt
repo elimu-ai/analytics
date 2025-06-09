@@ -11,10 +11,10 @@ interface LetterSoundLearningEventDao {
     @Insert
     fun insert(letterSoundLearningEvent: LetterSoundLearningEvent)
 
-    @Query("SELECT * FROM LetterSoundLearningEvent ORDER BY time")
+    @Query("SELECT * FROM LetterSoundLearningEvent ORDER BY timestamp")
     fun loadAllOrderedByTime(): List<LetterSoundLearningEvent>
 
-    @Query("SELECT * FROM LetterSoundLearningEvent ORDER BY time")
+    @Query("SELECT * FROM LetterSoundLearningEvent ORDER BY timestamp")
     fun loadAllOrderedByTimeCursor(): Cursor
 
     @Query("SELECT COUNT(*) FROM LetterSoundLearningEvent")

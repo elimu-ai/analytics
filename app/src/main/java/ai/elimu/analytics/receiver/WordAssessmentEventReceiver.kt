@@ -21,7 +21,7 @@ class WordAssessmentEventReceiver : BroadcastReceiver() {
         Timber.i("packageName: \"$packageName\"")
 
         val timestamp = Calendar.getInstance()
-        Timber.i("timestamp.getTime(): %s", timestamp.time)
+        Timber.i("timestamp.time: %s", timestamp.time)
 
         var wordId: Long? = null
         if (intent.hasExtra("wordId")) {
@@ -41,7 +41,7 @@ class WordAssessmentEventReceiver : BroadcastReceiver() {
         val wordAssessmentEvent = WordAssessmentEvent()
         wordAssessmentEvent.androidId = androidId
         wordAssessmentEvent.packageName = packageName
-        wordAssessmentEvent.time = timestamp
+        wordAssessmentEvent.timestamp = timestamp
         wordAssessmentEvent.wordId = wordId
         wordAssessmentEvent.wordText = wordText
         wordAssessmentEvent.masteryScore = masteryScore

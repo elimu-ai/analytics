@@ -11,5 +11,5 @@ abstract class AssessmentEvent : BaseEntity() {
     @JvmField
     var packageName: String = ""
 
-    lateinit var time: Calendar
+    lateinit var timestamp: Calendar
 }

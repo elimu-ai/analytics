@@ -12,5 +12,5 @@ abstract class LearningEvent : BaseEntity() {
     var packageName: String = ""
 
     @JvmField
-    var time: Calendar = Calendar.getInstance()
+    var timestamp: Calendar = Calendar.getInstance()
 }

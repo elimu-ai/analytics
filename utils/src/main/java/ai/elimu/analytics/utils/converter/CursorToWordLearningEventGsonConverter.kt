@@ -46,7 +46,7 @@ object CursorToWordLearningEventGsonConverter {
         timestamp.timeInMillis = timeAsLong
         Log.i(
             TAG,
-            "time.getTime(): " + timestamp.time
+            "timestamp.time: " + timestamp.time
         )
 
         val columnWordId = cursor.getColumnIndex("wordId")

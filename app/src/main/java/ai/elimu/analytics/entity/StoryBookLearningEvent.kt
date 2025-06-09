@@ -11,15 +11,4 @@ class StoryBookLearningEvent : LearningEvent() {
     var storyBookId: Long = 0L
 
     lateinit var learningEventType: LearningEventType
-
-    override fun toString(): String {
-        return "id: " + id +
-                ", time: " + time.time +
-                ", androidId: \"" + androidId +
-                "\"" + ", packageName: \"" +
-                packageName + "\"" +
-                ", storyBookTitle: \"" + storyBookTitle + "\"" +
-                ", storyBookId: " + storyBookId +
-                ", learningEventType: \"" + learningEventType + "\""
-    }
 }
