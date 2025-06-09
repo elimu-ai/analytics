@@ -1,6 +1,7 @@
 package ai.elimu.analytics.task
 
 import ai.elimu.analytics.db.RoomDb
+import ai.elimu.analytics.util.SharedPreferencesHelper
 import ai.elimu.analytics.util.VersionHelper.getAppVersionCode
 import android.content.Context
 import androidx.work.Worker
@@ -49,7 +50,6 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
             .withHeader(
                 "id",
                 "timestamp",
-                "android_id",
                 "package_name",
                 "letter_sound_letters",
                 "letter_sound_sounds",
@@ -66,7 +66,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
             var dateOfPreviousEvent: String? = null
             for (letterSoundAssessmentEvent in letterSoundAssessmentEvents) {
                 // Export event to CSV file. Example format:
-                //   files/version-code-3002024/letter-sound-assessment-events/7161a85a0e4751cd_3002024_letter-sound-assessment-events_2025-05-29.csv
+                //   files/lang-HIN/letter-sound-assessment-events/7161a85a0e4751cd_3003002_letter-sound-assessment-events_2025-06-07.csv
                 val versionCode = getAppVersionCode(applicationContext)
                 val date = eventDateFormat.format(letterSoundAssessmentEvent.time.time)
                 if (date != dateOfPreviousEvent) {
@@ -81,7 +81,6 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                 csvPrinter.printRecord(
                     letterSoundAssessmentEvent.id,
                     letterSoundAssessmentEvent.time.timeInMillis,
-                    letterSoundAssessmentEvent.androidId,
                     letterSoundAssessmentEvent.packageName,
                     letterSoundAssessmentEvent.letterSoundLetters,
                     letterSoundAssessmentEvent.letterSoundSounds,
@@ -96,8 +95,9 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
 
                 // Write the content to the CSV file
                 val filesDir = applicationContext.filesDir
-                val versionCodeDir = File(filesDir, "version-code-${versionCode}")
-                val letterSoundAssessmentEventsDir = File(versionCodeDir, "letter-sound-assessment-events")
+                val language = SharedPreferencesHelper.getLanguage(applicationContext)
+                val languageDir = File(filesDir, "lang-${language}")
+                val letterSoundAssessmentEventsDir = File(languageDir, "letter-sound-assessment-events")
                 val csvFile = File(letterSoundAssessmentEventsDir, csvFilename)
                 FileUtils.writeStringToFile(csvFile, csvFileContent, "UTF-8")
             }
@@ -119,7 +119,6 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
             .withHeader(
                 "id",
                 "time",
-                "android_id",
                 "package_name",
                 "letter_sound_id",
                 "letter_sound_letter_texts",
@@ -129,12 +128,11 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
         try {
             var csvPrinter = CSVPrinter(stringWriter, csvFormat)
 
-
             // Generate one CSV file per day of events
             var dateOfPreviousEvent: String? = null
             for (letterSoundLearningEvent in letterSoundLearningEvents) {
                 // Export event to CSV file. Example format:
-                //   files/version-code-3001017/letter-sound-learning-events/7161a85a0e4751cd_3001017_letter-sound-learning-events_2023-10-25.csv
+                //   files/lang-HIN/letter-sound-learning-events/7161a85a0e4751cd_3003002_letter-sound-learning-events_2025-06-07.csv
                 val versionCode = getAppVersionCode(
                     applicationContext
                 )
@@ -152,7 +150,6 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                 csvPrinter.printRecord(
                     letterSoundLearningEvent.id,
                     letterSoundLearningEvent.time.timeInMillis,
-                    letterSoundLearningEvent.androidId,
                     letterSoundLearningEvent.packageName,
                     letterSoundLearningEvent.id,
                     null,
@@ -164,12 +161,9 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
 
                 // Write the content to the CSV file
                 val filesDir = applicationContext.filesDir
-                val versionCodeDir = File(
-                    filesDir,
-                    "version-code-$versionCode"
-                )
-                val letterSoundLearningEventsDir =
-                    File(versionCodeDir, "letter-sound-learning-events")
+                val language = SharedPreferencesHelper.getLanguage(applicationContext)
+                val languageDir = File(filesDir, "lang-${language}")
+                val letterSoundLearningEventsDir = File(languageDir, "letter-sound-learning-events")
                 val csvFile = File(letterSoundLearningEventsDir, csvFilename)
                 FileUtils.writeStringToFile(csvFile, csvFileContent, "UTF-8")
             }
@@ -184,14 +178,13 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
         // Extract WordLearningEvents from the database that have not yet been exported to CSV.
         val roomDb = RoomDb.getDatabase(applicationContext)
         val wordLearningEventDao = roomDb.wordLearningEventDao()
-        val wordLearningEvents = wordLearningEventDao.loadAllOrderedByTimeDesc()
+        val wordLearningEvents = wordLearningEventDao.loadAllOrderedByTime(isDesc = false)
         Timber.i("wordLearningEvents.size(): %s", wordLearningEvents.size)
 
         val csvFormat = CSVFormat.DEFAULT
             .withHeader(
                 "id",
                 "time",
-                "android_id",
                 "package_name",
                 "word_id",
                 "word_text",
@@ -205,7 +198,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
             var dateOfPreviousEvent: String? = null
             for (wordLearningEvent in wordLearningEvents) {
                 // Export event to CSV file. Example format:
-                //   files/version-code-3001012/word-learning-events/7161a85a0e4751cd_3001012_word-learning-events_2020-03-21.csv
+                //   files/lang-HIN/word-learning-events/7161a85a0e4751cd_3003002_word-learning-events_2025-06-07.csv
                 val versionCode = getAppVersionCode(
                     applicationContext
                 )
@@ -223,7 +216,6 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                 csvPrinter.printRecord(
                     wordLearningEvent.id,
                     wordLearningEvent.time.timeInMillis,
-                    wordLearningEvent.androidId,
                     wordLearningEvent.packageName,
                     wordLearningEvent.wordId,
                     wordLearningEvent.wordText,
@@ -235,11 +227,9 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
 
                 // Write the content to the CSV file
                 val filesDir = applicationContext.filesDir
-                val versionCodeDir = File(
-                    filesDir,
-                    "version-code-$versionCode"
-                )
-                val wordLearningEventsDir = File(versionCodeDir, "word-learning-events")
+                val language = SharedPreferencesHelper.getLanguage(applicationContext)
+                val languageDir = File(filesDir, "lang-${language}")
+                val wordLearningEventsDir = File(languageDir, "word-learning-events")
                 val csvFile = File(wordLearningEventsDir, csvFilename)
                 FileUtils.writeStringToFile(csvFile, csvFileContent, "UTF-8")
             }
@@ -261,7 +251,6 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
             .withHeader(
                 "id",
                 "time",
-                "android_id",
                 "package_name",
                 "word_id",
                 "word_text",
@@ -276,7 +265,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
             var dateOfPreviousEvent: String? = null
             for (wordAssessmentEvent in wordAssessmentEvents) {
                 // Export event to CSV file. Example format:
-                //   files/version-code-3001012/word-assessment-events/7161a85a0e4751cd_3001012_word-assessment-events_2020-03-21.csv
+                //   files/lang-HIN/word-assessment-events/7161a85a0e4751cd_3003002_word-assessment-events_2025-06-07.csv
                 val versionCode = getAppVersionCode(
                     applicationContext
                 )
@@ -294,7 +283,6 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                 csvPrinter.printRecord(
                     wordAssessmentEvent.id,
                     wordAssessmentEvent.time.timeInMillis,
-                    wordAssessmentEvent.androidId,
                     wordAssessmentEvent.packageName,
                     wordAssessmentEvent.wordId,
                     wordAssessmentEvent.wordText,
@@ -307,11 +295,9 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
 
                 // Write the content to the CSV file
                 val filesDir = applicationContext.filesDir
-                val versionCodeDir = File(
-                    filesDir,
-                    "version-code-$versionCode"
-                )
-                val wordAssessmentEventsDir = File(versionCodeDir, "word-assessment-events")
+                val language = SharedPreferencesHelper.getLanguage(applicationContext)
+                val languageDir = File(filesDir, "lang-${language}")
+                val wordAssessmentEventsDir = File(languageDir, "word-assessment-events")
                 val csvFile = File(wordAssessmentEventsDir, csvFilename)
                 FileUtils.writeStringToFile(csvFile, csvFileContent, "UTF-8")
             }
@@ -323,18 +309,16 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
     private fun exportStoryBookLearningEventsToCsv() {
         Timber.i("exportStoryBookLearningEventsToCsv")
 
-
         // Extract StoryBookLearningEvents from the database that have not yet been exported to CSV.
         val roomDb = RoomDb.getDatabase(applicationContext)
         val storyBookLearningEventDao = roomDb.storyBookLearningEventDao()
-        val storyBookLearningEvents = storyBookLearningEventDao.loadAll()
+        val storyBookLearningEvents = storyBookLearningEventDao.loadAll(isDesc = false)
         Timber.i("storyBookLearningEvents.size(): %s", storyBookLearningEvents.size)
 
         val csvFormat = CSVFormat.DEFAULT
             .withHeader(
                 "id",
                 "time",
-                "android_id",
                 "package_name",
                 "storybook_title",
                 "storybook_id",
@@ -348,7 +332,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
             var dateOfPreviousEvent: String? = null
             for (storyBookLearningEvent in storyBookLearningEvents) {
                 // Export event to CSV file. Example format:
-                //   files/version-code-3001012/storybook-learning-events/7161a85a0e4751cd_3001012_storybook-learning-events_2020-03-21.csv
+                //   files/lang-HIN/storybook-learning-events/7161a85a0e4751cd_3003002_storybook-learning-events_2025-06-07.csv
                 val versionCode = getAppVersionCode(
                     applicationContext
                 )
@@ -366,7 +350,6 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                 csvPrinter.printRecord(
                     storyBookLearningEvent.id,
                     storyBookLearningEvent.time.timeInMillis,
-                    storyBookLearningEvent.androidId,
                     storyBookLearningEvent.packageName,
                     storyBookLearningEvent.storyBookTitle,
                     storyBookLearningEvent.storyBookId,
@@ -378,11 +361,9 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
 
                 // Write the content to the CSV file
                 val filesDir = applicationContext.filesDir
-                val versionCodeDir = File(
-                    filesDir,
-                    "version-code-$versionCode"
-                )
-                val storyBookLearningEventsDir = File(versionCodeDir, "storybook-learning-events")
+                val language = SharedPreferencesHelper.getLanguage(applicationContext)
+                val languageDir = File(filesDir, "lang-${language}")
+                val storyBookLearningEventsDir = File(languageDir, "storybook-learning-events")
                 val csvFile = File(storyBookLearningEventsDir, csvFilename)
                 FileUtils.writeStringToFile(csvFile, csvFileContent, "UTF-8")
             }

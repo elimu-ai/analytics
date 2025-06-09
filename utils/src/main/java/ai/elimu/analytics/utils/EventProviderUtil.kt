@@ -1,14 +1,11 @@
 package ai.elimu.analytics.utils
 
-import ai.elimu.analytics.utils.converter.CursorToLetterAssessmentEventGsonConverter
 import ai.elimu.analytics.utils.converter.CursorToLetterSoundAssessmentEventGsonConverter
 import ai.elimu.analytics.utils.converter.CursorToWordAssessmentEventGsonConverter
 import ai.elimu.analytics.utils.converter.CursorToWordLearningEventGsonConverter
-import ai.elimu.model.v2.gson.analytics.LetterAssessmentEventGson
 import ai.elimu.model.v2.gson.analytics.LetterSoundAssessmentEventGson
 import ai.elimu.model.v2.gson.analytics.WordAssessmentEventGson
 import ai.elimu.model.v2.gson.analytics.WordLearningEventGson
-import ai.elimu.model.v2.gson.content.LetterGson
 import ai.elimu.model.v2.gson.content.WordGson
 import android.content.Context
 import android.util.Log
@@ -58,133 +55,6 @@ object EventProviderUtil {
         Log.i(TAG, "letterSoundAssessmentEventGsons.size: " + letterSoundAssessmentEventGsons.size)
 
         return letterSoundAssessmentEventGsons
-    }
-    
-    fun getLetterAssessmentEventGsons(
-        context: Context,
-        analyticsApplicationId: String
-    ): List<LetterAssessmentEventGson> {
-        Log.i(TAG, "getLetterAssessmentEventGsons")
-
-        val letterAssessmentEventGsons: MutableList<LetterAssessmentEventGson> = ArrayList()
-
-        val letterAssessmentEventsUri =
-            "content://$analyticsApplicationId.provider.letter_assessment_event_provider/events".toUri()
-        Log.i(
-            TAG,
-            "letterAssessmentEventsUri: $letterAssessmentEventsUri"
-        )
-        val letterAssessmentEventsCursor =
-            context.contentResolver.query(letterAssessmentEventsUri, null, null, null, null)
-        Log.i(
-            TAG,
-            "letterAssessmentEventsCursor: $letterAssessmentEventsCursor"
-        )
-        if (letterAssessmentEventsCursor == null) {
-            Log.e(TAG, "letterAssessmentEventsCursor == null")
-            Toast.makeText(context, "letterAssessmentEventsCursor == null", Toast.LENGTH_LONG)
-                .show()
-        } else {
-            Log.i(
-                TAG,
-                "letterAssessmentEventsCursor.getCount(): " + letterAssessmentEventsCursor.count
-            )
-            if (letterAssessmentEventsCursor.count == 0) {
-                Log.e(
-                    TAG,
-                    "letterAssessmentEventsCursor.getCount() == 0"
-                )
-            } else {
-                var isLast = false
-                while (!isLast) {
-                    letterAssessmentEventsCursor.moveToNext()
-
-                    // Convert from Room to Gson
-                    val letterAssessmentEventGson =
-                        CursorToLetterAssessmentEventGsonConverter.getLetterAssessmentEventGson(letterAssessmentEventsCursor)
-
-                    letterAssessmentEventGsons.add(letterAssessmentEventGson)
-
-                    isLast = letterAssessmentEventsCursor.isLast
-                }
-
-                letterAssessmentEventsCursor.close()
-                Log.i(
-                    TAG,
-                    "letterAssessmentEventsCursor.isClosed(): " + letterAssessmentEventsCursor.isClosed
-                )
-            }
-        }
-        Log.i(
-            TAG,
-            "letterAssessmentEventGsons.size(): " + letterAssessmentEventGsons.size
-        )
-
-        return letterAssessmentEventGsons
-    }
-
-    fun getLetterAssessmentEventGsonsByLetter(
-        letterGson: LetterGson,
-        context: Context,
-        analyticsApplicationId: String
-    ): List<LetterAssessmentEventGson> {
-        Log.i(TAG, "getLetterAssessmentEventGsonsByLetter")
-
-        val letterAssessmentEventGsons: MutableList<LetterAssessmentEventGson> = ArrayList()
-
-        val letterAssessmentEventsUri =
-            ("content://" + analyticsApplicationId + ".provider.letter_assessment_event_provider/events/by-letter-id/" + letterGson.id).toUri()
-        Log.i(
-            TAG,
-            "letterAssessmentEventsUri: $letterAssessmentEventsUri"
-        )
-        val letterAssessmentEventsCursor =
-            context.contentResolver.query(letterAssessmentEventsUri, null, null, null, null)
-        Log.i(
-            TAG,
-            "letterAssessmentEventsCursor: $letterAssessmentEventsCursor"
-        )
-        if (letterAssessmentEventsCursor == null) {
-            Log.e(TAG, "letterAssessmentEventsCursor == null")
-            Toast.makeText(context, "letterAssessmentEventsCursor == null", Toast.LENGTH_LONG)
-                .show()
-        } else {
-            Log.i(
-                TAG,
-                "letterAssessmentEventsCursor.getCount(): " + letterAssessmentEventsCursor.count
-            )
-            if (letterAssessmentEventsCursor.count == 0) {
-                Log.e(
-                    TAG,
-                    "letterAssessmentEventsCursor.getCount() == 0"
-                )
-            } else {
-                var isLast = false
-                while (!isLast) {
-                    letterAssessmentEventsCursor.moveToNext()
-
-                    // Convert from Room to Gson
-                    val letterAssessmentEventGson =
-                        CursorToLetterAssessmentEventGsonConverter.getLetterAssessmentEventGson(letterAssessmentEventsCursor)
-
-                    letterAssessmentEventGsons.add(letterAssessmentEventGson)
-
-                    isLast = letterAssessmentEventsCursor.isLast
-                }
-
-                letterAssessmentEventsCursor.close()
-                Log.i(
-                    TAG,
-                    "letterAssessmentEventsCursor.isClosed(): " + letterAssessmentEventsCursor.isClosed
-                )
-            }
-        }
-        Log.i(
-            TAG,
-            "letterAssessmentEventGsons.size(): " + letterAssessmentEventGsons.size
-        )
-
-        return letterAssessmentEventGsons
     }
 
     fun getWordLearningEventGsons(

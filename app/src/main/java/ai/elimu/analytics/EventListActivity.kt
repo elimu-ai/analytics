@@ -2,9 +2,12 @@ package ai.elimu.analytics
 
 import ai.elimu.analytics.databinding.ActivityEventListBinding
 import ai.elimu.analytics.db.RoomDb
+import ai.elimu.analytics.util.Clipboard
 import ai.elimu.common.utils.ui.setLightStatusBar
 import ai.elimu.common.utils.ui.setStatusBarColorCompat
 import android.os.Bundle
+import android.provider.Settings
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,6 +24,18 @@ class EventListActivity : AppCompatActivity() {
         binding = ActivityEventListBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val androidId: String? = Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID)
+        if (androidId?.isEmpty() == false) {
+            binding.ivCopy.visibility = View.VISIBLE
+            binding.tvAndroidIdValue.text = androidId
+        } else {
+            binding.ivCopy.visibility = View.GONE
+        }
+
+        binding.ivCopy.setOnClickListener {
+            Clipboard.copy(this, binding.tvAndroidIdValue.text.toString())
+        }
+
         val recyclerView = binding.recyclerview
         val eventListAdapter = EventListAdapter(this)
         recyclerView.adapter = eventListAdapter
@@ -30,14 +45,42 @@ class EventListActivity : AppCompatActivity() {
             DividerItemDecoration(recyclerView.context, linearLayoutManager.orientation)
         recyclerView.addItemDecoration(dividerItemDecoration)
 
-        // Fetch all learning events from database, and update adapter
+        // Fetch event counts from database, and update adapter
         val roomDb = RoomDb.getDatabase(applicationContext)
-        val storyBookLearningEventDao = roomDb.storyBookLearningEventDao()
         RoomDb.databaseWriteExecutor.execute {
-            val storyBookLearningEvents =
-                storyBookLearningEventDao.loadAll()
-            Timber.d("storyBookLearningEvents.size(): %s", storyBookLearningEvents.size)
-            eventListAdapter.setStoryBookLearningEvents(storyBookLearningEvents)
+            try {
+                val eventTypeCounts = listOf(
+                    EventListAdapter.EventTypeCount(
+                        getString(R.string.event_label_letter_sound_assessment,
+                            roomDb.letterSoundAssessmentEventDao().getCount())
+                    ),
+                    EventListAdapter.EventTypeCount(
+                        getString(R.string.event_label_word_assessment,
+                            roomDb.wordAssessmentEventDao().getCount())
+                    ),
+                    EventListAdapter.EventTypeCount(
+                        getString(R.string.event_label_letter_sound_learning,
+                            roomDb.letterSoundLearningEventDao().getCount())
+                    ),
+                    EventListAdapter.EventTypeCount(
+                        getString(R.string.event_label_word_learning,
+                            roomDb.wordLearningEventDao().getCount())
+                    ),
+                    EventListAdapter.EventTypeCount(
+                        getString(R.string.event_label_storybook_learning,
+                            roomDb.storyBookLearningEventDao().getCount())
+                    )
+                )
+                runOnUiThread {
+                    eventListAdapter.setEventTypeCounts(eventTypeCounts)
+                }
+            } catch (e: Exception) {
+                Timber.e(e, "Failed to load event counts")
+                runOnUiThread {
+                    // Show error state or empty list
+                    eventListAdapter.setEventTypeCounts(emptyList())
+                }
+            }
         }
 
         window.apply {

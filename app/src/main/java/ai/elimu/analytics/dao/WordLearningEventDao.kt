@@ -11,9 +11,14 @@ interface WordLearningEventDao {
     @Insert
     fun insert(wordLearningEvent: WordLearningEvent)
 
-    @Query("SELECT * FROM WordLearningEvent ORDER BY time DESC")
-    fun loadAllOrderedByTimeDesc(): List<WordLearningEvent>
+    @Query("SELECT * FROM WordLearningEvent ORDER BY " +
+            "CASE WHEN :isDesc = 1 THEN time END DESC," +
+            "CASE WHEN :isDesc = 0 THEN time END ASC")
+    fun loadAllOrderedByTime(isDesc: Boolean = true): List<WordLearningEvent>
 
     @Query("SELECT * FROM WordLearningEvent ORDER BY time")
     fun loadAllOrderedByTime(): Cursor
+
+    @Query("SELECT COUNT(*) FROM WordLearningEvent")
+    fun getCount(): Int
 }
