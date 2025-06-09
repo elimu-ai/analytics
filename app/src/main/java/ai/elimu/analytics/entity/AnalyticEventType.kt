@@ -34,7 +34,7 @@ fun AnalyticEventType.getUploadCsvFile(context: Context,
                                        versionCode: Int,
                                        date: String): File {
 
-    val csvFilename = androidId+ "_" + versionCode + "_letter-sound-learning-events_" + date + ".csv"
+    val csvFilename = androidId + "_" + versionCode + "_${this.type}_" + date + ".csv"
     Timber.i("csvFilename: $csvFilename")
 
     val filesDir = context.filesDir
