@@ -1,5 +1,6 @@
 package ai.elimu.analytics.util
 
+import ai.elimu.analytics.entity.AnalyticEventType
 import ai.elimu.model.v2.enums.Language
 import android.content.Context
 import android.content.pm.PackageManager
@@ -76,7 +77,7 @@ object VersionHelper {
                 Timber.w("Deleting $letterLearningEventsDir")
                 Timber.w("letterLearningEventsDir.delete(): %s", letterLearningEventsDir.delete())
 
-                val storyBookLearningEventsDir = File(filesDir, "storybook-learning-events")
+                val storyBookLearningEventsDir = File(filesDir, AnalyticEventType.STORY_BOOK_LEARNING.type)
                 files = storyBookLearningEventsDir.listFiles()
                 if (files != null) {
                     for (i in files.indices) {
@@ -87,7 +88,7 @@ object VersionHelper {
                 Timber.w("Deleting $storyBookLearningEventsDir")
                 Timber.w("storyBookLearningEventsDir.delete(): %s", storyBookLearningEventsDir.delete())
 
-                val wordAssessmentEventsDir = File(filesDir, "word-assessment-events")
+                val wordAssessmentEventsDir = File(filesDir, AnalyticEventType.WORD_ASSESSMENT.type)
                 files = wordAssessmentEventsDir.listFiles()
                 if (files != null) {
                     for (i in files.indices) {
@@ -98,7 +99,7 @@ object VersionHelper {
                 Timber.w("Deleting $wordAssessmentEventsDir")
                 Timber.w("wordAssessmentEventsDir.delete(): %s", wordAssessmentEventsDir.delete())
 
-                val wordLearningEventsDir = File(filesDir, "word-learning-events")
+                val wordLearningEventsDir = File(filesDir, AnalyticEventType.WORD_LEARNING.type)
                 files = wordLearningEventsDir.listFiles()
                 if (files != null) {
                     for (i in files.indices) {
