@@ -6,6 +6,10 @@ import ai.elimu.analytics.rest.StoryBookLearningEventService
 import ai.elimu.analytics.rest.UploadService
 import ai.elimu.analytics.rest.WordAssessmentEventService
 import ai.elimu.analytics.rest.WordLearningEventService
+import ai.elimu.analytics.util.SharedPreferencesHelper
+import android.content.Context
+import timber.log.Timber
+import java.io.File
 
 enum class AnalyticEventType(val type: String) {
     LETTER_SOUND_ASSESSMENT("letter-sound-assessment-events"),
@@ -23,4 +27,20 @@ fun AnalyticEventType.toServiceClass(): Class<out UploadService> {
         AnalyticEventType.WORD_ASSESSMENT -> WordAssessmentEventService::class.java
         AnalyticEventType.WORD_LEARNING -> WordLearningEventService::class.java
     }
+}
+
+fun AnalyticEventType.getUploadCsvFile(context: Context,
+                                       androidId: String,
+                                       versionCode: Int,
+                                       date: String): File {
+
+    val csvFilename = androidId+ "_" + versionCode + "_letter-sound-learning-events_" + date + ".csv"
+    Timber.i("csvFilename: $csvFilename")
+
+    val filesDir = context.filesDir
+    val language = SharedPreferencesHelper.getLanguage(context)
+    val languageDir = File(filesDir, "lang-${language}")
+    val letterSoundLearningEventsDir = File(languageDir, "letter-sound-learning-events")
+    val csvFile = File(letterSoundLearningEventsDir, csvFilename)
+    return csvFile
 }

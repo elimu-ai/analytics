@@ -1,7 +1,8 @@
 package ai.elimu.analytics.task
 
 import ai.elimu.analytics.db.RoomDb
-import ai.elimu.analytics.util.SharedPreferencesHelper
+import ai.elimu.analytics.entity.AnalyticEventType
+import ai.elimu.analytics.entity.getUploadCsvFile
 import ai.elimu.analytics.util.VersionHelper.getAppVersionCode
 import android.content.Context
 import androidx.work.Worker
@@ -10,7 +11,6 @@ import org.apache.commons.csv.CSVFormat
 import org.apache.commons.csv.CSVPrinter
 import org.apache.commons.io.FileUtils
 import timber.log.Timber
-import java.io.File
 import java.io.IOException
 import java.io.StringWriter
 import java.text.SimpleDateFormat
@@ -75,8 +75,6 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                     csvPrinter = CSVPrinter(stringWriter, csvFormat)
                 }
                 dateOfPreviousEvent = date
-                val csvFilename = letterSoundAssessmentEvent.androidId + "_" + versionCode + "_letter-sound-assessment-events_" + date + ".csv"
-                Timber.i("csvFilename: ${csvFilename}")
 
                 csvPrinter.printRecord(
                     letterSoundAssessmentEvent.id,
@@ -94,11 +92,11 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                 val csvFileContent = stringWriter.toString()
 
                 // Write the content to the CSV file
-                val filesDir = applicationContext.filesDir
-                val language = SharedPreferencesHelper.getLanguage(applicationContext)
-                val languageDir = File(filesDir, "lang-${language}")
-                val letterSoundAssessmentEventsDir = File(languageDir, "letter-sound-assessment-events")
-                val csvFile = File(letterSoundAssessmentEventsDir, csvFilename)
+                val csvFile = AnalyticEventType.LETTER_SOUND_ASSESSMENT.getUploadCsvFile(
+                    context = applicationContext,
+                    androidId = letterSoundAssessmentEvent.androidId,
+                    versionCode = versionCode,
+                    date = date)
                 FileUtils.writeStringToFile(csvFile, csvFileContent, "UTF-8")
             }
         } catch (e: IOException) {
@@ -143,9 +141,6 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                     csvPrinter = CSVPrinter(stringWriter, csvFormat)
                 }
                 dateOfPreviousEvent = date
-                val csvFilename =
-                    letterSoundLearningEvent.androidId + "_" + versionCode + "_letter-sound-learning-events_" + date + ".csv"
-                Timber.i("csvFilename: $csvFilename")
 
                 csvPrinter.printRecord(
                     letterSoundLearningEvent.id,
@@ -160,11 +155,11 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                 val csvFileContent = stringWriter.toString()
 
                 // Write the content to the CSV file
-                val filesDir = applicationContext.filesDir
-                val language = SharedPreferencesHelper.getLanguage(applicationContext)
-                val languageDir = File(filesDir, "lang-${language}")
-                val letterSoundLearningEventsDir = File(languageDir, "letter-sound-learning-events")
-                val csvFile = File(letterSoundLearningEventsDir, csvFilename)
+                val csvFile = AnalyticEventType.LETTER_SOUND_LEARNING.getUploadCsvFile(
+                    context = applicationContext,
+                    androidId = letterSoundLearningEvent.androidId,
+                    versionCode = versionCode,
+                    date = date)
                 FileUtils.writeStringToFile(csvFile, csvFileContent, "UTF-8")
             }
         } catch (e: IOException) {
@@ -209,9 +204,6 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                     csvPrinter = CSVPrinter(stringWriter, csvFormat)
                 }
                 dateOfPreviousEvent = date
-                val csvFilename =
-                    wordLearningEvent.androidId + "_" + versionCode + "_word-learning-events_" + date + ".csv"
-                Timber.i("csvFilename: $csvFilename")
 
                 csvPrinter.printRecord(
                     wordLearningEvent.id,
@@ -226,11 +218,11 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                 val csvFileContent = stringWriter.toString()
 
                 // Write the content to the CSV file
-                val filesDir = applicationContext.filesDir
-                val language = SharedPreferencesHelper.getLanguage(applicationContext)
-                val languageDir = File(filesDir, "lang-${language}")
-                val wordLearningEventsDir = File(languageDir, "word-learning-events")
-                val csvFile = File(wordLearningEventsDir, csvFilename)
+                val csvFile = AnalyticEventType.WORD_LEARNING.getUploadCsvFile(
+                    context = applicationContext,
+                    androidId = wordLearningEvent.androidId,
+                    versionCode = versionCode,
+                    date = date)
                 FileUtils.writeStringToFile(csvFile, csvFileContent, "UTF-8")
             }
         } catch (e: IOException) {
@@ -276,9 +268,6 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                     csvPrinter = CSVPrinter(stringWriter, csvFormat)
                 }
                 dateOfPreviousEvent = date
-                val csvFilename =
-                    wordAssessmentEvent.androidId + "_" + versionCode + "_word-assessment-events_" + date + ".csv"
-                Timber.i("csvFilename: $csvFilename")
 
                 csvPrinter.printRecord(
                     wordAssessmentEvent.id,
@@ -294,11 +283,11 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                 val csvFileContent = stringWriter.toString()
 
                 // Write the content to the CSV file
-                val filesDir = applicationContext.filesDir
-                val language = SharedPreferencesHelper.getLanguage(applicationContext)
-                val languageDir = File(filesDir, "lang-${language}")
-                val wordAssessmentEventsDir = File(languageDir, "word-assessment-events")
-                val csvFile = File(wordAssessmentEventsDir, csvFilename)
+                val csvFile = AnalyticEventType.WORD_ASSESSMENT.getUploadCsvFile(
+                    context = applicationContext,
+                    androidId = wordAssessmentEvent.androidId,
+                    versionCode = versionCode,
+                    date = date)
                 FileUtils.writeStringToFile(csvFile, csvFileContent, "UTF-8")
             }
         } catch (e: IOException) {
@@ -343,9 +332,6 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                     csvPrinter = CSVPrinter(stringWriter, csvFormat)
                 }
                 dateOfPreviousEvent = date
-                val csvFilename =
-                    storyBookLearningEvent.androidId + "_" + versionCode + "_storybook-learning-events_" + date + ".csv"
-                Timber.i("csvFilename: $csvFilename")
 
                 csvPrinter.printRecord(
                     storyBookLearningEvent.id,
@@ -360,11 +346,11 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                 val csvFileContent = stringWriter.toString()
 
                 // Write the content to the CSV file
-                val filesDir = applicationContext.filesDir
-                val language = SharedPreferencesHelper.getLanguage(applicationContext)
-                val languageDir = File(filesDir, "lang-${language}")
-                val storyBookLearningEventsDir = File(languageDir, "storybook-learning-events")
-                val csvFile = File(storyBookLearningEventsDir, csvFilename)
+                val csvFile = AnalyticEventType.STORY_BOOK_LEARNING.getUploadCsvFile(
+                    context = applicationContext,
+                    androidId = storyBookLearningEvent.androidId,
+                    versionCode = versionCode,
+                    date = date)
                 FileUtils.writeStringToFile(csvFile, csvFileContent, "UTF-8")
             }
         } catch (e: IOException) {
