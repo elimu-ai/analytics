@@ -1,6 +1,5 @@
 package ai.elimu.analytics
 
-import ai.elimu.analytics.db.RoomDb
 import ai.elimu.analytics.language.SelectLanguageActivity
 import ai.elimu.analytics.task.TaskInitializer
 import ai.elimu.analytics.util.SharedPreferencesHelper.getLanguage
@@ -44,23 +43,8 @@ class MainActivity : AppCompatActivity() {
 
             TaskInitializer.initializePeriodicWork(applicationContext)
 
-            // If the database is not empty, redirect the user to the EventListActivity
-            val roomDb = RoomDb.getDatabase(applicationContext)
-            val storyBookLearningEventDao = roomDb.storyBookLearningEventDao()
-            val wordLearningEventDao = roomDb.wordLearningEventDao()
-            RoomDb.databaseWriteExecutor.execute {
-                val wordLearningEvents =
-                    wordLearningEventDao.loadAllOrderedByTimeDesc()
-                Timber.i("wordLearningEvents.size(): %s", wordLearningEvents.size)
-
-                val storyBookLearningEvents =
-                    storyBookLearningEventDao.loadAll()
-                Timber.i("storyBookLearningEvents.size(): %s", storyBookLearningEvents.size)
-                if (storyBookLearningEvents.isNotEmpty()) {
-                    startActivity(Intent(applicationContext, EventListActivity::class.java))
-                    finish()
-                }
-            }
+            startActivity(Intent(applicationContext, EventListActivity::class.java))
+            finish()
         }
     }
 }
