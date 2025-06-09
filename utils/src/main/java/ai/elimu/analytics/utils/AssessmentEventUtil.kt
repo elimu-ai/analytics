@@ -39,26 +39,6 @@ object AssessmentEventUtil {
         context.sendBroadcast(broadcastIntent)
     }
 
-    fun reportLetterAssessmentEvent(
-        letterGson: LetterGson,
-        masteryScore: Float?,
-        timeSpentMs: Long?,
-        context: Context,
-        analyticsApplicationId: String?
-    ) {
-        Log.i(TAG, "reportLetterAssessmentEvent")
-
-        val broadcastIntent = Intent()
-        broadcastIntent.setAction("ai.elimu.intent.action.LETTER_ASSESSMENT_EVENT")
-        broadcastIntent.putExtra("packageName", context.packageName)
-        broadcastIntent.putExtra("letterId", letterGson.id)
-        broadcastIntent.putExtra("letterText", letterGson.text)
-        broadcastIntent.putExtra("masteryScore", masteryScore)
-        broadcastIntent.putExtra("timeSpentMs", timeSpentMs)
-        broadcastIntent.setPackage(analyticsApplicationId)
-        context.sendBroadcast(broadcastIntent)
-    }
-
     fun reportWordAssessmentEvent(
         wordGson: WordGson,
         masteryScore: Float?,
