@@ -50,7 +50,6 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
             .withHeader(
                 "id",
                 "timestamp",
-                "android_id",
                 "package_name",
                 "letter_sound_letters",
                 "letter_sound_sounds",
@@ -82,7 +81,6 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                 csvPrinter.printRecord(
                     letterSoundAssessmentEvent.id,
                     letterSoundAssessmentEvent.time.timeInMillis,
-                    letterSoundAssessmentEvent.androidId,
                     letterSoundAssessmentEvent.packageName,
                     letterSoundAssessmentEvent.letterSoundLetters,
                     letterSoundAssessmentEvent.letterSoundSounds,
@@ -121,7 +119,6 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
             .withHeader(
                 "id",
                 "time",
-                "android_id",
                 "package_name",
                 "letter_sound_id",
                 "letter_sound_letter_texts",
@@ -153,7 +150,6 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                 csvPrinter.printRecord(
                     letterSoundLearningEvent.id,
                     letterSoundLearningEvent.time.timeInMillis,
-                    letterSoundLearningEvent.androidId,
                     letterSoundLearningEvent.packageName,
                     letterSoundLearningEvent.id,
                     null,
@@ -189,7 +185,6 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
             .withHeader(
                 "id",
                 "time",
-                "android_id",
                 "package_name",
                 "word_id",
                 "word_text",
@@ -221,7 +216,6 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                 csvPrinter.printRecord(
                     wordLearningEvent.id,
                     wordLearningEvent.time.timeInMillis,
-                    wordLearningEvent.androidId,
                     wordLearningEvent.packageName,
                     wordLearningEvent.wordId,
                     wordLearningEvent.wordText,
@@ -257,7 +251,6 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
             .withHeader(
                 "id",
                 "time",
-                "android_id",
                 "package_name",
                 "word_id",
                 "word_text",
@@ -290,7 +283,6 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                 csvPrinter.printRecord(
                     wordAssessmentEvent.id,
                     wordAssessmentEvent.time.timeInMillis,
-                    wordAssessmentEvent.androidId,
                     wordAssessmentEvent.packageName,
                     wordAssessmentEvent.wordId,
                     wordAssessmentEvent.wordText,
@@ -327,7 +319,6 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
             .withHeader(
                 "id",
                 "time",
-                "android_id",
                 "package_name",
                 "storybook_title",
                 "storybook_id",
@@ -359,7 +350,6 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                 csvPrinter.printRecord(
                     storyBookLearningEvent.id,
                     storyBookLearningEvent.time.timeInMillis,
-                    storyBookLearningEvent.androidId,
                     storyBookLearningEvent.packageName,
                     storyBookLearningEvent.storyBookTitle,
                     storyBookLearningEvent.storyBookId,
