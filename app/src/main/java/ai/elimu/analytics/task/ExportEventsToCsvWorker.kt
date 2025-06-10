@@ -118,7 +118,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
         val csvFormat = CSVFormat.DEFAULT
             .withHeader(
                 "id",
-                "time",
+                "timestamp",
                 "package_name",
                 "letter_sound_id",
                 "letter_sound_letter_texts",
@@ -184,7 +184,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
         val csvFormat = CSVFormat.DEFAULT
             .withHeader(
                 "id",
-                "time",
+                "timestamp",
                 "package_name",
                 "word_id",
                 "word_text",
@@ -250,7 +250,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
         val csvFormat = CSVFormat.DEFAULT
             .withHeader(
                 "id",
-                "time",
+                "timestamp",
                 "package_name",
                 "word_id",
                 "word_text",
@@ -318,7 +318,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
         val csvFormat = CSVFormat.DEFAULT
             .withHeader(
                 "id",
-                "time",
+                "timestamp",
                 "package_name",
                 "storybook_title",
                 "storybook_id",
