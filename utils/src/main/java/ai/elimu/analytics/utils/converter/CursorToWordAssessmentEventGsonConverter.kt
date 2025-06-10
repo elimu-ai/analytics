@@ -28,12 +28,12 @@ object CursorToWordAssessmentEventGsonConverter {
         val packageName = cursor.getString(columnPackageName)
         Log.i(TAG, "packageName: \"$packageName\"")
 
-        val columnTime = cursor.getColumnIndex("time")
-        val timeAsLong = cursor.getLong(columnTime)
-        Log.i(TAG, "timeAsLong: $timeAsLong")
+        val columnTimestamp = cursor.getColumnIndex("timestamp")
+        val timestampAsLong = cursor.getLong(columnTimestamp)
+        Log.i(TAG, "timestampAsLong: $timestampAsLong")
         val timestamp = Calendar.getInstance()
-        timestamp.timeInMillis = timeAsLong
-        Log.i(TAG, "time.time: " + timestamp.time)
+        timestamp.timeInMillis = timestampAsLong
+        Log.i(TAG, "timestamp.time: " + timestamp.time)
 
         val columnWordId = cursor.getColumnIndex("wordId")
         val wordId = cursor.getLong(columnWordId)

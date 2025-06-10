@@ -31,7 +31,7 @@ object CursorToLetterSoundAssessmentEventGsonConverter {
         val packageName: String = cursor.getString(columnPackageName)
         Log.i(TAG, "packageName: \"${packageName}\"")
 
-        val columnTimestamp: Int = cursor.getColumnIndex("time")
+        val columnTimestamp: Int = cursor.getColumnIndex("timestamp")
         val timestampAsLong = cursor.getLong(columnTimestamp)
         Log.i(TAG, "timestampAsLong: ${timestampAsLong}")
         val timestamp: Calendar = Calendar.getInstance()
