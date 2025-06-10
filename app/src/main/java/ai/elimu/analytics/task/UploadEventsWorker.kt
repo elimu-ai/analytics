@@ -1,9 +1,11 @@
 package ai.elimu.analytics.task
 
 import ai.elimu.analytics.BaseApplication
+import ai.elimu.analytics.BuildConfig
 import ai.elimu.analytics.entity.LearningEventUploadType
 import ai.elimu.analytics.entity.toServiceClass
 import ai.elimu.analytics.util.SharedPreferencesHelper
+import ai.elimu.analytics.util.VersionHelper.extractVersionCode
 import android.content.Context
 import androidx.work.Worker
 import androidx.work.WorkerParameters
@@ -54,6 +56,8 @@ class UploadEventsWorker(context: Context, workerParams: WorkerParameters) :
                         val file = files[i]
                         Timber.i("file.getAbsoluteFile(): %s", file.absoluteFile)
                         Timber.i("file.getName(): %s", file.name)
+                        val logFileVersionCode = file.name.extractVersionCode()
+                        if (logFileVersionCode != BuildConfig.VERSION_CODE) continue
 
                         val baseApplication = applicationContext as BaseApplication
                         val retrofit = baseApplication.retrofit
