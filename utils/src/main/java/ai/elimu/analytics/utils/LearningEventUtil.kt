@@ -10,6 +10,7 @@ import ai.elimu.model.v2.gson.content.WordGson
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import java.util.stream.Collectors
 
 /**
  * A utility class that makes it easier for other apps to report learning events.
@@ -33,12 +34,18 @@ object LearningEventUtil {
         broadcastIntent.putExtra("letterSoundId", letterSoundGson.id)
         broadcastIntent.putExtra(
             "letterSoundLetterTexts",
-            letterSoundGson.letters.stream().map { obj: LetterGson -> obj.text }.toArray()
+            letterSoundGson.letters.stream().map { obj: LetterGson -> obj.text }
+                .collect(Collectors.toList()).toTypedArray()
         )
+
+        val letterSoundSoundValuesIpa = letterSoundGson.sounds.stream().map {
+            obj: SoundGson -> obj.valueIpa
+        }.collect(Collectors.toList()).toTypedArray()
+
         broadcastIntent.putExtra(
             "letterSoundSoundValuesIpa",
-            letterSoundGson.sounds.stream().map { obj: SoundGson -> obj.valueIpa }.toArray()
-        )
+            letterSoundSoundValuesIpa)
+
         broadcastIntent.setPackage(analyticsApplicationId)
         context.sendBroadcast(broadcastIntent)
     }
