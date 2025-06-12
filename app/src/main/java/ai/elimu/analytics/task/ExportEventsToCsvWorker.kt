@@ -118,6 +118,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                 "id",
                 "timestamp",
                 "package_name",
+                "additional_data",
                 "letter_sound_id",
                 "letter_sound_letter_texts",
                 "letter_sound_sound_values_ipa"
@@ -146,6 +147,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                     letterSoundLearningEvent.id,
                     letterSoundLearningEvent.time.timeInMillis,
                     letterSoundLearningEvent.packageName,
+                    letterSoundLearningEvent.additionalData,
                     letterSoundLearningEvent.id,
                     null,
                     null
@@ -181,6 +183,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                 "id",
                 "timestamp",
                 "package_name",
+                "additional_data",
                 "word_id",
                 "word_text",
                 "learning_event_type"
@@ -209,6 +212,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                     wordLearningEvent.id,
                     wordLearningEvent.time.timeInMillis,
                     wordLearningEvent.packageName,
+                    wordLearningEvent.additionalData,
                     wordLearningEvent.wordId,
                     wordLearningEvent.wordText,
                     wordLearningEvent.learningEventType
@@ -309,6 +313,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                 "id",
                 "timestamp",
                 "package_name",
+                "additional_data",
                 "storybook_title",
                 "storybook_id",
                 "learning_event_type"
@@ -337,6 +342,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                     storyBookLearningEvent.id,
                     storyBookLearningEvent.time.timeInMillis,
                     storyBookLearningEvent.packageName,
+                    storyBookLearningEvent.additionalData,
                     storyBookLearningEvent.storyBookTitle,
                     storyBookLearningEvent.storyBookId,
                     storyBookLearningEvent.learningEventType
