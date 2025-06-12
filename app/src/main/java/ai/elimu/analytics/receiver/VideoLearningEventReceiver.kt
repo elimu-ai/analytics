@@ -11,6 +11,11 @@ import timber.log.Timber
 import java.util.Calendar
 
 class VideoLearningEventReceiver : BroadcastReceiver() {
+    /**
+     * Handles broadcast intents related to video learning events and persists the event data to the local database.
+     *
+     * Extracts event details from the received intent, constructs a `VideoLearningEvent` entity, and inserts it asynchronously into the Room database.
+     */
     override fun onReceive(context: Context, intent: Intent) {
         Timber.i("onReceive")
 

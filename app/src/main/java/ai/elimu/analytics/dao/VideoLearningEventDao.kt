@@ -9,10 +9,21 @@ import androidx.room.Query
 
 @Dao
 interface VideoLearningEventDao {
+    /**
+     * Inserts a VideoLearningEvent into the database, replacing any existing record with the same primary key.
+     *
+     * Should be called from a background thread.
+     */
     @WorkerThread
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(videoLearningEvent: VideoLearningEvent)
 
+    /**
+     * Retrieves all VideoLearningEvent records ordered by time.
+     *
+     * @param isDesc If true, results are ordered by time in descending order; if false, in ascending order.
+     * @return A list of all VideoLearningEvent records sorted by time.
+     */
     @Query(
         "SELECT * FROM VideoLearningEvent ORDER BY " +
                 "CASE WHEN :isDesc = 1 THEN time END DESC," +
@@ -20,6 +31,11 @@ interface VideoLearningEventDao {
     )
     fun loadAll(isDesc: Boolean = true): List<VideoLearningEvent>
 
+    /**
+     * Returns the total number of VideoLearningEvent records in the database.
+     *
+     * @return The count of VideoLearningEvent entities.
+     */
     @Query("SELECT COUNT(*) FROM VideoLearningEvent")
     fun getCount(): Int
 }

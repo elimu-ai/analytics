@@ -32,10 +32,30 @@ import timber.log.Timber;
 public abstract class RoomDb extends RoomDatabase {
     public abstract LetterSoundAssessmentEventDao letterSoundAssessmentEventDao();
     public abstract LetterSoundLearningEventDao letterSoundLearningEventDao();
-    public abstract WordLearningEventDao wordLearningEventDao();
-    public abstract WordAssessmentEventDao wordAssessmentEventDao();
-    public abstract StoryBookLearningEventDao storyBookLearningEventDao();
-    public abstract VideoLearningEventDao videoLearningEventDao();
+    /**
+ * Provides access to database operations for word learning events.
+ *
+ * @return the DAO for managing WordLearningEvent entities
+ */
+public abstract WordLearningEventDao wordLearningEventDao();
+    /**
+ * Provides access to database operations for word assessment events.
+ *
+ * @return the DAO for managing WordAssessmentEvent entities
+ */
+public abstract WordAssessmentEventDao wordAssessmentEventDao();
+    /**
+ * Provides access to database operations for storybook learning events.
+ *
+ * @return the DAO for managing StoryBookLearningEvent entities
+ */
+public abstract StoryBookLearningEventDao storyBookLearningEventDao();
+    /****
+ * Returns the DAO for accessing video learning event data in the database.
+ *
+ * @return the VideoLearningEventDao instance for performing CRUD operations on video learning events
+ */
+public abstract VideoLearningEventDao videoLearningEventDao();
 
     private static volatile RoomDb INSTANCE;
 

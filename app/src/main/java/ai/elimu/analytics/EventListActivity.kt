@@ -17,6 +17,13 @@ class EventListActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityEventListBinding
 
+    /**
+     * Initializes the activity, sets up the UI, and displays event counts from the local database.
+     *
+     * Retrieves and displays the device's Android ID, enables copying it to the clipboard, and configures a RecyclerView to show counts for various event types, including assessments and learning events. Fetches event counts asynchronously from the database and updates the UI accordingly. Handles errors by displaying an empty list if data retrieval fails, and sets the status bar appearance.
+     *
+     * @param savedInstanceState The previously saved instance state, if any.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         Timber.i("onCreate")
         super.onCreate(savedInstanceState)
