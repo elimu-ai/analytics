@@ -14,5 +14,5 @@ abstract class LearningEvent : BaseEntity() {
     @JvmField
     var time: Calendar = Calendar.getInstance()
 
-    var additionalData: String? = ""
+    var additionalData: String? = null
 }
