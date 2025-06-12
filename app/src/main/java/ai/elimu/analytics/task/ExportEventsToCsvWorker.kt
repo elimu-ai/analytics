@@ -78,7 +78,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
 
                 csvPrinter.printRecord(
                     letterSoundAssessmentEvent.id,
-                    letterSoundAssessmentEvent.time.timeInMillis,
+                    letterSoundAssessmentEvent.time.timeInMillis / 1_000,
                     letterSoundAssessmentEvent.packageName,
                     letterSoundAssessmentEvent.letterSoundLetters,
                     letterSoundAssessmentEvent.letterSoundSounds,
@@ -145,7 +145,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
 
                 csvPrinter.printRecord(
                     letterSoundLearningEvent.id,
-                    letterSoundLearningEvent.time.timeInMillis,
+                    letterSoundLearningEvent.time.timeInMillis / 1_000,
                     letterSoundLearningEvent.packageName,
                     letterSoundLearningEvent.additionalData,
                     letterSoundLearningEvent.id,
@@ -210,7 +210,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
 
                 csvPrinter.printRecord(
                     wordLearningEvent.id,
-                    wordLearningEvent.time.timeInMillis,
+                    wordLearningEvent.time.timeInMillis / 1_000,
                     wordLearningEvent.packageName,
                     wordLearningEvent.additionalData,
                     wordLearningEvent.wordId,
@@ -275,7 +275,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
 
                 csvPrinter.printRecord(
                     wordAssessmentEvent.id,
-                    wordAssessmentEvent.time.timeInMillis,
+                    wordAssessmentEvent.time.timeInMillis / 1_000,
                     wordAssessmentEvent.packageName,
                     wordAssessmentEvent.wordId,
                     wordAssessmentEvent.wordText,
@@ -340,7 +340,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
 
                 csvPrinter.printRecord(
                     storyBookLearningEvent.id,
-                    storyBookLearningEvent.time.timeInMillis,
+                    storyBookLearningEvent.time.timeInMillis / 1_000,
                     storyBookLearningEvent.packageName,
                     storyBookLearningEvent.additionalData,
                     storyBookLearningEvent.storyBookTitle,
