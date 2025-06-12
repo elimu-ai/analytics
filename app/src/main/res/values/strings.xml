@@ -9,4 +9,5 @@
     <string name="event_label_letter_sound_learning">Letter-sound learning: %d</string>
     <string name="event_label_word_learning">Word learning: %d</string>
     <string name="event_label_storybook_learning">Storybook learning: %d</string>
+    <string name="event_label_video_learning">Video learning: %d</string>
 </resources>
