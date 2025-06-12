@@ -25,7 +25,7 @@ class VideoLearningEventReceiver : BroadcastReceiver() {
         Timber.i("packageName: \"$packageName\"")
 
         val additionalData = intent.getStringExtra("additionalData")
-        Timber.i("additionalData: \"${additionalData}\"")
+        Timber.i("additionalData: ${additionalData}")
 
         val learningEventTypeAsString = intent.getStringExtra("learningEventType") ?: ""
         Timber.i("learningEventTypeAsString: \"$learningEventTypeAsString\"")

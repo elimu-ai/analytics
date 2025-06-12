@@ -25,7 +25,7 @@ class WordLearningEventReceiver : BroadcastReceiver() {
         Timber.i("timestamp.getTime(): %s", timestamp.time)
 
         val additionalData = intent.getStringExtra("additionalData")
-        Timber.i("additionalData: \"${additionalData}\"")
+        Timber.i("additionalData: ${additionalData}")
 
         var wordId: Long? = null
         if (intent.hasExtra("wordId")) {
