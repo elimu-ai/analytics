@@ -7,9 +7,6 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.provider.Settings
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.util.Calendar
 
@@ -51,7 +48,7 @@ class VideoLearningEventReceiver : BroadcastReceiver() {
         // Store in database
         val roomDb = RoomDb.getDatabase(context)
         val videoLearningEventDao = roomDb.videoLearningEventDao()
-        CoroutineScope(Dispatchers.IO).launch {
+        RoomDb.databaseWriteExecutor.execute {
             videoLearningEventDao.insert(videoLearningEvent)
         }
     }
