@@ -3,12 +3,13 @@ package ai.elimu.analytics.dao
 import ai.elimu.analytics.entity.VideoLearningEvent
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 
 @Dao
 interface VideoLearningEventDao {
-    @Insert
-    fun insert(videoLearningEvent: VideoLearningEvent)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(videoLearningEvent: VideoLearningEvent)
 
     @Query(
         "SELECT * FROM VideoLearningEvent ORDER BY " +
