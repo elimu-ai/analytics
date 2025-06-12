@@ -1,5 +1,6 @@
 package ai.elimu.analytics.receiver
 
+import ai.elimu.analytics.db.RoomDb
 import ai.elimu.analytics.entity.VideoLearningEvent
 import ai.elimu.model.v2.enums.analytics.LearningEventType
 import android.content.BroadcastReceiver
@@ -48,6 +49,11 @@ class VideoLearningEventReceiver : BroadcastReceiver() {
         videoLearningEvent.videoId = videoId
         videoLearningEvent.videoTitle = videoTitle
 
-        // TODO: Store in database
+        // Store in database
+        val roomDb = RoomDb.getDatabase(context)
+        val videoLearningEventDao = roomDb.videoLearningEventDao()
+        RoomDb.databaseWriteExecutor.execute {
+            videoLearningEventDao.insert(videoLearningEvent)
+        }
     }
 }

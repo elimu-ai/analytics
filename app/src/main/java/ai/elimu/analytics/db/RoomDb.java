@@ -16,6 +16,7 @@ import java.util.concurrent.Executors;
 import ai.elimu.analytics.dao.LetterSoundAssessmentEventDao;
 import ai.elimu.analytics.dao.LetterSoundLearningEventDao;
 import ai.elimu.analytics.dao.StoryBookLearningEventDao;
+import ai.elimu.analytics.dao.VideoLearningEventDao;
 import ai.elimu.analytics.dao.WordAssessmentEventDao;
 import ai.elimu.analytics.dao.WordLearningEventDao;
 import ai.elimu.analytics.entity.LetterSoundAssessmentEvent;
@@ -34,6 +35,7 @@ public abstract class RoomDb extends RoomDatabase {
     public abstract WordLearningEventDao wordLearningEventDao();
     public abstract WordAssessmentEventDao wordAssessmentEventDao();
     public abstract StoryBookLearningEventDao storyBookLearningEventDao();
+    public abstract VideoLearningEventDao videoLearningEventDao();
 
     private static volatile RoomDb INSTANCE;
 
