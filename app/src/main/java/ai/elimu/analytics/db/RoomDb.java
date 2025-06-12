@@ -27,7 +27,7 @@ import ai.elimu.analytics.entity.WordAssessmentEvent;
 import ai.elimu.analytics.entity.WordLearningEvent;
 import timber.log.Timber;
 
-@Database(version = 11, entities = {LetterSoundAssessmentEvent.class, LetterSoundLearningEvent.class, WordLearningEvent.class, WordAssessmentEvent.class, StoryBookLearningEvent.class, VideoLearningEvent.class})
+@Database(version = 12, entities = {LetterSoundAssessmentEvent.class, LetterSoundLearningEvent.class, WordLearningEvent.class, WordAssessmentEvent.class, StoryBookLearningEvent.class, VideoLearningEvent.class})
 @TypeConverters({Converters.class})
 public abstract class RoomDb extends RoomDatabase {
     public abstract LetterSoundAssessmentEventDao letterSoundAssessmentEventDao();
@@ -62,7 +62,8 @@ public abstract class RoomDb extends RoomDatabase {
                                     MIGRATION_7_8,
                                     MIGRATION_8_9,
                                     MIGRATION_9_10,
-                                    MIGRATION_10_11
+                                    MIGRATION_10_11,
+                                    MIGRATION_11_12
                             )
                             .build();
                 }
@@ -177,6 +178,29 @@ public abstract class RoomDb extends RoomDatabase {
             Timber.i("migrate (" + database.getVersion() + " --> 11)");
 
             String sql = "ALTER TABLE `StoryBookLearningEvent` ADD COLUMN `storyBookTitle` TEXT NOT NULL DEFAULT ''";
+            Timber.i("sql: %s", sql);
+            database.execSQL(sql);
+        }
+    };
+
+    private static final Migration MIGRATION_11_12 = new Migration(11, 12) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            Timber.i("migrate (" + database.getVersion() + " --> 12)");
+
+            String sql = "ALTER TABLE `LetterSoundLearningEvent` ADD COLUMN `additionalData` TEXT";
+            Timber.i("sql: %s", sql);
+            database.execSQL(sql);
+
+            sql = "ALTER TABLE `WordLearningEvent` ADD COLUMN `additionalData` TEXT";
+            Timber.i("sql: %s", sql);
+            database.execSQL(sql);
+
+            sql = "ALTER TABLE `StoryBookLearningEvent` ADD COLUMN `additionalData` TEXT";
+            Timber.i("sql: %s", sql);
+            database.execSQL(sql);
+
+            sql = "ALTER TABLE `VideoLearningEvent` ADD COLUMN `additionalData` TEXT";
             Timber.i("sql: %s", sql);
             database.execSQL(sql);
         }

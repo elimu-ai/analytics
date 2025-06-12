@@ -23,6 +23,9 @@ class LetterSoundLearningEventReceiver : BroadcastReceiver() {
         val timestamp = Calendar.getInstance()
         Timber.i("timestamp.getTime(): %s", timestamp.time)
 
+        val additionalData = intent.getStringExtra("additionalData")
+        Timber.i("additionalData: ${additionalData}")
+
         var letterSoundId: Long? = null
         if (intent.hasExtra("letterSoundId")) {
             letterSoundId = intent.getLongExtra("letterSoundId", 0)
@@ -41,6 +44,7 @@ class LetterSoundLearningEventReceiver : BroadcastReceiver() {
         letterSoundLearningEvent.androidId = androidId
         letterSoundLearningEvent.packageName = packageName
         letterSoundLearningEvent.time = timestamp
+        letterSoundLearningEvent.additionalData = additionalData
         letterSoundLearningEvent.letterSoundId = letterSoundId
         letterSoundLearningEvent.letterSoundLetterTexts = letterSoundLetterTexts
         letterSoundLearningEvent.letterSoundSoundValuesIpa = letterSoundSoundValuesIpa

@@ -10,6 +10,7 @@ import ai.elimu.model.v2.gson.content.WordGson
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import org.json.JSONObject
 import java.util.stream.Collectors
 
 /**
@@ -18,11 +19,13 @@ import java.util.stream.Collectors
 object LearningEventUtil {
     /**
      * @param letterSoundGson The letter-sound correspondence that the student is learning.
+     * @param additionalData Any additional data related to the learning event, e.g. `{'is_letter_pressed':true}`
      * @param context Needed to fetch the `packageName` of the application where the learning event occurred.
      * @param analyticsApplicationId The package name of the analytics application that will receive the Intent and store the event.
      */
     fun reportLetterSoundLearningEvent(
         letterSoundGson: LetterSoundGson,
+        additionalData: JSONObject,
         context: Context,
         analyticsApplicationId: String?
     ) {
@@ -31,6 +34,7 @@ object LearningEventUtil {
         val broadcastIntent = Intent()
         broadcastIntent.setAction("ai.elimu.intent.action.LETTER_SOUND_LEARNING_EVENT")
         broadcastIntent.putExtra("packageName", context.packageName)
+        broadcastIntent.putExtra("additionalData", additionalData.toString())
         broadcastIntent.putExtra("letterSoundId", letterSoundGson.id)
         broadcastIntent.putExtra(
             "letterSoundLetterTexts",
@@ -53,12 +57,14 @@ object LearningEventUtil {
     /**
      * @param wordGson The word that the student is learning.
      * @param learningEventType The type of learning (i.e. the learning format) that is presented to the student in the application (`packageName`).
+     * @param additionalData Any additional data related to the learning event, e.g. `{'is_word_pressed':true}`
      * @param context Needed to fetch the `packageName` of the application where the learning event occurred.
      * @param analyticsApplicationId The package name of the analytics application that will receive the Intent and store the event.
      */
     fun reportWordLearningEvent(
         wordGson: WordGson,
         learningEventType: LearningEventType,
+        additionalData: JSONObject,
         context: Context,
         analyticsApplicationId: String?
     ) {
@@ -67,6 +73,7 @@ object LearningEventUtil {
         val broadcastIntent = Intent()
         broadcastIntent.setAction("ai.elimu.intent.action.WORD_LEARNING_EVENT")
         broadcastIntent.putExtra("packageName", context.packageName)
+        broadcastIntent.putExtra("additionalData", additionalData.toString())
         broadcastIntent.putExtra("wordId", wordGson.id)
         broadcastIntent.putExtra("wordText", wordGson.text)
         broadcastIntent.putExtra("learningEventType", learningEventType.toString())
@@ -77,12 +84,14 @@ object LearningEventUtil {
     /**
      * @param storyBookGson The storybook that the student is learning from.
      * @param learningEventType The type of learning (i.e. the learning format) that is presented to the student in the application (`packageName`).
+     * @param additionalData Any additional data related to the learning event, e.g. `{'time_spent_per_chapter_ms':[7500,12900,34422,5023]}`
      * @param context Needed to fetch the `packageName` of the application where the learning event occurred.
      * @param analyticsApplicationId The package name of the analytics application that will receive the Intent and store the event.
      */
     fun reportStoryBookLearningEvent(
         storyBookGson: StoryBookGson,
         learningEventType: LearningEventType,
+        additionalData: JSONObject,
         context: Context,
         analyticsApplicationId: String?
     ) {
@@ -91,6 +100,7 @@ object LearningEventUtil {
         val broadcastIntent = Intent()
         broadcastIntent.setAction("ai.elimu.intent.action.STORYBOOK_LEARNING_EVENT")
         broadcastIntent.putExtra("packageName", context.packageName)
+        broadcastIntent.putExtra("additionalData", additionalData.toString())
         broadcastIntent.putExtra("storyBookTitle", storyBookGson.title)
         broadcastIntent.putExtra("storyBookId", storyBookGson.id)
         broadcastIntent.putExtra("learningEventType", learningEventType.toString())
@@ -101,12 +111,14 @@ object LearningEventUtil {
     /**
      * @param videoGson The video that the student is learning from.
      * @param learningEventType The type of learning (i.e. the learning format) that is presented to the student in the application (`packageName`).
+     * @param additionalData Any additional data related to the learning event, e.g. `{'is_video_paused':true}`
      * @param context Needed to fetch the `packageName` of the application where the learning event occurred.
      * @param analyticsApplicationId The package name of the analytics application that will receive the Intent and store the event.
      */
     fun reportVideoLearningEvent(
         videoGson: VideoGson,
         learningEventType: LearningEventType,
+        additionalData: JSONObject,
         context: Context,
         analyticsApplicationId: String?
     ) {
@@ -115,6 +127,7 @@ object LearningEventUtil {
         val broadcastIntent = Intent()
         broadcastIntent.setAction("ai.elimu.intent.action.VIDEO_LEARNING_EVENT")
         broadcastIntent.putExtra("packageName", context.packageName)
+        broadcastIntent.putExtra("additionalData", additionalData.toString())
         broadcastIntent.putExtra("videoId", videoGson.id)
         broadcastIntent.putExtra("videoTitle", videoGson.title)
         broadcastIntent.putExtra("learningEventType", learningEventType.toString())

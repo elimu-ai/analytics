@@ -49,6 +49,9 @@ object CursorToWordLearningEventGsonConverter {
             "time.getTime(): " + timestamp.time
         )
 
+        // TODO: add column `additionalData`
+        // Depends on https://github.com/elimu-ai/analytics/issues/313
+
         val columnWordId = cursor.getColumnIndex("wordId")
         val wordId = cursor.getLong(columnWordId)
         Log.i(
