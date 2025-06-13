@@ -25,7 +25,7 @@ object LearningEventUtil {
      */
     fun reportLetterSoundLearningEvent(
         letterSoundGson: LetterSoundGson,
-        additionalData: JSONObject?,
+        additionalData: JSONObject? = null,
         context: Context,
         analyticsApplicationId: String?
     ) {
@@ -66,7 +66,7 @@ object LearningEventUtil {
     fun reportWordLearningEvent(
         wordGson: WordGson,
         learningEventType: LearningEventType,
-        additionalData: JSONObject?,
+        additionalData: JSONObject? = null,
         context: Context,
         analyticsApplicationId: String?
     ) {
@@ -95,7 +95,7 @@ object LearningEventUtil {
     fun reportStoryBookLearningEvent(
         storyBookGson: StoryBookGson,
         learningEventType: LearningEventType,
-        additionalData: JSONObject?,
+        additionalData: JSONObject? = null,
         context: Context,
         analyticsApplicationId: String?
     ) {
@@ -124,7 +124,7 @@ object LearningEventUtil {
     fun reportVideoLearningEvent(
         videoGson: VideoGson,
         learningEventType: LearningEventType,
-        additionalData: JSONObject?,
+        additionalData: JSONObject? = null,
         context: Context,
         analyticsApplicationId: String?
     ) {
