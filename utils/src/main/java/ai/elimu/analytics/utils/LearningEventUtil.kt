@@ -25,7 +25,7 @@ object LearningEventUtil {
      */
     fun reportLetterSoundLearningEvent(
         letterSoundGson: LetterSoundGson,
-        additionalData: JSONObject,
+        additionalData: JSONObject?,
         context: Context,
         analyticsApplicationId: String?
     ) {
@@ -34,7 +34,9 @@ object LearningEventUtil {
         val broadcastIntent = Intent()
         broadcastIntent.setAction("ai.elimu.intent.action.LETTER_SOUND_LEARNING_EVENT")
         broadcastIntent.putExtra("packageName", context.packageName)
-        broadcastIntent.putExtra("additionalData", additionalData.toString())
+        additionalData?.let {
+            broadcastIntent.putExtra("additionalData", additionalData.toString())
+        }
         broadcastIntent.putExtra("letterSoundId", letterSoundGson.id)
         broadcastIntent.putExtra(
             "letterSoundLetterTexts",
@@ -64,7 +66,7 @@ object LearningEventUtil {
     fun reportWordLearningEvent(
         wordGson: WordGson,
         learningEventType: LearningEventType,
-        additionalData: JSONObject,
+        additionalData: JSONObject?,
         context: Context,
         analyticsApplicationId: String?
     ) {
@@ -73,7 +75,9 @@ object LearningEventUtil {
         val broadcastIntent = Intent()
         broadcastIntent.setAction("ai.elimu.intent.action.WORD_LEARNING_EVENT")
         broadcastIntent.putExtra("packageName", context.packageName)
-        broadcastIntent.putExtra("additionalData", additionalData.toString())
+        additionalData?.let {
+            broadcastIntent.putExtra("additionalData", additionalData.toString())
+        }
         broadcastIntent.putExtra("wordId", wordGson.id)
         broadcastIntent.putExtra("wordText", wordGson.text)
         broadcastIntent.putExtra("learningEventType", learningEventType.toString())
@@ -91,7 +95,7 @@ object LearningEventUtil {
     fun reportStoryBookLearningEvent(
         storyBookGson: StoryBookGson,
         learningEventType: LearningEventType,
-        additionalData: JSONObject,
+        additionalData: JSONObject?,
         context: Context,
         analyticsApplicationId: String?
     ) {
@@ -100,7 +104,9 @@ object LearningEventUtil {
         val broadcastIntent = Intent()
         broadcastIntent.setAction("ai.elimu.intent.action.STORYBOOK_LEARNING_EVENT")
         broadcastIntent.putExtra("packageName", context.packageName)
-        broadcastIntent.putExtra("additionalData", additionalData.toString())
+        additionalData?.let {
+            broadcastIntent.putExtra("additionalData", additionalData.toString())
+        }
         broadcastIntent.putExtra("storyBookTitle", storyBookGson.title)
         broadcastIntent.putExtra("storyBookId", storyBookGson.id)
         broadcastIntent.putExtra("learningEventType", learningEventType.toString())
@@ -118,7 +124,7 @@ object LearningEventUtil {
     fun reportVideoLearningEvent(
         videoGson: VideoGson,
         learningEventType: LearningEventType,
-        additionalData: JSONObject,
+        additionalData: JSONObject?,
         context: Context,
         analyticsApplicationId: String?
     ) {
@@ -127,7 +133,9 @@ object LearningEventUtil {
         val broadcastIntent = Intent()
         broadcastIntent.setAction("ai.elimu.intent.action.VIDEO_LEARNING_EVENT")
         broadcastIntent.putExtra("packageName", context.packageName)
-        broadcastIntent.putExtra("additionalData", additionalData.toString())
+        additionalData?.let {
+            broadcastIntent.putExtra("additionalData", additionalData.toString())
+        }
         broadcastIntent.putExtra("videoId", videoGson.id)
         broadcastIntent.putExtra("videoTitle", videoGson.title)
         broadcastIntent.putExtra("learningEventType", learningEventType.toString())
