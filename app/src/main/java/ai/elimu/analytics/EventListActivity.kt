@@ -54,13 +54,13 @@ class EventListActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        fetchLearningEvents()
+        fetchEvents()
     }
 
     /**
      * Fetch event counts from database, and update adapter
      */
-    private fun fetchLearningEvents() {
+    private fun fetchEvents() {
         val roomDb = RoomDb.getDatabase(applicationContext)
         RoomDb.databaseWriteExecutor.execute {
             try {
