@@ -16,6 +16,7 @@ import timber.log.Timber
 class EventListActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityEventListBinding
+    private lateinit var eventListAdapter: EventListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Timber.i("onCreate")
@@ -37,7 +38,7 @@ class EventListActivity : AppCompatActivity() {
         }
 
         val recyclerView = binding.recyclerview
-        val eventListAdapter = EventListAdapter(this)
+        eventListAdapter = EventListAdapter(this)
         recyclerView.adapter = eventListAdapter
         val linearLayoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = linearLayoutManager
@@ -45,7 +46,21 @@ class EventListActivity : AppCompatActivity() {
             DividerItemDecoration(recyclerView.context, linearLayoutManager.orientation)
         recyclerView.addItemDecoration(dividerItemDecoration)
 
-        // Fetch event counts from database, and update adapter
+        window.apply {
+            setLightStatusBar()
+            setStatusBarColorCompat(R.color.colorPrimaryDark)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        fetchLearningEvents()
+    }
+
+    /**
+     * Fetch event counts from database, and update adapter
+     */
+    private fun fetchLearningEvents() {
         val roomDb = RoomDb.getDatabase(applicationContext)
         RoomDb.databaseWriteExecutor.execute {
             try {
@@ -85,11 +100,6 @@ class EventListActivity : AppCompatActivity() {
                     eventListAdapter.setEventTypeCounts(emptyList())
                 }
             }
-        }
-
-        window.apply {
-            setLightStatusBar()
-            setStatusBarColorCompat(R.color.colorPrimaryDark)
         }
     }
 }
