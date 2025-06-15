@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 13,
-    "identityHash": "bd1b894d939e9b2e352407e2f35c4695",
+    "identityHash": "71044df5ea90420cd8739df3cfc6bb9d",
     "entities": [
       {
         "tableName": "LetterSoundAssessmentEvent",
@@ -127,7 +127,7 @@
       },
       {
         "tableName": "WordLearningEvent",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`wordId` INTEGER, `wordText` TEXT NOT NULL, `learningEventType` TEXT NOT NULL, `androidId` TEXT NOT NULL, `packageName` TEXT NOT NULL, `time` INTEGER NOT NULL, `additionalData` TEXT, `id` INTEGER PRIMARY KEY AUTOINCREMENT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`wordId` INTEGER, `wordText` TEXT NOT NULL, `learningEventType` TEXT, `androidId` TEXT NOT NULL, `packageName` TEXT NOT NULL, `time` INTEGER NOT NULL, `additionalData` TEXT, `id` INTEGER PRIMARY KEY AUTOINCREMENT)",
         "fields": [
           {
             "fieldPath": "wordId",
@@ -143,8 +143,7 @@
           {
             "fieldPath": "learningEventType",
             "columnName": "learningEventType",
-            "affinity": "TEXT",
-            "notNull": true
+            "affinity": "TEXT"
           },
           {
             "fieldPath": "androidId",
@@ -242,7 +241,7 @@
       },
       {
         "tableName": "StoryBookLearningEvent",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`storyBookTitle` TEXT NOT NULL, `storyBookId` INTEGER NOT NULL, `learningEventType` TEXT NOT NULL, `androidId` TEXT NOT NULL, `packageName` TEXT NOT NULL, `time` INTEGER NOT NULL, `additionalData` TEXT, `id` INTEGER PRIMARY KEY AUTOINCREMENT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`storyBookTitle` TEXT NOT NULL, `storyBookId` INTEGER NOT NULL, `learningEventType` TEXT, `androidId` TEXT NOT NULL, `packageName` TEXT NOT NULL, `time` INTEGER NOT NULL, `additionalData` TEXT, `id` INTEGER PRIMARY KEY AUTOINCREMENT)",
         "fields": [
           {
             "fieldPath": "storyBookTitle",
@@ -259,8 +258,7 @@
           {
             "fieldPath": "learningEventType",
             "columnName": "learningEventType",
-            "affinity": "TEXT",
-            "notNull": true
+            "affinity": "TEXT"
           },
           {
             "fieldPath": "androidId",
@@ -300,7 +298,7 @@
       },
       {
         "tableName": "VideoLearningEvent",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`videoId` INTEGER, `videoTitle` TEXT NOT NULL, `learningEventType` TEXT NOT NULL, `androidId` TEXT NOT NULL, `packageName` TEXT NOT NULL, `time` INTEGER NOT NULL, `additionalData` TEXT, `id` INTEGER PRIMARY KEY AUTOINCREMENT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`videoId` INTEGER, `videoTitle` TEXT NOT NULL, `learningEventType` TEXT, `androidId` TEXT NOT NULL, `packageName` TEXT NOT NULL, `time` INTEGER NOT NULL, `additionalData` TEXT, `id` INTEGER PRIMARY KEY AUTOINCREMENT)",
         "fields": [
           {
             "fieldPath": "videoId",
@@ -316,8 +314,7 @@
           {
             "fieldPath": "learningEventType",
             "columnName": "learningEventType",
-            "affinity": "TEXT",
-            "notNull": true
+            "affinity": "TEXT"
           },
           {
             "fieldPath": "androidId",
@@ -358,7 +355,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'bd1b894d939e9b2e352407e2f35c4695')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '71044df5ea90420cd8739df3cfc6bb9d')"
     ]
   }
 }

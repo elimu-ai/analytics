@@ -10,7 +10,8 @@ class StoryBookLearningEvent : LearningEvent() {
     @JvmField
     var storyBookId: Long = 0L
 
-    lateinit var learningEventType: LearningEventType
+    @Deprecated("Will be replaced by `additionalData`")
+    var learningEventType: LearningEventType? = null
 
     override fun toString(): String {
         return "id: " + id +
