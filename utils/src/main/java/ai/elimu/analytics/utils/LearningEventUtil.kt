@@ -96,7 +96,7 @@ object LearningEventUtil {
      */
     fun reportStoryBookLearningEvent(
         storyBookGson: StoryBookGson,
-        learningEventType: LearningEventType,
+        learningEventType: LearningEventType? = null,
         additionalData: JSONObject? = null,
         context: Context,
         analyticsApplicationId: String?
@@ -111,7 +111,9 @@ object LearningEventUtil {
         }
         broadcastIntent.putExtra("storyBookTitle", storyBookGson.title)
         broadcastIntent.putExtra("storyBookId", storyBookGson.id)
-        broadcastIntent.putExtra("learningEventType", learningEventType.toString())
+        learningEventType?.let {
+            broadcastIntent.putExtra("learningEventType", learningEventType.toString())
+        }
         broadcastIntent.setPackage(analyticsApplicationId)
         context.sendBroadcast(broadcastIntent)
     }
