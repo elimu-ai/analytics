@@ -9,5 +9,6 @@ class VideoLearningEvent : LearningEvent() {
 
     var videoTitle: String = ""
 
-    lateinit var learningEventType: LearningEventType
+    @Deprecated("Will be replaced by `additionalData`")
+    var learningEventType: LearningEventType? = null
 }

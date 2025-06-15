@@ -10,5 +10,6 @@ class WordLearningEvent : LearningEvent() {
 
     lateinit var wordText: String
 
-    lateinit var learningEventType: LearningEventType
+    @Deprecated("Will be replaced by `additionalData`")
+    var learningEventType: LearningEventType? = null
 }
