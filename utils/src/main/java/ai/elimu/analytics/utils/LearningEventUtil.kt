@@ -65,7 +65,7 @@ object LearningEventUtil {
      */
     fun reportWordLearningEvent(
         wordGson: WordGson,
-        learningEventType: LearningEventType,
+        learningEventType: LearningEventType? = null,
         additionalData: JSONObject? = null,
         context: Context,
         analyticsApplicationId: String?
@@ -80,7 +80,9 @@ object LearningEventUtil {
         }
         broadcastIntent.putExtra("wordId", wordGson.id)
         broadcastIntent.putExtra("wordText", wordGson.text)
-        broadcastIntent.putExtra("learningEventType", learningEventType.toString())
+        learningEventType?.let {
+            broadcastIntent.putExtra("learningEventType", learningEventType.toString())
+        }
         broadcastIntent.setPackage(analyticsApplicationId)
         context.sendBroadcast(broadcastIntent)
     }
