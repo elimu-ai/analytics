@@ -3,7 +3,6 @@ package ai.elimu.analytics.utils.converter
 import ai.elimu.model.v2.enums.analytics.LearningEventType
 import ai.elimu.model.v2.gson.analytics.WordLearningEventGson
 import android.database.Cursor
-import android.text.TextUtils
 import android.util.Log
 import java.util.Calendar
 
@@ -71,7 +70,7 @@ object CursorToWordLearningEventGsonConverter {
         val learningEventTypeAsString = cursor.getString(columnLearningEventType)
         Log.i(TAG, "learningEventTypeAsString: ${learningEventTypeAsString}")
         var learningEventType: LearningEventType? = null
-        if (!TextUtils.isEmpty(learningEventTypeAsString)) {
+        learningEventTypeAsString?.let {
             learningEventType = LearningEventType.valueOf(learningEventTypeAsString)
             Log.i(TAG, "learningEventType: ${learningEventType}")
         }
