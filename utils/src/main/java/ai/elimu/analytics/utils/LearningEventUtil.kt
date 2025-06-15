@@ -125,7 +125,7 @@ object LearningEventUtil {
      */
     fun reportVideoLearningEvent(
         videoGson: VideoGson,
-        learningEventType: LearningEventType,
+        learningEventType: LearningEventType? = null,
         additionalData: JSONObject? = null,
         context: Context,
         analyticsApplicationId: String?
@@ -140,7 +140,9 @@ object LearningEventUtil {
         }
         broadcastIntent.putExtra("videoId", videoGson.id)
         broadcastIntent.putExtra("videoTitle", videoGson.title)
-        broadcastIntent.putExtra("learningEventType", learningEventType.toString())
+        learningEventType?.let {
+            broadcastIntent.putExtra("learningEventType", learningEventType.toString())
+        }
         broadcastIntent.setPackage(analyticsApplicationId)
         context.sendBroadcast(broadcastIntent)
     }
