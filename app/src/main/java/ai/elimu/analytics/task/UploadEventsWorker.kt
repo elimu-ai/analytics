@@ -30,6 +30,7 @@ class UploadEventsWorker(context: Context, workerParams: WorkerParameters) :
         uploadLearningEvents(eventType = AnalyticEventType.WORD_LEARNING)
         uploadLearningEvents(eventType = AnalyticEventType.WORD_ASSESSMENT)
         uploadLearningEvents(eventType = AnalyticEventType.STORY_BOOK_LEARNING)
+        uploadLearningEvents(eventType = AnalyticEventType.VIDEO_LEARNING)
 
         return Result.success()
     }
