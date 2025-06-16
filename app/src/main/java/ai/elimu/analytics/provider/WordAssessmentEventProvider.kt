@@ -2,11 +2,13 @@ package ai.elimu.analytics.provider
 
 import ai.elimu.analytics.BuildConfig
 import ai.elimu.analytics.db.RoomDb
+import ai.elimu.analytics.entity.WordAssessmentEvent
 import android.content.ContentProvider
 import android.content.ContentValues
 import android.content.UriMatcher
 import android.database.Cursor
 import android.net.Uri
+import android.os.Bundle
 import timber.log.Timber
 import androidx.core.net.toUri
 
@@ -51,6 +53,18 @@ class WordAssessmentEventProvider : ContentProvider() {
                 val cursor = wordAssessmentEventDao.loadAllOrderedByTimeDesc()
                 Timber.i("cursor: $cursor")
                 cursor.setNotificationUri(context.contentResolver, uri)
+                val bundle = Bundle().apply {
+                    putInt("version_code", BuildConfig.VERSION_CODE)
+                    putString("column_name_id", WordAssessmentEvent::id.name)
+                    putString("column_name_android_id", WordAssessmentEvent::androidId.name)
+                    putString("column_name_package_name", WordAssessmentEvent::packageName.name)
+                    putString("column_name_timestamp", WordAssessmentEvent::time.name)
+                    putString("column_name_mastery_score", WordAssessmentEvent::masteryScore.name)
+                    putString("column_name_time_spent_ms", WordAssessmentEvent::timeSpentMs.name)
+                    putString("column_name_word_text", WordAssessmentEvent::wordText.name)
+                    putString("column_name_word_id", WordAssessmentEvent::wordId.name)
+                }
+                cursor.extras = bundle
                 return cursor
             }
             CODE_EVENTS_BY_WORD_ID -> {
@@ -67,6 +81,18 @@ class WordAssessmentEventProvider : ContentProvider() {
                 val cursor = wordAssessmentEventDao.loadAllOrderedByTimeDesc(wordId)
                 Timber.i("cursor: $cursor")
                 cursor.setNotificationUri(context.contentResolver, uri)
+                val bundle = Bundle().apply {
+                    putInt("version_code", BuildConfig.VERSION_CODE)
+                    putString("column_name_id", WordAssessmentEvent::id.name)
+                    putString("column_name_android_id", WordAssessmentEvent::androidId.name)
+                    putString("column_name_package_name", WordAssessmentEvent::packageName.name)
+                    putString("column_name_timestamp", WordAssessmentEvent::time.name)
+                    putString("column_name_mastery_score", WordAssessmentEvent::masteryScore.name)
+                    putString("column_name_time_spent_ms", WordAssessmentEvent::timeSpentMs.name)
+                    putString("column_name_word_text", WordAssessmentEvent::wordText.name)
+                    putString("column_name_word_id", WordAssessmentEvent::wordId.name)
+                }
+                cursor.extras = bundle
                 return cursor
             }
             else -> {
