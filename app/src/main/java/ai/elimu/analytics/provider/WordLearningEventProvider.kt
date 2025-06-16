@@ -2,11 +2,13 @@ package ai.elimu.analytics.provider
 
 import ai.elimu.analytics.BuildConfig
 import ai.elimu.analytics.db.RoomDb
+import ai.elimu.analytics.entity.WordLearningEvent
 import android.content.ContentProvider
 import android.content.ContentValues
 import android.content.UriMatcher
 import android.database.Cursor
 import android.net.Uri
+import android.os.Bundle
 import timber.log.Timber
 import androidx.core.net.toUri
 
@@ -50,6 +52,18 @@ class WordLearningEventProvider : ContentProvider() {
             val cursor = wordLearningEventDao.loadAllOrderedByTime()
             Timber.i("cursor: $cursor")
             cursor.setNotificationUri(context.contentResolver, uri)
+            val bundle = Bundle().apply {
+                putInt("version_code", BuildConfig.VERSION_CODE)
+                putString("column_name_id", WordLearningEvent::id.name)
+                putString("column_name_android_id", WordLearningEvent::androidId.name)
+                putString("column_name_package_name", WordLearningEvent::packageName.name)
+                putString("column_name_timestamp", WordLearningEvent::time.name)
+                putString("column_name_learning_event_type", WordLearningEvent::learningEventType.name)
+                putString("column_name_additional_data", WordLearningEvent::additionalData.name)
+                putString("column_name_word_text", WordLearningEvent::wordText.name)
+                putString("column_name_word_id", WordLearningEvent::wordId.name)
+            }
+            cursor.extras = bundle
             return cursor
         } else {
             throw IllegalArgumentException("Unknown URI: $uri")

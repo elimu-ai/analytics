@@ -18,25 +18,37 @@ object CursorToWordLearningEventGsonConverter {
             "Arrays.toString(cursor.getColumnNames()): " + cursor.columnNames.contentToString()
         )
 
+        val bundle = cursor.extras
+        Log.i(TAG, "bundle: ${bundle}")
+        Log.i(TAG, "bundle version_code: ${bundle.getInt("version_code")}")
+
+        val columnNameId = bundle.getString("column_name_id")
+        Log.i(TAG, "columnNameId: ${columnNameId}")
         val columnId = cursor.getColumnIndex("id")
         val id = cursor.getLong(columnId)
         Log.i(TAG, "id: $id")
 
-        val columnAndroidId = cursor.getColumnIndex("androidId")
+        val columnNameAndroidId = bundle.getString("column_name_android_id")
+        Log.i(TAG, "columnNameAndroidId: ${columnNameAndroidId}")
+        val columnAndroidId = cursor.getColumnIndex(columnNameAndroidId)
         val androidId = cursor.getString(columnAndroidId)
         Log.i(
             TAG,
             "androidId: \"$androidId\""
         )
 
-        val columnPackageName = cursor.getColumnIndex("packageName")
+        val columnNamePackageName = bundle.getString("column_name_package_name")
+        Log.i(TAG, "columnNamePackageName: ${columnNamePackageName}")
+        val columnPackageName = cursor.getColumnIndex(columnNamePackageName)
         val packageName = cursor.getString(columnPackageName)
         Log.i(
             TAG,
             "packageName: \"$packageName\""
         )
 
-        val columnTime = cursor.getColumnIndex("time")
+        val columnNameTimestamp = bundle.getString("column_name_timestamp")
+        Log.i(TAG, "columnNameTimestamp: ${columnNameTimestamp}")
+        val columnTime = cursor.getColumnIndex(columnNameTimestamp)
         val timeAsLong = cursor.getLong(columnTime)
         Log.i(
             TAG,
@@ -52,21 +64,27 @@ object CursorToWordLearningEventGsonConverter {
         // TODO: add column `additionalData`
         // Depends on https://github.com/elimu-ai/analytics/issues/313
 
-        val columnWordId = cursor.getColumnIndex("wordId")
+        val columnNameWordId = bundle.getString("column_name_word_id")
+        Log.i(TAG, "columnNameWordId: ${columnNameWordId}")
+        val columnWordId = cursor.getColumnIndex(columnNameWordId)
         val wordId = cursor.getLong(columnWordId)
         Log.i(
             TAG,
             "wordId: $wordId"
         )
 
-        val columnWordText = cursor.getColumnIndex("wordText")
+        val columnNameWordText = bundle.getString("column_name_word_text")
+        Log.i(TAG, "columnNameWordText: ${columnNameWordText}")
+        val columnWordText = cursor.getColumnIndex(columnNameWordText)
         val wordText = cursor.getString(columnWordText)
         Log.i(
             TAG,
             "wordText: \"$wordText\""
         )
 
-        val columnLearningEventType = cursor.getColumnIndex("learningEventType")
+        val columnNameLearningEventType = bundle.getString("column_name_learning_event_type")
+        Log.i(TAG, "columnNameLearningEventType: ${columnNameLearningEventType}")
+        val columnLearningEventType = cursor.getColumnIndex(columnNameLearningEventType)
         val learningEventTypeAsString = cursor.getString(columnLearningEventType)
         Log.i(TAG, "learningEventTypeAsString: ${learningEventTypeAsString}")
         var learningEventType: LearningEventType? = null
