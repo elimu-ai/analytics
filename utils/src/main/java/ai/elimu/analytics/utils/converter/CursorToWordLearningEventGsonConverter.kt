@@ -6,6 +6,10 @@ import android.database.Cursor
 import android.util.Log
 import java.util.Calendar
 
+/**
+ * Converts from [Cursor] to [WordLearningEventGson] to make it easier for 3rd-party apps
+ * to interact with the database `Cursor` in the `:app` module.
+ */
 object CursorToWordLearningEventGsonConverter {
     
     private const val TAG = "CursorToWordLearningEventGsonConverter"
