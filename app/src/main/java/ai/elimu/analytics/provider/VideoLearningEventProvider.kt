@@ -2,11 +2,13 @@ package ai.elimu.analytics.provider
 
 import ai.elimu.analytics.BuildConfig
 import ai.elimu.analytics.db.RoomDb
+import ai.elimu.analytics.entity.VideoLearningEvent
 import android.content.ContentProvider
 import android.content.ContentValues
 import android.content.UriMatcher
 import android.database.Cursor
 import android.net.Uri
+import android.os.Bundle
 import timber.log.Timber
 import androidx.core.net.toUri
 
@@ -50,6 +52,18 @@ class VideoLearningEventProvider : ContentProvider() {
             val cursor = videoLearningEventDao.loadAllToCursor()
             Timber.i("cursor: $cursor")
             cursor.setNotificationUri(context.contentResolver, uri)
+            val bundle = Bundle().apply {
+                putInt("version_code", BuildConfig.VERSION_CODE)
+                putString("column_name_id", VideoLearningEvent::id.name)
+                putString("column_name_android_id", VideoLearningEvent::androidId.name)
+                putString("column_name_package_name", VideoLearningEvent::packageName.name)
+                putString("column_name_timestamp", VideoLearningEvent::time.name)
+                putString("column_name_learning_event_type", VideoLearningEvent::learningEventType.name)
+                putString("column_name_additional_data", VideoLearningEvent::additionalData.name)
+                putString("column_name_video_title", VideoLearningEvent::videoTitle.name)
+                putString("column_name_video_id", VideoLearningEvent::videoId.name)
+            }
+            cursor.extras = bundle
             return cursor
         } else {
             throw IllegalArgumentException("Unknown URI: $uri")
