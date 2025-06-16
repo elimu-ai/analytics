@@ -1,9 +1,11 @@
 package ai.elimu.analytics.utils
 
 import ai.elimu.analytics.utils.converter.CursorToLetterSoundAssessmentEventGsonConverter
+import ai.elimu.analytics.utils.converter.CursorToVideoLearningEventGsonConverter
 import ai.elimu.analytics.utils.converter.CursorToWordAssessmentEventGsonConverter
 import ai.elimu.analytics.utils.converter.CursorToWordLearningEventGsonConverter
 import ai.elimu.model.v2.gson.analytics.LetterSoundAssessmentEventGson
+import ai.elimu.model.v2.gson.analytics.VideoLearningEventGson
 import ai.elimu.model.v2.gson.analytics.WordAssessmentEventGson
 import ai.elimu.model.v2.gson.analytics.WordLearningEventGson
 import ai.elimu.model.v2.gson.content.WordGson
@@ -309,5 +311,69 @@ object EventProviderUtil {
         )
 
         return wordAssessmentEventGsons
+    }
+
+    fun getVideoLearningEventGSONs(
+        context: Context,
+        analyticsApplicationId: String
+    ): List<VideoLearningEventGson> {
+        Log.i(TAG, "getVideoLearningEventGSONs")
+
+        val videoLearningEventGSONs: MutableList<VideoLearningEventGson> = ArrayList()
+
+        val videoLearningEventsUri =
+            "content://$analyticsApplicationId.provider.video_learning_event_provider/events".toUri()
+        Log.i(
+            TAG,
+            "videoLearningEventsUri: $videoLearningEventsUri"
+        )
+        val videoLearningEventsCursor =
+            context.contentResolver.query(videoLearningEventsUri, null, null, null, null)
+        Log.i(
+            TAG,
+            "videoLearningEventsCursor: $videoLearningEventsCursor"
+        )
+        if (videoLearningEventsCursor == null) {
+            Log.e(TAG, "videoLearningEventsCursor == null")
+            Toast.makeText(context, "videoLearningEventsCursor == null", Toast.LENGTH_LONG).show()
+        } else {
+            Log.i(
+                TAG,
+                "videoLearningEventsCursor.getCount(): " + videoLearningEventsCursor.count
+            )
+            if (videoLearningEventsCursor.count == 0) {
+                Log.e(
+                    TAG,
+                    "videoLearningEventsCursor.getCount() == 0"
+                )
+            } else {
+                var isLast = false
+                while (!isLast) {
+                    videoLearningEventsCursor.moveToNext()
+
+                    // Convert from Room to GSON
+                    val videoLearningEventGSON =
+                        CursorToVideoLearningEventGsonConverter.getVideoLearningEventGSON(
+                            videoLearningEventsCursor
+                        )
+
+                    videoLearningEventGSONs.add(videoLearningEventGSON)
+
+                    isLast = videoLearningEventsCursor.isLast
+                }
+
+                videoLearningEventsCursor.close()
+                Log.i(
+                    TAG,
+                    "videoLearningEventsCursor.isClosed(): " + videoLearningEventsCursor.isClosed
+                )
+            }
+        }
+        Log.i(
+            TAG,
+            "videoLearningEventGSONs.size(): " + videoLearningEventGSONs.size
+        )
+
+        return videoLearningEventGSONs
     }
 }
