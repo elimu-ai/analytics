@@ -363,4 +363,67 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
             Timber.e(e)
         }
     }
+
+    private fun exportVideoLearningEventsToCsv() {
+        Timber.i("exportVideoLearningEventsToCsv")
+
+        // Extract VideoLearningEvents from the database that have not yet been exported to CSV.
+        val roomDb = RoomDb.getDatabase(applicationContext)
+        val videoLearningEventDao = roomDb.videoLearningEventDao()
+        val videoLearningEvents = videoLearningEventDao.loadAll(isDesc = false)
+        Timber.i("videoLearningEvents.size(): %s", videoLearningEvents.size)
+
+        val csvFormat = CSVFormat.DEFAULT
+            .withHeader(
+                "id",
+                "timestamp",
+                "package_name",
+                "additional_data",
+                "video_title",
+                "video_id",
+                "learning_event_type"
+            )
+        var stringWriter = StringWriter()
+        try {
+            var csvPrinter = CSVPrinter(stringWriter, csvFormat)
+
+            // Generate one CSV file per day of events
+            var dateOfPreviousEvent: String? = null
+            for (videoLearningEvent in videoLearningEvents) {
+                val versionCode = getAppVersionCode(
+                    applicationContext
+                )
+                val date = eventDateFormat.format(videoLearningEvent.time.time)
+                if (date != dateOfPreviousEvent) {
+                    // Reset file content
+                    stringWriter = StringWriter()
+                    csvPrinter = CSVPrinter(stringWriter, csvFormat)
+                }
+                dateOfPreviousEvent = date
+
+                csvPrinter.printRecord(
+                    videoLearningEvent.id,
+                    videoLearningEvent.time.timeInMillis / 1_000,
+                    videoLearningEvent.packageName,
+                    videoLearningEvent.additionalData,
+                    videoLearningEvent.videoTitle,
+                    videoLearningEvent.videoId,
+                    videoLearningEvent.learningEventType
+                )
+                csvPrinter.flush()
+
+                val csvFileContent = stringWriter.toString()
+
+                // Write the content to the CSV file
+                val csvFile = AnalyticEventType.VIDEO_LEARNING.getUploadCsvFile(
+                    context = applicationContext,
+                    androidId = videoLearningEvent.androidId,
+                    versionCode = versionCode,
+                    date = date)
+                FileUtils.writeStringToFile(csvFile, csvFileContent, "UTF-8")
+            }
+        } catch (e: IOException) {
+            Timber.e(e)
+        }
+    }
 }
