@@ -24,7 +24,7 @@ object CursorToWordLearningEventGsonConverter {
 
         val columnNameId = bundle.getString("column_name_id")
         Log.i(TAG, "columnNameId: ${columnNameId}")
-        val columnId = cursor.getColumnIndex("id")
+        val columnId = cursor.getColumnIndex(columnNameId)
         val id = cursor.getLong(columnId)
         Log.i(TAG, "id: $id")
 
