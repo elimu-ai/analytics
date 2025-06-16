@@ -27,7 +27,7 @@ import ai.elimu.analytics.entity.WordAssessmentEvent;
 import ai.elimu.analytics.entity.WordLearningEvent;
 import timber.log.Timber;
 
-@Database(version = 12, entities = {LetterSoundAssessmentEvent.class, LetterSoundLearningEvent.class, WordLearningEvent.class, WordAssessmentEvent.class, StoryBookLearningEvent.class, VideoLearningEvent.class})
+@Database(version = 13, entities = {LetterSoundAssessmentEvent.class, LetterSoundLearningEvent.class, WordLearningEvent.class, WordAssessmentEvent.class, StoryBookLearningEvent.class, VideoLearningEvent.class})
 @TypeConverters({Converters.class})
 public abstract class RoomDb extends RoomDatabase {
     public abstract LetterSoundAssessmentEventDao letterSoundAssessmentEventDao();
@@ -63,7 +63,8 @@ public abstract class RoomDb extends RoomDatabase {
                                     MIGRATION_8_9,
                                     MIGRATION_9_10,
                                     MIGRATION_10_11,
-                                    MIGRATION_11_12
+                                    MIGRATION_11_12,
+                                    MIGRATION_12_13
                             )
                             .build();
                 }
@@ -203,6 +204,28 @@ public abstract class RoomDb extends RoomDatabase {
             sql = "ALTER TABLE `VideoLearningEvent` ADD COLUMN `additionalData` TEXT";
             Timber.i("sql: %s", sql);
             database.execSQL(sql);
+        }
+    };
+
+    private static final Migration MIGRATION_12_13 = new Migration(12, 13) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            Timber.i("migrate (" + database.getVersion() + " --> 13)");
+
+            database.execSQL("CREATE TABLE IF NOT EXISTS `WordLearningEvent_tmp` (`wordId` INTEGER, `wordText` TEXT NOT NULL, `learningEventType` TEXT, `androidId` TEXT NOT NULL, `packageName` TEXT NOT NULL, `time` INTEGER NOT NULL, `additionalData` TEXT, `id` INTEGER PRIMARY KEY AUTOINCREMENT)");
+            database.execSQL("INSERT INTO WordLearningEvent_tmp(wordId, wordText, learningEventType, androidId, packageName, time, additionalData, id) SELECT wordId, wordText, learningEventType, androidId, packageName, time, additionalData, id FROM WordLearningEvent");
+            database.execSQL("DROP TABLE WordLearningEvent");
+            database.execSQL("ALTER TABLE WordLearningEvent_tmp RENAME TO WordLearningEvent");
+
+            database.execSQL("CREATE TABLE IF NOT EXISTS `StoryBookLearningEvent_tmp` (`storyBookTitle` TEXT NOT NULL, `storyBookId` INTEGER NOT NULL, `learningEventType` TEXT, `androidId` TEXT NOT NULL, `packageName` TEXT NOT NULL, `time` INTEGER NOT NULL, `additionalData` TEXT, `id` INTEGER PRIMARY KEY AUTOINCREMENT)");
+            database.execSQL("INSERT INTO StoryBookLearningEvent_tmp(storyBookTitle, storyBookId, learningEventType, androidId, packageName, time, additionalData, id) SELECT storyBookTitle, storyBookId, learningEventType, androidId, packageName, time, additionalData, id FROM StoryBookLearningEvent");
+            database.execSQL("DROP TABLE StoryBookLearningEvent");
+            database.execSQL("ALTER TABLE StoryBookLearningEvent_tmp RENAME TO StoryBookLearningEvent");
+
+            database.execSQL("CREATE TABLE IF NOT EXISTS `VideoLearningEvent_tmp` (`videoId` INTEGER, `videoTitle` TEXT NOT NULL, `learningEventType` TEXT, `androidId` TEXT NOT NULL, `packageName` TEXT NOT NULL, `time` INTEGER NOT NULL, `additionalData` TEXT, `id` INTEGER PRIMARY KEY AUTOINCREMENT)");
+            database.execSQL("INSERT INTO VideoLearningEvent_tmp(videoId, videoTitle, learningEventType, androidId, packageName, time, additionalData, id) SELECT videoId, videoTitle, learningEventType, androidId, packageName, time, additionalData, id FROM VideoLearningEvent");
+            database.execSQL("DROP TABLE VideoLearningEvent");
+            database.execSQL("ALTER TABLE VideoLearningEvent_tmp RENAME TO VideoLearningEvent");
         }
     };
 }

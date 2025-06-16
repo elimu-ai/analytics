@@ -68,11 +68,12 @@ object CursorToWordLearningEventGsonConverter {
 
         val columnLearningEventType = cursor.getColumnIndex("learningEventType")
         val learningEventTypeAsString = cursor.getString(columnLearningEventType)
-        val learningEventType = LearningEventType.valueOf(learningEventTypeAsString)
-        Log.i(
-            TAG,
-            "learningEventType: $learningEventType"
-        )
+        Log.i(TAG, "learningEventTypeAsString: ${learningEventTypeAsString}")
+        var learningEventType: LearningEventType? = null
+        learningEventTypeAsString?.let {
+            learningEventType = LearningEventType.valueOf(learningEventTypeAsString)
+            Log.i(TAG, "learningEventType: ${learningEventType}")
+        }
 
         val wordLearningEventGson = WordLearningEventGson()
         wordLearningEventGson.id = id
