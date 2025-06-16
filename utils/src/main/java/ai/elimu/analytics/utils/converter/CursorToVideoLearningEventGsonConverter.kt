@@ -80,7 +80,7 @@ object CursorToVideoLearningEventGsonConverter {
         )
 
         val columnNameLearningEventType = bundle.getString("column_name_learning_event_type")
-        Log.i(CursorToWordLearningEventGsonConverter.TAG, "columnNameLearningEventType: ${columnNameLearningEventType}")
+        Log.i(TAG, "columnNameLearningEventType: ${columnNameLearningEventType}")
         val columnLearningEventType = cursor.getColumnIndex(columnNameLearningEventType)
         val learningEventTypeAsString = cursor.getString(columnLearningEventType)
         val learningEventType = LearningEventType.valueOf(learningEventTypeAsString)
