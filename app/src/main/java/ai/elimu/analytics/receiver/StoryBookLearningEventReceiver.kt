@@ -15,18 +15,24 @@ class StoryBookLearningEventReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         Timber.i("onReceive")
 
-        val androidId =
-            Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
+        val androidId = Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
         Timber.i("androidId: \"$androidId\"")
 
         val packageName = intent.getStringExtra("packageName") ?: ""
         Timber.i("packageName: \"$packageName\"")
 
         val timestamp = Calendar.getInstance()
-        Timber.i("timestamp.getTime(): %s", timestamp.time)
+        Timber.i("timestamp.time: %s", timestamp.time)
 
         val additionalData = intent.getStringExtra("additionalData")
         Timber.i("additionalData: ${additionalData}")
+
+        val learningEventTypeAsString = intent.getStringExtra("learningEventType") ?: ""
+        Timber.i("learningEventTypeAsString: \"$learningEventTypeAsString\"")
+        val learningEventType = LearningEventType.valueOf(
+            learningEventTypeAsString
+        )
+        Timber.i("learningEventType: $learningEventType")
 
         val researchExperiment = ExperimentAssignmentHelper.CURRENT_EXPERIMENT
         val experimentGroup = ExperimentAssignmentHelper.getExperimentGroup(context)
@@ -39,23 +45,16 @@ class StoryBookLearningEventReceiver : BroadcastReceiver() {
         val storyBookId = intent.getLongExtra("storyBookId", 0)
         Timber.i("storyBookId: $storyBookId")
 
-        val learningEventTypeAsString = intent.getStringExtra("learningEventType") ?: ""
-        Timber.i("learningEventTypeAsString: \"$learningEventTypeAsString\"")
-        val learningEventType = LearningEventType.valueOf(
-            learningEventTypeAsString
-        )
-        Timber.i("learningEventType: $learningEventType")
-
         val storyBookLearningEvent = StoryBookLearningEvent()
         storyBookLearningEvent.androidId = androidId
         storyBookLearningEvent.packageName = packageName
         storyBookLearningEvent.time = timestamp
         storyBookLearningEvent.additionalData = additionalData
+        storyBookLearningEvent.learningEventType = learningEventType
         storyBookLearningEvent.researchExperiment = researchExperiment
         storyBookLearningEvent.experimentGroup = experimentGroup
         storyBookLearningEvent.storyBookTitle = storyBookTitle
         storyBookLearningEvent.storyBookId = storyBookId
-        storyBookLearningEvent.learningEventType = learningEventType
 
         // Store in database
         val roomDb = RoomDb.getDatabase(context)

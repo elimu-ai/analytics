@@ -14,15 +14,14 @@ class LetterSoundLearningEventReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         Timber.i("onReceive")
 
-        val androidId =
-            Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
+        val androidId = Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
         Timber.i("androidId: \"$androidId\"")
 
         val packageName = intent.getStringExtra("packageName") ?: ""
         Timber.i("packageName: \"$packageName\"")
 
         val timestamp = Calendar.getInstance()
-        Timber.i("timestamp.getTime(): %s", timestamp.time)
+        Timber.i("timestamp.time: %s", timestamp.time)
 
         val additionalData = intent.getStringExtra("additionalData")
         Timber.i("additionalData: ${additionalData}")
@@ -31,19 +30,17 @@ class LetterSoundLearningEventReceiver : BroadcastReceiver() {
         val experimentGroup = ExperimentAssignmentHelper.getExperimentGroup(context)
         Timber.i("researchExperiment: ${researchExperiment} (${experimentGroup})")
 
+        val letterSoundLetters = intent.getStringArrayExtra("letterSoundLetterTexts") ?: emptyArray()
+        Timber.i("letterSoundLetters: $letterSoundLetters")
+
+        val letterSoundSounds = intent.getStringArrayExtra("letterSoundSoundValuesIpa") ?: emptyArray()
+        Timber.i("letterSoundSounds: $letterSoundSounds")
+
         var letterSoundId: Long? = null
         if (intent.hasExtra("letterSoundId")) {
             letterSoundId = intent.getLongExtra("letterSoundId", 0)
         }
         Timber.i("letterSoundId: $letterSoundId")
-
-        val letterSoundLetterTexts = intent.getStringArrayExtra("letterSoundLetterTexts")
-            ?: emptyArray()
-        Timber.i("letterSoundLetterTexts: $letterSoundLetterTexts")
-
-        val letterSoundSoundValuesIpa = intent.getStringArrayExtra("letterSoundSoundValuesIpa")
-            ?: emptyArray()
-        Timber.i("letterSoundSoundValuesIpa: $letterSoundSoundValuesIpa")
 
         val letterSoundLearningEvent = LetterSoundLearningEvent()
         letterSoundLearningEvent.androidId = androidId
@@ -52,9 +49,9 @@ class LetterSoundLearningEventReceiver : BroadcastReceiver() {
         letterSoundLearningEvent.additionalData = additionalData
         letterSoundLearningEvent.researchExperiment = researchExperiment
         letterSoundLearningEvent.experimentGroup = experimentGroup
+        letterSoundLearningEvent.letterSoundLetterTexts = letterSoundLetters
+        letterSoundLearningEvent.letterSoundSoundValuesIpa = letterSoundSounds
         letterSoundLearningEvent.letterSoundId = letterSoundId
-        letterSoundLearningEvent.letterSoundLetterTexts = letterSoundLetterTexts
-        letterSoundLearningEvent.letterSoundSoundValuesIpa = letterSoundSoundValuesIpa
 
         // Store in database
         val roomDb = RoomDb.getDatabase(context)

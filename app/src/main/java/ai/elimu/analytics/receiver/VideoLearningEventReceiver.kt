@@ -16,10 +16,9 @@ class VideoLearningEventReceiver : BroadcastReceiver() {
         Timber.i("onReceive")
 
         val timestamp = Calendar.getInstance()
-        Timber.i("timestamp.getTime(): %s", timestamp.time)
+        Timber.i("timestamp.time: %s", timestamp.time)
 
-        val androidId =
-            Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
+        val androidId = Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
         Timber.i("androidId: \"$androidId\"")
 
         val packageName = intent.getStringExtra("packageName") ?: ""
@@ -28,10 +27,6 @@ class VideoLearningEventReceiver : BroadcastReceiver() {
         val additionalData = intent.getStringExtra("additionalData")
         Timber.i("additionalData: ${additionalData}")
 
-        val researchExperiment = ExperimentAssignmentHelper.CURRENT_EXPERIMENT
-        val experimentGroup = ExperimentAssignmentHelper.getExperimentGroup(context)
-        Timber.i("researchExperiment: ${researchExperiment} (${experimentGroup})")
-
         val learningEventTypeAsString = intent.getStringExtra("learningEventType") ?: ""
         Timber.i("learningEventTypeAsString: \"$learningEventTypeAsString\"")
         val learningEventType = LearningEventType.valueOf(
@@ -39,22 +34,26 @@ class VideoLearningEventReceiver : BroadcastReceiver() {
         )
         Timber.i("learningEventType: $learningEventType")
 
-        val videoId = intent.getLongExtra("videoId", 0)
-        Timber.i("videoId: $videoId")
+        val researchExperiment = ExperimentAssignmentHelper.CURRENT_EXPERIMENT
+        val experimentGroup = ExperimentAssignmentHelper.getExperimentGroup(context)
+        Timber.i("researchExperiment: ${researchExperiment} (${experimentGroup})")
 
         val videoTitle = intent.getStringExtra("videoTitle") ?: ""
         Timber.i("videoTitle: \"$videoTitle\"")
+
+        val videoId = intent.getLongExtra("videoId", 0)
+        Timber.i("videoId: $videoId")
 
         val videoLearningEvent = VideoLearningEvent()
         videoLearningEvent.time = timestamp
         videoLearningEvent.androidId = androidId
         videoLearningEvent.packageName = packageName
         videoLearningEvent.additionalData = additionalData
+        videoLearningEvent.learningEventType = learningEventType
         videoLearningEvent.researchExperiment = researchExperiment
         videoLearningEvent.experimentGroup = experimentGroup
-        videoLearningEvent.learningEventType = learningEventType
-        videoLearningEvent.videoId = videoId
         videoLearningEvent.videoTitle = videoTitle
+        videoLearningEvent.videoId = videoId
 
         // Store in database
         val roomDb = RoomDb.getDatabase(context)

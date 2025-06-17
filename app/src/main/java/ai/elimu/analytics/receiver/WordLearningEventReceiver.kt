@@ -15,31 +15,17 @@ class WordLearningEventReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         Timber.i("onReceive")
 
-        val androidId =
-            Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
+        val androidId = Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
         Timber.i("androidId: \"$androidId\"")
 
         val packageName = intent.getStringExtra("packageName") ?: ""
         Timber.i("packageName: \"$packageName\"")
 
         val timestamp = Calendar.getInstance()
-        Timber.i("timestamp.getTime(): %s", timestamp.time)
+        Timber.i("timestamp.time: %s", timestamp.time)
 
         val additionalData = intent.getStringExtra("additionalData")
         Timber.i("additionalData: ${additionalData}")
-
-        val researchExperiment = ExperimentAssignmentHelper.CURRENT_EXPERIMENT
-        val experimentGroup = ExperimentAssignmentHelper.getExperimentGroup(context)
-        Timber.i("researchExperiment: ${researchExperiment} (${experimentGroup})")
-
-        var wordId: Long? = null
-        if (intent.hasExtra("wordId")) {
-            wordId = intent.getLongExtra("wordId", 0)
-        }
-        Timber.i("wordId: $wordId")
-
-        val wordText = intent.getStringExtra("wordText") ?: ""
-        Timber.i("wordText: \"$wordText\"")
 
         val learningEventTypeAsString = intent.getStringExtra("learningEventType") ?: ""
         Timber.i("learningEventTypeAsString: \"$learningEventTypeAsString\"")
@@ -48,16 +34,29 @@ class WordLearningEventReceiver : BroadcastReceiver() {
         )
         Timber.i("learningEventType: $learningEventType")
 
+        val researchExperiment = ExperimentAssignmentHelper.CURRENT_EXPERIMENT
+        val experimentGroup = ExperimentAssignmentHelper.getExperimentGroup(context)
+        Timber.i("researchExperiment: ${researchExperiment} (${experimentGroup})")
+
+        val wordText = intent.getStringExtra("wordText") ?: ""
+        Timber.i("wordText: \"$wordText\"")
+
+        var wordId: Long? = null
+        if (intent.hasExtra("wordId")) {
+            wordId = intent.getLongExtra("wordId", 0)
+        }
+        Timber.i("wordId: $wordId")
+
         val wordLearningEvent = WordLearningEvent().apply {
             this.androidId = androidId
             this.packageName = packageName
             this.time = timestamp
             this.additionalData = additionalData
+            this.learningEventType = learningEventType
             this.researchExperiment = researchExperiment
             this.experimentGroup = experimentGroup
-            this.wordId = wordId
             this.wordText = wordText
-            this.learningEventType = learningEventType
+            this.wordId = wordId
         }
 
         // Store in database
