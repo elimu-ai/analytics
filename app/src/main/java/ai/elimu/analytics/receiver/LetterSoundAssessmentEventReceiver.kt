@@ -2,6 +2,7 @@ package ai.elimu.analytics.receiver
 
 import ai.elimu.analytics.db.RoomDb
 import ai.elimu.analytics.entity.LetterSoundAssessmentEvent
+import ai.elimu.analytics.utils.research.ExperimentAssignmentHelper
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -22,6 +23,10 @@ class LetterSoundAssessmentEventReceiver : BroadcastReceiver() {
 
         val timestamp: Calendar = Calendar.getInstance()
         Timber.i("timestamp.time: ${timestamp.time}")
+
+        val researchExperiment = ExperimentAssignmentHelper.CURRENT_EXPERIMENT
+        val experimentGroup = ExperimentAssignmentHelper.getExperimentGroup(context)
+        Timber.i("researchExperiment: ${researchExperiment} (${experimentGroup})")
 
         val letterSoundLetters: String = intent.getStringExtra("letterSoundLetters") ?: ""
         Timber.i("letterSoundLetters: \"${letterSoundLetters}\"")
@@ -45,6 +50,8 @@ class LetterSoundAssessmentEventReceiver : BroadcastReceiver() {
         letterSoundAssessmentEvent.time = timestamp
         letterSoundAssessmentEvent.androidId = androidId
         letterSoundAssessmentEvent.packageName = packageName
+        letterSoundAssessmentEvent.researchExperiment = researchExperiment
+        letterSoundAssessmentEvent.experimentGroup = experimentGroup
         letterSoundAssessmentEvent.letterSoundLetters = letterSoundLetters
         letterSoundAssessmentEvent.letterSoundSounds = letterSoundSounds
         letterSoundAssessmentEvent.letterSoundId = letterSoundId

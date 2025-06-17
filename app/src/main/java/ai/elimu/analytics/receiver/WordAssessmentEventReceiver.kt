@@ -2,6 +2,7 @@ package ai.elimu.analytics.receiver
 
 import ai.elimu.analytics.db.RoomDb
 import ai.elimu.analytics.entity.WordAssessmentEvent
+import ai.elimu.analytics.utils.research.ExperimentAssignmentHelper
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -29,6 +30,10 @@ class WordAssessmentEventReceiver : BroadcastReceiver() {
         }
         Timber.i("wordId: $wordId")
 
+        val researchExperiment = ExperimentAssignmentHelper.CURRENT_EXPERIMENT
+        val experimentGroup = ExperimentAssignmentHelper.getExperimentGroup(context)
+        Timber.i("researchExperiment: ${researchExperiment} (${experimentGroup})")
+
         val wordText = intent.getStringExtra("wordText") ?: ""
         Timber.i("wordText: \"$wordText\"")
 
@@ -42,6 +47,8 @@ class WordAssessmentEventReceiver : BroadcastReceiver() {
         wordAssessmentEvent.androidId = androidId
         wordAssessmentEvent.packageName = packageName
         wordAssessmentEvent.time = timestamp
+        wordAssessmentEvent.researchExperiment = researchExperiment
+        wordAssessmentEvent.experimentGroup = experimentGroup
         wordAssessmentEvent.wordId = wordId
         wordAssessmentEvent.wordText = wordText
         wordAssessmentEvent.masteryScore = masteryScore

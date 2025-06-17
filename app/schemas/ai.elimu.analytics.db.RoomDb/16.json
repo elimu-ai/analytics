@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 16,
-    "identityHash": "b7e2a545b7f612676cbeb02bdf1e0b44",
+    "identityHash": "07fe1e3733bab072f463a2233eacd976",
     "entities": [
       {
         "tableName": "LetterSoundAssessmentEvent",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`letterSoundLetters` TEXT NOT NULL, `letterSoundSounds` TEXT NOT NULL, `letterSoundId` INTEGER, `masteryScore` REAL NOT NULL, `timeSpentMs` INTEGER NOT NULL, `androidId` TEXT NOT NULL, `packageName` TEXT NOT NULL, `time` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`letterSoundLetters` TEXT NOT NULL, `letterSoundSounds` TEXT NOT NULL, `letterSoundId` INTEGER, `masteryScore` REAL NOT NULL, `timeSpentMs` INTEGER NOT NULL, `androidId` TEXT NOT NULL, `packageName` TEXT NOT NULL, `time` INTEGER NOT NULL, `researchExperiment` TEXT, `experimentGroup` TEXT, `id` INTEGER PRIMARY KEY AUTOINCREMENT)",
         "fields": [
           {
             "fieldPath": "letterSoundLetters",
@@ -54,6 +54,16 @@
             "columnName": "time",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "researchExperiment",
+            "columnName": "researchExperiment",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "experimentGroup",
+            "columnName": "experimentGroup",
+            "affinity": "TEXT"
           },
           {
             "fieldPath": "id",
@@ -203,7 +213,7 @@
       },
       {
         "tableName": "WordAssessmentEvent",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`wordId` INTEGER, `wordText` TEXT NOT NULL, `masteryScore` REAL NOT NULL, `timeSpentMs` INTEGER NOT NULL, `androidId` TEXT NOT NULL, `packageName` TEXT NOT NULL, `time` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`wordId` INTEGER, `wordText` TEXT NOT NULL, `masteryScore` REAL NOT NULL, `timeSpentMs` INTEGER NOT NULL, `androidId` TEXT NOT NULL, `packageName` TEXT NOT NULL, `time` INTEGER NOT NULL, `researchExperiment` TEXT, `experimentGroup` TEXT, `id` INTEGER PRIMARY KEY AUTOINCREMENT)",
         "fields": [
           {
             "fieldPath": "wordId",
@@ -245,6 +255,16 @@
             "columnName": "time",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "researchExperiment",
+            "columnName": "researchExperiment",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "experimentGroup",
+            "columnName": "experimentGroup",
+            "affinity": "TEXT"
           },
           {
             "fieldPath": "id",
@@ -466,7 +486,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'b7e2a545b7f612676cbeb02bdf1e0b44')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '07fe1e3733bab072f463a2233eacd976')"
     ]
   }
 }
