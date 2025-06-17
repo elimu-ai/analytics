@@ -14,21 +14,20 @@ class WordAssessmentEventReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         Timber.i("onReceive")
 
-        val androidId =
-            Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
+        val androidId = Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
         Timber.i("androidId: \"$androidId\"")
 
         val packageName = intent.getStringExtra("packageName") ?: ""
         Timber.i("packageName: \"$packageName\"")
 
         val timestamp = Calendar.getInstance()
-        Timber.i("timestamp.getTime(): %s", timestamp.time)
+        Timber.i("timestamp.time: %s", timestamp.time)
 
-        var wordId: Long? = null
-        if (intent.hasExtra("wordId")) {
-            wordId = intent.getLongExtra("wordId", 0)
-        }
-        Timber.i("wordId: $wordId")
+        val masteryScore = intent.getFloatExtra("masteryScore", 0f)
+        Timber.i("masteryScore: $masteryScore")
+
+        val timeSpentMs = intent.getLongExtra("timeSpentMs", 0)
+        Timber.i("timeSpentMs: $timeSpentMs")
 
         val researchExperiment = ExperimentAssignmentHelper.CURRENT_EXPERIMENT
         val experimentGroup = ExperimentAssignmentHelper.getExperimentGroup(context)
@@ -37,22 +36,22 @@ class WordAssessmentEventReceiver : BroadcastReceiver() {
         val wordText = intent.getStringExtra("wordText") ?: ""
         Timber.i("wordText: \"$wordText\"")
 
-        val masteryScore = intent.getFloatExtra("masteryScore", 0f)
-        Timber.i("masteryScore: $masteryScore")
-
-        val timeSpentMs = intent.getLongExtra("timeSpentMs", 0)
-        Timber.i("timeSpentMs: $timeSpentMs")
+        var wordId: Long? = null
+        if (intent.hasExtra("wordId")) {
+            wordId = intent.getLongExtra("wordId", 0)
+        }
+        Timber.i("wordId: $wordId")
 
         val wordAssessmentEvent = WordAssessmentEvent()
         wordAssessmentEvent.androidId = androidId
         wordAssessmentEvent.packageName = packageName
         wordAssessmentEvent.time = timestamp
-        wordAssessmentEvent.researchExperiment = researchExperiment
-        wordAssessmentEvent.experimentGroup = experimentGroup
-        wordAssessmentEvent.wordId = wordId
-        wordAssessmentEvent.wordText = wordText
         wordAssessmentEvent.masteryScore = masteryScore
         wordAssessmentEvent.timeSpentMs = timeSpentMs
+        wordAssessmentEvent.researchExperiment = researchExperiment
+        wordAssessmentEvent.experimentGroup = experimentGroup
+        wordAssessmentEvent.wordText = wordText
+        wordAssessmentEvent.wordId = wordId
 
         // Store in database
         val roomDb = RoomDb.getDatabase(context)

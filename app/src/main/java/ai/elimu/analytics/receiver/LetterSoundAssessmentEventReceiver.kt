@@ -24,6 +24,15 @@ class LetterSoundAssessmentEventReceiver : BroadcastReceiver() {
         val timestamp: Calendar = Calendar.getInstance()
         Timber.i("timestamp.time: ${timestamp.time}")
 
+        val masteryScore: Float = intent.getFloatExtra("masteryScore", 0f)
+        Timber.i("masteryScore: ${masteryScore}")
+
+        val timeSpentMs: Long = intent.getLongExtra("timeSpentMs", 0)
+        Timber.i("timeSpentMs: ${timeSpentMs}")
+
+        val additionalData: String? = intent.getStringExtra("additionalData")
+        Timber.i("additionalData: \"${additionalData}\"")
+
         val researchExperiment = ExperimentAssignmentHelper.CURRENT_EXPERIMENT
         val experimentGroup = ExperimentAssignmentHelper.getExperimentGroup(context)
         Timber.i("researchExperiment: ${researchExperiment} (${experimentGroup})")
@@ -37,27 +46,18 @@ class LetterSoundAssessmentEventReceiver : BroadcastReceiver() {
         val letterSoundId: Long = intent.getLongExtra("letterSoundId", 0)
         Timber.i("letterSoundId: ${letterSoundId}")
 
-        val masteryScore: Float = intent.getFloatExtra("masteryScore", 0f)
-        Timber.i("masteryScore: ${masteryScore}")
-
-        val timeSpentMs: Long = intent.getLongExtra("timeSpentMs", 0)
-        Timber.i("timeSpentMs: ${timeSpentMs}")
-
-        val additionalData: String? = intent.getStringExtra("additionalData")
-        Timber.i("additionalData: \"${additionalData}\"")
-
         val letterSoundAssessmentEvent = LetterSoundAssessmentEvent()
-        letterSoundAssessmentEvent.time = timestamp
         letterSoundAssessmentEvent.androidId = androidId
         letterSoundAssessmentEvent.packageName = packageName
+        letterSoundAssessmentEvent.time = timestamp
+        letterSoundAssessmentEvent.masteryScore = masteryScore
+        letterSoundAssessmentEvent.timeSpentMs = timeSpentMs
+//        letterSoundAssessmentEvent.additionalData = additionalData
         letterSoundAssessmentEvent.researchExperiment = researchExperiment
         letterSoundAssessmentEvent.experimentGroup = experimentGroup
         letterSoundAssessmentEvent.letterSoundLetters = letterSoundLetters
         letterSoundAssessmentEvent.letterSoundSounds = letterSoundSounds
         letterSoundAssessmentEvent.letterSoundId = letterSoundId
-        letterSoundAssessmentEvent.masteryScore = masteryScore
-        letterSoundAssessmentEvent.timeSpentMs = timeSpentMs
-//        letterSoundAssessmentEvent.additionalData = additionalData
 
         // Store in database
         val roomDb = RoomDb.getDatabase(context)

@@ -18,10 +18,9 @@ class NumberLearningEventReceiver : BroadcastReceiver() {
         Timber.i("onReceive")
 
         val timestamp = Calendar.getInstance()
-        Timber.i("timestamp.getTime(): %s", timestamp.time)
+        Timber.i("timestamp.time: %s", timestamp.time)
 
-        val androidId =
-            Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
+        val androidId = Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
         Timber.i("androidId: \"$androidId\"")
 
         val packageName = intent.getStringExtra("packageName") ?: ""
@@ -43,14 +42,14 @@ class NumberLearningEventReceiver : BroadcastReceiver() {
         }.getOrNull()
         Timber.i("learningEventType: $learningEventType")
 
-        val numberId = intent.getLongExtra("numberId", 0)
-        Timber.i("numberId: $numberId")
-
         val numberValue = intent.getIntExtra("numberValue", 0)
         Timber.i("numberValue: \"$numberValue\"")
 
         val numberSymbol = intent.getStringExtra("numberSymbol")
         Timber.i("numberSymbol: \"$numberSymbol\"")
+
+        val numberId = intent.getLongExtra("numberId", 0)
+        Timber.i("numberId: $numberId")
 
         val numberLearningEvent = NumberLearningEvent(numberValue).apply {
             this.time = timestamp
@@ -60,8 +59,8 @@ class NumberLearningEventReceiver : BroadcastReceiver() {
             this.researchExperiment = researchExperiment
             this.experimentGroup = experimentGroup
             this.learningEventType = learningEventType
-            this.numberId = numberId
             this.numberSymbol = numberSymbol
+            this.numberId = numberId
         }
 
         // Store in database
