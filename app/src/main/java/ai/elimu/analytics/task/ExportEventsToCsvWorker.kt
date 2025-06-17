@@ -33,6 +33,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
         exportWordLearningEventsToCsv()
         exportWordAssessmentEventsToCsv()
         exportStoryBookLearningEventsToCsv()
+        exportVideoLearningEventsToCsv()
 
         return Result.success()
     }
