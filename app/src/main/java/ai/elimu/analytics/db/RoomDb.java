@@ -15,19 +15,21 @@ import java.util.concurrent.Executors;
 
 import ai.elimu.analytics.dao.LetterSoundAssessmentEventDao;
 import ai.elimu.analytics.dao.LetterSoundLearningEventDao;
+import ai.elimu.analytics.dao.NumberLearningEventDao;
 import ai.elimu.analytics.dao.StoryBookLearningEventDao;
 import ai.elimu.analytics.dao.VideoLearningEventDao;
 import ai.elimu.analytics.dao.WordAssessmentEventDao;
 import ai.elimu.analytics.dao.WordLearningEventDao;
 import ai.elimu.analytics.entity.LetterSoundAssessmentEvent;
 import ai.elimu.analytics.entity.LetterSoundLearningEvent;
+import ai.elimu.analytics.entity.NumberLearningEvent;
 import ai.elimu.analytics.entity.StoryBookLearningEvent;
 import ai.elimu.analytics.entity.VideoLearningEvent;
 import ai.elimu.analytics.entity.WordAssessmentEvent;
 import ai.elimu.analytics.entity.WordLearningEvent;
 import timber.log.Timber;
 
-@Database(version = 13, entities = {LetterSoundAssessmentEvent.class, LetterSoundLearningEvent.class, WordLearningEvent.class, WordAssessmentEvent.class, StoryBookLearningEvent.class, VideoLearningEvent.class})
+@Database(version = 14, entities = {LetterSoundAssessmentEvent.class, LetterSoundLearningEvent.class, WordLearningEvent.class, WordAssessmentEvent.class, StoryBookLearningEvent.class, VideoLearningEvent.class, NumberLearningEvent.class})
 @TypeConverters({Converters.class})
 public abstract class RoomDb extends RoomDatabase {
     public abstract LetterSoundAssessmentEventDao letterSoundAssessmentEventDao();
@@ -36,6 +38,7 @@ public abstract class RoomDb extends RoomDatabase {
     public abstract WordAssessmentEventDao wordAssessmentEventDao();
     public abstract StoryBookLearningEventDao storyBookLearningEventDao();
     public abstract VideoLearningEventDao videoLearningEventDao();
+    public abstract NumberLearningEventDao numberLearningEventDao();
 
     private static volatile RoomDb INSTANCE;
 
@@ -64,7 +67,8 @@ public abstract class RoomDb extends RoomDatabase {
                                     MIGRATION_9_10,
                                     MIGRATION_10_11,
                                     MIGRATION_11_12,
-                                    MIGRATION_12_13
+                                    MIGRATION_12_13,
+                                    MIGRATION_13_14
                             )
                             .build();
                 }
@@ -226,6 +230,17 @@ public abstract class RoomDb extends RoomDatabase {
             database.execSQL("INSERT INTO VideoLearningEvent_tmp(videoId, videoTitle, learningEventType, androidId, packageName, time, additionalData, id) SELECT videoId, videoTitle, learningEventType, androidId, packageName, time, additionalData, id FROM VideoLearningEvent");
             database.execSQL("DROP TABLE VideoLearningEvent");
             database.execSQL("ALTER TABLE VideoLearningEvent_tmp RENAME TO VideoLearningEvent");
+        }
+    };
+
+    private static final Migration MIGRATION_13_14 = new Migration(13, 14) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            Timber.i("migrate (" + database.getVersion() + " --> 14)");
+
+            String sql = "CREATE TABLE IF NOT EXISTS `NumberLearningEvent` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `androidId` TEXT NOT NULL, `packageName` TEXT NOT NULL, `time` INTEGER NOT NULL, `numberId` INTEGER, `numberValue` INTEGER NOT NULL, `learningEventType` TEXT, `numberSymbol` TEXT, `additionalData` TEXT)";
+            Timber.i("sql: %s", sql);
+            database.execSQL(sql);
         }
     };
 }

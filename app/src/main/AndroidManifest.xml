@@ -75,6 +75,14 @@
             </intent-filter>
         </receiver>
 
+        <receiver android:name=".receiver.NumberLearningEventReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="ai.elimu.intent.action.NUMBER_LEARNING_EVENT" />
+            </intent-filter>
+        </receiver>
+
         <provider
             android:name=".provider.LetterSoundAssessmentEventProvider"
             android:authorities="${applicationId}.provider.letter_sound_assessment_event_provider"

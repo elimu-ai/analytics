@@ -88,6 +88,10 @@ class EventListActivity : AppCompatActivity() {
                     EventListAdapter.EventTypeCount(
                         getString(R.string.event_label_video_learning,
                             roomDb.videoLearningEventDao().getCount())
+                    ),
+                    EventListAdapter.EventTypeCount(
+                        getString(R.string.event_label_number_learning,
+                            roomDb.numberLearningEventDao().getCount())
                     )
                 )
                 runOnUiThread {
