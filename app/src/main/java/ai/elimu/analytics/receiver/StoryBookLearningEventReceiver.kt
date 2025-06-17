@@ -2,6 +2,7 @@ package ai.elimu.analytics.receiver
 
 import ai.elimu.analytics.db.RoomDb
 import ai.elimu.analytics.entity.StoryBookLearningEvent
+import ai.elimu.analytics.utils.research.ExperimentAssignmentHelper
 import ai.elimu.model.v2.enums.analytics.LearningEventType
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -46,6 +47,8 @@ class StoryBookLearningEventReceiver : BroadcastReceiver() {
         storyBookLearningEvent.packageName = packageName
         storyBookLearningEvent.time = timestamp
         storyBookLearningEvent.additionalData = additionalData
+        storyBookLearningEvent.researchExperiment = ExperimentAssignmentHelper.CURRENT_EXPERIMENT
+        storyBookLearningEvent.experimentGroup = ExperimentAssignmentHelper.getExperimentGroup(context)
         storyBookLearningEvent.storyBookTitle = storyBookTitle
         storyBookLearningEvent.storyBookId = storyBookId
         storyBookLearningEvent.learningEventType = learningEventType

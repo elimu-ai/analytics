@@ -2,6 +2,7 @@ package ai.elimu.analytics.receiver
 
 import ai.elimu.analytics.db.RoomDb
 import ai.elimu.analytics.entity.LetterSoundLearningEvent
+import ai.elimu.analytics.utils.research.ExperimentAssignmentHelper
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -45,6 +46,8 @@ class LetterSoundLearningEventReceiver : BroadcastReceiver() {
         letterSoundLearningEvent.packageName = packageName
         letterSoundLearningEvent.time = timestamp
         letterSoundLearningEvent.additionalData = additionalData
+        letterSoundLearningEvent.researchExperiment = ExperimentAssignmentHelper.CURRENT_EXPERIMENT
+        letterSoundLearningEvent.experimentGroup = ExperimentAssignmentHelper.getExperimentGroup(context)
         letterSoundLearningEvent.letterSoundId = letterSoundId
         letterSoundLearningEvent.letterSoundLetterTexts = letterSoundLetterTexts
         letterSoundLearningEvent.letterSoundSoundValuesIpa = letterSoundSoundValuesIpa

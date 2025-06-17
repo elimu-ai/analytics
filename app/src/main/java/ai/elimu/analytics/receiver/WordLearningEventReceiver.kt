@@ -2,6 +2,7 @@ package ai.elimu.analytics.receiver
 
 import ai.elimu.analytics.db.RoomDb
 import ai.elimu.analytics.entity.WordLearningEvent
+import ai.elimu.analytics.utils.research.ExperimentAssignmentHelper
 import ai.elimu.model.v2.enums.analytics.LearningEventType
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -48,6 +49,8 @@ class WordLearningEventReceiver : BroadcastReceiver() {
             this.packageName = packageName
             this.time = timestamp
             this.additionalData = additionalData
+            this.researchExperiment = ExperimentAssignmentHelper.CURRENT_EXPERIMENT
+            this.experimentGroup = ExperimentAssignmentHelper.getExperimentGroup(context)
             this.wordId = wordId
             this.wordText = wordText
             this.learningEventType = learningEventType

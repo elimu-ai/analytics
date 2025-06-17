@@ -2,6 +2,7 @@ package ai.elimu.analytics.receiver
 
 import ai.elimu.analytics.db.RoomDb
 import ai.elimu.analytics.entity.NumberLearningEvent
+import ai.elimu.analytics.utils.research.ExperimentAssignmentHelper
 import ai.elimu.model.v2.enums.analytics.LearningEventType
 import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
@@ -52,6 +53,8 @@ class NumberLearningEventReceiver : BroadcastReceiver() {
             this.androidId = androidId
             this.packageName = packageName
             this.additionalData = additionalData
+            this.researchExperiment = ExperimentAssignmentHelper.CURRENT_EXPERIMENT
+            this.experimentGroup = ExperimentAssignmentHelper.getExperimentGroup(context)
             this.learningEventType = learningEventType
             this.numberId = numberId
             this.numberSymbol = numberSymbol
