@@ -2,11 +2,14 @@ package ai.elimu.analytics.provider
 
 import ai.elimu.analytics.BuildConfig
 import ai.elimu.analytics.db.RoomDb
+import ai.elimu.analytics.entity.WordLearningEvent
+import ai.elimu.analytics.utils.converter.CursorToWordLearningEventGsonConverter
 import android.content.ContentProvider
 import android.content.ContentValues
 import android.content.UriMatcher
 import android.database.Cursor
 import android.net.Uri
+import android.os.Bundle
 import timber.log.Timber
 import androidx.core.net.toUri
 
@@ -50,6 +53,18 @@ class WordLearningEventProvider : ContentProvider() {
             val cursor = wordLearningEventDao.loadAllOrderedByTime()
             Timber.i("cursor: $cursor")
             cursor.setNotificationUri(context.contentResolver, uri)
+            val bundle = Bundle().apply {
+                putInt("version_code", BuildConfig.VERSION_CODE)
+                putString(CursorToWordLearningEventGsonConverter.COLUMN_NAME_ID, WordLearningEvent::id.name)
+                putString(CursorToWordLearningEventGsonConverter.COLUMN_NAME_ANDROID_ID, WordLearningEvent::androidId.name)
+                putString(CursorToWordLearningEventGsonConverter.COLUMN_NAME_PACKAGE_NAME, WordLearningEvent::packageName.name)
+                putString(CursorToWordLearningEventGsonConverter.COLUMN_NAME_TIMESTAMP, WordLearningEvent::time.name)
+                putString(CursorToWordLearningEventGsonConverter.COLUMN_NAME_LEARNING_EVENT_TYPE, WordLearningEvent::learningEventType.name)
+                putString(CursorToWordLearningEventGsonConverter.COLUMN_NAME_ADDITIONAL_DATA, WordLearningEvent::additionalData.name)
+                putString(CursorToWordLearningEventGsonConverter.COLUMN_NAME_WORD_TEXT, WordLearningEvent::wordText.name)
+                putString(CursorToWordLearningEventGsonConverter.COLUMN_NAME_WORD_ID, WordLearningEvent::wordId.name)
+            }
+            cursor.extras = bundle
             return cursor
         } else {
             throw IllegalArgumentException("Unknown URI: $uri")

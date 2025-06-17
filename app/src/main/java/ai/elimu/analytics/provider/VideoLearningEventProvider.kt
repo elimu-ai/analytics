@@ -2,11 +2,14 @@ package ai.elimu.analytics.provider
 
 import ai.elimu.analytics.BuildConfig
 import ai.elimu.analytics.db.RoomDb
+import ai.elimu.analytics.entity.VideoLearningEvent
+import ai.elimu.analytics.utils.converter.CursorToVideoLearningEventGsonConverter
 import android.content.ContentProvider
 import android.content.ContentValues
 import android.content.UriMatcher
 import android.database.Cursor
 import android.net.Uri
+import android.os.Bundle
 import timber.log.Timber
 import androidx.core.net.toUri
 
@@ -50,6 +53,18 @@ class VideoLearningEventProvider : ContentProvider() {
             val cursor = videoLearningEventDao.loadAllToCursor()
             Timber.i("cursor: $cursor")
             cursor.setNotificationUri(context.contentResolver, uri)
+            val bundle = Bundle().apply {
+                putInt("version_code", BuildConfig.VERSION_CODE)
+                putString(CursorToVideoLearningEventGsonConverter.COLUMN_NAME_ID, VideoLearningEvent::id.name)
+                putString(CursorToVideoLearningEventGsonConverter.COLUMN_NAME_ANDROID_ID, VideoLearningEvent::androidId.name)
+                putString(CursorToVideoLearningEventGsonConverter.COLUMN_NAME_PACKAGE_NAME, VideoLearningEvent::packageName.name)
+                putString(CursorToVideoLearningEventGsonConverter.COLUMN_NAME_TIMESTAMP, VideoLearningEvent::time.name)
+                putString(CursorToVideoLearningEventGsonConverter.COLUMN_NAME_LEARNING_EVENT_TYPE, VideoLearningEvent::learningEventType.name)
+                putString(CursorToVideoLearningEventGsonConverter.COLUMN_NAME_ADDITIONAL_DATA, VideoLearningEvent::additionalData.name)
+                putString(CursorToVideoLearningEventGsonConverter.COLUMN_NAME_VIDEO_TITLE, VideoLearningEvent::videoTitle.name)
+                putString(CursorToVideoLearningEventGsonConverter.COLUMN_NAME_VIDEO_ID, VideoLearningEvent::videoId.name)
+            }
+            cursor.extras = bundle
             return cursor
         } else {
             throw IllegalArgumentException("Unknown URI: $uri")
