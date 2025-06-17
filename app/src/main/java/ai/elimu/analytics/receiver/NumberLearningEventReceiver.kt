@@ -47,14 +47,13 @@ class NumberLearningEventReceiver : BroadcastReceiver() {
         val numberSymbol = intent.getStringExtra("numberSymbol") ?: ""
         Timber.i("numberSymbol: \"$numberSymbol\"")
 
-        val numberLearningEvent = NumberLearningEvent(numberValue).apply {
+        val numberLearningEvent = NumberLearningEvent(numberValue, numberSymbol).apply {
             this.time = timestamp
             this.androidId = androidId
             this.packageName = packageName
             this.additionalData = additionalData
             this.learningEventType = learningEventType
             this.numberId = numberId
-            this.numberSymbol = numberSymbol
         }
 
         // Store in database
