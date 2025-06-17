@@ -3,6 +3,7 @@ package ai.elimu.analytics.provider
 import ai.elimu.analytics.BuildConfig
 import ai.elimu.analytics.db.RoomDb
 import ai.elimu.analytics.entity.WordAssessmentEvent
+import ai.elimu.analytics.utils.converter.CursorToWordAssessmentEventGsonConverter
 import android.content.ContentProvider
 import android.content.ContentValues
 import android.content.UriMatcher
@@ -55,14 +56,14 @@ class WordAssessmentEventProvider : ContentProvider() {
                 cursor.setNotificationUri(context.contentResolver, uri)
                 val bundle = Bundle().apply {
                     putInt("version_code", BuildConfig.VERSION_CODE)
-                    putString("column_name_id", WordAssessmentEvent::id.name)
-                    putString("column_name_android_id", WordAssessmentEvent::androidId.name)
-                    putString("column_name_package_name", WordAssessmentEvent::packageName.name)
-                    putString("column_name_timestamp", WordAssessmentEvent::time.name)
-                    putString("column_name_mastery_score", WordAssessmentEvent::masteryScore.name)
-                    putString("column_name_time_spent_ms", WordAssessmentEvent::timeSpentMs.name)
-                    putString("column_name_word_text", WordAssessmentEvent::wordText.name)
-                    putString("column_name_word_id", WordAssessmentEvent::wordId.name)
+                    putString(CursorToWordAssessmentEventGsonConverter.COLUMN_NAME_ID, WordAssessmentEvent::id.name)
+                    putString(CursorToWordAssessmentEventGsonConverter.COLUMN_NAME_ANDROID_ID, WordAssessmentEvent::androidId.name)
+                    putString(CursorToWordAssessmentEventGsonConverter.COLUMN_NAME_PACKAGE_NAME, WordAssessmentEvent::packageName.name)
+                    putString(CursorToWordAssessmentEventGsonConverter.COLUMN_NAME_TIMESTAMP, WordAssessmentEvent::time.name)
+                    putString(CursorToWordAssessmentEventGsonConverter.COLUMN_NAME_MASTERY_SCORE, WordAssessmentEvent::masteryScore.name)
+                    putString(CursorToWordAssessmentEventGsonConverter.COLUMN_NAME_TIME_SPENT_MS, WordAssessmentEvent::timeSpentMs.name)
+                    putString(CursorToWordAssessmentEventGsonConverter.COLUMN_NAME_WORD_TEXT, WordAssessmentEvent::wordText.name)
+                    putString(CursorToWordAssessmentEventGsonConverter.COLUMN_NAME_WORD_ID, WordAssessmentEvent::wordId.name)
                 }
                 cursor.extras = bundle
                 return cursor
