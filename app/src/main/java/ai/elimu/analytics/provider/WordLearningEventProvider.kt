@@ -3,6 +3,7 @@ package ai.elimu.analytics.provider
 import ai.elimu.analytics.BuildConfig
 import ai.elimu.analytics.db.RoomDb
 import ai.elimu.analytics.entity.WordLearningEvent
+import ai.elimu.analytics.utils.converter.CursorToWordLearningEventGsonConverter
 import android.content.ContentProvider
 import android.content.ContentValues
 import android.content.UriMatcher
@@ -54,14 +55,14 @@ class WordLearningEventProvider : ContentProvider() {
             cursor.setNotificationUri(context.contentResolver, uri)
             val bundle = Bundle().apply {
                 putInt("version_code", BuildConfig.VERSION_CODE)
-                putString("column_name_id", WordLearningEvent::id.name)
-                putString("column_name_android_id", WordLearningEvent::androidId.name)
-                putString("column_name_package_name", WordLearningEvent::packageName.name)
-                putString("column_name_timestamp", WordLearningEvent::time.name)
-                putString("column_name_learning_event_type", WordLearningEvent::learningEventType.name)
-                putString("column_name_additional_data", WordLearningEvent::additionalData.name)
-                putString("column_name_word_text", WordLearningEvent::wordText.name)
-                putString("column_name_word_id", WordLearningEvent::wordId.name)
+                putString(CursorToWordLearningEventGsonConverter.COLUMN_NAME_ID, WordLearningEvent::id.name)
+                putString(CursorToWordLearningEventGsonConverter.COLUMN_NAME_ANDROID_ID, WordLearningEvent::androidId.name)
+                putString(CursorToWordLearningEventGsonConverter.COLUMN_NAME_PACKAGE_NAME, WordLearningEvent::packageName.name)
+                putString(CursorToWordLearningEventGsonConverter.COLUMN_NAME_TIMESTAMP, WordLearningEvent::time.name)
+                putString(CursorToWordLearningEventGsonConverter.COLUMN_NAME_LEARNING_EVENT_TYPE, WordLearningEvent::learningEventType.name)
+                putString(CursorToWordLearningEventGsonConverter.COLUMN_NAME_ADDITIONAL_DATA, WordLearningEvent::additionalData.name)
+                putString(CursorToWordLearningEventGsonConverter.COLUMN_NAME_WORD_TEXT, WordLearningEvent::wordText.name)
+                putString(CursorToWordLearningEventGsonConverter.COLUMN_NAME_WORD_ID, WordLearningEvent::wordId.name)
             }
             cursor.extras = bundle
             return cursor
