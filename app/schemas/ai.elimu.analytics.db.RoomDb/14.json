@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 14,
-    "identityHash": "0e466713a51e3e447bed0284c0f3c0b0",
+    "identityHash": "1703363bdb4dc528ab1c953d1c136143",
     "entities": [
       {
         "tableName": "LetterSoundAssessmentEvent",
@@ -354,7 +354,7 @@
       },
       {
         "tableName": "NumberLearningEvent",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`numberValue` INTEGER NOT NULL, `numberId` INTEGER, `numberSymbol` TEXT NOT NULL, `learningEventType` TEXT, `androidId` TEXT NOT NULL, `packageName` TEXT NOT NULL, `time` INTEGER NOT NULL, `additionalData` TEXT, `id` INTEGER PRIMARY KEY AUTOINCREMENT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`numberValue` INTEGER NOT NULL, `numberId` INTEGER, `numberSymbol` TEXT, `learningEventType` TEXT, `androidId` TEXT NOT NULL, `packageName` TEXT NOT NULL, `time` INTEGER NOT NULL, `additionalData` TEXT, `id` INTEGER PRIMARY KEY AUTOINCREMENT)",
         "fields": [
           {
             "fieldPath": "numberValue",
@@ -370,8 +370,7 @@
           {
             "fieldPath": "numberSymbol",
             "columnName": "numberSymbol",
-            "affinity": "TEXT",
-            "notNull": true
+            "affinity": "TEXT"
           },
           {
             "fieldPath": "learningEventType",
@@ -417,7 +416,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '0e466713a51e3e447bed0284c0f3c0b0')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '1703363bdb4dc528ab1c953d1c136143')"
     ]
   }
 }

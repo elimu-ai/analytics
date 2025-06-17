@@ -44,16 +44,17 @@ class NumberLearningEventReceiver : BroadcastReceiver() {
         val numberValue = intent.getIntExtra("numberValue", 0)
         Timber.i("numberValue: \"$numberValue\"")
 
-        val numberSymbol = intent.getStringExtra("numberSymbol") ?: ""
+        val numberSymbol = intent.getStringExtra("numberSymbol")
         Timber.i("numberSymbol: \"$numberSymbol\"")
 
-        val numberLearningEvent = NumberLearningEvent(numberValue, numberSymbol).apply {
+        val numberLearningEvent = NumberLearningEvent(numberValue).apply {
             this.time = timestamp
             this.androidId = androidId
             this.packageName = packageName
             this.additionalData = additionalData
             this.learningEventType = learningEventType
             this.numberId = numberId
+            this.numberSymbol = numberSymbol
         }
 
         // Store in database
