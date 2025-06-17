@@ -55,10 +55,10 @@ object CursorToVideoLearningEventGsonConverter {
         videoLearningEventGson.packageName = packageName
 
         val columnNameTimestamp = bundle.getString(COLUMN_NAME_TIMESTAMP)
-        val columnTime = cursor.getColumnIndexOrThrow(columnNameTimestamp)
-        val timeAsLong = cursor.getLong(columnTime)
+        val columnTimestamp = cursor.getColumnIndexOrThrow(columnNameTimestamp)
+        val timestampAsLong = cursor.getLong(columnTimestamp)
         val timestamp = Calendar.getInstance()
-        timestamp.timeInMillis = timeAsLong
+        timestamp.timeInMillis = timestampAsLong
         Log.i(TAG, "timestamp.time: " + timestamp.time)
         videoLearningEventGson.timestamp = timestamp
 

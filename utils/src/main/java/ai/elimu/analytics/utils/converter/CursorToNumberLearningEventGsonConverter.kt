@@ -48,11 +48,11 @@ object CursorToNumberLearningEventGsonConverter {
         Log.i(TAG, "packageName: \"$packageName\"")
         numberLearningEventGson.packageName = packageName
 
-        val columnTime = cursor.getColumnIndexOrThrow(COLUMN_NAME_TIMESTAMP)
-        val timeAsLong = cursor.getLong(columnTime)
+        val columnTimestamp = cursor.getColumnIndexOrThrow(COLUMN_NAME_TIMESTAMP)
+        val timestampAsLong = cursor.getLong(columnTimestamp)
         val timestamp = Calendar.getInstance()
-        timestamp.timeInMillis = timeAsLong
-        Log.i(TAG, "time.getTime(): " + timestamp.time)
+        timestamp.timeInMillis = timestampAsLong
+        Log.i(TAG, "timestamp.time: " + timestamp.time)
         numberLearningEventGson.timestamp = timestamp
 
         val columnAdditionalData = cursor.getColumnIndexOrThrow(COLUMN_NAME_ADDITIONAL_DATA)
