@@ -2,6 +2,7 @@ package ai.elimu.analytics.receiver
 
 import ai.elimu.analytics.db.RoomDb
 import ai.elimu.analytics.entity.VideoLearningEvent
+import ai.elimu.analytics.utils.research.ExperimentAssignmentHelper
 import ai.elimu.model.v2.enums.analytics.LearningEventType
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -27,6 +28,10 @@ class VideoLearningEventReceiver : BroadcastReceiver() {
         val additionalData = intent.getStringExtra("additionalData")
         Timber.i("additionalData: ${additionalData}")
 
+        val researchExperiment = ExperimentAssignmentHelper.CURRENT_EXPERIMENT
+        val experimentGroup = ExperimentAssignmentHelper.getExperimentGroup(context)
+        Timber.i("researchExperiment: ${researchExperiment} (${experimentGroup})")
+
         val learningEventTypeAsString = intent.getStringExtra("learningEventType") ?: ""
         Timber.i("learningEventTypeAsString: \"$learningEventTypeAsString\"")
         val learningEventType = LearningEventType.valueOf(
@@ -45,6 +50,8 @@ class VideoLearningEventReceiver : BroadcastReceiver() {
         videoLearningEvent.androidId = androidId
         videoLearningEvent.packageName = packageName
         videoLearningEvent.additionalData = additionalData
+        videoLearningEvent.researchExperiment = researchExperiment
+        videoLearningEvent.experimentGroup = experimentGroup
         videoLearningEvent.learningEventType = learningEventType
         videoLearningEvent.videoId = videoId
         videoLearningEvent.videoTitle = videoTitle

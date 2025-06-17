@@ -3,8 +3,11 @@ package ai.elimu.analytics
 import ai.elimu.analytics.databinding.ActivityEventListBinding
 import ai.elimu.analytics.db.RoomDb
 import ai.elimu.analytics.util.Clipboard
+import ai.elimu.analytics.utils.research.ExperimentAssignmentHelper
 import ai.elimu.common.utils.ui.setLightStatusBar
 import ai.elimu.common.utils.ui.setStatusBarColorCompat
+import ai.elimu.model.v2.enums.analytics.research.ExperimentGroup
+import ai.elimu.model.v2.enums.analytics.research.ResearchExperiment
 import android.os.Bundle
 import android.provider.Settings
 import android.view.View
@@ -36,6 +39,10 @@ class EventListActivity : AppCompatActivity() {
         binding.ivCopy.setOnClickListener {
             Clipboard.copy(this, binding.tvAndroidIdValue.text.toString())
         }
+
+        val researchExperiment = ExperimentAssignmentHelper.CURRENT_EXPERIMENT
+        val experimentGroup = ExperimentAssignmentHelper.getExperimentGroup(applicationContext)
+        binding.tvResearchExperiment.text = "Research experiment: ${researchExperiment} (${experimentGroup})"
 
         val recyclerView = binding.recyclerview
         eventListAdapter = EventListAdapter(this)

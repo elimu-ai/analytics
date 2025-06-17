@@ -2,6 +2,7 @@ package ai.elimu.analytics.receiver
 
 import ai.elimu.analytics.db.RoomDb
 import ai.elimu.analytics.entity.StoryBookLearningEvent
+import ai.elimu.analytics.utils.research.ExperimentAssignmentHelper
 import ai.elimu.model.v2.enums.analytics.LearningEventType
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -27,6 +28,10 @@ class StoryBookLearningEventReceiver : BroadcastReceiver() {
         val additionalData = intent.getStringExtra("additionalData")
         Timber.i("additionalData: ${additionalData}")
 
+        val researchExperiment = ExperimentAssignmentHelper.CURRENT_EXPERIMENT
+        val experimentGroup = ExperimentAssignmentHelper.getExperimentGroup(context)
+        Timber.i("researchExperiment: ${researchExperiment} (${experimentGroup})")
+
         val storyBookTitle: String = intent.getStringExtra("storyBookTitle")
                 ?: throw IllegalArgumentException("storyBookTitle must be provided")
         Timber.i("storyBookTitle: \"$storyBookTitle\"")
@@ -46,6 +51,8 @@ class StoryBookLearningEventReceiver : BroadcastReceiver() {
         storyBookLearningEvent.packageName = packageName
         storyBookLearningEvent.time = timestamp
         storyBookLearningEvent.additionalData = additionalData
+        storyBookLearningEvent.researchExperiment = researchExperiment
+        storyBookLearningEvent.experimentGroup = experimentGroup
         storyBookLearningEvent.storyBookTitle = storyBookTitle
         storyBookLearningEvent.storyBookId = storyBookId
         storyBookLearningEvent.learningEventType = learningEventType

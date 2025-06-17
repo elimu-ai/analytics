@@ -2,6 +2,7 @@ package ai.elimu.analytics.receiver
 
 import ai.elimu.analytics.db.RoomDb
 import ai.elimu.analytics.entity.WordLearningEvent
+import ai.elimu.analytics.utils.research.ExperimentAssignmentHelper
 import ai.elimu.model.v2.enums.analytics.LearningEventType
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -27,6 +28,10 @@ class WordLearningEventReceiver : BroadcastReceiver() {
         val additionalData = intent.getStringExtra("additionalData")
         Timber.i("additionalData: ${additionalData}")
 
+        val researchExperiment = ExperimentAssignmentHelper.CURRENT_EXPERIMENT
+        val experimentGroup = ExperimentAssignmentHelper.getExperimentGroup(context)
+        Timber.i("researchExperiment: ${researchExperiment} (${experimentGroup})")
+
         var wordId: Long? = null
         if (intent.hasExtra("wordId")) {
             wordId = intent.getLongExtra("wordId", 0)
@@ -48,6 +53,8 @@ class WordLearningEventReceiver : BroadcastReceiver() {
             this.packageName = packageName
             this.time = timestamp
             this.additionalData = additionalData
+            this.researchExperiment = researchExperiment
+            this.experimentGroup = experimentGroup
             this.wordId = wordId
             this.wordText = wordText
             this.learningEventType = learningEventType

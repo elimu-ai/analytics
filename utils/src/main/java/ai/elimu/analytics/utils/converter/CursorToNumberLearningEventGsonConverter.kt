@@ -81,7 +81,7 @@ object CursorToNumberLearningEventGsonConverter {
         if (columnNumberSymbol != -1) {
             val numberSymbol = cursor.getString(columnNumberSymbol)
             Log.i(TAG, "numberSymbol: \"$numberSymbol\"")
-            numberLearningEventGson.symbol = numberSymbol
+            numberLearningEventGson.numberSymbol = numberSymbol
         }
 
         val columnNumberId = cursor.getColumnIndex(COLUMN_NAME_NUMBER_ID)
