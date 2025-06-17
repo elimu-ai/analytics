@@ -4,11 +4,11 @@ import ai.elimu.model.v2.enums.analytics.LearningEventType
 import androidx.room.Entity
 
 @Entity
-class NumberLearningEvent : LearningEvent() {
+class NumberLearningEvent (val numberValue: Int) : LearningEvent() {
 
     var numberId: Long? = null
 
-    var number: Long? = null
+    lateinit var numberSymbol: String
 
     var learningEventType: LearningEventType? = null
 }
