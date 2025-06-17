@@ -238,7 +238,7 @@ public abstract class RoomDb extends RoomDatabase {
         public void migrate(@NonNull SupportSQLiteDatabase database) {
             Timber.i("migrate (" + database.getVersion() + " --> 14)");
 
-            String sql = "CREATE TABLE IF NOT EXISTS `NumberLearningEvent` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `androidId` TEXT NOT NULL, `packageName` TEXT NOT NULL, `time` INTEGER NOT NULL, `numberId` INTEGER, `numberValue` INTEGER NOT NULL, `learningEventType` TEXT, `numberSymbol` TEXT NOT NULL, `additionalData` TEXT)";
+            String sql = "CREATE TABLE IF NOT EXISTS `NumberLearningEvent` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `androidId` TEXT NOT NULL, `packageName` TEXT NOT NULL, `time` INTEGER NOT NULL, `numberId` INTEGER, `numberValue` INTEGER NOT NULL, `learningEventType` TEXT, `numberSymbol` TEXT, `additionalData` TEXT)";
             Timber.i("sql: %s", sql);
             database.execSQL(sql);
         }
