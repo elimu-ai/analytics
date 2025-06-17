@@ -3,6 +3,7 @@ package ai.elimu.analytics.utils
 import ai.elimu.model.v2.enums.analytics.LearningEventType
 import ai.elimu.model.v2.gson.content.LetterGson
 import ai.elimu.model.v2.gson.content.LetterSoundGson
+import ai.elimu.model.v2.gson.content.NumberGson
 import ai.elimu.model.v2.gson.content.SoundGson
 import ai.elimu.model.v2.gson.content.StoryBookGson
 import ai.elimu.model.v2.gson.content.VideoGson
@@ -142,6 +143,37 @@ object LearningEventUtil {
         }
         broadcastIntent.putExtra("videoId", videoGson.id)
         broadcastIntent.putExtra("videoTitle", videoGson.title)
+        learningEventType?.let {
+            broadcastIntent.putExtra("learningEventType", learningEventType.toString())
+        }
+        broadcastIntent.setPackage(analyticsApplicationId)
+        context.sendBroadcast(broadcastIntent)
+    }
+
+    /**
+     * @param numberGson The number that the student is learning.
+     * @param learningEventType The type of learning (i.e. the learning format) that is presented to the student in the application (`packageName`).
+     * @param additionalData Any additional data related to the learning event, e.g. `{'is_number_pressed':true}`
+     * @param context Needed to fetch the `packageName` of the application where the learning event occurred.
+     * @param analyticsApplicationId The package name of the analytics application that will receive the Intent and store the event.
+     */
+    fun reportNumberLearningEvent(
+        numberGson: NumberGson,
+        learningEventType: LearningEventType? = null,
+        additionalData: JSONObject? = null,
+        context: Context,
+        analyticsApplicationId: String?
+    ) {
+        Log.i(LearningEventUtil::class.java.name, "reportNumberLearningEvent")
+
+        val broadcastIntent = Intent()
+        broadcastIntent.setAction("ai.elimu.intent.action.NUMBER_LEARNING_EVENT")
+        broadcastIntent.putExtra("packageName", context.packageName)
+        additionalData?.let {
+            broadcastIntent.putExtra("additionalData", additionalData.toString())
+        }
+        broadcastIntent.putExtra("numberId", numberGson.id)
+        broadcastIntent.putExtra("number", numberGson.value)
         learningEventType?.let {
             broadcastIntent.putExtra("learningEventType", learningEventType.toString())
         }
