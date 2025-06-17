@@ -60,11 +60,14 @@ object CursorToNumberLearningEventGsonConverter {
         Log.i(TAG, "additionalData: $additionalData")
         numberLearningEventGson.additionalData = additionalData
 
-        val columnNumberId = cursor.getColumnIndex(COLUMN_NAME_NUMBER_ID)
-        if (columnNumberId != -1) {
-            val numberId = cursor.getLong(columnNumberId)
-            Log.i(TAG, "numberId: $numberId")
-            numberLearningEventGson.numberId = numberId
+        val columnLearningEventType = cursor.getColumnIndex(COLUMN_NAME_LEARNING_EVENT_TYPE)
+        if (columnLearningEventType != -1) {
+            val learningEventTypeAsString = cursor.getString(columnLearningEventType)
+            learningEventTypeAsString?.let {
+                val learningEventType = LearningEventType.valueOf(learningEventTypeAsString)
+                Log.i(TAG, "learningEventType: $learningEventType")
+                numberLearningEventGson.learningEventType = learningEventType
+            }
         }
 
         val columnNumberValue = cursor.getColumnIndex(COLUMN_NAME_NUMBER_VALUE)
@@ -81,14 +84,11 @@ object CursorToNumberLearningEventGsonConverter {
             numberLearningEventGson.symbol = numberSymbol
         }
 
-        val columnLearningEventType = cursor.getColumnIndex(COLUMN_NAME_LEARNING_EVENT_TYPE)
-        if (columnLearningEventType != -1) {
-            val learningEventTypeAsString = cursor.getString(columnLearningEventType)
-            learningEventTypeAsString?.let {
-                val learningEventType = LearningEventType.valueOf(learningEventTypeAsString)
-                Log.i(TAG, "learningEventType: $learningEventType")
-                numberLearningEventGson.learningEventType = learningEventType
-            }
+        val columnNumberId = cursor.getColumnIndex(COLUMN_NAME_NUMBER_ID)
+        if (columnNumberId != -1) {
+            val numberId = cursor.getLong(columnNumberId)
+            Log.i(TAG, "numberId: $numberId")
+            numberLearningEventGson.numberId = numberId
         }
 
         return numberLearningEventGson

@@ -68,12 +68,15 @@ object CursorToWordLearningEventGsonConverter {
         Log.i(TAG, "additionalData: " + additionalData)
         wordLearningEventGson.additionalData = additionalData
 
-        val columnNameWordId = bundle.getString(COLUMN_NAME_WORD_ID)
-        val columnWordId = cursor.getColumnIndex(columnNameWordId)
-        if (columnWordId != -1) {
-            val wordId = cursor.getLong(columnWordId)
-            Log.i(TAG, "wordId: $wordId")
-            wordLearningEventGson.wordId = wordId
+        val columnNameLearningEventType = bundle.getString(COLUMN_NAME_LEARNING_EVENT_TYPE)
+        val columnLearningEventType = cursor.getColumnIndex(columnNameLearningEventType)
+        if (columnLearningEventType != -1) {
+            val learningEventTypeAsString = cursor.getString(columnLearningEventType)
+            learningEventTypeAsString?.let {
+                val learningEventType = LearningEventType.valueOf(learningEventTypeAsString)
+                Log.i(TAG, "learningEventType: ${learningEventType}")
+                wordLearningEventGson.learningEventType = learningEventType
+            }
         }
 
         val columnNameWordText = bundle.getString(COLUMN_NAME_WORD_TEXT)
@@ -84,15 +87,12 @@ object CursorToWordLearningEventGsonConverter {
             wordLearningEventGson.wordText = wordText
         }
 
-        val columnNameLearningEventType = bundle.getString(COLUMN_NAME_LEARNING_EVENT_TYPE)
-        val columnLearningEventType = cursor.getColumnIndex(columnNameLearningEventType)
-        if (columnLearningEventType != -1) {
-            val learningEventTypeAsString = cursor.getString(columnLearningEventType)
-            learningEventTypeAsString?.let {
-                val learningEventType = LearningEventType.valueOf(learningEventTypeAsString)
-                Log.i(TAG, "learningEventType: ${learningEventType}")
-                wordLearningEventGson.learningEventType = learningEventType
-            }
+        val columnNameWordId = bundle.getString(COLUMN_NAME_WORD_ID)
+        val columnWordId = cursor.getColumnIndex(columnNameWordId)
+        if (columnWordId != -1) {
+            val wordId = cursor.getLong(columnWordId)
+            Log.i(TAG, "wordId: $wordId")
+            wordLearningEventGson.wordId = wordId
         }
 
         return wordLearningEventGson

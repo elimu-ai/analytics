@@ -68,14 +68,6 @@ object CursorToVideoLearningEventGsonConverter {
         Log.i(TAG, "additionalData: $additionalData")
         videoLearningEventGson.additionalData = additionalData
 
-        val columnNameVideoTitle = bundle.getString(COLUMN_NAME_VIDEO_TITLE)
-        val columnVideoTitle = cursor.getColumnIndex(columnNameVideoTitle)
-        if (columnVideoTitle != -1) {
-            val videoTitle = cursor.getString(columnVideoTitle)
-            Log.i(TAG, "videoTitle: \"$videoTitle\"")
-            videoLearningEventGson.videoTitle = videoTitle
-        }
-
         val columnNameLearningEventType = bundle.getString(COLUMN_NAME_LEARNING_EVENT_TYPE)
         val columnLearningEventType = cursor.getColumnIndex(columnNameLearningEventType)
         if (columnLearningEventType != -1) {
@@ -85,6 +77,14 @@ object CursorToVideoLearningEventGsonConverter {
                 Log.i(TAG, "learningEventType: $learningEventType")
                 videoLearningEventGson.learningEventType = learningEventType
             }
+        }
+
+        val columnNameVideoTitle = bundle.getString(COLUMN_NAME_VIDEO_TITLE)
+        val columnVideoTitle = cursor.getColumnIndex(columnNameVideoTitle)
+        if (columnVideoTitle != -1) {
+            val videoTitle = cursor.getString(columnVideoTitle)
+            Log.i(TAG, "videoTitle: \"$videoTitle\"")
+            videoLearningEventGson.videoTitle = videoTitle
         }
 
         val columnNameVideoId = bundle.getString(COLUMN_NAME_VIDEO_ID)

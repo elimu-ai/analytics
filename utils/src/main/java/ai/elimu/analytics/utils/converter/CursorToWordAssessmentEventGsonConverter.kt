@@ -61,22 +61,6 @@ object CursorToWordAssessmentEventGsonConverter {
         Log.i(TAG, "timestamp.time: " + timestamp.time)
         wordAssessmentEventGson.timestamp = timestamp
 
-        val columnNameWordId = bundle.getString(COLUMN_NAME_WORD_ID)
-        val columnWordId = cursor.getColumnIndex(columnNameWordId)
-        if (columnWordId != -1) {
-            val wordId = cursor.getLong(columnWordId)
-            Log.i(TAG, "wordId: $wordId")
-            wordAssessmentEventGson.wordId = wordId
-        }
-
-        val columnNameWordText = bundle.getString(COLUMN_NAME_WORD_TEXT)
-        val columnWordText = cursor.getColumnIndex(columnNameWordText)
-        if (columnWordText != -1) {
-            val wordText = cursor.getString(columnWordText)
-            Log.i(TAG, "wordText: \"$wordText\"")
-            wordAssessmentEventGson.wordText = wordText
-        }
-
         val columnNameMasteryScore = bundle.getString(COLUMN_NAME_MASTERY_SCORE)
         val columnMasteryScore = cursor.getColumnIndexOrThrow(columnNameMasteryScore)
         val masteryScore = cursor.getFloat(columnMasteryScore)
@@ -88,6 +72,22 @@ object CursorToWordAssessmentEventGsonConverter {
         val timeSpentMs = cursor.getLong(columnTimeSpentMs)
         Log.i(TAG, "timeSpentMs: $timeSpentMs")
         wordAssessmentEventGson.timeSpentMs = timeSpentMs
+
+        val columnNameWordText = bundle.getString(COLUMN_NAME_WORD_TEXT)
+        val columnWordText = cursor.getColumnIndex(columnNameWordText)
+        if (columnWordText != -1) {
+            val wordText = cursor.getString(columnWordText)
+            Log.i(TAG, "wordText: \"$wordText\"")
+            wordAssessmentEventGson.wordText = wordText
+        }
+
+        val columnNameWordId = bundle.getString(COLUMN_NAME_WORD_ID)
+        val columnWordId = cursor.getColumnIndex(columnNameWordId)
+        if (columnWordId != -1) {
+            val wordId = cursor.getLong(columnWordId)
+            Log.i(TAG, "wordId: $wordId")
+            wordAssessmentEventGson.wordId = wordId
+        }
 
         return wordAssessmentEventGson
     }
