@@ -29,11 +29,13 @@ class NumberLearningEventReceiver : BroadcastReceiver() {
         val additionalData = intent.getStringExtra("additionalData")
         Timber.i("additionalData: ${additionalData}")
 
-        val learningEventTypeAsString = intent.getStringExtra("learningEventType") ?: ""
+        val learningEventTypeAsString = intent.getStringExtra("learningEventType")
         Timber.i("learningEventTypeAsString: \"$learningEventTypeAsString\"")
-        val learningEventType = LearningEventType.valueOf(
-            learningEventTypeAsString
-        )
+        val learningEventType = runCatching {
+            learningEventTypeAsString?.let {
+                LearningEventType.valueOf(it)
+            }
+        }.getOrNull()
         Timber.i("learningEventType: $learningEventType")
 
         val numberId = intent.getLongExtra("numberId", 0)
