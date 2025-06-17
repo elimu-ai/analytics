@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 14,
-    "identityHash": "48f7095151e82ac99289b7e1778c9bd2",
+    "identityHash": "0e466713a51e3e447bed0284c0f3c0b0",
     "entities": [
       {
         "tableName": "LetterSoundAssessmentEvent",
@@ -354,17 +354,24 @@
       },
       {
         "tableName": "NumberLearningEvent",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`numberId` INTEGER, `number` INTEGER, `learningEventType` TEXT, `androidId` TEXT NOT NULL, `packageName` TEXT NOT NULL, `time` INTEGER NOT NULL, `additionalData` TEXT, `id` INTEGER PRIMARY KEY AUTOINCREMENT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`numberValue` INTEGER NOT NULL, `numberId` INTEGER, `numberSymbol` TEXT NOT NULL, `learningEventType` TEXT, `androidId` TEXT NOT NULL, `packageName` TEXT NOT NULL, `time` INTEGER NOT NULL, `additionalData` TEXT, `id` INTEGER PRIMARY KEY AUTOINCREMENT)",
         "fields": [
+          {
+            "fieldPath": "numberValue",
+            "columnName": "numberValue",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
           {
             "fieldPath": "numberId",
             "columnName": "numberId",
             "affinity": "INTEGER"
           },
           {
-            "fieldPath": "number",
-            "columnName": "number",
-            "affinity": "INTEGER"
+            "fieldPath": "numberSymbol",
+            "columnName": "numberSymbol",
+            "affinity": "TEXT",
+            "notNull": true
           },
           {
             "fieldPath": "learningEventType",
@@ -410,7 +417,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '48f7095151e82ac99289b7e1778c9bd2')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '0e466713a51e3e447bed0284c0f3c0b0')"
     ]
   }
 }
