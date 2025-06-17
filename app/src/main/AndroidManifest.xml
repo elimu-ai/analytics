@@ -109,5 +109,11 @@
             android:authorities="${applicationId}.provider.video_learning_event_provider"
             android:enabled="true"
             android:exported="true" />
+
+        <provider
+            android:name=".provider.NumberLearningEventProvider"
+            android:authorities="${applicationId}.provider.number_learning_event_provider"
+            android:enabled="true"
+            android:exported="true" />
     </application>
 </manifest>
