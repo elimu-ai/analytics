@@ -28,10 +28,7 @@ object CursorToWordLearningEventGsonConverter {
     fun getWordLearningEventGson(cursor: Cursor): WordLearningEventGson {
         Log.i(TAG, "getWordLearningEventGson")
 
-        Log.i(
-            TAG,
-            "Arrays.toString(cursor.getColumnNames()): " + cursor.columnNames.contentToString()
-        )
+        Log.i(TAG,"cursor.columnNames.contentToString(): " + cursor.columnNames.contentToString())
 
         val bundle = cursor.extras
         Log.i(TAG, "bundle: ${bundle}")

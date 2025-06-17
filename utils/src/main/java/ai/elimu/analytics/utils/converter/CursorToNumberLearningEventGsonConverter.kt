@@ -25,10 +25,11 @@ object CursorToNumberLearningEventGsonConverter {
     fun getNumberLearningEventGson(cursor: Cursor): NumberLearningEventGson {
         Log.i(TAG, "getNumberLearningEventGson")
 
-        Log.i(
-            TAG,
-            "Arrays.toString(cursor.getColumnNames()): " + cursor.columnNames.contentToString()
-        )
+        Log.i(TAG,"cursor.columnNames.contentToString(): " + cursor.columnNames.contentToString())
+
+        val bundle = cursor.extras
+        Log.i(TAG, "bundle: ${bundle}")
+        Log.i(TAG, "bundle version_code: ${bundle.getInt("version_code")}")
 
         val numberLearningEventGson = NumberLearningEventGson()
 

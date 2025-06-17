@@ -2,11 +2,14 @@ package ai.elimu.analytics.provider
 
 import ai.elimu.analytics.BuildConfig
 import ai.elimu.analytics.db.RoomDb
+import ai.elimu.analytics.entity.NumberLearningEvent
+import ai.elimu.analytics.utils.converter.CursorToNumberLearningEventGsonConverter
 import android.content.ContentProvider
 import android.content.ContentValues
 import android.content.UriMatcher
 import android.database.Cursor
 import android.net.Uri
+import android.os.Bundle
 import timber.log.Timber
 import androidx.core.net.toUri
 
@@ -50,6 +53,19 @@ class NumberLearningEventProvider : ContentProvider() {
             val cursor = numberLearningEventDao.loadAllOrderedByTime()
             Timber.i("cursor: $cursor")
             cursor.setNotificationUri(context.contentResolver, uri)
+            val bundle = Bundle().apply {
+                putInt("version_code", BuildConfig.VERSION_CODE)
+                putString(CursorToNumberLearningEventGsonConverter.COLUMN_NAME_ID, NumberLearningEvent::id.name)
+                putString(CursorToNumberLearningEventGsonConverter.COLUMN_NAME_ANDROID_ID, NumberLearningEvent::androidId.name)
+                putString(CursorToNumberLearningEventGsonConverter.COLUMN_NAME_PACKAGE_NAME, NumberLearningEvent::packageName.name)
+                putString(CursorToNumberLearningEventGsonConverter.COLUMN_NAME_TIMESTAMP, NumberLearningEvent::time.name)
+                putString(CursorToNumberLearningEventGsonConverter.COLUMN_NAME_LEARNING_EVENT_TYPE, NumberLearningEvent::learningEventType.name)
+                putString(CursorToNumberLearningEventGsonConverter.COLUMN_NAME_ADDITIONAL_DATA, NumberLearningEvent::additionalData.name)
+                putString(CursorToNumberLearningEventGsonConverter.COLUMN_NAME_NUMBER_VALUE, NumberLearningEvent::numberValue.name)
+                putString(CursorToNumberLearningEventGsonConverter.COLUMN_NAME_NUMBER_SYMBOL, NumberLearningEvent::numberSymbol.name)
+                putString(CursorToNumberLearningEventGsonConverter.COLUMN_NAME_NUMBER_ID, NumberLearningEvent::numberId.name)
+            }
+            cursor.extras = bundle
             return cursor
         } else {
             throw IllegalArgumentException("Unknown URI: $uri")

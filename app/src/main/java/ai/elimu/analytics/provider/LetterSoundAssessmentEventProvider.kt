@@ -68,6 +68,19 @@ class LetterSoundAssessmentEventProvider : ContentProvider() {
                 val cursor = letterSoundAssessmentEventDao.loadAllCursor()
                 Timber.i("cursor: ${cursor}")
                 cursor.setNotificationUri(context.contentResolver, uri)
+                val bundle = Bundle().apply {
+                    putInt("version_code", BuildConfig.VERSION_CODE)
+                    putString(CursorToLetterSoundAssessmentEventGsonConverter.COLUMN_NAME_ID, LetterSoundAssessmentEvent::id.name)
+                    putString(CursorToLetterSoundAssessmentEventGsonConverter.COLUMN_NAME_ANDROID_ID, LetterSoundAssessmentEvent::androidId.name)
+                    putString(CursorToLetterSoundAssessmentEventGsonConverter.COLUMN_NAME_PACKAGE_NAME, LetterSoundAssessmentEvent::packageName.name)
+                    putString(CursorToLetterSoundAssessmentEventGsonConverter.COLUMN_NAME_TIMESTAMP, LetterSoundAssessmentEvent::time.name)
+                    putString(CursorToLetterSoundAssessmentEventGsonConverter.COLUMN_NAME_MASTERY_SCORE, LetterSoundAssessmentEvent::masteryScore.name)
+                    putString(CursorToLetterSoundAssessmentEventGsonConverter.COLUMN_NAME_TIME_SPENT_MS, LetterSoundAssessmentEvent::timeSpentMs.name)
+                    putString(CursorToLetterSoundAssessmentEventGsonConverter.COLUMN_NAME_LETTER_SOUND_LETTERS, LetterSoundAssessmentEvent::letterSoundLetters.name)
+                    putString(CursorToLetterSoundAssessmentEventGsonConverter.COLUMN_NAME_LETTER_SOUND_SOUNDS, LetterSoundAssessmentEvent::letterSoundSounds.name)
+                    putString(CursorToLetterSoundAssessmentEventGsonConverter.COLUMN_NAME_LETTER_SOUND_ID, LetterSoundAssessmentEvent::letterSoundId.name)
+                }
+                cursor.extras = bundle
                 return cursor
             }
             CODE_EVENTS_BY_LETTER_SOUND_ID -> {
@@ -94,6 +107,7 @@ class LetterSoundAssessmentEventProvider : ContentProvider() {
                     putString(CursorToLetterSoundAssessmentEventGsonConverter.COLUMN_NAME_TIME_SPENT_MS, LetterSoundAssessmentEvent::timeSpentMs.name)
                     putString(CursorToLetterSoundAssessmentEventGsonConverter.COLUMN_NAME_LETTER_SOUND_LETTERS, LetterSoundAssessmentEvent::letterSoundLetters.name)
                     putString(CursorToLetterSoundAssessmentEventGsonConverter.COLUMN_NAME_LETTER_SOUND_SOUNDS, LetterSoundAssessmentEvent::letterSoundSounds.name)
+                    putString(CursorToLetterSoundAssessmentEventGsonConverter.COLUMN_NAME_LETTER_SOUND_ID, LetterSoundAssessmentEvent::letterSoundId.name)
                 }
                 cursor.extras = bundle
                 return cursor
