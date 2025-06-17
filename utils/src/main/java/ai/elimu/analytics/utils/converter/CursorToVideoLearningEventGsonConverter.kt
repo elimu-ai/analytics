@@ -37,92 +37,61 @@ object CursorToVideoLearningEventGsonConverter {
         val videoLearningEventGson = VideoLearningEventGson()
 
         val columnNameId = bundle.getString(COLUMN_NAME_ID)
-        Log.i(TAG, "columnNameId: ${columnNameId}")
         val columnId = cursor.getColumnIndexOrThrow(columnNameId)
         val id = cursor.getLong(columnId)
         Log.i(TAG, "id: $id")
         videoLearningEventGson.id = id
 
         val columnNameAndroidId = bundle.getString(COLUMN_NAME_ANDROID_ID)
-        Log.i(TAG, "columnNameAndroidId: ${columnNameAndroidId}")
         val columnAndroidId = cursor.getColumnIndexOrThrow(columnNameAndroidId)
         val androidId = cursor.getString(columnAndroidId)
-        Log.i(
-            TAG,
-            "androidId: \"$androidId\""
-        )
+        Log.i(TAG, "androidId: \"$androidId\"")
         videoLearningEventGson.androidId = androidId
 
         val columnNamePackageName = bundle.getString(COLUMN_NAME_PACKAGE_NAME)
-        Log.i(TAG, "columnNamePackageName: ${columnNamePackageName}")
         val columnPackageName = cursor.getColumnIndexOrThrow(columnNamePackageName)
         val packageName = cursor.getString(columnPackageName)
-        Log.i(
-            TAG,
-            "packageName: \"$packageName\""
-        )
+        Log.i(TAG, "packageName: \"$packageName\"")
         videoLearningEventGson.packageName = packageName
 
         val columnNameTimestamp = bundle.getString(COLUMN_NAME_TIMESTAMP)
-        Log.i(TAG, "columnNameTimestamp: ${columnNameTimestamp}")
         val columnTime = cursor.getColumnIndexOrThrow(columnNameTimestamp)
         val timeAsLong = cursor.getLong(columnTime)
-        Log.i(
-            TAG,
-            "timeAsLong: $timeAsLong"
-        )
         val timestamp = Calendar.getInstance()
         timestamp.timeInMillis = timeAsLong
-        Log.i(
-            TAG,
-            "time.getTime(): " + timestamp.time
-        )
+        Log.i(TAG, "timestamp.time: " + timestamp.time)
         videoLearningEventGson.timestamp = timestamp
 
         val columnNameAdditionalData = bundle.getString(COLUMN_NAME_ADDITIONAL_DATA)
-        Log.i(TAG, "columnNameAdditionalData: ${columnNameAdditionalData}")
         val columnAdditionalData = cursor.getColumnIndexOrThrow(columnNameAdditionalData)
         val additionalData = cursor.getString(columnAdditionalData)
-        Log.i(
-            TAG,
-            "additionalData: $additionalData"
-        )
+        Log.i(TAG, "additionalData: $additionalData")
         videoLearningEventGson.additionalData = additionalData
 
         val columnNameVideoTitle = bundle.getString(COLUMN_NAME_VIDEO_TITLE)
-        Log.i(TAG, "columnNameVideoTitle: ${columnNameVideoTitle}")
         val columnVideoTitle = cursor.getColumnIndex(columnNameVideoTitle)
         if (columnVideoTitle != -1) {
             val videoTitle = cursor.getString(columnVideoTitle)
-            Log.i(
-                TAG,
-                "videoTitle: \"$videoTitle\""
-            )
+            Log.i(TAG, "videoTitle: \"$videoTitle\"")
             videoLearningEventGson.videoTitle = videoTitle
         }
 
         val columnNameLearningEventType = bundle.getString(COLUMN_NAME_LEARNING_EVENT_TYPE)
-        Log.i(TAG, "columnNameLearningEventType: ${columnNameLearningEventType}")
         val columnLearningEventType = cursor.getColumnIndex(columnNameLearningEventType)
         if (columnLearningEventType != -1) {
             val learningEventTypeAsString = cursor.getString(columnLearningEventType)
-            val learningEventType = LearningEventType.valueOf(learningEventTypeAsString)
-            Log.i(
-                TAG,
-                "learningEventType: $learningEventType"
-            )
-            videoLearningEventGson.learningEventType = learningEventType
+            learningEventTypeAsString?.let {
+                val learningEventType = LearningEventType.valueOf(learningEventTypeAsString)
+                Log.i(TAG, "learningEventType: $learningEventType")
+                videoLearningEventGson.learningEventType = learningEventType
+            }
         }
 
         val columnNameVideoId = bundle.getString(COLUMN_NAME_VIDEO_ID)
-        Log.i(TAG, "columnNameVideoId: ${columnNameVideoId}")
-        val columnVideoId = cursor.getColumnIndex("videoId")
+        val columnVideoId = cursor.getColumnIndex(columnNameVideoId)
         if (columnVideoId != -1) {
             val videoId = cursor.getLong(columnVideoId)
-            Log.i(
-                TAG,
-                "videoId: \"$videoId\""
-            )
+            Log.i(TAG, "videoId: \"$videoId\"")
             videoLearningEventGson.videoId = videoId
         }
 

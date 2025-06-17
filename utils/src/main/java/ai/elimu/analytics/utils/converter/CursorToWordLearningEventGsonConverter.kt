@@ -37,87 +37,62 @@ object CursorToWordLearningEventGsonConverter {
         val wordLearningEventGson = WordLearningEventGson()
 
         val columnNameId = bundle.getString(COLUMN_NAME_ID)
-        Log.i(TAG, "columnNameId: ${columnNameId}")
         val columnId = cursor.getColumnIndexOrThrow(columnNameId)
         val id = cursor.getLong(columnId)
         Log.i(TAG, "id: $id")
         wordLearningEventGson.id = id
 
         val columnNameAndroidId = bundle.getString(COLUMN_NAME_ANDROID_ID)
-        Log.i(TAG, "columnNameAndroidId: ${columnNameAndroidId}")
         val columnAndroidId = cursor.getColumnIndexOrThrow(columnNameAndroidId)
         val androidId = cursor.getString(columnAndroidId)
-        Log.i(
-            TAG,
-            "androidId: \"$androidId\""
-        )
+        Log.i(TAG, "androidId: \"$androidId\"")
         wordLearningEventGson.androidId = androidId
 
         val columnNamePackageName = bundle.getString(COLUMN_NAME_PACKAGE_NAME)
-        Log.i(TAG, "columnNamePackageName: ${columnNamePackageName}")
         val columnPackageName = cursor.getColumnIndexOrThrow(columnNamePackageName)
         val packageName = cursor.getString(columnPackageName)
-        Log.i(
-            TAG,
-            "packageName: \"$packageName\""
-        )
+        Log.i(TAG, "packageName: \"$packageName\"")
         wordLearningEventGson.packageName = packageName
 
         val columnNameTimestamp = bundle.getString(COLUMN_NAME_TIMESTAMP)
-        Log.i(TAG, "columnNameTimestamp: ${columnNameTimestamp}")
         val columnTime = cursor.getColumnIndexOrThrow(columnNameTimestamp)
         val timeAsLong = cursor.getLong(columnTime)
-        Log.i(
-            TAG,
-            "timeAsLong: $timeAsLong"
-        )
         val timestamp = Calendar.getInstance()
         timestamp.timeInMillis = timeAsLong
-        Log.i(
-            TAG,
-            "time.getTime(): " + timestamp.time
-        )
+        Log.i(TAG, "timestamp.time: " + timestamp.time)
         wordLearningEventGson.timestamp = timestamp
 
-        // TODO: add column `additionalData`
-        // Depends on https://github.com/elimu-ai/analytics/issues/313
+        val columnNameAdditionalData = bundle.getString(COLUMN_NAME_ADDITIONAL_DATA)
+        val columnAdditionalData = cursor.getColumnIndexOrThrow(columnNameAdditionalData)
+        val additionalData = cursor.getString(columnAdditionalData)
+        Log.i(TAG, "additionalData: " + additionalData)
+        wordLearningEventGson.additionalData = additionalData
 
         val columnNameWordId = bundle.getString(COLUMN_NAME_WORD_ID)
-        Log.i(TAG, "columnNameWordId: ${columnNameWordId}")
         val columnWordId = cursor.getColumnIndex(columnNameWordId)
         if (columnWordId != -1) {
             val wordId = cursor.getLong(columnWordId)
-            Log.i(
-                TAG,
-                "wordId: $wordId"
-            )
+            Log.i(TAG, "wordId: $wordId")
             wordLearningEventGson.wordId = wordId
         }
 
         val columnNameWordText = bundle.getString(COLUMN_NAME_WORD_TEXT)
-        Log.i(TAG, "columnNameWordText: ${columnNameWordText}")
         val columnWordText = cursor.getColumnIndex(columnNameWordText)
         if (columnWordText != -1) {
             val wordText = cursor.getString(columnWordText)
-            Log.i(
-                TAG,
-                "wordText: \"$wordText\""
-            )
+            Log.i(TAG, "wordText: \"$wordText\"")
             wordLearningEventGson.wordText = wordText
         }
 
         val columnNameLearningEventType = bundle.getString(COLUMN_NAME_LEARNING_EVENT_TYPE)
-        Log.i(TAG, "columnNameLearningEventType: ${columnNameLearningEventType}")
         val columnLearningEventType = cursor.getColumnIndex(columnNameLearningEventType)
         if (columnLearningEventType != -1) {
             val learningEventTypeAsString = cursor.getString(columnLearningEventType)
-            Log.i(TAG, "learningEventTypeAsString: ${learningEventTypeAsString}")
-            var learningEventType: LearningEventType? = null
             learningEventTypeAsString?.let {
-                learningEventType = LearningEventType.valueOf(learningEventTypeAsString)
+                val learningEventType = LearningEventType.valueOf(learningEventTypeAsString)
                 Log.i(TAG, "learningEventType: ${learningEventType}")
+                wordLearningEventGson.learningEventType = learningEventType
             }
-            wordLearningEventGson.learningEventType = learningEventType
         }
 
         return wordLearningEventGson

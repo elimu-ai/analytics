@@ -40,32 +40,19 @@ object CursorToNumberLearningEventGsonConverter {
 
         val columnAndroidId = cursor.getColumnIndexOrThrow(COLUMN_NAME_ANDROID_ID)
         val androidId = cursor.getString(columnAndroidId)
-        Log.i(
-            TAG,
-            "androidId: \"$androidId\""
-        )
+        Log.i(TAG, "androidId: \"$androidId\"")
         numberLearningEventGson.androidId = androidId
 
         val columnPackageName = cursor.getColumnIndexOrThrow(COLUMN_NAME_PACKAGE_NAME)
         val packageName = cursor.getString(columnPackageName)
-        Log.i(
-            TAG,
-            "packageName: \"$packageName\""
-        )
+        Log.i(TAG, "packageName: \"$packageName\"")
         numberLearningEventGson.packageName = packageName
 
         val columnTime = cursor.getColumnIndexOrThrow(COLUMN_NAME_TIMESTAMP)
         val timeAsLong = cursor.getLong(columnTime)
-        Log.i(
-            TAG,
-            "timeAsLong: $timeAsLong"
-        )
         val timestamp = Calendar.getInstance()
         timestamp.timeInMillis = timeAsLong
-        Log.i(
-            TAG,
-            "time.getTime(): " + timestamp.time
-        )
+        Log.i(TAG, "time.getTime(): " + timestamp.time)
         numberLearningEventGson.timestamp = timestamp
 
         val columnAdditionalData = cursor.getColumnIndexOrThrow(COLUMN_NAME_ADDITIONAL_DATA)
@@ -97,13 +84,11 @@ object CursorToNumberLearningEventGsonConverter {
         val columnLearningEventType = cursor.getColumnIndex(COLUMN_NAME_LEARNING_EVENT_TYPE)
         if (columnLearningEventType != -1) {
             val learningEventTypeAsString = cursor.getString(columnLearningEventType)
-            Log.i(TAG, "learningEventTypeAsString: $learningEventTypeAsString")
-            var learningEventType: LearningEventType? = null
             learningEventTypeAsString?.let {
-                learningEventType = LearningEventType.valueOf(learningEventTypeAsString)
+                val learningEventType = LearningEventType.valueOf(learningEventTypeAsString)
+                Log.i(TAG, "learningEventType: $learningEventType")
+                numberLearningEventGson.learningEventType = learningEventType
             }
-            Log.i(TAG, "learningEventType: $learningEventType")
-            numberLearningEventGson.learningEventType = learningEventType
         }
 
         return numberLearningEventGson

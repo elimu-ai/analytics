@@ -60,6 +60,21 @@ object CursorToLetterSoundAssessmentEventGsonConverter {
         Log.i(TAG, "timestamp.time: " + timestamp.time)
         letterSoundAssessmentEventGson.timestamp = timestamp
 
+        val columnMasteryScore: Int = cursor.getColumnIndexOrThrow(COLUMN_NAME_MASTERY_SCORE)
+        val masteryScore: Float = cursor.getFloat(columnMasteryScore)
+        Log.i(TAG, "masteryScore: ${masteryScore}")
+        letterSoundAssessmentEventGson.masteryScore = masteryScore
+
+        val columnTimeSpentMs: Int = cursor.getColumnIndexOrThrow(COLUMN_NAME_TIME_SPENT_MS)
+        val timeSpentMs: Long = cursor.getLong(columnTimeSpentMs)
+        Log.i(TAG, "timeSpentMs: ${timeSpentMs}")
+        letterSoundAssessmentEventGson.timeSpentMs = timeSpentMs
+
+//        val columnAdditionalData: Int = cursor.getColumnIndexOrThrow(COLUMN_NAME_ADDITIONAL_DATA)
+//        val additionalData: String = cursor.getString(columnAdditionalData)
+//        Log.i(TAG, "additionalData: ${additionalData}")
+//        letterSoundAssessmentEventGson.additionalData = additionalData
+
         val columnLetterSoundLetters: Int = cursor.getColumnIndex(COLUMN_NAME_LETTER_SOUND_LETTERS)
         if (columnLetterSoundLetters != -1) {
             val letterSoundLetters: String = cursor.getString(columnLetterSoundLetters)
@@ -80,21 +95,6 @@ object CursorToLetterSoundAssessmentEventGsonConverter {
             Log.i(TAG, "letterSoundId: ${letterSoundId}")
             letterSoundAssessmentEventGson.letterSoundId = letterSoundId
         }
-
-        val columnMasteryScore: Int = cursor.getColumnIndexOrThrow(COLUMN_NAME_MASTERY_SCORE)
-        val masteryScore: Float = cursor.getFloat(columnMasteryScore)
-        Log.i(TAG, "masteryScore: ${masteryScore}")
-        letterSoundAssessmentEventGson.masteryScore = masteryScore
-
-        val columnTimeSpentMs: Int = cursor.getColumnIndexOrThrow(COLUMN_NAME_TIME_SPENT_MS)
-        val timeSpentMs: Long = cursor.getLong(columnTimeSpentMs)
-        Log.i(TAG, "timeSpentMs: ${timeSpentMs}")
-        letterSoundAssessmentEventGson.timeSpentMs = timeSpentMs
-
-//        val columnAdditionalData: Int = cursor.getColumnIndexOrThrow(COLUMN_NAME_ADDITIONAL_DATA)
-//        val additionalData: String = cursor.getString(columnAdditionalData)
-//        Log.i(TAG, "additionalData: ${additionalData}")
-//        letterSoundAssessmentEventGson.additionalData = additionalData
 
         return letterSoundAssessmentEventGson
     }
