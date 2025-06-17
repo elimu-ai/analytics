@@ -1,5 +1,7 @@
 package ai.elimu.analytics.entity
 
+import ai.elimu.model.v2.enums.analytics.research.ExperimentGroup
+import ai.elimu.model.v2.enums.analytics.research.ResearchExperiment
 import androidx.room.Entity
 import java.util.Calendar
 
@@ -26,4 +28,8 @@ abstract class LearningEvent : BaseEntity() {
      * ```
      */
     var additionalData: String? = null
+
+    var researchExperiment: ResearchExperiment? = null
+
+    var experimentGroup: ExperimentGroup? = null
 }

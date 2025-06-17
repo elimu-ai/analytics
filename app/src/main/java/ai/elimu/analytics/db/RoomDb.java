@@ -68,7 +68,8 @@ public abstract class RoomDb extends RoomDatabase {
                                     MIGRATION_10_11,
                                     MIGRATION_11_12,
                                     MIGRATION_12_13,
-                                    MIGRATION_13_14
+                                    MIGRATION_13_14,
+                                    MIGRATION_14_15
                             )
                             .build();
                 }
@@ -239,6 +240,55 @@ public abstract class RoomDb extends RoomDatabase {
             Timber.i("migrate (" + database.getVersion() + " --> 14)");
 
             String sql = "CREATE TABLE IF NOT EXISTS `NumberLearningEvent` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `androidId` TEXT NOT NULL, `packageName` TEXT NOT NULL, `time` INTEGER NOT NULL, `numberId` INTEGER, `numberValue` INTEGER NOT NULL, `learningEventType` TEXT, `numberSymbol` TEXT, `additionalData` TEXT)";
+            Timber.i("sql: %s", sql);
+            database.execSQL(sql);
+        }
+    };
+
+    private static final Migration MIGRATION_14_15 = new Migration(14, 15) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            Timber.i("migrate (" + database.getVersion() + " --> 15)");
+
+
+            String sql = "ALTER TABLE `LetterSoundLearningEvent` ADD COLUMN `researchExperiment` TEXT";
+            Timber.i("sql: %s", sql);
+            database.execSQL(sql);
+
+            sql = "ALTER TABLE `WordLearningEvent` ADD COLUMN `researchExperiment` TEXT";
+            Timber.i("sql: %s", sql);
+            database.execSQL(sql);
+
+            sql = "ALTER TABLE `StoryBookLearningEvent` ADD COLUMN `researchExperiment` TEXT";
+            Timber.i("sql: %s", sql);
+            database.execSQL(sql);
+
+            sql = "ALTER TABLE `VideoLearningEvent` ADD COLUMN `researchExperiment` TEXT";
+            Timber.i("sql: %s", sql);
+            database.execSQL(sql);
+
+            sql = "ALTER TABLE `NumberLearningEvent` ADD COLUMN `researchExperiment` TEXT";
+            Timber.i("sql: %s", sql);
+            database.execSQL(sql);
+
+
+            sql = "ALTER TABLE `LetterSoundLearningEvent` ADD COLUMN `experimentGroup` TEXT";
+            Timber.i("sql: %s", sql);
+            database.execSQL(sql);
+
+            sql = "ALTER TABLE `WordLearningEvent` ADD COLUMN `experimentGroup` TEXT";
+            Timber.i("sql: %s", sql);
+            database.execSQL(sql);
+
+            sql = "ALTER TABLE `StoryBookLearningEvent` ADD COLUMN `experimentGroup` TEXT";
+            Timber.i("sql: %s", sql);
+            database.execSQL(sql);
+
+            sql = "ALTER TABLE `VideoLearningEvent` ADD COLUMN `experimentGroup` TEXT";
+            Timber.i("sql: %s", sql);
+            database.execSQL(sql);
+
+            sql = "ALTER TABLE `NumberLearningEvent` ADD COLUMN `experimentGroup` TEXT";
             Timber.i("sql: %s", sql);
             database.execSQL(sql);
         }

@@ -120,6 +120,8 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                 "timestamp",
                 "package_name",
                 "additional_data",
+                "research_experiment",
+                "experiment_group",
                 "letter_sound_id",
                 "letter_sound_letter_texts",
                 "letter_sound_sound_values_ipa"
@@ -149,6 +151,8 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                     letterSoundLearningEvent.time.timeInMillis / 1_000,
                     letterSoundLearningEvent.packageName,
                     letterSoundLearningEvent.additionalData,
+                    letterSoundLearningEvent.researchExperiment?.ordinal,
+                    letterSoundLearningEvent.experimentGroup?.ordinal,
                     letterSoundLearningEvent.id,
                     null,
                     null
@@ -185,6 +189,8 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                 "timestamp",
                 "package_name",
                 "additional_data",
+                "research_experiment",
+                "experiment_group",
                 "word_id",
                 "word_text",
                 "learning_event_type"
@@ -214,6 +220,8 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                     wordLearningEvent.time.timeInMillis / 1_000,
                     wordLearningEvent.packageName,
                     wordLearningEvent.additionalData,
+                    wordLearningEvent.researchExperiment?.ordinal,
+                    wordLearningEvent.experimentGroup?.ordinal,
                     wordLearningEvent.wordId,
                     wordLearningEvent.wordText,
                     wordLearningEvent.learningEventType
@@ -315,6 +323,8 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                 "timestamp",
                 "package_name",
                 "additional_data",
+                "research_experiment",
+                "experiment_group",
                 "storybook_title",
                 "storybook_id",
                 "learning_event_type"
@@ -344,6 +354,8 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                     storyBookLearningEvent.time.timeInMillis / 1_000,
                     storyBookLearningEvent.packageName,
                     storyBookLearningEvent.additionalData,
+                    storyBookLearningEvent.researchExperiment?.ordinal,
+                    storyBookLearningEvent.experimentGroup?.ordinal,
                     storyBookLearningEvent.storyBookTitle,
                     storyBookLearningEvent.storyBookId,
                     storyBookLearningEvent.learningEventType
@@ -380,6 +392,8 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                 "timestamp",
                 "package_name",
                 "additional_data",
+                "research_experiment",
+                "experiment_group",
                 "video_title",
                 "video_id",
                 "learning_event_type"
@@ -407,6 +421,8 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                     videoLearningEvent.time.timeInMillis / 1_000,
                     videoLearningEvent.packageName,
                     videoLearningEvent.additionalData,
+                    videoLearningEvent.researchExperiment?.ordinal,
+                    videoLearningEvent.experimentGroup?.ordinal,
                     videoLearningEvent.videoTitle,
                     videoLearningEvent.videoId,
                     videoLearningEvent.learningEventType
