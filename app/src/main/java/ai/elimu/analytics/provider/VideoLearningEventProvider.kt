@@ -3,6 +3,7 @@ package ai.elimu.analytics.provider
 import ai.elimu.analytics.BuildConfig
 import ai.elimu.analytics.db.RoomDb
 import ai.elimu.analytics.entity.VideoLearningEvent
+import ai.elimu.analytics.utils.converter.CursorToVideoLearningEventGsonConverter
 import android.content.ContentProvider
 import android.content.ContentValues
 import android.content.UriMatcher
@@ -54,14 +55,14 @@ class VideoLearningEventProvider : ContentProvider() {
             cursor.setNotificationUri(context.contentResolver, uri)
             val bundle = Bundle().apply {
                 putInt("version_code", BuildConfig.VERSION_CODE)
-                putString("column_name_id", VideoLearningEvent::id.name)
-                putString("column_name_android_id", VideoLearningEvent::androidId.name)
-                putString("column_name_package_name", VideoLearningEvent::packageName.name)
-                putString("column_name_timestamp", VideoLearningEvent::time.name)
-                putString("column_name_learning_event_type", VideoLearningEvent::learningEventType.name)
-                putString("column_name_additional_data", VideoLearningEvent::additionalData.name)
-                putString("column_name_video_title", VideoLearningEvent::videoTitle.name)
-                putString("column_name_video_id", VideoLearningEvent::videoId.name)
+                putString(CursorToVideoLearningEventGsonConverter.COLUMN_NAME_ID, VideoLearningEvent::id.name)
+                putString(CursorToVideoLearningEventGsonConverter.COLUMN_NAME_ANDROID_ID, VideoLearningEvent::androidId.name)
+                putString(CursorToVideoLearningEventGsonConverter.COLUMN_NAME_PACKAGE_NAME, VideoLearningEvent::packageName.name)
+                putString(CursorToVideoLearningEventGsonConverter.COLUMN_NAME_TIMESTAMP, VideoLearningEvent::time.name)
+                putString(CursorToVideoLearningEventGsonConverter.COLUMN_NAME_LEARNING_EVENT_TYPE, VideoLearningEvent::learningEventType.name)
+                putString(CursorToVideoLearningEventGsonConverter.COLUMN_NAME_ADDITIONAL_DATA, VideoLearningEvent::additionalData.name)
+                putString(CursorToVideoLearningEventGsonConverter.COLUMN_NAME_VIDEO_TITLE, VideoLearningEvent::videoTitle.name)
+                putString(CursorToVideoLearningEventGsonConverter.COLUMN_NAME_VIDEO_ID, VideoLearningEvent::videoId.name)
             }
             cursor.extras = bundle
             return cursor
