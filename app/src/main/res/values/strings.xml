@@ -10,4 +10,5 @@
     <string name="event_label_word_learning">Word learning: %d</string>
     <string name="event_label_storybook_learning">Storybook learning: %d</string>
     <string name="event_label_video_learning">Video learning: %d</string>
+    <string name="event_label_number_learning">Number learning: %d</string>
 </resources>
