@@ -30,6 +30,10 @@ class NumberLearningEventReceiver : BroadcastReceiver() {
         val additionalData = intent.getStringExtra("additionalData")
         Timber.i("additionalData: ${additionalData}")
 
+        val researchExperiment = ExperimentAssignmentHelper.CURRENT_EXPERIMENT
+        val experimentGroup = ExperimentAssignmentHelper.getExperimentGroup(context)
+        Timber.i("researchExperiment: ${researchExperiment} (${experimentGroup})")
+
         val learningEventTypeAsString = intent.getStringExtra("learningEventType")
         Timber.i("learningEventTypeAsString: \"$learningEventTypeAsString\"")
         val learningEventType = runCatching {
@@ -53,8 +57,8 @@ class NumberLearningEventReceiver : BroadcastReceiver() {
             this.androidId = androidId
             this.packageName = packageName
             this.additionalData = additionalData
-            this.researchExperiment = ExperimentAssignmentHelper.CURRENT_EXPERIMENT
-            this.experimentGroup = ExperimentAssignmentHelper.getExperimentGroup(context)
+            this.researchExperiment = researchExperiment
+            this.experimentGroup = experimentGroup
             this.learningEventType = learningEventType
             this.numberId = numberId
             this.numberSymbol = numberSymbol

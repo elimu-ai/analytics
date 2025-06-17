@@ -28,6 +28,10 @@ class WordLearningEventReceiver : BroadcastReceiver() {
         val additionalData = intent.getStringExtra("additionalData")
         Timber.i("additionalData: ${additionalData}")
 
+        val researchExperiment = ExperimentAssignmentHelper.CURRENT_EXPERIMENT
+        val experimentGroup = ExperimentAssignmentHelper.getExperimentGroup(context)
+        Timber.i("researchExperiment: ${researchExperiment} (${experimentGroup})")
+
         var wordId: Long? = null
         if (intent.hasExtra("wordId")) {
             wordId = intent.getLongExtra("wordId", 0)
@@ -49,8 +53,8 @@ class WordLearningEventReceiver : BroadcastReceiver() {
             this.packageName = packageName
             this.time = timestamp
             this.additionalData = additionalData
-            this.researchExperiment = ExperimentAssignmentHelper.CURRENT_EXPERIMENT
-            this.experimentGroup = ExperimentAssignmentHelper.getExperimentGroup(context)
+            this.researchExperiment = researchExperiment
+            this.experimentGroup = experimentGroup
             this.wordId = wordId
             this.wordText = wordText
             this.learningEventType = learningEventType

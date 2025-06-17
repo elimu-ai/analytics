@@ -28,6 +28,10 @@ class StoryBookLearningEventReceiver : BroadcastReceiver() {
         val additionalData = intent.getStringExtra("additionalData")
         Timber.i("additionalData: ${additionalData}")
 
+        val researchExperiment = ExperimentAssignmentHelper.CURRENT_EXPERIMENT
+        val experimentGroup = ExperimentAssignmentHelper.getExperimentGroup(context)
+        Timber.i("researchExperiment: ${researchExperiment} (${experimentGroup})")
+
         val storyBookTitle: String = intent.getStringExtra("storyBookTitle")
                 ?: throw IllegalArgumentException("storyBookTitle must be provided")
         Timber.i("storyBookTitle: \"$storyBookTitle\"")
@@ -47,8 +51,8 @@ class StoryBookLearningEventReceiver : BroadcastReceiver() {
         storyBookLearningEvent.packageName = packageName
         storyBookLearningEvent.time = timestamp
         storyBookLearningEvent.additionalData = additionalData
-        storyBookLearningEvent.researchExperiment = ExperimentAssignmentHelper.CURRENT_EXPERIMENT
-        storyBookLearningEvent.experimentGroup = ExperimentAssignmentHelper.getExperimentGroup(context)
+        storyBookLearningEvent.researchExperiment = researchExperiment
+        storyBookLearningEvent.experimentGroup = experimentGroup
         storyBookLearningEvent.storyBookTitle = storyBookTitle
         storyBookLearningEvent.storyBookId = storyBookId
         storyBookLearningEvent.learningEventType = learningEventType

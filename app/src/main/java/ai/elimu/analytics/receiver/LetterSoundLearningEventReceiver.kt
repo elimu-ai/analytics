@@ -27,6 +27,10 @@ class LetterSoundLearningEventReceiver : BroadcastReceiver() {
         val additionalData = intent.getStringExtra("additionalData")
         Timber.i("additionalData: ${additionalData}")
 
+        val researchExperiment = ExperimentAssignmentHelper.CURRENT_EXPERIMENT
+        val experimentGroup = ExperimentAssignmentHelper.getExperimentGroup(context)
+        Timber.i("researchExperiment: ${researchExperiment} (${experimentGroup})")
+
         var letterSoundId: Long? = null
         if (intent.hasExtra("letterSoundId")) {
             letterSoundId = intent.getLongExtra("letterSoundId", 0)
@@ -46,8 +50,8 @@ class LetterSoundLearningEventReceiver : BroadcastReceiver() {
         letterSoundLearningEvent.packageName = packageName
         letterSoundLearningEvent.time = timestamp
         letterSoundLearningEvent.additionalData = additionalData
-        letterSoundLearningEvent.researchExperiment = ExperimentAssignmentHelper.CURRENT_EXPERIMENT
-        letterSoundLearningEvent.experimentGroup = ExperimentAssignmentHelper.getExperimentGroup(context)
+        letterSoundLearningEvent.researchExperiment = researchExperiment
+        letterSoundLearningEvent.experimentGroup = experimentGroup
         letterSoundLearningEvent.letterSoundId = letterSoundId
         letterSoundLearningEvent.letterSoundLetterTexts = letterSoundLetterTexts
         letterSoundLearningEvent.letterSoundSoundValuesIpa = letterSoundSoundValuesIpa

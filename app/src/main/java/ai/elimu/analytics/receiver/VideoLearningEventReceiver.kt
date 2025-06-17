@@ -28,6 +28,10 @@ class VideoLearningEventReceiver : BroadcastReceiver() {
         val additionalData = intent.getStringExtra("additionalData")
         Timber.i("additionalData: ${additionalData}")
 
+        val researchExperiment = ExperimentAssignmentHelper.CURRENT_EXPERIMENT
+        val experimentGroup = ExperimentAssignmentHelper.getExperimentGroup(context)
+        Timber.i("researchExperiment: ${researchExperiment} (${experimentGroup})")
+
         val learningEventTypeAsString = intent.getStringExtra("learningEventType") ?: ""
         Timber.i("learningEventTypeAsString: \"$learningEventTypeAsString\"")
         val learningEventType = LearningEventType.valueOf(
@@ -46,8 +50,8 @@ class VideoLearningEventReceiver : BroadcastReceiver() {
         videoLearningEvent.androidId = androidId
         videoLearningEvent.packageName = packageName
         videoLearningEvent.additionalData = additionalData
-        videoLearningEvent.researchExperiment = ExperimentAssignmentHelper.CURRENT_EXPERIMENT
-        videoLearningEvent.experimentGroup = ExperimentAssignmentHelper.getExperimentGroup(context)
+        videoLearningEvent.researchExperiment = researchExperiment
+        videoLearningEvent.experimentGroup = experimentGroup
         videoLearningEvent.learningEventType = learningEventType
         videoLearningEvent.videoId = videoId
         videoLearningEvent.videoTitle = videoTitle
