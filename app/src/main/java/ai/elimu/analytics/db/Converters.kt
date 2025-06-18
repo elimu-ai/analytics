@@ -36,8 +36,8 @@ object Converters {
 
     @JvmStatic
     @TypeConverter
-    fun toString(learningEventType: LearningEventType): String {
-        return learningEventType.toString()
+    fun toString(learningEventType: LearningEventType?): String? {
+        return learningEventType?.toString()
     }
 
 
