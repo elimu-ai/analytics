@@ -463,7 +463,9 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                 "number_value",
                 "number_id",
                 "number_symbol",
-                "learning_event_type"
+                "learning_event_type",
+                "research_experiment",
+                "experiment_group"
             )
         var stringWriter = StringWriter()
         try {
@@ -491,7 +493,9 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                     numberLearningEvent.numberValue,
                     numberLearningEvent.numberId,
                     numberLearningEvent.numberSymbol,
-                    numberLearningEvent.learningEventType
+                    numberLearningEvent.learningEventType,
+                    numberLearningEvent.researchExperiment?.ordinal,
+                    numberLearningEvent.experimentGroup?.ordinal,
                 )
                 csvPrinter.flush()
 
