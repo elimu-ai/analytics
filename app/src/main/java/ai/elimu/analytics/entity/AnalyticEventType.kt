@@ -2,6 +2,7 @@ package ai.elimu.analytics.entity
 
 import ai.elimu.analytics.rest.LetterSoundAssessmentEventService
 import ai.elimu.analytics.rest.LetterSoundLearningEventService
+import ai.elimu.analytics.rest.NumberLearningEventService
 import ai.elimu.analytics.rest.StoryBookLearningEventService
 import ai.elimu.analytics.rest.UploadService
 import ai.elimu.analytics.rest.VideoLearningEventService
@@ -18,7 +19,8 @@ enum class AnalyticEventType(val type: String) {
     STORY_BOOK_LEARNING("storybook-learning-events"),
     WORD_ASSESSMENT("word-assessment-events"),
     WORD_LEARNING("word-learning-events"),
-    VIDEO_LEARNING("video-learning-events")
+    VIDEO_LEARNING("video-learning-events"),
+    NUMBER_LEARNING("number-learning-events")
 }
 
 fun AnalyticEventType.toServiceClass(): Class<out UploadService> {
@@ -29,6 +31,7 @@ fun AnalyticEventType.toServiceClass(): Class<out UploadService> {
         AnalyticEventType.WORD_ASSESSMENT -> WordAssessmentEventService::class.java
         AnalyticEventType.WORD_LEARNING -> WordLearningEventService::class.java
         AnalyticEventType.VIDEO_LEARNING -> VideoLearningEventService::class.java
+        AnalyticEventType.NUMBER_LEARNING -> NumberLearningEventService::class.java
     }
 }
 
