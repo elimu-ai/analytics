@@ -63,14 +63,14 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                 "id",
                 "timestamp",
                 "package_name",
+                "mastery_score",
+                "time_spent_ms",
+//                "additional_data"
                 "research_experiment",
                 "experiment_group",
                 "letter_sound_letters",
                 "letter_sound_sounds",
-                "letter_sound_id",
-                "mastery_score",
-                "time_spent_ms",
-//                "additional_data"
+                "letter_sound_id"
             )
         var stringWriter = StringWriter()
         try {
@@ -94,14 +94,14 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                     letterSoundAssessmentEvent.id,
                     letterSoundAssessmentEvent.time.timeInMillis / 1_000,
                     letterSoundAssessmentEvent.packageName,
+                    letterSoundAssessmentEvent.masteryScore,
+                    letterSoundAssessmentEvent.timeSpentMs,
+//                    letterSoundAssessmentEvent.additionalData
                     letterSoundAssessmentEvent.researchExperiment?.ordinal,
                     letterSoundAssessmentEvent.experimentGroup?.ordinal,
                     letterSoundAssessmentEvent.letterSoundLetters,
                     letterSoundAssessmentEvent.letterSoundSounds,
-                    letterSoundAssessmentEvent.letterSoundId,
-                    letterSoundAssessmentEvent.masteryScore,
-                    letterSoundAssessmentEvent.timeSpentMs,
-//                    letterSoundAssessmentEvent.additionalData
+                    letterSoundAssessmentEvent.letterSoundId
                 )
                 csvPrinter.flush()
 
@@ -137,9 +137,9 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                 "additional_data",
                 "research_experiment",
                 "experiment_group",
-                "letter_sound_id",
                 "letter_sound_letter_texts",
-                "letter_sound_sound_values_ipa"
+                "letter_sound_sound_values_ipa",
+                "letter_sound_id"
             )
         var stringWriter = StringWriter()
         try {
@@ -168,9 +168,9 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                     letterSoundLearningEvent.additionalData,
                     letterSoundLearningEvent.researchExperiment?.ordinal,
                     letterSoundLearningEvent.experimentGroup?.ordinal,
-                    letterSoundLearningEvent.id,
                     null,
-                    null
+                    null,
+                    letterSoundLearningEvent.id
                 )
                 csvPrinter.flush()
 
@@ -204,12 +204,12 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                 "id",
                 "timestamp",
                 "package_name",
+                "mastery_score",
+                "time_spent_ms",
                 "research_experiment",
                 "experiment_group",
-                "word_id",
                 "word_text",
-                "mastery_score",
-                "time_spent_ms"
+                "word_id"
             )
         var stringWriter = StringWriter()
         try {
@@ -235,12 +235,12 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                     wordAssessmentEvent.id,
                     wordAssessmentEvent.time.timeInMillis / 1_000,
                     wordAssessmentEvent.packageName,
+                    wordAssessmentEvent.masteryScore,
+                    wordAssessmentEvent.timeSpentMs,
                     wordAssessmentEvent.researchExperiment?.ordinal,
                     wordAssessmentEvent.experimentGroup?.ordinal,
-                    wordAssessmentEvent.wordId,
                     wordAssessmentEvent.wordText,
-                    wordAssessmentEvent.masteryScore,
-                    wordAssessmentEvent.timeSpentMs
+                    wordAssessmentEvent.wordId
                 )
                 csvPrinter.flush()
 
@@ -274,11 +274,11 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                 "timestamp",
                 "package_name",
                 "additional_data",
+                "learning_event_type",
                 "research_experiment",
                 "experiment_group",
-                "word_id",
                 "word_text",
-                "learning_event_type"
+                "word_id"
             )
         var stringWriter = StringWriter()
         try {
@@ -305,11 +305,11 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                     wordLearningEvent.time.timeInMillis / 1_000,
                     wordLearningEvent.packageName,
                     wordLearningEvent.additionalData,
+                    wordLearningEvent.learningEventType,
                     wordLearningEvent.researchExperiment?.ordinal,
                     wordLearningEvent.experimentGroup?.ordinal,
-                    wordLearningEvent.wordId,
                     wordLearningEvent.wordText,
-                    wordLearningEvent.learningEventType
+                    wordLearningEvent.wordId
                 )
                 csvPrinter.flush()
 
@@ -344,12 +344,12 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                 "timestamp",
                 "package_name",
                 "additional_data",
-                "number_value",
-                "number_id",
-                "number_symbol",
                 "learning_event_type",
                 "research_experiment",
-                "experiment_group"
+                "experiment_group",
+                "number_value",
+                "number_symbol",
+                "number_id"
             )
         var stringWriter = StringWriter()
         try {
@@ -374,12 +374,12 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                     numberLearningEvent.time.timeInMillis / 1_000,
                     numberLearningEvent.packageName,
                     numberLearningEvent.additionalData,
-                    numberLearningEvent.numberValue,
-                    numberLearningEvent.numberId,
-                    numberLearningEvent.numberSymbol,
                     numberLearningEvent.learningEventType,
                     numberLearningEvent.researchExperiment?.ordinal,
                     numberLearningEvent.experimentGroup?.ordinal,
+                    numberLearningEvent.numberValue,
+                    numberLearningEvent.numberSymbol,
+                    numberLearningEvent.numberId
                 )
                 csvPrinter.flush()
 
@@ -414,11 +414,11 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                 "timestamp",
                 "package_name",
                 "additional_data",
+                "learning_event_type",
                 "research_experiment",
                 "experiment_group",
                 "storybook_title",
-                "storybook_id",
-                "learning_event_type"
+                "storybook_id"
             )
         var stringWriter = StringWriter()
         try {
@@ -445,11 +445,11 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                     storyBookLearningEvent.time.timeInMillis / 1_000,
                     storyBookLearningEvent.packageName,
                     storyBookLearningEvent.additionalData,
+                    storyBookLearningEvent.learningEventType,
                     storyBookLearningEvent.researchExperiment?.ordinal,
                     storyBookLearningEvent.experimentGroup?.ordinal,
                     storyBookLearningEvent.storyBookTitle,
-                    storyBookLearningEvent.storyBookId,
-                    storyBookLearningEvent.learningEventType
+                    storyBookLearningEvent.storyBookId
                 )
                 csvPrinter.flush()
 
@@ -484,11 +484,11 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                 "timestamp",
                 "package_name",
                 "additional_data",
+                "learning_event_type",
                 "research_experiment",
                 "experiment_group",
                 "video_title",
-                "video_id",
-                "learning_event_type"
+                "video_id"
             )
         var stringWriter = StringWriter()
         try {
@@ -513,11 +513,11 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                     videoLearningEvent.time.timeInMillis / 1_000,
                     videoLearningEvent.packageName,
                     videoLearningEvent.additionalData,
+                    videoLearningEvent.learningEventType,
                     videoLearningEvent.researchExperiment?.ordinal,
                     videoLearningEvent.experimentGroup?.ordinal,
                     videoLearningEvent.videoTitle,
-                    videoLearningEvent.videoId,
-                    videoLearningEvent.learningEventType
+                    videoLearningEvent.videoId
                 )
                 csvPrinter.flush()
 
