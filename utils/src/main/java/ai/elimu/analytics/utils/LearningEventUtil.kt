@@ -172,7 +172,10 @@ object LearningEventUtil {
         additionalData?.let {
             broadcastIntent.putExtra("additionalData", additionalData.toString())
         }
-        broadcastIntent.putExtra("numberId", numberGson.id)
+        numberGson.id?.let {
+            broadcastIntent.putExtra("numberId", numberGson.id)
+        }
+
         broadcastIntent.putExtra("numberValue", numberGson.value)
         broadcastIntent.putExtra("numberSymbol", numberGson.symbol)
         learningEventType?.let {
