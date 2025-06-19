@@ -69,10 +69,13 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                 val versionCode = getAppVersionCode(
                     applicationContext
                 )
+                var androidId: String
                 val date = if (event is AssessmentEvent) {
+                    androidId = event.androidId
                     eventDateFormat.format(event.time.time)
                 } else {
-                    eventDateFormat.format((event as LearningEvent).time.time)
+                    androidId = (event as LearningEvent).androidId
+                    eventDateFormat.format(event.time.time)
                 }
                 if (date != dateOfPreviousEvent) {
                     // Reset file content
@@ -81,7 +84,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                 }
                 dateOfPreviousEvent = date
 
-                csvPrinter.printRecord((event as LearningEvent).getCSVFields(eventType))
+                csvPrinter.printRecord(event.getCSVFields(eventType))
                 csvPrinter.flush()
 
                 val csvFileContent = stringWriter.toString()
@@ -89,7 +92,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                 // Write the content to the CSV file
                 val csvFile = eventType.getUploadCsvFile(
                     context = applicationContext,
-                    androidId = event.androidId,
+                    androidId = androidId,
                     versionCode = versionCode,
                     date = date)
                 FileUtils.writeStringToFile(csvFile, csvFileContent, "UTF-8")
