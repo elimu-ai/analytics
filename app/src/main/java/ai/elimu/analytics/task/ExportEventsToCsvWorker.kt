@@ -59,19 +59,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
         Timber.i("letterSoundAssessmentEvents.size(): %s", letterSoundAssessmentEvents.size)
 
         val csvFormat = CSVFormat.DEFAULT
-            .withHeader(
-                "id",
-                "timestamp",
-                "package_name",
-                "mastery_score",
-                "time_spent_ms",
-//                "additional_data"
-                "research_experiment",
-                "experiment_group",
-                "letter_sound_letters",
-                "letter_sound_sounds",
-                "letter_sound_id"
-            )
+            .withHeader(*CSVHeaders.LETTER_SOUND_ASSESSMENT)
         var stringWriter = StringWriter()
         try {
             var csvPrinter = CSVPrinter(stringWriter, csvFormat)
@@ -130,17 +118,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
         Timber.i("letterSoundLearningEvents.size(): %s", letterSoundLearningEvents.size)
 
         val csvFormat = CSVFormat.DEFAULT
-            .withHeader(
-                "id",
-                "timestamp",
-                "package_name",
-                "additional_data",
-                "research_experiment",
-                "experiment_group",
-                "letter_sound_letter_texts",
-                "letter_sound_sound_values_ipa",
-                "letter_sound_id"
-            )
+            .withHeader(*CSVHeaders.LETTER_SOUND_LEARNING)
         var stringWriter = StringWriter()
         try {
             var csvPrinter = CSVPrinter(stringWriter, csvFormat)
@@ -200,17 +178,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
         Timber.i("wordAssessmentEvents.size(): %s", wordAssessmentEvents.size)
 
         val csvFormat = CSVFormat.DEFAULT
-            .withHeader(
-                "id",
-                "timestamp",
-                "package_name",
-                "mastery_score",
-                "time_spent_ms",
-                "research_experiment",
-                "experiment_group",
-                "word_text",
-                "word_id"
-            )
+            .withHeader(*CSVHeaders.WORD_ASSESSMENT)
         var stringWriter = StringWriter()
         try {
             var csvPrinter = CSVPrinter(stringWriter, csvFormat)
@@ -269,17 +237,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
         Timber.i("wordLearningEvents.size(): %s", wordLearningEvents.size)
 
         val csvFormat = CSVFormat.DEFAULT
-            .withHeader(
-                "id",
-                "timestamp",
-                "package_name",
-                "additional_data",
-                "learning_event_type",
-                "research_experiment",
-                "experiment_group",
-                "word_text",
-                "word_id"
-            )
+            .withHeader(*CSVHeaders.WORD_LEARNING)
         var stringWriter = StringWriter()
         try {
             var csvPrinter = CSVPrinter(stringWriter, csvFormat)
@@ -340,16 +298,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
 
         val csvFormat = CSVFormat.DEFAULT
             .withHeader(
-                "id",
-                "timestamp",
-                "package_name",
-                "additional_data",
-                "learning_event_type",
-                "research_experiment",
-                "experiment_group",
-                "number_value",
-                "number_symbol",
-                "number_id"
+                *CSVHeaders.NUMBER_LEARNING
             )
         var stringWriter = StringWriter()
         try {
@@ -409,17 +358,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
         Timber.i("storyBookLearningEvents.size(): %s", storyBookLearningEvents.size)
 
         val csvFormat = CSVFormat.DEFAULT
-            .withHeader(
-                "id",
-                "timestamp",
-                "package_name",
-                "additional_data",
-                "learning_event_type",
-                "research_experiment",
-                "experiment_group",
-                "storybook_title",
-                "storybook_id"
-            )
+            .withHeader(*CSVHeaders.STORYBOOK_LEARNING)
         var stringWriter = StringWriter()
         try {
             var csvPrinter = CSVPrinter(stringWriter, csvFormat)
@@ -479,17 +418,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
         Timber.i("videoLearningEvents.size(): %s", videoLearningEvents.size)
 
         val csvFormat = CSVFormat.DEFAULT
-            .withHeader(
-                "id",
-                "timestamp",
-                "package_name",
-                "additional_data",
-                "learning_event_type",
-                "research_experiment",
-                "experiment_group",
-                "video_title",
-                "video_id"
-            )
+            .withHeader(*CSVHeaders.VIDEO_LEARNING)
         var stringWriter = StringWriter()
         try {
             var csvPrinter = CSVPrinter(stringWriter, csvFormat)
