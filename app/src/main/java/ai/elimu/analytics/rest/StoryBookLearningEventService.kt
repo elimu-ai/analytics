@@ -10,5 +10,5 @@ import retrofit2.http.Part
 interface StoryBookLearningEventService: UploadService {
     @Multipart
     @POST("analytics/storybook-learning-events/csv")
-    override fun uploadCsvFile(@Part part: MultipartBody.Part?): Call<ResponseBody?>
+    override fun uploadCsvFile(@Part part: MultipartBody.Part): Call<ResponseBody?>
 }
