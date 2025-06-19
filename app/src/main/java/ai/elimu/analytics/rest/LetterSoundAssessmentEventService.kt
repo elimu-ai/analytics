@@ -10,5 +10,5 @@ import retrofit2.http.Part
 interface LetterSoundAssessmentEventService: UploadService {
     @Multipart
     @POST("analytics/letter-sound-assessment-events/csv")
-    override fun uploadCsvFile(@Part part: MultipartBody.Part?): Call<ResponseBody?>
+    override fun uploadCsvFile(@Part part: MultipartBody.Part): Call<ResponseBody?>
 }

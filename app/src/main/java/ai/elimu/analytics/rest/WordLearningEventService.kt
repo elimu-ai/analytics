@@ -10,5 +10,5 @@ import retrofit2.http.Part
 interface WordLearningEventService: UploadService {
     @Multipart
     @POST("analytics/word-learning-events/csv")
-    override fun uploadCsvFile(@Part part: MultipartBody.Part?): Call<ResponseBody?>
+    override fun uploadCsvFile(@Part part: MultipartBody.Part): Call<ResponseBody?>
 }
