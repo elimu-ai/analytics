@@ -1,5 +1,6 @@
 package ai.elimu.analytics.entity
 
+import ai.elimu.analytics.db.RoomDb
 import ai.elimu.analytics.rest.LetterSoundAssessmentEventService
 import ai.elimu.analytics.rest.LetterSoundLearningEventService
 import ai.elimu.analytics.rest.NumberLearningEventService
@@ -8,8 +9,10 @@ import ai.elimu.analytics.rest.UploadService
 import ai.elimu.analytics.rest.VideoLearningEventService
 import ai.elimu.analytics.rest.WordAssessmentEventService
 import ai.elimu.analytics.rest.WordLearningEventService
+import ai.elimu.analytics.task.CSVHeaders
 import ai.elimu.analytics.util.SharedPreferencesHelper
 import android.content.Context
+import androidx.annotation.WorkerThread
 import timber.log.Timber
 import java.io.File
 
@@ -49,4 +52,46 @@ fun AnalyticEventType.getUploadCsvFile(context: Context,
     val eventsDir = File(languageDir, this.type)
     val csvFile = File(eventsDir, csvFileName)
     return csvFile
+}
+
+@WorkerThread
+fun AnalyticEventType.getAllEvents(context: Context): List<BaseEntity> {
+
+    // Extract events from the database that have not yet been exported to CSV.
+    val roomDb = RoomDb.getDatabase(context)
+    return when(this) {
+        AnalyticEventType.LETTER_SOUND_ASSESSMENT -> {
+            roomDb.letterSoundAssessmentEventDao().loadAll()
+        }
+        AnalyticEventType.LETTER_SOUND_LEARNING -> {
+            roomDb.letterSoundLearningEventDao().loadAllOrderedByTime()
+        }
+        AnalyticEventType.STORY_BOOK_LEARNING -> {
+            roomDb.storyBookLearningEventDao().loadAll(isDesc = false)
+        }
+        AnalyticEventType.WORD_ASSESSMENT -> {
+            roomDb.wordAssessmentEventDao().loadAllOrderedByTimeAsc()
+        }
+        AnalyticEventType.WORD_LEARNING -> {
+            roomDb.wordLearningEventDao().loadAllOrderedByTime(isDesc = false)
+        }
+        AnalyticEventType.VIDEO_LEARNING -> {
+            roomDb.videoLearningEventDao().loadAll(isDesc = false)
+        }
+        AnalyticEventType.NUMBER_LEARNING -> {
+            roomDb.numberLearningEventDao().loadAllOrderedByTime(isDesc = false)
+        }
+    }
+}
+
+fun AnalyticEventType.getCSVHeaders(): Array<String> {
+    return when (this) {
+        AnalyticEventType.LETTER_SOUND_ASSESSMENT -> CSVHeaders.LETTER_SOUND_ASSESSMENT
+        AnalyticEventType.LETTER_SOUND_LEARNING -> CSVHeaders.LETTER_SOUND_LEARNING
+        AnalyticEventType.STORY_BOOK_LEARNING -> CSVHeaders.STORYBOOK_LEARNING
+        AnalyticEventType.WORD_ASSESSMENT -> CSVHeaders.WORD_ASSESSMENT
+        AnalyticEventType.WORD_LEARNING -> CSVHeaders.WORD_LEARNING
+        AnalyticEventType.VIDEO_LEARNING -> CSVHeaders.VIDEO_LEARNING
+        AnalyticEventType.NUMBER_LEARNING -> CSVHeaders.NUMBER_LEARNING
+    }
 }
