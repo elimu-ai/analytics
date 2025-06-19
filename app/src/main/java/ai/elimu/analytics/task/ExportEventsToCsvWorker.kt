@@ -78,19 +78,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                 }
                 dateOfPreviousEvent = date
 
-                csvPrinter.printRecord(
-                    letterSoundAssessmentEvent.id,
-                    letterSoundAssessmentEvent.time.timeInMillis / 1_000,
-                    letterSoundAssessmentEvent.packageName,
-                    letterSoundAssessmentEvent.masteryScore,
-                    letterSoundAssessmentEvent.timeSpentMs,
-//                    letterSoundAssessmentEvent.additionalData
-                    letterSoundAssessmentEvent.researchExperiment?.ordinal,
-                    letterSoundAssessmentEvent.experimentGroup?.ordinal,
-                    letterSoundAssessmentEvent.letterSoundLetters,
-                    letterSoundAssessmentEvent.letterSoundSounds,
-                    letterSoundAssessmentEvent.letterSoundId
-                )
+                csvPrinter.printRecord(letterSoundAssessmentEvent.getCSVFields())
                 csvPrinter.flush()
 
                 val csvFileContent = stringWriter.toString()
@@ -139,17 +127,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                 }
                 dateOfPreviousEvent = date
 
-                csvPrinter.printRecord(
-                    letterSoundLearningEvent.id,
-                    letterSoundLearningEvent.time.timeInMillis / 1_000,
-                    letterSoundLearningEvent.packageName,
-                    letterSoundLearningEvent.additionalData,
-                    letterSoundLearningEvent.researchExperiment?.ordinal,
-                    letterSoundLearningEvent.experimentGroup?.ordinal,
-                    null,
-                    null,
-                    letterSoundLearningEvent.id
-                )
+                csvPrinter.printRecord(letterSoundLearningEvent.getCSVFields())
                 csvPrinter.flush()
 
                 val csvFileContent = stringWriter.toString()
@@ -199,17 +177,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                 }
                 dateOfPreviousEvent = date
 
-                csvPrinter.printRecord(
-                    wordAssessmentEvent.id,
-                    wordAssessmentEvent.time.timeInMillis / 1_000,
-                    wordAssessmentEvent.packageName,
-                    wordAssessmentEvent.masteryScore,
-                    wordAssessmentEvent.timeSpentMs,
-                    wordAssessmentEvent.researchExperiment?.ordinal,
-                    wordAssessmentEvent.experimentGroup?.ordinal,
-                    wordAssessmentEvent.wordText,
-                    wordAssessmentEvent.wordId
-                )
+                csvPrinter.printRecord(wordAssessmentEvent.getCSVFields())
                 csvPrinter.flush()
 
                 val csvFileContent = stringWriter.toString()
@@ -258,17 +226,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                 }
                 dateOfPreviousEvent = date
 
-                csvPrinter.printRecord(
-                    wordLearningEvent.id,
-                    wordLearningEvent.time.timeInMillis / 1_000,
-                    wordLearningEvent.packageName,
-                    wordLearningEvent.additionalData,
-                    wordLearningEvent.learningEventType,
-                    wordLearningEvent.researchExperiment?.ordinal,
-                    wordLearningEvent.experimentGroup?.ordinal,
-                    wordLearningEvent.wordText,
-                    wordLearningEvent.wordId
-                )
+                csvPrinter.printRecord(wordLearningEvent.getCSVFields())
                 csvPrinter.flush()
 
                 val csvFileContent = stringWriter.toString()
@@ -318,18 +276,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                 }
                 dateOfPreviousEvent = date
 
-                csvPrinter.printRecord(
-                    numberLearningEvent.id,
-                    numberLearningEvent.time.timeInMillis / 1_000,
-                    numberLearningEvent.packageName,
-                    numberLearningEvent.additionalData,
-                    numberLearningEvent.learningEventType,
-                    numberLearningEvent.researchExperiment?.ordinal,
-                    numberLearningEvent.experimentGroup?.ordinal,
-                    numberLearningEvent.numberValue,
-                    numberLearningEvent.numberSymbol,
-                    numberLearningEvent.numberId
-                )
+                csvPrinter.printRecord(numberLearningEvent.getCSVFields())
                 csvPrinter.flush()
 
                 val csvFileContent = stringWriter.toString()
@@ -379,17 +326,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                 }
                 dateOfPreviousEvent = date
 
-                csvPrinter.printRecord(
-                    storyBookLearningEvent.id,
-                    storyBookLearningEvent.time.timeInMillis / 1_000,
-                    storyBookLearningEvent.packageName,
-                    storyBookLearningEvent.additionalData,
-                    storyBookLearningEvent.learningEventType,
-                    storyBookLearningEvent.researchExperiment?.ordinal,
-                    storyBookLearningEvent.experimentGroup?.ordinal,
-                    storyBookLearningEvent.storyBookTitle,
-                    storyBookLearningEvent.storyBookId
-                )
+                csvPrinter.printRecord(storyBookLearningEvent.getCSVFields())
                 csvPrinter.flush()
 
                 val csvFileContent = stringWriter.toString()
@@ -437,17 +374,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                 }
                 dateOfPreviousEvent = date
 
-                csvPrinter.printRecord(
-                    videoLearningEvent.id,
-                    videoLearningEvent.time.timeInMillis / 1_000,
-                    videoLearningEvent.packageName,
-                    videoLearningEvent.additionalData,
-                    videoLearningEvent.learningEventType,
-                    videoLearningEvent.researchExperiment?.ordinal,
-                    videoLearningEvent.experimentGroup?.ordinal,
-                    videoLearningEvent.videoTitle,
-                    videoLearningEvent.videoId
-                )
+                csvPrinter.printRecord(videoLearningEvent.getCSVFields())
                 csvPrinter.flush()
 
                 val csvFileContent = stringWriter.toString()
