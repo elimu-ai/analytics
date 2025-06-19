@@ -1,7 +1,10 @@
 package ai.elimu.analytics.task
 
-import ai.elimu.analytics.db.RoomDb
 import ai.elimu.analytics.entity.AnalyticEventType
+import ai.elimu.analytics.entity.AssessmentEvent
+import ai.elimu.analytics.entity.LearningEvent
+import ai.elimu.analytics.entity.getAllEvents
+import ai.elimu.analytics.entity.getCSVHeaders
 import ai.elimu.analytics.entity.getUploadCsvFile
 import ai.elimu.analytics.util.VersionHelper.getAppVersionCode
 import android.content.Context
@@ -29,97 +32,48 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
         Timber.i("doWork")
 
         // Letter-sounds
-        exportLetterSoundAssessmentEventsToCsv()
-        exportLetterSoundLearningEventsToCsv()
+        exportAnalyticsEventsToCsv(eventType = AnalyticEventType.LETTER_SOUND_ASSESSMENT)
+        exportAnalyticsEventsToCsv(eventType = AnalyticEventType.LETTER_SOUND_LEARNING)
 
         // Words
-        exportWordAssessmentEventsToCsv()
-        exportWordLearningEventsToCsv()
+        exportAnalyticsEventsToCsv(eventType = AnalyticEventType.WORD_ASSESSMENT)
+        exportAnalyticsEventsToCsv(eventType = AnalyticEventType.WORD_LEARNING)
 
         // Numbers
-        exportNumberLearningEventsToCsv()
+        exportAnalyticsEventsToCsv(eventType = AnalyticEventType.NUMBER_LEARNING)
 
         // Storybooks
-        exportStoryBookLearningEventsToCsv()
+        exportAnalyticsEventsToCsv(eventType = AnalyticEventType.STORY_BOOK_LEARNING)
 
         // Videos
-        exportVideoLearningEventsToCsv()
+        exportAnalyticsEventsToCsv(eventType = AnalyticEventType.VIDEO_LEARNING)
 
         return Result.success()
     }
 
+    private fun exportAnalyticsEventsToCsv(eventType: AnalyticEventType) {
+        Timber.i("exportAnalyticsEventsToCsv")
 
-    private fun exportLetterSoundAssessmentEventsToCsv() {
-        Timber.i("exportLetterSoundAssessmentEventsToCsv")
-
-        // Extract LetterSoundAssessmentEvents from the database that have not yet been exported to CSV.
-        val roomDb = RoomDb.getDatabase(applicationContext)
-        val letterSoundAssessmentEventDao = roomDb.letterSoundAssessmentEventDao()
-        val letterSoundAssessmentEvents = letterSoundAssessmentEventDao.loadAll()
-        Timber.i("letterSoundAssessmentEvents.size(): %s", letterSoundAssessmentEvents.size)
+        val events = eventType.getAllEvents(applicationContext)
+        Timber.i("events.size(): %s", events.size)
 
         val csvFormat = CSVFormat.DEFAULT
-            .withHeader(*CSVHeaders.LETTER_SOUND_ASSESSMENT)
+            .withHeader(*eventType.getCSVHeaders())
         var stringWriter = StringWriter()
         try {
             var csvPrinter = CSVPrinter(stringWriter, csvFormat)
 
             // Generate one CSV file per day of events
             var dateOfPreviousEvent: String? = null
-            for (letterSoundAssessmentEvent in letterSoundAssessmentEvents) {
-                // Export event to CSV file. Example format:
-                //   files/lang-HIN/letter-sound-assessment-events/7161a85a0e4751cd_3003002_letter-sound-assessment-events_2025-06-07.csv
-                val versionCode = getAppVersionCode(applicationContext)
-                val date = eventDateFormat.format(letterSoundAssessmentEvent.time.time)
-                if (date != dateOfPreviousEvent) {
-                    // Reset file content
-                    stringWriter = StringWriter()
-                    csvPrinter = CSVPrinter(stringWriter, csvFormat)
-                }
-                dateOfPreviousEvent = date
-
-                csvPrinter.printRecord(letterSoundAssessmentEvent.getCSVFields())
-                csvPrinter.flush()
-
-                val csvFileContent = stringWriter.toString()
-
-                // Write the content to the CSV file
-                val csvFile = AnalyticEventType.LETTER_SOUND_ASSESSMENT.getUploadCsvFile(
-                    context = applicationContext,
-                    androidId = letterSoundAssessmentEvent.androidId,
-                    versionCode = versionCode,
-                    date = date)
-                FileUtils.writeStringToFile(csvFile, csvFileContent, "UTF-8")
-            }
-        } catch (e: IOException) {
-            Timber.e(e)
-        }
-    }
-
-    private fun exportLetterSoundLearningEventsToCsv() {
-        Timber.i("exportLetterSoundLearningEventsToCsv")
-
-        // Extract LetterSoundLearningEvents from the database that have not yet been exported to CSV.
-        val roomDb = RoomDb.getDatabase(applicationContext)
-        val letterSoundLearningEventDao = roomDb.letterSoundLearningEventDao()
-        val letterSoundLearningEvents = letterSoundLearningEventDao.loadAllOrderedByTime()
-        Timber.i("letterSoundLearningEvents.size(): %s", letterSoundLearningEvents.size)
-
-        val csvFormat = CSVFormat.DEFAULT
-            .withHeader(*CSVHeaders.LETTER_SOUND_LEARNING)
-        var stringWriter = StringWriter()
-        try {
-            var csvPrinter = CSVPrinter(stringWriter, csvFormat)
-
-            // Generate one CSV file per day of events
-            var dateOfPreviousEvent: String? = null
-            for (letterSoundLearningEvent in letterSoundLearningEvents) {
-                // Export event to CSV file. Example format:
-                //   files/lang-HIN/letter-sound-learning-events/7161a85a0e4751cd_3003002_letter-sound-learning-events_2025-06-07.csv
+            for (event in events) {
                 val versionCode = getAppVersionCode(
                     applicationContext
                 )
-                val date = eventDateFormat.format(letterSoundLearningEvent.time.time)
+                val date = if (event is AssessmentEvent) {
+                    eventDateFormat.format(event.time.time)
+                } else {
+                    eventDateFormat.format((event as LearningEvent).time.time)
+                }
                 if (date != dateOfPreviousEvent) {
                     // Reset file content
                     stringWriter = StringWriter()
@@ -127,262 +81,15 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                 }
                 dateOfPreviousEvent = date
 
-                csvPrinter.printRecord(letterSoundLearningEvent.getCSVFields())
+                csvPrinter.printRecord((event as LearningEvent).getCSVFields(eventType))
                 csvPrinter.flush()
 
                 val csvFileContent = stringWriter.toString()
 
                 // Write the content to the CSV file
-                val csvFile = AnalyticEventType.LETTER_SOUND_LEARNING.getUploadCsvFile(
+                val csvFile = eventType.getUploadCsvFile(
                     context = applicationContext,
-                    androidId = letterSoundLearningEvent.androidId,
-                    versionCode = versionCode,
-                    date = date)
-                FileUtils.writeStringToFile(csvFile, csvFileContent, "UTF-8")
-            }
-        } catch (e: IOException) {
-            Timber.e(e)
-        }
-    }
-
-
-    private fun exportWordAssessmentEventsToCsv() {
-        Timber.i("exportWordAssessmentEventsToCsv")
-
-        // Extract WordAssessmentEvents from the database that have not yet been exported to CSV.
-        val roomDb = RoomDb.getDatabase(applicationContext)
-        val wordAssessmentEventDao = roomDb.wordAssessmentEventDao()
-        val wordAssessmentEvents = wordAssessmentEventDao.loadAllOrderedByTimeAsc()
-        Timber.i("wordAssessmentEvents.size(): %s", wordAssessmentEvents.size)
-
-        val csvFormat = CSVFormat.DEFAULT
-            .withHeader(*CSVHeaders.WORD_ASSESSMENT)
-        var stringWriter = StringWriter()
-        try {
-            var csvPrinter = CSVPrinter(stringWriter, csvFormat)
-
-            // Generate one CSV file per day of events
-            var dateOfPreviousEvent: String? = null
-            for (wordAssessmentEvent in wordAssessmentEvents) {
-                // Export event to CSV file. Example format:
-                //   files/lang-HIN/word-assessment-events/7161a85a0e4751cd_3003002_word-assessment-events_2025-06-07.csv
-                val versionCode = getAppVersionCode(
-                    applicationContext
-                )
-                val date = eventDateFormat.format(wordAssessmentEvent.time.time)
-                if (date != dateOfPreviousEvent) {
-                    // Reset file content
-                    stringWriter = StringWriter()
-                    csvPrinter = CSVPrinter(stringWriter, csvFormat)
-                }
-                dateOfPreviousEvent = date
-
-                csvPrinter.printRecord(wordAssessmentEvent.getCSVFields())
-                csvPrinter.flush()
-
-                val csvFileContent = stringWriter.toString()
-
-                // Write the content to the CSV file
-                val csvFile = AnalyticEventType.WORD_ASSESSMENT.getUploadCsvFile(
-                    context = applicationContext,
-                    androidId = wordAssessmentEvent.androidId,
-                    versionCode = versionCode,
-                    date = date)
-                FileUtils.writeStringToFile(csvFile, csvFileContent, "UTF-8")
-            }
-        } catch (e: IOException) {
-            Timber.e(e)
-        }
-    }
-
-    private fun exportWordLearningEventsToCsv() {
-        Timber.i("exportWordLearningEventsToCsv")
-
-        // Extract WordLearningEvents from the database that have not yet been exported to CSV.
-        val roomDb = RoomDb.getDatabase(applicationContext)
-        val wordLearningEventDao = roomDb.wordLearningEventDao()
-        val wordLearningEvents = wordLearningEventDao.loadAllOrderedByTime(isDesc = false)
-        Timber.i("wordLearningEvents.size(): %s", wordLearningEvents.size)
-
-        val csvFormat = CSVFormat.DEFAULT
-            .withHeader(*CSVHeaders.WORD_LEARNING)
-        var stringWriter = StringWriter()
-        try {
-            var csvPrinter = CSVPrinter(stringWriter, csvFormat)
-
-            // Generate one CSV file per day of events
-            var dateOfPreviousEvent: String? = null
-            for (wordLearningEvent in wordLearningEvents) {
-                // Export event to CSV file. Example format:
-                //   files/lang-HIN/word-learning-events/7161a85a0e4751cd_3003002_word-learning-events_2025-06-07.csv
-                val versionCode = getAppVersionCode(
-                    applicationContext
-                )
-                val date = eventDateFormat.format(wordLearningEvent.time.time)
-                if (date != dateOfPreviousEvent) {
-                    // Reset file content
-                    stringWriter = StringWriter()
-                    csvPrinter = CSVPrinter(stringWriter, csvFormat)
-                }
-                dateOfPreviousEvent = date
-
-                csvPrinter.printRecord(wordLearningEvent.getCSVFields())
-                csvPrinter.flush()
-
-                val csvFileContent = stringWriter.toString()
-
-                // Write the content to the CSV file
-                val csvFile = AnalyticEventType.WORD_LEARNING.getUploadCsvFile(
-                    context = applicationContext,
-                    androidId = wordLearningEvent.androidId,
-                    versionCode = versionCode,
-                    date = date)
-                FileUtils.writeStringToFile(csvFile, csvFileContent, "UTF-8")
-            }
-        } catch (e: IOException) {
-            Timber.e(e)
-        }
-    }
-
-
-    private fun exportNumberLearningEventsToCsv() {
-        Timber.i("exportNumberLearningEventsToCsv")
-
-        // Extract NumberLearningEvents from the database that have not yet been exported to CSV.
-        val roomDb = RoomDb.getDatabase(applicationContext)
-        val numberLearningEventDao = roomDb.numberLearningEventDao()
-        val numberLearningEvents = numberLearningEventDao.loadAllOrderedByTime(isDesc = false)
-        Timber.i("numberLearningEvents.size(): %s", numberLearningEvents.size)
-
-        val csvFormat = CSVFormat.DEFAULT
-            .withHeader(
-                *CSVHeaders.NUMBER_LEARNING
-            )
-        var stringWriter = StringWriter()
-        try {
-            var csvPrinter = CSVPrinter(stringWriter, csvFormat)
-
-            // Generate one CSV file per day of events
-            var dateOfPreviousEvent: String? = null
-            for (numberLearningEvent in numberLearningEvents) {
-                val versionCode = getAppVersionCode(
-                    applicationContext
-                )
-                val date = eventDateFormat.format(numberLearningEvent.time.time)
-                if (date != dateOfPreviousEvent) {
-                    // Reset file content
-                    stringWriter = StringWriter()
-                    csvPrinter = CSVPrinter(stringWriter, csvFormat)
-                }
-                dateOfPreviousEvent = date
-
-                csvPrinter.printRecord(numberLearningEvent.getCSVFields())
-                csvPrinter.flush()
-
-                val csvFileContent = stringWriter.toString()
-
-                // Write the content to the CSV file
-                val csvFile = AnalyticEventType.NUMBER_LEARNING.getUploadCsvFile(
-                    context = applicationContext,
-                    androidId = numberLearningEvent.androidId,
-                    versionCode = versionCode,
-                    date = date)
-                FileUtils.writeStringToFile(csvFile, csvFileContent, "UTF-8")
-            }
-        } catch (e: IOException) {
-            Timber.e(e)
-        }
-    }
-
-
-    private fun exportStoryBookLearningEventsToCsv() {
-        Timber.i("exportStoryBookLearningEventsToCsv")
-
-        // Extract StoryBookLearningEvents from the database that have not yet been exported to CSV.
-        val roomDb = RoomDb.getDatabase(applicationContext)
-        val storyBookLearningEventDao = roomDb.storyBookLearningEventDao()
-        val storyBookLearningEvents = storyBookLearningEventDao.loadAll(isDesc = false)
-        Timber.i("storyBookLearningEvents.size(): %s", storyBookLearningEvents.size)
-
-        val csvFormat = CSVFormat.DEFAULT
-            .withHeader(*CSVHeaders.STORYBOOK_LEARNING)
-        var stringWriter = StringWriter()
-        try {
-            var csvPrinter = CSVPrinter(stringWriter, csvFormat)
-
-            // Generate one CSV file per day of events
-            var dateOfPreviousEvent: String? = null
-            for (storyBookLearningEvent in storyBookLearningEvents) {
-                // Export event to CSV file. Example format:
-                //   files/lang-HIN/storybook-learning-events/7161a85a0e4751cd_3003002_storybook-learning-events_2025-06-07.csv
-                val versionCode = getAppVersionCode(
-                    applicationContext
-                )
-                val date = eventDateFormat.format(storyBookLearningEvent.time.time)
-                if (date != dateOfPreviousEvent) {
-                    // Reset file content
-                    stringWriter = StringWriter()
-                    csvPrinter = CSVPrinter(stringWriter, csvFormat)
-                }
-                dateOfPreviousEvent = date
-
-                csvPrinter.printRecord(storyBookLearningEvent.getCSVFields())
-                csvPrinter.flush()
-
-                val csvFileContent = stringWriter.toString()
-
-                // Write the content to the CSV file
-                val csvFile = AnalyticEventType.STORY_BOOK_LEARNING.getUploadCsvFile(
-                    context = applicationContext,
-                    androidId = storyBookLearningEvent.androidId,
-                    versionCode = versionCode,
-                    date = date)
-                FileUtils.writeStringToFile(csvFile, csvFileContent, "UTF-8")
-            }
-        } catch (e: IOException) {
-            Timber.e(e)
-        }
-    }
-
-
-    private fun exportVideoLearningEventsToCsv() {
-        Timber.i("exportVideoLearningEventsToCsv")
-
-        // Extract VideoLearningEvents from the database that have not yet been exported to CSV.
-        val roomDb = RoomDb.getDatabase(applicationContext)
-        val videoLearningEventDao = roomDb.videoLearningEventDao()
-        val videoLearningEvents = videoLearningEventDao.loadAll(isDesc = false)
-        Timber.i("videoLearningEvents.size(): %s", videoLearningEvents.size)
-
-        val csvFormat = CSVFormat.DEFAULT
-            .withHeader(*CSVHeaders.VIDEO_LEARNING)
-        var stringWriter = StringWriter()
-        try {
-            var csvPrinter = CSVPrinter(stringWriter, csvFormat)
-
-            // Generate one CSV file per day of events
-            var dateOfPreviousEvent: String? = null
-            for (videoLearningEvent in videoLearningEvents) {
-                val versionCode = getAppVersionCode(
-                    applicationContext
-                )
-                val date = eventDateFormat.format(videoLearningEvent.time.time)
-                if (date != dateOfPreviousEvent) {
-                    // Reset file content
-                    stringWriter = StringWriter()
-                    csvPrinter = CSVPrinter(stringWriter, csvFormat)
-                }
-                dateOfPreviousEvent = date
-
-                csvPrinter.printRecord(videoLearningEvent.getCSVFields())
-                csvPrinter.flush()
-
-                val csvFileContent = stringWriter.toString()
-
-                // Write the content to the CSV file
-                val csvFile = AnalyticEventType.VIDEO_LEARNING.getUploadCsvFile(
-                    context = applicationContext,
-                    androidId = videoLearningEvent.androidId,
+                    androidId = event.androidId,
                     versionCode = versionCode,
                     date = date)
                 FileUtils.writeStringToFile(csvFile, csvFileContent, "UTF-8")
