@@ -34,13 +34,13 @@ object LearningEventUtil {
 
         val broadcastIntent = Intent()
         broadcastIntent.setAction("ai.elimu.intent.action.LETTER_SOUND_LEARNING_EVENT")
-        broadcastIntent.putExtra("packageName", context.packageName)
+        broadcastIntent.putExtra(BundleKeys.KEY_PACKAGE_NAME, context.packageName)
         additionalData?.let {
-            broadcastIntent.putExtra("additionalData", additionalData.toString())
+            broadcastIntent.putExtra(BundleKeys.KEY_ADDITIONAL_DATA, additionalData.toString())
         }
-        broadcastIntent.putExtra("letterSoundId", letterSoundGson.id)
+        broadcastIntent.putExtra(BundleKeys.KEY_LETTER_SOUND_ID, letterSoundGson.id)
         broadcastIntent.putExtra(
-            "letterSoundLetterTexts",
+            BundleKeys.KEY_LETTER_SOUND_LETTER_TEXTS,
             letterSoundGson.letters.stream().map { obj: LetterGson -> obj.text }
                 .collect(Collectors.toList()).toTypedArray()
         )
@@ -50,7 +50,7 @@ object LearningEventUtil {
         }.collect(Collectors.toList()).toTypedArray()
 
         broadcastIntent.putExtra(
-            "letterSoundSoundValuesIpa",
+            BundleKeys.KEY_LETTER_SOUND_SOUND_VALUES_IPA,
             letterSoundSoundValuesIpa)
 
         broadcastIntent.setPackage(analyticsApplicationId)
@@ -75,14 +75,14 @@ object LearningEventUtil {
 
         val broadcastIntent = Intent()
         broadcastIntent.setAction("ai.elimu.intent.action.WORD_LEARNING_EVENT")
-        broadcastIntent.putExtra("packageName", context.packageName)
+        broadcastIntent.putExtra(BundleKeys.KEY_PACKAGE_NAME, context.packageName)
         additionalData?.let {
-            broadcastIntent.putExtra("additionalData", additionalData.toString())
+            broadcastIntent.putExtra(BundleKeys.KEY_ADDITIONAL_DATA, additionalData.toString())
         }
-        broadcastIntent.putExtra("wordId", wordGson.id)
-        broadcastIntent.putExtra("wordText", wordGson.text)
+        broadcastIntent.putExtra(BundleKeys.KEY_WORD_ID, wordGson.id)
+        broadcastIntent.putExtra(BundleKeys.KEY_WORD_TEXT, wordGson.text)
         learningEventType?.let {
-            broadcastIntent.putExtra("learningEventType", learningEventType.toString())
+            broadcastIntent.putExtra(BundleKeys.KEY_LEARNING_EVENT_TYPE, learningEventType.toString())
         }
         broadcastIntent.setPackage(analyticsApplicationId)
         context.sendBroadcast(broadcastIntent)
@@ -106,14 +106,14 @@ object LearningEventUtil {
 
         val broadcastIntent = Intent()
         broadcastIntent.setAction("ai.elimu.intent.action.STORYBOOK_LEARNING_EVENT")
-        broadcastIntent.putExtra("packageName", context.packageName)
+        broadcastIntent.putExtra(BundleKeys.KEY_PACKAGE_NAME, context.packageName)
         additionalData?.let {
-            broadcastIntent.putExtra("additionalData", additionalData.toString())
+            broadcastIntent.putExtra(BundleKeys.KEY_ADDITIONAL_DATA, additionalData.toString())
         }
-        broadcastIntent.putExtra("storyBookTitle", storyBookGson.title)
-        broadcastIntent.putExtra("storyBookId", storyBookGson.id)
+        broadcastIntent.putExtra(BundleKeys.KEY_STORYBOOK_TITLE, storyBookGson.title)
+        broadcastIntent.putExtra(BundleKeys.KEY_STORYBOOK_ID, storyBookGson.id)
         learningEventType?.let {
-            broadcastIntent.putExtra("learningEventType", learningEventType.toString())
+            broadcastIntent.putExtra(BundleKeys.KEY_LEARNING_EVENT_TYPE, learningEventType.toString())
         }
         broadcastIntent.setPackage(analyticsApplicationId)
         context.sendBroadcast(broadcastIntent)
@@ -137,14 +137,14 @@ object LearningEventUtil {
 
         val broadcastIntent = Intent()
         broadcastIntent.setAction("ai.elimu.intent.action.VIDEO_LEARNING_EVENT")
-        broadcastIntent.putExtra("packageName", context.packageName)
+        broadcastIntent.putExtra(BundleKeys.KEY_PACKAGE_NAME, context.packageName)
         additionalData?.let {
-            broadcastIntent.putExtra("additionalData", additionalData.toString())
+            broadcastIntent.putExtra(BundleKeys.KEY_ADDITIONAL_DATA, additionalData.toString())
         }
-        broadcastIntent.putExtra("videoId", videoGson.id)
-        broadcastIntent.putExtra("videoTitle", videoGson.title)
+        broadcastIntent.putExtra(BundleKeys.KEY_VIDEO_ID, videoGson.id)
+        broadcastIntent.putExtra(BundleKeys.KEY_VIDEO_TITLE, videoGson.title)
         learningEventType?.let {
-            broadcastIntent.putExtra("learningEventType", learningEventType.toString())
+            broadcastIntent.putExtra(BundleKeys.KEY_LEARNING_EVENT_TYPE, learningEventType.toString())
         }
         broadcastIntent.setPackage(analyticsApplicationId)
         context.sendBroadcast(broadcastIntent)
@@ -168,18 +168,18 @@ object LearningEventUtil {
 
         val broadcastIntent = Intent()
         broadcastIntent.setAction("ai.elimu.intent.action.NUMBER_LEARNING_EVENT")
-        broadcastIntent.putExtra("packageName", context.packageName)
+        broadcastIntent.putExtra(BundleKeys.KEY_PACKAGE_NAME, context.packageName)
         additionalData?.let {
-            broadcastIntent.putExtra("additionalData", additionalData.toString())
+            broadcastIntent.putExtra(BundleKeys.KEY_ADDITIONAL_DATA, additionalData.toString())
         }
         numberGson.id?.let {
-            broadcastIntent.putExtra("numberId", numberGson.id)
+            broadcastIntent.putExtra(BundleKeys.KEY_NUMBER_ID, numberGson.id)
         }
 
-        broadcastIntent.putExtra("numberValue", numberGson.value)
-        broadcastIntent.putExtra("numberSymbol", numberGson.symbol)
+        broadcastIntent.putExtra(BundleKeys.KEY_NUMBER_VALUE, numberGson.value)
+        broadcastIntent.putExtra(BundleKeys.KEY_NUMBER_SYMBOL, numberGson.symbol)
         learningEventType?.let {
-            broadcastIntent.putExtra("learningEventType", learningEventType.toString())
+            broadcastIntent.putExtra(BundleKeys.KEY_LEARNING_EVENT_TYPE, learningEventType.toString())
         }
         broadcastIntent.setPackage(analyticsApplicationId)
         context.sendBroadcast(broadcastIntent)

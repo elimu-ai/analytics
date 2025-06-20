@@ -2,6 +2,7 @@ package ai.elimu.analytics.receiver
 
 import ai.elimu.analytics.db.RoomDb
 import ai.elimu.analytics.entity.WordLearningEvent
+import ai.elimu.analytics.utils.BundleKeys
 import ai.elimu.analytics.utils.research.ExperimentAssignmentHelper
 import ai.elimu.model.v2.enums.analytics.LearningEventType
 import android.content.BroadcastReceiver
@@ -18,16 +19,16 @@ class WordLearningEventReceiver : BroadcastReceiver() {
         val androidId = Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
         Timber.i("androidId: \"$androidId\"")
 
-        val packageName = intent.getStringExtra("packageName") ?: ""
+        val packageName = intent.getStringExtra(BundleKeys.KEY_PACKAGE_NAME) ?: ""
         Timber.i("packageName: \"$packageName\"")
 
         val timestamp = Calendar.getInstance()
         Timber.i("timestamp.time: %s", timestamp.time)
 
-        val additionalData = intent.getStringExtra("additionalData")
+        val additionalData = intent.getStringExtra(BundleKeys.KEY_ADDITIONAL_DATA)
         Timber.i("additionalData: ${additionalData}")
 
-        val learningEventTypeAsString = intent.getStringExtra("learningEventType") ?: ""
+        val learningEventTypeAsString = intent.getStringExtra(BundleKeys.KEY_LEARNING_EVENT_TYPE) ?: ""
         Timber.i("learningEventTypeAsString: \"$learningEventTypeAsString\"")
         val learningEventType = LearningEventType.valueOf(
             learningEventTypeAsString
@@ -38,12 +39,12 @@ class WordLearningEventReceiver : BroadcastReceiver() {
         val experimentGroup = ExperimentAssignmentHelper.getExperimentGroup(context)
         Timber.i("researchExperiment: ${researchExperiment} (${experimentGroup})")
 
-        val wordText = intent.getStringExtra("wordText") ?: ""
+        val wordText = intent.getStringExtra(BundleKeys.KEY_WORD_TEXT) ?: ""
         Timber.i("wordText: \"$wordText\"")
 
         var wordId: Long? = null
-        if (intent.hasExtra("wordId")) {
-            wordId = intent.getLongExtra("wordId", 0)
+        if (intent.hasExtra(BundleKeys.KEY_WORD_ID)) {
+            wordId = intent.getLongExtra(BundleKeys.KEY_WORD_ID, 0)
         }
         Timber.i("wordId: $wordId")
 

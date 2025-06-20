@@ -2,6 +2,7 @@ package ai.elimu.analytics.receiver
 
 import ai.elimu.analytics.db.RoomDb
 import ai.elimu.analytics.entity.StoryBookLearningEvent
+import ai.elimu.analytics.utils.BundleKeys
 import ai.elimu.analytics.utils.research.ExperimentAssignmentHelper
 import ai.elimu.model.v2.enums.analytics.LearningEventType
 import android.content.BroadcastReceiver
@@ -18,16 +19,16 @@ class StoryBookLearningEventReceiver : BroadcastReceiver() {
         val androidId = Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
         Timber.i("androidId: \"$androidId\"")
 
-        val packageName = intent.getStringExtra("packageName") ?: ""
+        val packageName = intent.getStringExtra(BundleKeys.KEY_PACKAGE_NAME) ?: ""
         Timber.i("packageName: \"$packageName\"")
 
         val timestamp = Calendar.getInstance()
         Timber.i("timestamp.time: %s", timestamp.time)
 
-        val additionalData = intent.getStringExtra("additionalData")
+        val additionalData = intent.getStringExtra(BundleKeys.KEY_ADDITIONAL_DATA)
         Timber.i("additionalData: ${additionalData}")
 
-        val learningEventTypeAsString = intent.getStringExtra("learningEventType") ?: ""
+        val learningEventTypeAsString = intent.getStringExtra(BundleKeys.KEY_LEARNING_EVENT_TYPE) ?: ""
         Timber.i("learningEventTypeAsString: \"$learningEventTypeAsString\"")
         val learningEventType = LearningEventType.valueOf(
             learningEventTypeAsString
@@ -38,11 +39,11 @@ class StoryBookLearningEventReceiver : BroadcastReceiver() {
         val experimentGroup = ExperimentAssignmentHelper.getExperimentGroup(context)
         Timber.i("researchExperiment: ${researchExperiment} (${experimentGroup})")
 
-        val storyBookTitle: String = intent.getStringExtra("storyBookTitle")
+        val storyBookTitle: String = intent.getStringExtra(BundleKeys.KEY_STORYBOOK_TITLE)
                 ?: throw IllegalArgumentException("storyBookTitle must be provided")
         Timber.i("storyBookTitle: \"$storyBookTitle\"")
 
-        val storyBookId = intent.getLongExtra("storyBookId", 0)
+        val storyBookId = intent.getLongExtra(BundleKeys.KEY_STORYBOOK_ID, 0)
         Timber.i("storyBookId: $storyBookId")
 
         val storyBookLearningEvent = StoryBookLearningEvent()

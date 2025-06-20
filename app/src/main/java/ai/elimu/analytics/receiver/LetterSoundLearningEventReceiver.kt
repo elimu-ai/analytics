@@ -2,6 +2,7 @@ package ai.elimu.analytics.receiver
 
 import ai.elimu.analytics.db.RoomDb
 import ai.elimu.analytics.entity.LetterSoundLearningEvent
+import ai.elimu.analytics.utils.BundleKeys
 import ai.elimu.analytics.utils.research.ExperimentAssignmentHelper
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -17,28 +18,28 @@ class LetterSoundLearningEventReceiver : BroadcastReceiver() {
         val androidId = Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
         Timber.i("androidId: \"$androidId\"")
 
-        val packageName = intent.getStringExtra("packageName") ?: ""
+        val packageName = intent.getStringExtra(BundleKeys.KEY_PACKAGE_NAME) ?: ""
         Timber.i("packageName: \"$packageName\"")
 
         val timestamp = Calendar.getInstance()
         Timber.i("timestamp.time: %s", timestamp.time)
 
-        val additionalData = intent.getStringExtra("additionalData")
+        val additionalData = intent.getStringExtra(BundleKeys.KEY_ADDITIONAL_DATA)
         Timber.i("additionalData: ${additionalData}")
 
         val researchExperiment = ExperimentAssignmentHelper.CURRENT_EXPERIMENT
         val experimentGroup = ExperimentAssignmentHelper.getExperimentGroup(context)
         Timber.i("researchExperiment: ${researchExperiment} (${experimentGroup})")
 
-        val letterSoundLetters = intent.getStringArrayExtra("letterSoundLetterTexts") ?: emptyArray()
+        val letterSoundLetters = intent.getStringArrayExtra(BundleKeys.KEY_LETTER_SOUND_LETTER_TEXTS) ?: emptyArray()
         Timber.i("letterSoundLetters: $letterSoundLetters")
 
-        val letterSoundSounds = intent.getStringArrayExtra("letterSoundSoundValuesIpa") ?: emptyArray()
+        val letterSoundSounds = intent.getStringArrayExtra(BundleKeys.KEY_LETTER_SOUND_SOUND_VALUES_IPA) ?: emptyArray()
         Timber.i("letterSoundSounds: $letterSoundSounds")
 
         var letterSoundId: Long? = null
-        if (intent.hasExtra("letterSoundId")) {
-            letterSoundId = intent.getLongExtra("letterSoundId", 0)
+        if (intent.hasExtra(BundleKeys.KEY_LETTER_SOUND_ID)) {
+            letterSoundId = intent.getLongExtra(BundleKeys.KEY_LETTER_SOUND_ID, 0)
         }
         Timber.i("letterSoundId: $letterSoundId")
 

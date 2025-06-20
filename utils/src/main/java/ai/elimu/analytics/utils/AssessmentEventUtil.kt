@@ -28,13 +28,15 @@ object AssessmentEventUtil {
 
         val broadcastIntent = Intent()
         broadcastIntent.setAction("ai.elimu.intent.action.LETTER_SOUND_ASSESSMENT_EVENT")
-        broadcastIntent.putExtra("packageName", context.packageName)
-        broadcastIntent.putExtra("letterSoundLetters", letterSoundGson.letters.stream().map(LetterGson::getText).collect(Collectors.joining()))
-        broadcastIntent.putExtra("letterSoundSounds", letterSoundGson.sounds.stream().map(SoundGson::getValueIpa).collect(Collectors.joining()))
-        broadcastIntent.putExtra("letterSoundId", letterSoundGson.id)
-        broadcastIntent.putExtra("masteryScore", masteryScore)
-        broadcastIntent.putExtra("timeSpentMs", timeSpentMs)
-        broadcastIntent.putExtra("additionalData", additionalData)
+        broadcastIntent.putExtra(BundleKeys.KEY_PACKAGE_NAME, context.packageName)
+        broadcastIntent.putExtra(BundleKeys.KEY_LETTER_SOUND_LETTERS,
+            letterSoundGson.letters.stream().map(LetterGson::getText).collect(Collectors.joining()))
+        broadcastIntent.putExtra(BundleKeys.KEY_LETTER_SOUND_SOUNDS,
+            letterSoundGson.sounds.stream().map(SoundGson::getValueIpa).collect(Collectors.joining()))
+        broadcastIntent.putExtra(BundleKeys.KEY_LETTER_SOUND_ID, letterSoundGson.id)
+        broadcastIntent.putExtra(BundleKeys.KEY_MASTERY_SCORE, masteryScore)
+        broadcastIntent.putExtra(BundleKeys.KEY_TIME_SPENT, timeSpentMs)
+        broadcastIntent.putExtra(BundleKeys.KEY_ADDITIONAL_DATA, additionalData)
         broadcastIntent.setPackage(analyticsApplicationId)
         context.sendBroadcast(broadcastIntent)
     }
@@ -50,11 +52,11 @@ object AssessmentEventUtil {
 
         val broadcastIntent = Intent()
         broadcastIntent.setAction("ai.elimu.intent.action.WORD_ASSESSMENT_EVENT")
-        broadcastIntent.putExtra("packageName", context.packageName)
-        broadcastIntent.putExtra("wordId", wordGson.id)
-        broadcastIntent.putExtra("wordText", wordGson.text)
-        broadcastIntent.putExtra("masteryScore", masteryScore)
-        broadcastIntent.putExtra("timeSpentMs", timeSpentMs)
+        broadcastIntent.putExtra(BundleKeys.KEY_PACKAGE_NAME, context.packageName)
+        broadcastIntent.putExtra(BundleKeys.KEY_WORD_ID, wordGson.id)
+        broadcastIntent.putExtra(BundleKeys.KEY_WORD_TEXT, wordGson.text)
+        broadcastIntent.putExtra(BundleKeys.KEY_MASTERY_SCORE, masteryScore)
+        broadcastIntent.putExtra(BundleKeys.KEY_TIME_SPENT, timeSpentMs)
         broadcastIntent.setPackage(analyticsApplicationId)
         context.sendBroadcast(broadcastIntent)
     }

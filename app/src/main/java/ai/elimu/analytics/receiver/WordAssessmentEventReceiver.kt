@@ -2,6 +2,7 @@ package ai.elimu.analytics.receiver
 
 import ai.elimu.analytics.db.RoomDb
 import ai.elimu.analytics.entity.WordAssessmentEvent
+import ai.elimu.analytics.utils.BundleKeys
 import ai.elimu.analytics.utils.research.ExperimentAssignmentHelper
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -17,28 +18,28 @@ class WordAssessmentEventReceiver : BroadcastReceiver() {
         val androidId = Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
         Timber.i("androidId: \"$androidId\"")
 
-        val packageName = intent.getStringExtra("packageName") ?: ""
+        val packageName = intent.getStringExtra(BundleKeys.KEY_PACKAGE_NAME) ?: ""
         Timber.i("packageName: \"$packageName\"")
 
         val timestamp = Calendar.getInstance()
         Timber.i("timestamp.time: %s", timestamp.time)
 
-        val masteryScore = intent.getFloatExtra("masteryScore", 0f)
+        val masteryScore = intent.getFloatExtra(BundleKeys.KEY_MASTERY_SCORE, 0f)
         Timber.i("masteryScore: $masteryScore")
 
-        val timeSpentMs = intent.getLongExtra("timeSpentMs", 0)
+        val timeSpentMs = intent.getLongExtra(BundleKeys.KEY_TIME_SPENT, 0)
         Timber.i("timeSpentMs: $timeSpentMs")
 
         val researchExperiment = ExperimentAssignmentHelper.CURRENT_EXPERIMENT
         val experimentGroup = ExperimentAssignmentHelper.getExperimentGroup(context)
         Timber.i("researchExperiment: ${researchExperiment} (${experimentGroup})")
 
-        val wordText = intent.getStringExtra("wordText") ?: ""
+        val wordText = intent.getStringExtra(BundleKeys.KEY_WORD_TEXT) ?: ""
         Timber.i("wordText: \"$wordText\"")
 
         var wordId: Long? = null
-        if (intent.hasExtra("wordId")) {
-            wordId = intent.getLongExtra("wordId", 0)
+        if (intent.hasExtra(BundleKeys.KEY_WORD_ID)) {
+            wordId = intent.getLongExtra(BundleKeys.KEY_WORD_ID, 0)
         }
         Timber.i("wordId: $wordId")
 
