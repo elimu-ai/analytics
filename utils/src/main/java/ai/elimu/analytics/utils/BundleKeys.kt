@@ -1,5 +1,16 @@
 package ai.elimu.analytics.utils
 
+/**
+ * Defines a set of constant keys used for passing data between the Analytics app
+ * and utils module via Bundles.
+ *
+ * ⚠️ **Important:** Do **not rename** or **delete** any of the values in this object.
+ * These keys are relied upon by multiple versions of Analytics application that may be using
+ * different versions of the shared utils library. Modifying any of the existing keys
+ * will **break backward-compatibility** and may cause analytics data to become inconsistent or lost.
+ *
+ * Only **add new keys** when introducing new functionality.
+ */
 object BundleKeys {
 
     // Common keys
