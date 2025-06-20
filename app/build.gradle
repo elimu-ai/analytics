@@ -14,7 +14,7 @@ android {
         minSdkVersion 26
         targetSdkVersion 35
         versionCode 3005015
-        versionName "3.5.15-SNAPSHOT"
+        versionName "3.5.15"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
             annotationProcessorOptions {
