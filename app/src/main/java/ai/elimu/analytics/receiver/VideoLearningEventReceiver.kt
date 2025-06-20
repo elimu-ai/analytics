@@ -2,6 +2,7 @@ package ai.elimu.analytics.receiver
 
 import ai.elimu.analytics.db.RoomDb
 import ai.elimu.analytics.entity.VideoLearningEvent
+import ai.elimu.analytics.utils.BundleKeys
 import ai.elimu.analytics.utils.research.ExperimentAssignmentHelper
 import ai.elimu.model.v2.enums.analytics.LearningEventType
 import android.content.BroadcastReceiver
@@ -21,13 +22,13 @@ class VideoLearningEventReceiver : BroadcastReceiver() {
         val androidId = Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
         Timber.i("androidId: \"$androidId\"")
 
-        val packageName = intent.getStringExtra("packageName") ?: ""
+        val packageName = intent.getStringExtra(BundleKeys.KEY_PACKAGE_NAME) ?: ""
         Timber.i("packageName: \"$packageName\"")
 
-        val additionalData = intent.getStringExtra("additionalData")
+        val additionalData = intent.getStringExtra(BundleKeys.KEY_ADDITIONAL_DATA)
         Timber.i("additionalData: ${additionalData}")
 
-        val learningEventTypeAsString = intent.getStringExtra("learningEventType") ?: ""
+        val learningEventTypeAsString = intent.getStringExtra(BundleKeys.KEY_LEARNING_EVENT_TYPE) ?: ""
         Timber.i("learningEventTypeAsString: \"$learningEventTypeAsString\"")
         val learningEventType = LearningEventType.valueOf(
             learningEventTypeAsString
@@ -38,10 +39,10 @@ class VideoLearningEventReceiver : BroadcastReceiver() {
         val experimentGroup = ExperimentAssignmentHelper.getExperimentGroup(context)
         Timber.i("researchExperiment: ${researchExperiment} (${experimentGroup})")
 
-        val videoTitle = intent.getStringExtra("videoTitle") ?: ""
+        val videoTitle = intent.getStringExtra(BundleKeys.KEY_VIDEO_TITLE) ?: ""
         Timber.i("videoTitle: \"$videoTitle\"")
 
-        val videoId = intent.getLongExtra("videoId", 0)
+        val videoId = intent.getLongExtra(BundleKeys.KEY_VIDEO_ID, 0)
         Timber.i("videoId: $videoId")
 
         val videoLearningEvent = VideoLearningEvent()

@@ -2,6 +2,7 @@ package ai.elimu.analytics.receiver
 
 import ai.elimu.analytics.db.RoomDb
 import ai.elimu.analytics.entity.LetterSoundAssessmentEvent
+import ai.elimu.analytics.utils.BundleKeys
 import ai.elimu.analytics.utils.research.ExperimentAssignmentHelper
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -18,32 +19,32 @@ class LetterSoundAssessmentEventReceiver : BroadcastReceiver() {
         val androidId: String = Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
         Timber.i("androidId: \"${androidId}\"")
 
-        val packageName: String = intent.getStringExtra("packageName") ?: ""
+        val packageName: String = intent.getStringExtra(BundleKeys.KEY_PACKAGE_NAME) ?: ""
         Timber.i("packageName: \"${packageName}\"")
 
         val timestamp: Calendar = Calendar.getInstance()
         Timber.i("timestamp.time: ${timestamp.time}")
 
-        val masteryScore: Float = intent.getFloatExtra("masteryScore", 0f)
+        val masteryScore: Float = intent.getFloatExtra(BundleKeys.KEY_MASTERY_SCORE, 0f)
         Timber.i("masteryScore: ${masteryScore}")
 
-        val timeSpentMs: Long = intent.getLongExtra("timeSpentMs", 0)
+        val timeSpentMs: Long = intent.getLongExtra(BundleKeys.KEY_TIME_SPENT, 0)
         Timber.i("timeSpentMs: ${timeSpentMs}")
 
-        val additionalData: String? = intent.getStringExtra("additionalData")
+        val additionalData: String? = intent.getStringExtra(BundleKeys.KEY_ADDITIONAL_DATA)
         Timber.i("additionalData: \"${additionalData}\"")
 
         val researchExperiment = ExperimentAssignmentHelper.CURRENT_EXPERIMENT
         val experimentGroup = ExperimentAssignmentHelper.getExperimentGroup(context)
         Timber.i("researchExperiment: ${researchExperiment} (${experimentGroup})")
 
-        val letterSoundLetters: String = intent.getStringExtra("letterSoundLetters") ?: ""
+        val letterSoundLetters: String = intent.getStringExtra(BundleKeys.KEY_LETTER_SOUND_LETTERS) ?: ""
         Timber.i("letterSoundLetters: \"${letterSoundLetters}\"")
 
-        val letterSoundSounds: String = intent.getStringExtra("letterSoundSounds") ?: ""
+        val letterSoundSounds: String = intent.getStringExtra(BundleKeys.KEY_LETTER_SOUND_SOUNDS) ?: ""
         Timber.i("letterSoundSounds: \"${letterSoundSounds}\"")
 
-        val letterSoundId: Long = intent.getLongExtra("letterSoundId", 0)
+        val letterSoundId: Long = intent.getLongExtra(BundleKeys.KEY_LETTER_SOUND_ID, 0)
         Timber.i("letterSoundId: ${letterSoundId}")
 
         val letterSoundAssessmentEvent = LetterSoundAssessmentEvent()
