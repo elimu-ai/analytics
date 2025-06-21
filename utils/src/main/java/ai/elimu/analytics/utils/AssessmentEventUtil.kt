@@ -7,6 +7,7 @@ import ai.elimu.model.v2.gson.content.WordGson
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import org.json.JSONObject
 import java.util.stream.Collectors
 
 /**
@@ -20,7 +21,7 @@ object AssessmentEventUtil {
         letterSoundGson: LetterSoundGson,
         masteryScore: Float,
         timeSpentMs: Long,
-        additionalData: String,
+        additionalData: JSONObject? = null,
         context: Context,
         analyticsApplicationId: String
     ) {
@@ -36,7 +37,9 @@ object AssessmentEventUtil {
         broadcastIntent.putExtra(BundleKeys.KEY_LETTER_SOUND_ID, letterSoundGson.id)
         broadcastIntent.putExtra(BundleKeys.KEY_MASTERY_SCORE, masteryScore)
         broadcastIntent.putExtra(BundleKeys.KEY_TIME_SPENT, timeSpentMs)
-        broadcastIntent.putExtra(BundleKeys.KEY_ADDITIONAL_DATA, additionalData)
+        additionalData?.let {
+            broadcastIntent.putExtra(BundleKeys.KEY_ADDITIONAL_DATA, additionalData.toString())
+        }
         broadcastIntent.setPackage(analyticsApplicationId)
         context.sendBroadcast(broadcastIntent)
     }
