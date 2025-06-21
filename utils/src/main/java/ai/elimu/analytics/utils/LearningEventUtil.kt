@@ -15,7 +15,8 @@ import org.json.JSONObject
 import java.util.stream.Collectors
 
 /**
- * A utility class that makes it easier for other apps to report learning events.
+ * A utility class that makes it easier for other apps to report learning events to the receivers
+ * in the `:app` module.
  */
 object LearningEventUtil {
     /**

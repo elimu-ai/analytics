@@ -53,7 +53,7 @@ class LetterSoundAssessmentEventReceiver : BroadcastReceiver() {
         letterSoundAssessmentEvent.time = timestamp
         letterSoundAssessmentEvent.masteryScore = masteryScore
         letterSoundAssessmentEvent.timeSpentMs = timeSpentMs
-//        letterSoundAssessmentEvent.additionalData = additionalData
+        letterSoundAssessmentEvent.additionalData = additionalData
         letterSoundAssessmentEvent.researchExperiment = researchExperiment
         letterSoundAssessmentEvent.experimentGroup = experimentGroup
         letterSoundAssessmentEvent.letterSoundLetters = letterSoundLetters

@@ -20,6 +20,7 @@ object CursorToLetterSoundAssessmentEventGsonConverter {
     const val COLUMN_NAME_TIMESTAMP = "column_name_timestamp"
     const val COLUMN_NAME_MASTERY_SCORE = "column_name_mastery_score"
     const val COLUMN_NAME_TIME_SPENT_MS = "column_name_time_spent_ms"
+    const val COLUMN_NAME_ADDITIONAL_DATA = "column_name_additional_data"
     const val COLUMN_NAME_LETTER_SOUND_LETTERS = "column_name_letter_sound_letters"
     const val COLUMN_NAME_LETTER_SOUND_SOUNDS = "column_name_letter_sound_sounds"
     const val COLUMN_NAME_LETTER_SOUND_ID = "column_name_letter_sound_id"
@@ -70,10 +71,12 @@ object CursorToLetterSoundAssessmentEventGsonConverter {
         Log.i(TAG, "timeSpentMs: ${timeSpentMs}")
         letterSoundAssessmentEventGson.timeSpentMs = timeSpentMs
 
-//        val columnAdditionalData: Int = cursor.getColumnIndexOrThrow(COLUMN_NAME_ADDITIONAL_DATA)
-//        val additionalData: String = cursor.getString(columnAdditionalData)
-//        Log.i(TAG, "additionalData: ${additionalData}")
-//        letterSoundAssessmentEventGson.additionalData = additionalData
+        val columnAdditionalData: Int = cursor.getColumnIndex(COLUMN_NAME_ADDITIONAL_DATA)
+        if (columnAdditionalData != -1) {
+            val additionalData: String = cursor.getString(columnAdditionalData)
+            Log.i(TAG, "additionalData: \"${additionalData}\"")
+            letterSoundAssessmentEventGson.additionalData = additionalData
+        }
 
         val columnLetterSoundLetters: Int = cursor.getColumnIndex(COLUMN_NAME_LETTER_SOUND_LETTERS)
         if (columnLetterSoundLetters != -1) {

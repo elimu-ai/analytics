@@ -17,7 +17,7 @@ fun LetterSoundAssessmentEvent.getCSVFields(): List<Any?> {
         this.packageName,
         this.masteryScore,
         this.timeSpentMs,
-        // this.additionalData
+        this.additionalData,
         this.researchExperiment?.ordinal,
         this.experimentGroup?.ordinal,
         this.letterSoundLetters,
@@ -46,6 +46,7 @@ fun WordAssessmentEvent.getCSVFields(): List<Any?> {
         this.packageName,
         this.masteryScore,
         this.timeSpentMs,
+        this.additionalData,
         this.researchExperiment?.ordinal,
         this.experimentGroup?.ordinal,
         this.wordText,

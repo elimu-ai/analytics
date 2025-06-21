@@ -30,6 +30,9 @@ class WordAssessmentEventReceiver : BroadcastReceiver() {
         val timeSpentMs = intent.getLongExtra(BundleKeys.KEY_TIME_SPENT, 0)
         Timber.i("timeSpentMs: $timeSpentMs")
 
+        val additionalData: String? = intent.getStringExtra(BundleKeys.KEY_ADDITIONAL_DATA)
+        Timber.i("additionalData: \"${additionalData}\"")
+
         val researchExperiment = ExperimentAssignmentHelper.CURRENT_EXPERIMENT
         val experimentGroup = ExperimentAssignmentHelper.getExperimentGroup(context)
         Timber.i("researchExperiment: ${researchExperiment} (${experimentGroup})")
@@ -49,6 +52,7 @@ class WordAssessmentEventReceiver : BroadcastReceiver() {
         wordAssessmentEvent.time = timestamp
         wordAssessmentEvent.masteryScore = masteryScore
         wordAssessmentEvent.timeSpentMs = timeSpentMs
+        wordAssessmentEvent.additionalData = additionalData
         wordAssessmentEvent.researchExperiment = researchExperiment
         wordAssessmentEvent.experimentGroup = experimentGroup
         wordAssessmentEvent.wordText = wordText
