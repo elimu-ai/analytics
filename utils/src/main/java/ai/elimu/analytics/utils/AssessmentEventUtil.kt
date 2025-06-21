@@ -11,12 +11,21 @@ import org.json.JSONObject
 import java.util.stream.Collectors
 
 /**
- * A utility class that makes it easier for other apps to report assessments events.
+ * A utility class that makes it easier for other apps to report assessments events to the receivers
+ * in the `:app` module.
  */
 object AssessmentEventUtil {
 
     private const val TAG = "AssessmentEventUtil"
 
+    /**
+     * @param letterSoundGson The letter-sound correspondence that the student is being assessed for.
+     * @param masteryScore A value in the range [0.0, 1.0].
+     * @param timeSpentMs The number of milliseconds passed between the student opening the assessment task and submitting a response. E.g. `15000`.
+     * @param additionalData Any additional data related to the learning event, e.g. `{'is_letter_pressed':true}`
+     * @param context Needed to fetch the `packageName` of the application where the learning event occurred.
+     * @param analyticsApplicationId The package name of the analytics application that will receive the Intent and store the event.
+     */
     fun reportLetterSoundAssessmentEvent(
         letterSoundGson: LetterSoundGson,
         masteryScore: Float,
@@ -44,6 +53,14 @@ object AssessmentEventUtil {
         context.sendBroadcast(broadcastIntent)
     }
 
+    /**
+     * @param wordGson The word that the student is being assessed for.
+     * @param masteryScore A value in the range [0.0, 1.0].
+     * @param timeSpentMs The number of milliseconds passed between the student opening the assessment task and submitting a response. E.g. `15000`.
+     * @param additionalData Any additional data related to the learning event, e.g. `{'is_word_pressed':true}`
+     * @param context Needed to fetch the `packageName` of the application where the learning event occurred.
+     * @param analyticsApplicationId The package name of the analytics application that will receive the Intent and store the event.
+     */
     fun reportWordAssessmentEvent(
         wordGson: WordGson,
         masteryScore: Float?,
