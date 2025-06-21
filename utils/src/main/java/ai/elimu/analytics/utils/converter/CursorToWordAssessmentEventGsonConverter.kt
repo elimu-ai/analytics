@@ -20,6 +20,7 @@ object CursorToWordAssessmentEventGsonConverter {
     const val COLUMN_NAME_TIMESTAMP = "column_name_timestamp"
     const val COLUMN_NAME_MASTERY_SCORE = "column_name_mastery_score"
     const val COLUMN_NAME_TIME_SPENT_MS = "column_name_time_spent_ms"
+    const val COLUMN_NAME_ADDITIONAL_DATA = "column_name_additional_data"
     const val COLUMN_NAME_WORD_TEXT = "column_name_word_text"
     const val COLUMN_NAME_WORD_ID = "column_name_word_id"
     // ☝️ WARNING
@@ -72,6 +73,13 @@ object CursorToWordAssessmentEventGsonConverter {
         val timeSpentMs = cursor.getLong(columnTimeSpentMs)
         Log.i(TAG, "timeSpentMs: $timeSpentMs")
         wordAssessmentEventGson.timeSpentMs = timeSpentMs
+
+        val columnAdditionalData: Int = cursor.getColumnIndex(COLUMN_NAME_ADDITIONAL_DATA)
+        if (columnAdditionalData != -1) {
+            val additionalData: String = cursor.getString(columnAdditionalData)
+            Log.i(TAG, "additionalData: \"${additionalData}\"")
+            wordAssessmentEventGson.additionalData = additionalData
+        }
 
         val columnNameWordText = bundle.getString(COLUMN_NAME_WORD_TEXT)
         val columnWordText = cursor.getColumnIndex(columnNameWordText)
