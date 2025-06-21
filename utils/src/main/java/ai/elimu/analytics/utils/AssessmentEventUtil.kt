@@ -48,6 +48,7 @@ object AssessmentEventUtil {
         wordGson: WordGson,
         masteryScore: Float?,
         timeSpentMs: Long?,
+        additionalData: JSONObject? = null,
         context: Context,
         analyticsApplicationId: String?
     ) {
@@ -60,6 +61,9 @@ object AssessmentEventUtil {
         broadcastIntent.putExtra(BundleKeys.KEY_WORD_TEXT, wordGson.text)
         broadcastIntent.putExtra(BundleKeys.KEY_MASTERY_SCORE, masteryScore)
         broadcastIntent.putExtra(BundleKeys.KEY_TIME_SPENT, timeSpentMs)
+        additionalData?.let {
+            broadcastIntent.putExtra(BundleKeys.KEY_ADDITIONAL_DATA, additionalData.toString())
+        }
         broadcastIntent.setPackage(analyticsApplicationId)
         context.sendBroadcast(broadcastIntent)
     }
