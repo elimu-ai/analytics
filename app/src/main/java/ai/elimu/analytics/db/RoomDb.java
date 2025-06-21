@@ -70,7 +70,8 @@ public abstract class RoomDb extends RoomDatabase {
                                     MIGRATION_12_13,
                                     MIGRATION_13_14,
                                     MIGRATION_14_15,
-                                    MIGRATION_15_16
+                                    MIGRATION_15_16,
+                                    MIGRATION_16_17
                             )
                             .build();
                 }
@@ -315,6 +316,21 @@ public abstract class RoomDb extends RoomDatabase {
             database.execSQL(sql);
 
             sql = "ALTER TABLE `WordAssessmentEvent` ADD COLUMN `experimentGroup` TEXT";
+            Timber.i("sql: %s", sql);
+            database.execSQL(sql);
+        }
+    };
+
+    private static final Migration MIGRATION_16_17 = new Migration(16, 17) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            Timber.i("migrate (" + database.getVersion() + " --> 17)");
+
+            String sql = "ALTER TABLE `LetterSoundAssessmentEvent` ADD COLUMN `additionalData` TEXT";
+            Timber.i("sql: %s", sql);
+            database.execSQL(sql);
+
+            sql = "ALTER TABLE `WordAssessmentEvent` ADD COLUMN `additionalData` TEXT";
             Timber.i("sql: %s", sql);
             database.execSQL(sql);
         }
