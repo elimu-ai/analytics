@@ -6,8 +6,6 @@ import ai.elimu.analytics.util.Clipboard
 import ai.elimu.analytics.utils.research.ExperimentAssignmentHelper
 import ai.elimu.common.utils.ui.setLightStatusBar
 import ai.elimu.common.utils.ui.setStatusBarColorCompat
-import ai.elimu.model.v2.enums.analytics.research.ExperimentGroup
-import ai.elimu.model.v2.enums.analytics.research.ResearchExperiment
 import android.os.Bundle
 import android.provider.Settings
 import android.view.View
@@ -77,16 +75,20 @@ class EventListActivity : AppCompatActivity() {
                             roomDb.letterSoundAssessmentEventDao().getCount())
                     ),
                     EventListAdapter.EventTypeCount(
-                        getString(R.string.event_label_word_assessment,
-                            roomDb.wordAssessmentEventDao().getCount())
-                    ),
-                    EventListAdapter.EventTypeCount(
                         getString(R.string.event_label_letter_sound_learning,
                             roomDb.letterSoundLearningEventDao().getCount())
                     ),
                     EventListAdapter.EventTypeCount(
+                        getString(R.string.event_label_word_assessment,
+                            roomDb.wordAssessmentEventDao().getCount())
+                    ),
+                    EventListAdapter.EventTypeCount(
                         getString(R.string.event_label_word_learning,
                             roomDb.wordLearningEventDao().getCount())
+                    ),
+                    EventListAdapter.EventTypeCount(
+                        getString(R.string.event_label_number_learning,
+                            roomDb.numberLearningEventDao().getCount())
                     ),
                     EventListAdapter.EventTypeCount(
                         getString(R.string.event_label_storybook_learning,
@@ -95,10 +97,6 @@ class EventListActivity : AppCompatActivity() {
                     EventListAdapter.EventTypeCount(
                         getString(R.string.event_label_video_learning,
                             roomDb.videoLearningEventDao().getCount())
-                    ),
-                    EventListAdapter.EventTypeCount(
-                        getString(R.string.event_label_number_learning,
-                            roomDb.numberLearningEventDao().getCount())
                     )
                 )
                 runOnUiThread {

@@ -5,11 +5,11 @@
     <string name="database_no_events">The database does not contain any events.</string>
     <string name="android_id_label">Android ID: </string>
     <string name="research_experiment">Research experiment: ...</string>
-    <string name="event_label_letter_sound_assessment">Letter-sound assessment: %d</string>
-    <string name="event_label_word_assessment">Word assessment: %d</string>
-    <string name="event_label_letter_sound_learning">Letter-sound learning: %d</string>
-    <string name="event_label_word_learning">Word learning: %d</string>
-    <string name="event_label_storybook_learning">Storybook learning: %d</string>
-    <string name="event_label_video_learning">Video learning: %d</string>
-    <string name="event_label_number_learning">Number learning: %d</string>
+    <string name="event_label_letter_sound_assessment">🎼 Letter-sound assessment events: %d</string>
+    <string name="event_label_letter_sound_learning">🎼 Letter-sound learning events: %d</string>
+    <string name="event_label_word_assessment">🔤 Word assessment events: %d</string>
+    <string name="event_label_word_learning">🔤 Word learning events: %d</string>
+    <string name="event_label_number_learning">🔢 Number learning events: %d</string>
+    <string name="event_label_storybook_learning">📚 Storybook learning events: %d</string>
+    <string name="event_label_video_learning">🎬 Video learning events: %d</string>
 </resources>
