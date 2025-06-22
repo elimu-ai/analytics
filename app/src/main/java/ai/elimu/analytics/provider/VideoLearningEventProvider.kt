@@ -55,14 +55,14 @@ class VideoLearningEventProvider : ContentProvider() {
             cursor.setNotificationUri(context.contentResolver, uri)
             val bundle = Bundle().apply {
                 putInt("version_code", BuildConfig.VERSION_CODE)
-                putString(CursorToVideoLearningEventGsonConverter.COLUMN_NAME_ID, VideoLearningEvent::id.name)
-                putString(CursorToVideoLearningEventGsonConverter.COLUMN_NAME_ANDROID_ID, VideoLearningEvent::androidId.name)
-                putString(CursorToVideoLearningEventGsonConverter.COLUMN_NAME_PACKAGE_NAME, VideoLearningEvent::packageName.name)
-                putString(CursorToVideoLearningEventGsonConverter.COLUMN_NAME_TIMESTAMP, VideoLearningEvent::time.name)
-                putString(CursorToVideoLearningEventGsonConverter.COLUMN_NAME_LEARNING_EVENT_TYPE, VideoLearningEvent::learningEventType.name)
-                putString(CursorToVideoLearningEventGsonConverter.COLUMN_NAME_ADDITIONAL_DATA, VideoLearningEvent::additionalData.name)
-                putString(CursorToVideoLearningEventGsonConverter.COLUMN_NAME_VIDEO_TITLE, VideoLearningEvent::videoTitle.name)
-                putString(CursorToVideoLearningEventGsonConverter.COLUMN_NAME_VIDEO_ID, VideoLearningEvent::videoId.name)
+                putString(CursorToVideoLearningEventGsonConverter.BUNDLE_KEY_ID, VideoLearningEvent::id.name)
+                putString(CursorToVideoLearningEventGsonConverter.BUNDLE_KEY_ANDROID_ID, VideoLearningEvent::androidId.name)
+                putString(CursorToVideoLearningEventGsonConverter.BUNDLE_KEY_PACKAGE_NAME, VideoLearningEvent::packageName.name)
+                putString(CursorToVideoLearningEventGsonConverter.BUNDLE_KEY_TIMESTAMP, VideoLearningEvent::time.name)
+                putString(CursorToVideoLearningEventGsonConverter.BUNDLE_KEY_LEARNING_EVENT_TYPE, VideoLearningEvent::learningEventType.name)
+                putString(CursorToVideoLearningEventGsonConverter.BUNDLE_KEY_ADDITIONAL_DATA, VideoLearningEvent::additionalData.name)
+                putString(CursorToVideoLearningEventGsonConverter.BUNDLE_KEY_VIDEO_TITLE, VideoLearningEvent::videoTitle.name)
+                putString(CursorToVideoLearningEventGsonConverter.BUNDLE_KEY_VIDEO_ID, VideoLearningEvent::videoId.name)
             }
             cursor.extras = bundle
             return cursor
