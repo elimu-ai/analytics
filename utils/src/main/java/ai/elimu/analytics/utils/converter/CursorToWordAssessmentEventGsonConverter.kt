@@ -13,17 +13,17 @@ object CursorToWordAssessmentEventGsonConverter {
     
     private const val TAG = "CursorToWordAssessmentEventGsonConverter"
 
-    // 👇 WARNING: To ensure backward compatibility, these column name values must never be renamed.
-    const val COLUMN_NAME_ID = "column_name_id"
-    const val COLUMN_NAME_ANDROID_ID = "column_name_android_id"
-    const val COLUMN_NAME_PACKAGE_NAME = "column_name_package_name"
-    const val COLUMN_NAME_TIMESTAMP = "column_name_timestamp"
-    const val COLUMN_NAME_MASTERY_SCORE = "column_name_mastery_score"
-    const val COLUMN_NAME_TIME_SPENT_MS = "column_name_time_spent_ms"
-    const val COLUMN_NAME_ADDITIONAL_DATA = "column_name_additional_data"
-    const val COLUMN_NAME_WORD_TEXT = "column_name_word_text"
-    const val COLUMN_NAME_WORD_ID = "column_name_word_id"
-    // ☝️ WARNING
+    // ⚠️ WARNING: To ensure backward compatibility, these bundle key values must never be renamed!
+    const val BUNDLE_KEY_ID = "bundle_key_id"
+    const val BUNDLE_KEY_ANDROID_ID = "bundle_key_android_id"
+    const val BUNDLE_KEY_PACKAGE_NAME = "bundle_key_package_name"
+    const val BUNDLE_KEY_TIMESTAMP = "bundle_key_timestamp"
+    const val BUNDLE_KEY_MASTERY_SCORE = "bundle_key_mastery_score"
+    const val BUNDLE_KEY_TIME_SPENT_MS = "bundle_key_time_spent_ms"
+    const val BUNDLE_KEY_ADDITIONAL_DATA = "bundle_key_additional_data"
+    const val BUNDLE_KEY_WORD_TEXT = "bundle_key_word_text"
+    const val BUNDLE_KEY_WORD_ID = "bundle_key_word_id"
+    // ⚠️ WARNING
     
     fun getWordAssessmentEventGson(cursor: Cursor): WordAssessmentEventGson {
         Log.i(TAG, "getWordAssessmentEventGson")
@@ -36,25 +36,25 @@ object CursorToWordAssessmentEventGsonConverter {
 
         val wordAssessmentEventGson = WordAssessmentEventGson()
 
-        val columnNameId = bundle.getString(COLUMN_NAME_ID)
+        val columnNameId = bundle.getString(BUNDLE_KEY_ID)
         val columnId = cursor.getColumnIndexOrThrow(columnNameId)
         val id = cursor.getLong(columnId)
         Log.i(TAG, "id: $id")
         wordAssessmentEventGson.id = id
 
-        val columnNameAndroidId = bundle.getString(COLUMN_NAME_ANDROID_ID)
+        val columnNameAndroidId = bundle.getString(BUNDLE_KEY_ANDROID_ID)
         val columnAndroidId = cursor.getColumnIndexOrThrow(columnNameAndroidId)
         val androidId = cursor.getString(columnAndroidId)
         Log.i(TAG, "androidId: \"$androidId\"")
         wordAssessmentEventGson.androidId = androidId
 
-        val columnNamePackageName = bundle.getString(COLUMN_NAME_PACKAGE_NAME)
+        val columnNamePackageName = bundle.getString(BUNDLE_KEY_PACKAGE_NAME)
         val columnPackageName = cursor.getColumnIndexOrThrow(columnNamePackageName)
         val packageName = cursor.getString(columnPackageName)
         Log.i(TAG, "packageName: \"$packageName\"")
         wordAssessmentEventGson.packageName = packageName
 
-        val columnNameTimestamp = bundle.getString(COLUMN_NAME_TIMESTAMP)
+        val columnNameTimestamp = bundle.getString(BUNDLE_KEY_TIMESTAMP)
         val columnTimestamp = cursor.getColumnIndexOrThrow(columnNameTimestamp)
         val timestampAsLong = cursor.getLong(columnTimestamp)
         val timestamp = Calendar.getInstance()
@@ -62,26 +62,26 @@ object CursorToWordAssessmentEventGsonConverter {
         Log.i(TAG, "timestamp.time: " + timestamp.time)
         wordAssessmentEventGson.timestamp = timestamp
 
-        val columnNameMasteryScore = bundle.getString(COLUMN_NAME_MASTERY_SCORE)
+        val columnNameMasteryScore = bundle.getString(BUNDLE_KEY_MASTERY_SCORE)
         val columnMasteryScore = cursor.getColumnIndexOrThrow(columnNameMasteryScore)
         val masteryScore = cursor.getFloat(columnMasteryScore)
         Log.i(TAG, "masteryScore: $masteryScore")
         wordAssessmentEventGson.masteryScore = masteryScore
 
-        val columnNameTimeSpentMs = bundle.getString(COLUMN_NAME_TIME_SPENT_MS)
+        val columnNameTimeSpentMs = bundle.getString(BUNDLE_KEY_TIME_SPENT_MS)
         val columnTimeSpentMs = cursor.getColumnIndexOrThrow(columnNameTimeSpentMs)
         val timeSpentMs = cursor.getLong(columnTimeSpentMs)
         Log.i(TAG, "timeSpentMs: $timeSpentMs")
         wordAssessmentEventGson.timeSpentMs = timeSpentMs
 
-        val columnAdditionalData: Int = cursor.getColumnIndex(COLUMN_NAME_ADDITIONAL_DATA)
+        val columnAdditionalData: Int = cursor.getColumnIndex(BUNDLE_KEY_ADDITIONAL_DATA)
         if (columnAdditionalData != -1) {
             val additionalData: String = cursor.getString(columnAdditionalData)
             Log.i(TAG, "additionalData: \"${additionalData}\"")
             wordAssessmentEventGson.additionalData = additionalData
         }
 
-        val columnNameWordText = bundle.getString(COLUMN_NAME_WORD_TEXT)
+        val columnNameWordText = bundle.getString(BUNDLE_KEY_WORD_TEXT)
         val columnWordText = cursor.getColumnIndex(columnNameWordText)
         if (columnWordText != -1) {
             val wordText = cursor.getString(columnWordText)
@@ -89,7 +89,7 @@ object CursorToWordAssessmentEventGsonConverter {
             wordAssessmentEventGson.wordText = wordText
         }
 
-        val columnNameWordId = bundle.getString(COLUMN_NAME_WORD_ID)
+        val columnNameWordId = bundle.getString(BUNDLE_KEY_WORD_ID)
         val columnWordId = cursor.getColumnIndex(columnNameWordId)
         if (columnWordId != -1) {
             val wordId = cursor.getLong(columnWordId)
