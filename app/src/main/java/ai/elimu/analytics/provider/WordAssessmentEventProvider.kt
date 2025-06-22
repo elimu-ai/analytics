@@ -62,6 +62,7 @@ class WordAssessmentEventProvider : ContentProvider() {
                     putString(CursorToWordAssessmentEventGsonConverter.COLUMN_NAME_TIMESTAMP, WordAssessmentEvent::time.name)
                     putString(CursorToWordAssessmentEventGsonConverter.COLUMN_NAME_MASTERY_SCORE, WordAssessmentEvent::masteryScore.name)
                     putString(CursorToWordAssessmentEventGsonConverter.COLUMN_NAME_TIME_SPENT_MS, WordAssessmentEvent::timeSpentMs.name)
+                    putString(CursorToWordAssessmentEventGsonConverter.COLUMN_NAME_ADDITIONAL_DATA, WordAssessmentEvent::additionalData.name)
                     putString(CursorToWordAssessmentEventGsonConverter.COLUMN_NAME_WORD_TEXT, WordAssessmentEvent::wordText.name)
                     putString(CursorToWordAssessmentEventGsonConverter.COLUMN_NAME_WORD_ID, WordAssessmentEvent::wordId.name)
                 }
@@ -90,6 +91,7 @@ class WordAssessmentEventProvider : ContentProvider() {
                     putString(CursorToWordAssessmentEventGsonConverter.COLUMN_NAME_TIMESTAMP, WordAssessmentEvent::time.name)
                     putString(CursorToWordAssessmentEventGsonConverter.COLUMN_NAME_MASTERY_SCORE, WordAssessmentEvent::masteryScore.name)
                     putString(CursorToWordAssessmentEventGsonConverter.COLUMN_NAME_TIME_SPENT_MS, WordAssessmentEvent::timeSpentMs.name)
+                    putString(CursorToWordAssessmentEventGsonConverter.COLUMN_NAME_ADDITIONAL_DATA, WordAssessmentEvent::additionalData.name)
                     putString(CursorToWordAssessmentEventGsonConverter.COLUMN_NAME_WORD_TEXT, WordAssessmentEvent::wordText.name)
                     putString(CursorToWordAssessmentEventGsonConverter.COLUMN_NAME_WORD_ID, WordAssessmentEvent::wordId.name)
                 }
