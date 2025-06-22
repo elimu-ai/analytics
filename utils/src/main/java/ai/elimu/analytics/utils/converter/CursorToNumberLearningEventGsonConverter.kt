@@ -1,5 +1,6 @@
 package ai.elimu.analytics.utils.converter
 
+import ai.elimu.analytics.utils.BundleKeys
 import ai.elimu.model.v2.enums.analytics.LearningEventType
 import ai.elimu.model.v2.gson.analytics.NumberLearningEventGson
 import android.database.Cursor
@@ -9,18 +10,6 @@ import java.util.Calendar
 object CursorToNumberLearningEventGsonConverter {
     
     private const val TAG = "CursorToNumberLearningEventGsonConverter"
-
-    // ⚠️ WARNING: To ensure backward compatibility, these bundle key values must never be renamed!
-    const val BUNDLE_KEY_ID = "bundle_key_id"
-    const val BUNDLE_KEY_ANDROID_ID = "bundle_key_android_id"
-    const val BUNDLE_KEY_PACKAGE_NAME = "bundle_key_package_name"
-    const val BUNDLE_KEY_TIMESTAMP = "bundle_key_timestamp"
-    const val BUNDLE_KEY_ADDITIONAL_DATA = "bundle_key_additional_data"
-    const val BUNDLE_KEY_LEARNING_EVENT_TYPE = "bundle_key_learning_event_type"
-    const val BUNDLE_KEY_NUMBER_VALUE = "bundle_key_number_value"
-    const val BUNDLE_KEY_NUMBER_SYMBOL = "bundle_key_number_symbol"
-    const val BUNDLE_KEY_NUMBER_ID = "bundle_key_number_id"
-    // ⚠️ WARNING
     
     fun getNumberLearningEventGson(cursor: Cursor): NumberLearningEventGson {
         Log.i(TAG, "getNumberLearningEventGson")
@@ -33,25 +22,25 @@ object CursorToNumberLearningEventGsonConverter {
 
         val numberLearningEventGson = NumberLearningEventGson()
 
-        val columnNameId = bundle.getString(BUNDLE_KEY_ID);
+        val columnNameId = bundle.getString(BundleKeys.KEY_ID)
         val columnId = cursor.getColumnIndexOrThrow(columnNameId)
         val id = cursor.getLong(columnId)
         Log.i(TAG, "id: $id")
         numberLearningEventGson.id = id
 
-        val columnNameAndroidId = bundle.getString(BUNDLE_KEY_ANDROID_ID)
+        val columnNameAndroidId = bundle.getString(BundleKeys.KEY_ANDROID_ID)
         val columnAndroidId: Int = cursor.getColumnIndexOrThrow(columnNameAndroidId)
         val androidId = cursor.getString(columnAndroidId)
         Log.i(TAG, "androidId: \"$androidId\"")
         numberLearningEventGson.androidId = androidId
 
-        val columnNamePackageName = bundle.getString(BUNDLE_KEY_PACKAGE_NAME)
+        val columnNamePackageName = bundle.getString(BundleKeys.KEY_PACKAGE_NAME)
         val columnPackageName = cursor.getColumnIndexOrThrow(columnNamePackageName)
         val packageName = cursor.getString(columnPackageName)
         Log.i(TAG, "packageName: \"$packageName\"")
         numberLearningEventGson.packageName = packageName
 
-        val columnNameTimestamp = bundle.getString(BUNDLE_KEY_TIMESTAMP)
+        val columnNameTimestamp = bundle.getString(BundleKeys.KEY_TIMESTAMP)
         val columnTimestamp = cursor.getColumnIndexOrThrow(columnNameTimestamp)
         val timestampAsLong = cursor.getLong(columnTimestamp)
         val timestamp = Calendar.getInstance()
@@ -59,13 +48,13 @@ object CursorToNumberLearningEventGsonConverter {
         Log.i(TAG, "timestamp.time: " + timestamp.time)
         numberLearningEventGson.timestamp = timestamp
 
-        val columnNameAdditionalData = bundle.getString(BUNDLE_KEY_ADDITIONAL_DATA)
+        val columnNameAdditionalData = bundle.getString(BundleKeys.KEY_ADDITIONAL_DATA)
         val columnAdditionalData = cursor.getColumnIndexOrThrow(columnNameAdditionalData)
         val additionalData = cursor.getString(columnAdditionalData)
         Log.i(TAG, "additionalData: $additionalData")
         numberLearningEventGson.additionalData = additionalData
 
-        val columnNameLearningEventType = bundle.getString(BUNDLE_KEY_LEARNING_EVENT_TYPE)
+        val columnNameLearningEventType = bundle.getString(BundleKeys.KEY_LEARNING_EVENT_TYPE)
         val columnLearningEventType = cursor.getColumnIndex(columnNameLearningEventType)
         if (columnLearningEventType != -1) {
             val learningEventTypeAsString = cursor.getString(columnLearningEventType)
@@ -76,7 +65,7 @@ object CursorToNumberLearningEventGsonConverter {
             }
         }
 
-        val columnNameNumberValue = bundle.getString(BUNDLE_KEY_NUMBER_VALUE)
+        val columnNameNumberValue = bundle.getString(BundleKeys.KEY_NUMBER_VALUE)
         val columnNumberValue = cursor.getColumnIndex(columnNameNumberValue)
         if (columnNumberValue != -1) {
             val numberValue = cursor.getInt(columnNumberValue)
@@ -84,7 +73,7 @@ object CursorToNumberLearningEventGsonConverter {
             numberLearningEventGson.numberValue = numberValue
         }
 
-        val columnNameNumberSymbol = bundle.getString(BUNDLE_KEY_NUMBER_SYMBOL)
+        val columnNameNumberSymbol = bundle.getString(BundleKeys.KEY_NUMBER_SYMBOL)
         val columnNumberSymbol = cursor.getColumnIndex(columnNameNumberSymbol)
         if (columnNumberSymbol != -1) {
             val numberSymbol = cursor.getString(columnNumberSymbol)
@@ -92,7 +81,7 @@ object CursorToNumberLearningEventGsonConverter {
             numberLearningEventGson.numberSymbol = numberSymbol
         }
 
-        val columnNameNumberId = bundle.getString(BUNDLE_KEY_NUMBER_ID)
+        val columnNameNumberId = bundle.getString(BundleKeys.KEY_NUMBER_ID)
         val columnNumberId = cursor.getColumnIndex(columnNameNumberId)
         if (columnNumberId != -1) {
             val numberId = cursor.getLong(columnNumberId)

@@ -45,7 +45,7 @@ object AssessmentEventUtil {
             letterSoundGson.sounds.stream().map(SoundGson::getValueIpa).collect(Collectors.joining()))
         broadcastIntent.putExtra(BundleKeys.KEY_LETTER_SOUND_ID, letterSoundGson.id)
         broadcastIntent.putExtra(BundleKeys.KEY_MASTERY_SCORE, masteryScore)
-        broadcastIntent.putExtra(BundleKeys.KEY_TIME_SPENT, timeSpentMs)
+        broadcastIntent.putExtra(BundleKeys.KEY_TIME_SPENT_MS, timeSpentMs)
         additionalData?.let {
             broadcastIntent.putExtra(BundleKeys.KEY_ADDITIONAL_DATA, additionalData.toString())
         }
@@ -77,7 +77,7 @@ object AssessmentEventUtil {
         broadcastIntent.putExtra(BundleKeys.KEY_WORD_ID, wordGson.id)
         broadcastIntent.putExtra(BundleKeys.KEY_WORD_TEXT, wordGson.text)
         broadcastIntent.putExtra(BundleKeys.KEY_MASTERY_SCORE, masteryScore)
-        broadcastIntent.putExtra(BundleKeys.KEY_TIME_SPENT, timeSpentMs)
+        broadcastIntent.putExtra(BundleKeys.KEY_TIME_SPENT_MS, timeSpentMs)
         additionalData?.let {
             broadcastIntent.putExtra(BundleKeys.KEY_ADDITIONAL_DATA, additionalData.toString())
         }

@@ -27,7 +27,7 @@ class WordAssessmentEventReceiver : BroadcastReceiver() {
         val masteryScore = intent.getFloatExtra(BundleKeys.KEY_MASTERY_SCORE, 0f)
         Timber.i("masteryScore: $masteryScore")
 
-        val timeSpentMs = intent.getLongExtra(BundleKeys.KEY_TIME_SPENT, 0)
+        val timeSpentMs = intent.getLongExtra(BundleKeys.KEY_TIME_SPENT_MS, 0)
         Timber.i("timeSpentMs: $timeSpentMs")
 
         val additionalData: String? = intent.getStringExtra(BundleKeys.KEY_ADDITIONAL_DATA)

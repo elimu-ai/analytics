@@ -3,7 +3,7 @@ package ai.elimu.analytics.provider
 import ai.elimu.analytics.BuildConfig
 import ai.elimu.analytics.db.RoomDb
 import ai.elimu.analytics.entity.WordLearningEvent
-import ai.elimu.analytics.utils.converter.CursorToWordLearningEventGsonConverter
+import ai.elimu.analytics.utils.BundleKeys
 import android.content.ContentProvider
 import android.content.ContentValues
 import android.content.UriMatcher
@@ -55,14 +55,14 @@ class WordLearningEventProvider : ContentProvider() {
             cursor.setNotificationUri(context.contentResolver, uri)
             val bundle = Bundle().apply {
                 putInt("version_code", BuildConfig.VERSION_CODE)
-                putString(CursorToWordLearningEventGsonConverter.BUNDLE_KEY_ID, WordLearningEvent::id.name)
-                putString(CursorToWordLearningEventGsonConverter.BUNDLE_KEY_ANDROID_ID, WordLearningEvent::androidId.name)
-                putString(CursorToWordLearningEventGsonConverter.BUNDLE_KEY_PACKAGE_NAME, WordLearningEvent::packageName.name)
-                putString(CursorToWordLearningEventGsonConverter.BUNDLE_KEY_TIMESTAMP, WordLearningEvent::time.name)
-                putString(CursorToWordLearningEventGsonConverter.BUNDLE_KEY_LEARNING_EVENT_TYPE, WordLearningEvent::learningEventType.name)
-                putString(CursorToWordLearningEventGsonConverter.BUNDLE_KEY_ADDITIONAL_DATA, WordLearningEvent::additionalData.name)
-                putString(CursorToWordLearningEventGsonConverter.BUNDLE_KEY_WORD_TEXT, WordLearningEvent::wordText.name)
-                putString(CursorToWordLearningEventGsonConverter.BUNDLE_KEY_WORD_ID, WordLearningEvent::wordId.name)
+                putString(BundleKeys.KEY_ID, WordLearningEvent::id.name)
+                putString(BundleKeys.KEY_ANDROID_ID, WordLearningEvent::androidId.name)
+                putString(BundleKeys.KEY_PACKAGE_NAME, WordLearningEvent::packageName.name)
+                putString(BundleKeys.KEY_TIMESTAMP, WordLearningEvent::time.name)
+                putString(BundleKeys.KEY_LEARNING_EVENT_TYPE, WordLearningEvent::learningEventType.name)
+                putString(BundleKeys.KEY_ADDITIONAL_DATA, WordLearningEvent::additionalData.name)
+                putString(BundleKeys.KEY_WORD_TEXT, WordLearningEvent::wordText.name)
+                putString(BundleKeys.KEY_WORD_ID, WordLearningEvent::wordId.name)
             }
             cursor.extras = bundle
             return cursor

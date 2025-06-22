@@ -3,7 +3,7 @@ package ai.elimu.analytics.provider
 import ai.elimu.analytics.BuildConfig
 import ai.elimu.analytics.db.RoomDb
 import ai.elimu.analytics.entity.VideoLearningEvent
-import ai.elimu.analytics.utils.converter.CursorToVideoLearningEventGsonConverter
+import ai.elimu.analytics.utils.BundleKeys
 import android.content.ContentProvider
 import android.content.ContentValues
 import android.content.UriMatcher
@@ -55,14 +55,14 @@ class VideoLearningEventProvider : ContentProvider() {
             cursor.setNotificationUri(context.contentResolver, uri)
             val bundle = Bundle().apply {
                 putInt("version_code", BuildConfig.VERSION_CODE)
-                putString(CursorToVideoLearningEventGsonConverter.BUNDLE_KEY_ID, VideoLearningEvent::id.name)
-                putString(CursorToVideoLearningEventGsonConverter.BUNDLE_KEY_ANDROID_ID, VideoLearningEvent::androidId.name)
-                putString(CursorToVideoLearningEventGsonConverter.BUNDLE_KEY_PACKAGE_NAME, VideoLearningEvent::packageName.name)
-                putString(CursorToVideoLearningEventGsonConverter.BUNDLE_KEY_TIMESTAMP, VideoLearningEvent::time.name)
-                putString(CursorToVideoLearningEventGsonConverter.BUNDLE_KEY_LEARNING_EVENT_TYPE, VideoLearningEvent::learningEventType.name)
-                putString(CursorToVideoLearningEventGsonConverter.BUNDLE_KEY_ADDITIONAL_DATA, VideoLearningEvent::additionalData.name)
-                putString(CursorToVideoLearningEventGsonConverter.BUNDLE_KEY_VIDEO_TITLE, VideoLearningEvent::videoTitle.name)
-                putString(CursorToVideoLearningEventGsonConverter.BUNDLE_KEY_VIDEO_ID, VideoLearningEvent::videoId.name)
+                putString(BundleKeys.KEY_ID, VideoLearningEvent::id.name)
+                putString(BundleKeys.KEY_ANDROID_ID, VideoLearningEvent::androidId.name)
+                putString(BundleKeys.KEY_PACKAGE_NAME, VideoLearningEvent::packageName.name)
+                putString(BundleKeys.KEY_TIMESTAMP, VideoLearningEvent::time.name)
+                putString(BundleKeys.KEY_LEARNING_EVENT_TYPE, VideoLearningEvent::learningEventType.name)
+                putString(BundleKeys.KEY_ADDITIONAL_DATA, VideoLearningEvent::additionalData.name)
+                putString(BundleKeys.KEY_VIDEO_TITLE, VideoLearningEvent::videoTitle.name)
+                putString(BundleKeys.KEY_VIDEO_ID, VideoLearningEvent::videoId.name)
             }
             cursor.extras = bundle
             return cursor

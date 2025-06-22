@@ -3,7 +3,7 @@ package ai.elimu.analytics.provider
 import ai.elimu.analytics.BuildConfig
 import ai.elimu.analytics.db.RoomDb
 import ai.elimu.analytics.entity.WordAssessmentEvent
-import ai.elimu.analytics.utils.converter.CursorToWordAssessmentEventGsonConverter
+import ai.elimu.analytics.utils.BundleKeys
 import android.content.ContentProvider
 import android.content.ContentValues
 import android.content.UriMatcher
@@ -56,15 +56,15 @@ class WordAssessmentEventProvider : ContentProvider() {
                 cursor.setNotificationUri(context.contentResolver, uri)
                 val bundle = Bundle().apply {
                     putInt("version_code", BuildConfig.VERSION_CODE)
-                    putString(CursorToWordAssessmentEventGsonConverter.BUNDLE_KEY_ID, WordAssessmentEvent::id.name)
-                    putString(CursorToWordAssessmentEventGsonConverter.BUNDLE_KEY_ANDROID_ID, WordAssessmentEvent::androidId.name)
-                    putString(CursorToWordAssessmentEventGsonConverter.BUNDLE_KEY_PACKAGE_NAME, WordAssessmentEvent::packageName.name)
-                    putString(CursorToWordAssessmentEventGsonConverter.BUNDLE_KEY_TIMESTAMP, WordAssessmentEvent::time.name)
-                    putString(CursorToWordAssessmentEventGsonConverter.BUNDLE_KEY_MASTERY_SCORE, WordAssessmentEvent::masteryScore.name)
-                    putString(CursorToWordAssessmentEventGsonConverter.BUNDLE_KEY_TIME_SPENT_MS, WordAssessmentEvent::timeSpentMs.name)
-                    putString(CursorToWordAssessmentEventGsonConverter.BUNDLE_KEY_ADDITIONAL_DATA, WordAssessmentEvent::additionalData.name)
-                    putString(CursorToWordAssessmentEventGsonConverter.BUNDLE_KEY_WORD_TEXT, WordAssessmentEvent::wordText.name)
-                    putString(CursorToWordAssessmentEventGsonConverter.BUNDLE_KEY_WORD_ID, WordAssessmentEvent::wordId.name)
+                    putString(BundleKeys.KEY_ID, WordAssessmentEvent::id.name)
+                    putString(BundleKeys.KEY_ANDROID_ID, WordAssessmentEvent::androidId.name)
+                    putString(BundleKeys.KEY_PACKAGE_NAME, WordAssessmentEvent::packageName.name)
+                    putString(BundleKeys.KEY_TIMESTAMP, WordAssessmentEvent::time.name)
+                    putString(BundleKeys.KEY_MASTERY_SCORE, WordAssessmentEvent::masteryScore.name)
+                    putString(BundleKeys.KEY_TIME_SPENT_MS, WordAssessmentEvent::timeSpentMs.name)
+                    putString(BundleKeys.KEY_ADDITIONAL_DATA, WordAssessmentEvent::additionalData.name)
+                    putString(BundleKeys.KEY_WORD_TEXT, WordAssessmentEvent::wordText.name)
+                    putString(BundleKeys.KEY_WORD_ID, WordAssessmentEvent::wordId.name)
                 }
                 cursor.extras = bundle
                 return cursor
@@ -85,15 +85,15 @@ class WordAssessmentEventProvider : ContentProvider() {
                 cursor.setNotificationUri(context.contentResolver, uri)
                 val bundle = Bundle().apply {
                     putInt("version_code", BuildConfig.VERSION_CODE)
-                    putString(CursorToWordAssessmentEventGsonConverter.BUNDLE_KEY_ID, WordAssessmentEvent::id.name)
-                    putString(CursorToWordAssessmentEventGsonConverter.BUNDLE_KEY_ANDROID_ID, WordAssessmentEvent::androidId.name)
-                    putString(CursorToWordAssessmentEventGsonConverter.BUNDLE_KEY_PACKAGE_NAME, WordAssessmentEvent::packageName.name)
-                    putString(CursorToWordAssessmentEventGsonConverter.BUNDLE_KEY_TIMESTAMP, WordAssessmentEvent::time.name)
-                    putString(CursorToWordAssessmentEventGsonConverter.BUNDLE_KEY_MASTERY_SCORE, WordAssessmentEvent::masteryScore.name)
-                    putString(CursorToWordAssessmentEventGsonConverter.BUNDLE_KEY_TIME_SPENT_MS, WordAssessmentEvent::timeSpentMs.name)
-                    putString(CursorToWordAssessmentEventGsonConverter.BUNDLE_KEY_ADDITIONAL_DATA, WordAssessmentEvent::additionalData.name)
-                    putString(CursorToWordAssessmentEventGsonConverter.BUNDLE_KEY_WORD_TEXT, WordAssessmentEvent::wordText.name)
-                    putString(CursorToWordAssessmentEventGsonConverter.BUNDLE_KEY_WORD_ID, WordAssessmentEvent::wordId.name)
+                    putString(BundleKeys.KEY_ID, WordAssessmentEvent::id.name)
+                    putString(BundleKeys.KEY_ANDROID_ID, WordAssessmentEvent::androidId.name)
+                    putString(BundleKeys.KEY_PACKAGE_NAME, WordAssessmentEvent::packageName.name)
+                    putString(BundleKeys.KEY_TIMESTAMP, WordAssessmentEvent::time.name)
+                    putString(BundleKeys.KEY_MASTERY_SCORE, WordAssessmentEvent::masteryScore.name)
+                    putString(BundleKeys.KEY_TIME_SPENT_MS, WordAssessmentEvent::timeSpentMs.name)
+                    putString(BundleKeys.KEY_ADDITIONAL_DATA, WordAssessmentEvent::additionalData.name)
+                    putString(BundleKeys.KEY_WORD_TEXT, WordAssessmentEvent::wordText.name)
+                    putString(BundleKeys.KEY_WORD_ID, WordAssessmentEvent::wordId.name)
                 }
                 cursor.extras = bundle
                 return cursor

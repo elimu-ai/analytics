@@ -11,5 +11,6 @@ class NumberLearningEvent (val numberValue: Int)
 
     var numberSymbol: String? = null
 
+    @Deprecated("Will be replaced by `additionalData`")
     var learningEventType: LearningEventType? = null
 }

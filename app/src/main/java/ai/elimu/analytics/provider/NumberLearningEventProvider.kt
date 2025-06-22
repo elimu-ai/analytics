@@ -3,7 +3,7 @@ package ai.elimu.analytics.provider
 import ai.elimu.analytics.BuildConfig
 import ai.elimu.analytics.db.RoomDb
 import ai.elimu.analytics.entity.NumberLearningEvent
-import ai.elimu.analytics.utils.converter.CursorToNumberLearningEventGsonConverter
+import ai.elimu.analytics.utils.BundleKeys
 import android.content.ContentProvider
 import android.content.ContentValues
 import android.content.UriMatcher
@@ -55,15 +55,15 @@ class NumberLearningEventProvider : ContentProvider() {
             cursor.setNotificationUri(context.contentResolver, uri)
             val bundle = Bundle().apply {
                 putInt("version_code", BuildConfig.VERSION_CODE)
-                putString(CursorToNumberLearningEventGsonConverter.BUNDLE_KEY_ID, NumberLearningEvent::id.name)
-                putString(CursorToNumberLearningEventGsonConverter.BUNDLE_KEY_ANDROID_ID, NumberLearningEvent::androidId.name)
-                putString(CursorToNumberLearningEventGsonConverter.BUNDLE_KEY_PACKAGE_NAME, NumberLearningEvent::packageName.name)
-                putString(CursorToNumberLearningEventGsonConverter.BUNDLE_KEY_TIMESTAMP, NumberLearningEvent::time.name)
-                putString(CursorToNumberLearningEventGsonConverter.BUNDLE_KEY_LEARNING_EVENT_TYPE, NumberLearningEvent::learningEventType.name)
-                putString(CursorToNumberLearningEventGsonConverter.BUNDLE_KEY_ADDITIONAL_DATA, NumberLearningEvent::additionalData.name)
-                putString(CursorToNumberLearningEventGsonConverter.BUNDLE_KEY_NUMBER_VALUE, NumberLearningEvent::numberValue.name)
-                putString(CursorToNumberLearningEventGsonConverter.BUNDLE_KEY_NUMBER_SYMBOL, NumberLearningEvent::numberSymbol.name)
-                putString(CursorToNumberLearningEventGsonConverter.BUNDLE_KEY_NUMBER_ID, NumberLearningEvent::numberId.name)
+                putString(BundleKeys.KEY_ID, NumberLearningEvent::id.name)
+                putString(BundleKeys.KEY_ANDROID_ID, NumberLearningEvent::androidId.name)
+                putString(BundleKeys.KEY_PACKAGE_NAME, NumberLearningEvent::packageName.name)
+                putString(BundleKeys.KEY_TIMESTAMP, NumberLearningEvent::time.name)
+                putString(BundleKeys.KEY_LEARNING_EVENT_TYPE, NumberLearningEvent::learningEventType.name)
+                putString(BundleKeys.KEY_ADDITIONAL_DATA, NumberLearningEvent::additionalData.name)
+                putString(BundleKeys.KEY_NUMBER_VALUE, NumberLearningEvent::numberValue.name)
+                putString(BundleKeys.KEY_NUMBER_SYMBOL, NumberLearningEvent::numberSymbol.name)
+                putString(BundleKeys.KEY_NUMBER_ID, NumberLearningEvent::numberId.name)
             }
             cursor.extras = bundle
             return cursor
