@@ -28,11 +28,14 @@ class StoryBookLearningEventReceiver : BroadcastReceiver() {
         val additionalData = intent.getStringExtra(BundleKeys.KEY_ADDITIONAL_DATA)
         Timber.i("additionalData: ${additionalData}")
 
-        val learningEventTypeAsString = intent.getStringExtra(BundleKeys.KEY_LEARNING_EVENT_TYPE) ?: ""
+        val learningEventTypeAsString = intent.getStringExtra(BundleKeys.KEY_LEARNING_EVENT_TYPE)
         Timber.i("learningEventTypeAsString: \"$learningEventTypeAsString\"")
-        val learningEventType = LearningEventType.valueOf(
-            learningEventTypeAsString
-        )
+        val learningEventType = runCatching {
+            learningEventTypeAsString?.let {
+                LearningEventType.valueOf(it)
+            }
+        }.getOrNull()
+
         Timber.i("learningEventType: $learningEventType")
 
         val researchExperiment = ExperimentAssignmentHelper.CURRENT_EXPERIMENT
