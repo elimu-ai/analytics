@@ -6,6 +6,7 @@ import ai.elimu.analytics.entity.createEventFromIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.os.Bundle
 import timber.log.Timber
 
 class LetterSoundAssessmentEventReceiver : BroadcastReceiver() {
@@ -13,10 +14,16 @@ class LetterSoundAssessmentEventReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         Timber.i("onReceive")
 
-        val letterSoundAssessmentEvent = AnalyticEventType.LETTER_SOUND_ASSESSMENT
-            .createEventFromIntent(context, intent)
+        try {
+            val letterSoundAssessmentEvent = AnalyticEventType.LETTER_SOUND_ASSESSMENT
+                .createEventFromIntent(context, intent)
 
-        // Store in database
-        letterSoundAssessmentEvent.persistEvent(context)
+            // Store in database
+            letterSoundAssessmentEvent.persistEvent(context)
+        } catch (e: Exception) {
+            Timber.e(e)
+            val results: Bundle = getResultExtras(true)
+            results.putString("errorClassName", e::class.simpleName);
+        }
     }
 }

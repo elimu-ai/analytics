@@ -6,16 +6,23 @@ import ai.elimu.analytics.entity.createEventFromIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.os.Bundle
 import timber.log.Timber
 
 class WordLearningEventReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         Timber.i("onReceive")
 
-        val wordLearningEvent = AnalyticEventType.WORD_LEARNING
-            .createEventFromIntent(context, intent)
+        try {
+            val wordLearningEvent = AnalyticEventType.WORD_LEARNING
+                .createEventFromIntent(context, intent)
 
-        // Store in database
-        wordLearningEvent.persistEvent(context)
+            // Store in database
+            wordLearningEvent.persistEvent(context)
+        } catch (e: Exception) {
+            Timber.e(e)
+            val results: Bundle = getResultExtras(true)
+            results.putString("errorClassName", e::class.simpleName);
+        }
     }
 }

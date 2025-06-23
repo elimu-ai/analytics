@@ -7,6 +7,7 @@ import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.os.Bundle
 import timber.log.Timber
 
 class NumberLearningEventReceiver : BroadcastReceiver() {
@@ -14,10 +15,16 @@ class NumberLearningEventReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         Timber.i("onReceive")
 
-        val numberLearningEvent = AnalyticEventType.NUMBER_LEARNING
-            .createEventFromIntent(context, intent)
+        try {
+            val numberLearningEvent = AnalyticEventType.NUMBER_LEARNING
+                .createEventFromIntent(context, intent)
 
-        // Store in database
-        numberLearningEvent.persistEvent(context)
+            // Store in database
+            numberLearningEvent.persistEvent(context)
+        } catch (e: Exception) {
+            Timber.e(e)
+            val results: Bundle = getResultExtras(true)
+            results.putString("errorClassName", e::class.simpleName);
+        }
     }
 }

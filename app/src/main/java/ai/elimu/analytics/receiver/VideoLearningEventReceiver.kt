@@ -6,16 +6,23 @@ import ai.elimu.analytics.entity.createEventFromIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.os.Bundle
 import timber.log.Timber
 
 class VideoLearningEventReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         Timber.i("onReceive")
 
-        val videoLearningEvent = AnalyticEventType.VIDEO_LEARNING
-            .createEventFromIntent(context, intent)
+        try {
+            val videoLearningEvent = AnalyticEventType.VIDEO_LEARNING
+                .createEventFromIntent(context, intent)
 
-        // Store in database
-        videoLearningEvent.persistEvent(context)
+            // Store in database
+            videoLearningEvent.persistEvent(context)
+        } catch (e: Exception) {
+            Timber.e(e)
+            val results: Bundle = getResultExtras(true)
+            results.putString("errorClassName", e::class.simpleName);
+        }
     }
 }
