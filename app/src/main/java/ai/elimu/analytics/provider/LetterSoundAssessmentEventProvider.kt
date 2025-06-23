@@ -3,7 +3,7 @@ package ai.elimu.analytics.provider
 import ai.elimu.analytics.BuildConfig
 import ai.elimu.analytics.db.RoomDb
 import ai.elimu.analytics.entity.LetterSoundAssessmentEvent
-import ai.elimu.analytics.utils.converter.CursorToLetterSoundAssessmentEventGsonConverter
+import ai.elimu.analytics.utils.BundleKeys
 import android.content.ContentProvider
 import android.content.ContentValues
 import android.content.UriMatcher
@@ -70,16 +70,16 @@ class LetterSoundAssessmentEventProvider : ContentProvider() {
                 cursor.setNotificationUri(context.contentResolver, uri)
                 val bundle = Bundle().apply {
                     putInt("version_code", BuildConfig.VERSION_CODE)
-                    putString(CursorToLetterSoundAssessmentEventGsonConverter.COLUMN_NAME_ID, LetterSoundAssessmentEvent::id.name)
-                    putString(CursorToLetterSoundAssessmentEventGsonConverter.COLUMN_NAME_ANDROID_ID, LetterSoundAssessmentEvent::androidId.name)
-                    putString(CursorToLetterSoundAssessmentEventGsonConverter.COLUMN_NAME_PACKAGE_NAME, LetterSoundAssessmentEvent::packageName.name)
-                    putString(CursorToLetterSoundAssessmentEventGsonConverter.COLUMN_NAME_TIMESTAMP, LetterSoundAssessmentEvent::time.name)
-                    putString(CursorToLetterSoundAssessmentEventGsonConverter.COLUMN_NAME_MASTERY_SCORE, LetterSoundAssessmentEvent::masteryScore.name)
-                    putString(CursorToLetterSoundAssessmentEventGsonConverter.COLUMN_NAME_TIME_SPENT_MS, LetterSoundAssessmentEvent::timeSpentMs.name)
-                    putString(CursorToLetterSoundAssessmentEventGsonConverter.COLUMN_NAME_ADDITIONAL_DATA, LetterSoundAssessmentEvent::additionalData.name)
-                    putString(CursorToLetterSoundAssessmentEventGsonConverter.COLUMN_NAME_LETTER_SOUND_LETTERS, LetterSoundAssessmentEvent::letterSoundLetters.name)
-                    putString(CursorToLetterSoundAssessmentEventGsonConverter.COLUMN_NAME_LETTER_SOUND_SOUNDS, LetterSoundAssessmentEvent::letterSoundSounds.name)
-                    putString(CursorToLetterSoundAssessmentEventGsonConverter.COLUMN_NAME_LETTER_SOUND_ID, LetterSoundAssessmentEvent::letterSoundId.name)
+                    putString(BundleKeys.KEY_ID, LetterSoundAssessmentEvent::id.name)
+                    putString(BundleKeys.KEY_ANDROID_ID, LetterSoundAssessmentEvent::androidId.name)
+                    putString(BundleKeys.KEY_PACKAGE_NAME, LetterSoundAssessmentEvent::packageName.name)
+                    putString(BundleKeys.KEY_TIMESTAMP, LetterSoundAssessmentEvent::time.name)
+                    putString(BundleKeys.KEY_MASTERY_SCORE, LetterSoundAssessmentEvent::masteryScore.name)
+                    putString(BundleKeys.KEY_TIME_SPENT_MS, LetterSoundAssessmentEvent::timeSpentMs.name)
+                    putString(BundleKeys.KEY_ADDITIONAL_DATA, LetterSoundAssessmentEvent::additionalData.name)
+                    putString(BundleKeys.KEY_LETTER_SOUND_LETTERS, LetterSoundAssessmentEvent::letterSoundLetters.name)
+                    putString(BundleKeys.KEY_LETTER_SOUND_SOUNDS, LetterSoundAssessmentEvent::letterSoundSounds.name)
+                    putString(BundleKeys.KEY_LETTER_SOUND_ID, LetterSoundAssessmentEvent::letterSoundId.name)
                 }
                 cursor.extras = bundle
                 return cursor
@@ -100,16 +100,16 @@ class LetterSoundAssessmentEventProvider : ContentProvider() {
                 cursor.setNotificationUri(context.contentResolver, uri)
                 val bundle = Bundle().apply {
                     putInt("version_code", BuildConfig.VERSION_CODE)
-                    putString(CursorToLetterSoundAssessmentEventGsonConverter.COLUMN_NAME_ID, LetterSoundAssessmentEvent::id.name)
-                    putString(CursorToLetterSoundAssessmentEventGsonConverter.COLUMN_NAME_ANDROID_ID, LetterSoundAssessmentEvent::androidId.name)
-                    putString(CursorToLetterSoundAssessmentEventGsonConverter.COLUMN_NAME_PACKAGE_NAME, LetterSoundAssessmentEvent::packageName.name)
-                    putString(CursorToLetterSoundAssessmentEventGsonConverter.COLUMN_NAME_TIMESTAMP, LetterSoundAssessmentEvent::time.name)
-                    putString(CursorToLetterSoundAssessmentEventGsonConverter.COLUMN_NAME_MASTERY_SCORE, LetterSoundAssessmentEvent::masteryScore.name)
-                    putString(CursorToLetterSoundAssessmentEventGsonConverter.COLUMN_NAME_TIME_SPENT_MS, LetterSoundAssessmentEvent::timeSpentMs.name)
-                    putString(CursorToLetterSoundAssessmentEventGsonConverter.COLUMN_NAME_ADDITIONAL_DATA, LetterSoundAssessmentEvent::additionalData.name)
-                    putString(CursorToLetterSoundAssessmentEventGsonConverter.COLUMN_NAME_LETTER_SOUND_LETTERS, LetterSoundAssessmentEvent::letterSoundLetters.name)
-                    putString(CursorToLetterSoundAssessmentEventGsonConverter.COLUMN_NAME_LETTER_SOUND_SOUNDS, LetterSoundAssessmentEvent::letterSoundSounds.name)
-                    putString(CursorToLetterSoundAssessmentEventGsonConverter.COLUMN_NAME_LETTER_SOUND_ID, LetterSoundAssessmentEvent::letterSoundId.name)
+                    putString(BundleKeys.KEY_ID, LetterSoundAssessmentEvent::id.name)
+                    putString(BundleKeys.KEY_ANDROID_ID, LetterSoundAssessmentEvent::androidId.name)
+                    putString(BundleKeys.KEY_PACKAGE_NAME, LetterSoundAssessmentEvent::packageName.name)
+                    putString(BundleKeys.KEY_TIMESTAMP, LetterSoundAssessmentEvent::time.name)
+                    putString(BundleKeys.KEY_MASTERY_SCORE, LetterSoundAssessmentEvent::masteryScore.name)
+                    putString(BundleKeys.KEY_TIME_SPENT_MS, LetterSoundAssessmentEvent::timeSpentMs.name)
+                    putString(BundleKeys.KEY_ADDITIONAL_DATA, LetterSoundAssessmentEvent::additionalData.name)
+                    putString(BundleKeys.KEY_LETTER_SOUND_LETTERS, LetterSoundAssessmentEvent::letterSoundLetters.name)
+                    putString(BundleKeys.KEY_LETTER_SOUND_SOUNDS, LetterSoundAssessmentEvent::letterSoundSounds.name)
+                    putString(BundleKeys.KEY_LETTER_SOUND_ID, LetterSoundAssessmentEvent::letterSoundId.name)
                 }
                 cursor.extras = bundle
                 return cursor
