@@ -147,7 +147,20 @@ object LearningEventUtil {
             broadcastIntent.putExtra(BundleKeys.KEY_LEARNING_EVENT_TYPE, learningEventType.toString())
         }
         broadcastIntent.setPackage(analyticsApplicationId)
-        context.sendBroadcast(broadcastIntent)
+
+        val resultReceiver = object : BroadcastReceiver() {
+            override fun onReceive(context: Context?, intent: Intent?) {
+                Log.i(LearningEventUtil::class.simpleName, "onReceive")
+                val results: Bundle = getResultExtras(true)
+                val errorClassName: String? = results.getString("errorClassName")
+                errorClassName?.let {
+                    Log.e(LearningEventUtil::class.simpleName, "errorClassName: ${errorClassName}")
+                    Toast.makeText(context, "Error: ${errorClassName}", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
+        context.sendOrderedBroadcast(broadcastIntent, null, resultReceiver, null, Activity.RESULT_OK, null, null)
     }
 
     /**
