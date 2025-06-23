@@ -12,6 +12,9 @@ import ai.elimu.analytics.entity.WordLearningEvent
 import android.content.Context
 import androidx.annotation.WorkerThread
 
+/**
+ * Load all analytics events of a specific type from database.
+ */
 @WorkerThread
 fun AnalyticEventType.getAllEvents(context: Context): List<BaseEntity> {
 
@@ -42,9 +45,11 @@ fun AnalyticEventType.getAllEvents(context: Context): List<BaseEntity> {
     }
 }
 
+/**
+ * Persist an analytics event to the database asynchronously.
+ */
 fun BaseEntity.persistEvent(context: Context) {
 
-    // Extract events from the database that have not yet been exported to CSV.
     val roomDb = RoomDb.getDatabase(context)
     RoomDb.databaseWriteExecutor.execute {
         when(this) {
