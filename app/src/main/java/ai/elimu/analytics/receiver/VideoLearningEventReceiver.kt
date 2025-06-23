@@ -1,6 +1,6 @@
 package ai.elimu.analytics.receiver
 
-import ai.elimu.analytics.db.RoomDb
+import ai.elimu.analytics.db.persistEvent
 import ai.elimu.analytics.entity.VideoLearningEvent
 import ai.elimu.analytics.utils.BundleKeys
 import ai.elimu.analytics.utils.research.ExperimentAssignmentHelper
@@ -60,10 +60,6 @@ class VideoLearningEventReceiver : BroadcastReceiver() {
         videoLearningEvent.videoId = videoId
 
         // Store in database
-        val roomDb = RoomDb.getDatabase(context)
-        val videoLearningEventDao = roomDb.videoLearningEventDao()
-        RoomDb.databaseWriteExecutor.execute {
-            videoLearningEventDao.insert(videoLearningEvent)
-        }
+        videoLearningEvent.persistEvent(context)
     }
 }

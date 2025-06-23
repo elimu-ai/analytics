@@ -1,6 +1,6 @@
 package ai.elimu.analytics.receiver
 
-import ai.elimu.analytics.db.RoomDb
+import ai.elimu.analytics.db.persistEvent
 import ai.elimu.analytics.entity.NumberLearningEvent
 import ai.elimu.analytics.utils.BundleKeys
 import ai.elimu.analytics.utils.research.ExperimentAssignmentHelper
@@ -65,10 +65,6 @@ class NumberLearningEventReceiver : BroadcastReceiver() {
         }
 
         // Store in database
-        val roomDb = RoomDb.getDatabase(context)
-        val numberLearningEventDao = roomDb.numberLearningEventDao()
-        RoomDb.databaseWriteExecutor.execute {
-            numberLearningEventDao.insert(numberLearningEvent)
-        }
+        numberLearningEvent.persistEvent(context)
     }
 }

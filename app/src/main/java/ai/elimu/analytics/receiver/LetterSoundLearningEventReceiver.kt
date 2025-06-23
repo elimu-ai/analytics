@@ -1,6 +1,6 @@
 package ai.elimu.analytics.receiver
 
-import ai.elimu.analytics.db.RoomDb
+import ai.elimu.analytics.db.persistEvent
 import ai.elimu.analytics.entity.LetterSoundLearningEvent
 import ai.elimu.analytics.utils.BundleKeys
 import ai.elimu.analytics.utils.research.ExperimentAssignmentHelper
@@ -55,10 +55,6 @@ class LetterSoundLearningEventReceiver : BroadcastReceiver() {
         letterSoundLearningEvent.letterSoundId = letterSoundId
 
         // Store in database
-        val roomDb = RoomDb.getDatabase(context)
-        val letterSoundLearningEventDao = roomDb.letterSoundLearningEventDao()
-        RoomDb.databaseWriteExecutor.execute {
-            letterSoundLearningEventDao.insert(letterSoundLearningEvent)
-        }
+        letterSoundLearningEvent.persistEvent(context)
     }
 }
