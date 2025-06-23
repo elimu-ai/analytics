@@ -8,9 +8,13 @@ import ai.elimu.model.v2.gson.content.SoundGson
 import ai.elimu.model.v2.gson.content.StoryBookGson
 import ai.elimu.model.v2.gson.content.VideoGson
 import ai.elimu.model.v2.gson.content.WordGson
+import android.app.Activity
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import org.json.JSONObject
 import java.util.stream.Collectors
 
@@ -86,7 +90,20 @@ object LearningEventUtil {
             broadcastIntent.putExtra(BundleKeys.KEY_LEARNING_EVENT_TYPE, learningEventType.toString())
         }
         broadcastIntent.setPackage(analyticsApplicationId)
-        context.sendBroadcast(broadcastIntent)
+
+        val resultReceiver = object : BroadcastReceiver() {
+            override fun onReceive(context: Context?, intent: Intent?) {
+                Log.i(LearningEventUtil::class.simpleName, "onReceive")
+                val results: Bundle = getResultExtras(true)
+                val errorClassName: String? = results.getString("errorClassName")
+                errorClassName?.let {
+                    Log.e(LearningEventUtil::class.simpleName, "errorClassName: ${errorClassName}")
+                    Toast.makeText(context, "Error: ${errorClassName}", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+        
+        context.sendOrderedBroadcast(broadcastIntent, null, resultReceiver, null, Activity.RESULT_OK, null, null)
     }
 
     /**
