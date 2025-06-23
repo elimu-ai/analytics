@@ -1,6 +1,5 @@
 package ai.elimu.analytics.entity
 
-import ai.elimu.analytics.db.RoomDb
 import ai.elimu.analytics.rest.LetterSoundAssessmentEventService
 import ai.elimu.analytics.rest.LetterSoundLearningEventService
 import ai.elimu.analytics.rest.NumberLearningEventService
@@ -11,10 +10,15 @@ import ai.elimu.analytics.rest.WordAssessmentEventService
 import ai.elimu.analytics.rest.WordLearningEventService
 import ai.elimu.analytics.task.CSVHeaders
 import ai.elimu.analytics.util.SharedPreferencesHelper
+import ai.elimu.analytics.utils.BundleKeys
+import ai.elimu.analytics.utils.research.ExperimentAssignmentHelper
+import ai.elimu.model.v2.enums.analytics.LearningEventType
 import android.content.Context
-import androidx.annotation.WorkerThread
+import android.content.Intent
+import android.provider.Settings
 import timber.log.Timber
 import java.io.File
+import java.util.Calendar
 
 enum class AnalyticEventType(val type: String) {
     LETTER_SOUND_ASSESSMENT("letter-sound-assessment-events"),
@@ -54,36 +58,6 @@ fun AnalyticEventType.getUploadCsvFile(context: Context,
     return csvFile
 }
 
-@WorkerThread
-fun AnalyticEventType.getAllEvents(context: Context): List<BaseEntity> {
-
-    // Extract events from the database that have not yet been exported to CSV.
-    val roomDb = RoomDb.getDatabase(context)
-    return when(this) {
-        AnalyticEventType.LETTER_SOUND_ASSESSMENT -> {
-            roomDb.letterSoundAssessmentEventDao().loadAll()
-        }
-        AnalyticEventType.LETTER_SOUND_LEARNING -> {
-            roomDb.letterSoundLearningEventDao().loadAllOrderedByTime()
-        }
-        AnalyticEventType.STORY_BOOK_LEARNING -> {
-            roomDb.storyBookLearningEventDao().loadAll(isDesc = false)
-        }
-        AnalyticEventType.WORD_ASSESSMENT -> {
-            roomDb.wordAssessmentEventDao().loadAllOrderedByTimeAsc()
-        }
-        AnalyticEventType.WORD_LEARNING -> {
-            roomDb.wordLearningEventDao().loadAllOrderedByTime(isDesc = false)
-        }
-        AnalyticEventType.VIDEO_LEARNING -> {
-            roomDb.videoLearningEventDao().loadAll(isDesc = false)
-        }
-        AnalyticEventType.NUMBER_LEARNING -> {
-            roomDb.numberLearningEventDao().loadAllOrderedByTime(isDesc = false)
-        }
-    }
-}
-
 fun AnalyticEventType.getCSVHeaders(): Array<String> {
     return when (this) {
         AnalyticEventType.LETTER_SOUND_ASSESSMENT -> CSVHeaders.LETTER_SOUND_ASSESSMENT
@@ -93,5 +67,216 @@ fun AnalyticEventType.getCSVHeaders(): Array<String> {
         AnalyticEventType.WORD_LEARNING -> CSVHeaders.WORD_LEARNING
         AnalyticEventType.VIDEO_LEARNING -> CSVHeaders.VIDEO_LEARNING
         AnalyticEventType.NUMBER_LEARNING -> CSVHeaders.NUMBER_LEARNING
+    }
+}
+
+fun AnalyticEventType.createEventFromIntent(context: Context, intent: Intent): BaseEntity {
+
+    val androidId: String = Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
+    Timber.i("androidId: \"${androidId}\"")
+
+    val packageName: String = intent.getStringExtra(BundleKeys.KEY_PACKAGE_NAME) ?: ""
+    Timber.i("packageName: \"${packageName}\"")
+
+    val timestamp: Calendar = Calendar.getInstance()
+    Timber.i("timestamp.time: ${timestamp.time}")
+
+    val additionalData: String? = intent.getStringExtra(BundleKeys.KEY_ADDITIONAL_DATA)
+    Timber.i("additionalData: \"${additionalData}\"")
+
+    val learningEventTypeAsString = intent.getStringExtra(BundleKeys.KEY_LEARNING_EVENT_TYPE)
+    Timber.i("learningEventTypeAsString: \"$learningEventTypeAsString\"")
+    val learningEventType = runCatching {
+        learningEventTypeAsString?.let {
+            LearningEventType.valueOf(it)
+        }
+    }.getOrNull()
+
+    Timber.i("learningEventType: $learningEventType")
+
+    val researchExperiment = ExperimentAssignmentHelper.CURRENT_EXPERIMENT
+    val experimentGroup = ExperimentAssignmentHelper.getExperimentGroup(context)
+    Timber.i("researchExperiment: ${researchExperiment} (${experimentGroup})")
+
+    return when (this) {
+        AnalyticEventType.LETTER_SOUND_ASSESSMENT -> {
+
+            val masteryScore: Float = intent.getFloatExtra(BundleKeys.KEY_MASTERY_SCORE, 0f)
+            Timber.i("masteryScore: ${masteryScore}")
+
+            val timeSpentMs: Long = intent.getLongExtra(BundleKeys.KEY_TIME_SPENT_MS, 0)
+            Timber.i("timeSpentMs: ${timeSpentMs}")
+
+            val letterSoundLetters: String = intent.getStringExtra(BundleKeys.KEY_LETTER_SOUND_LETTERS) ?: ""
+            Timber.i("letterSoundLetters: \"${letterSoundLetters}\"")
+
+            val letterSoundSounds: String = intent.getStringExtra(BundleKeys.KEY_LETTER_SOUND_SOUNDS) ?: ""
+            Timber.i("letterSoundSounds: \"${letterSoundSounds}\"")
+
+            val letterSoundId: Long = intent.getLongExtra(BundleKeys.KEY_LETTER_SOUND_ID, 0)
+            Timber.i("letterSoundId: ${letterSoundId}")
+
+            LetterSoundAssessmentEvent().apply {
+                this.androidId = androidId
+                this.packageName = packageName
+                this.time = timestamp
+                this.masteryScore = masteryScore
+                this.timeSpentMs = timeSpentMs
+                this.additionalData = additionalData
+                this.researchExperiment = researchExperiment
+                this.experimentGroup = experimentGroup
+                this.letterSoundLetters = letterSoundLetters
+                this.letterSoundSounds = letterSoundSounds
+                this.letterSoundId = letterSoundId
+            }
+        }
+
+        AnalyticEventType.LETTER_SOUND_LEARNING -> {
+
+            val letterSoundLetters = intent.getStringArrayExtra(BundleKeys.KEY_LETTER_SOUND_LETTER_TEXTS) ?: emptyArray()
+            Timber.i("letterSoundLetters: $letterSoundLetters")
+
+            val letterSoundSounds = intent.getStringArrayExtra(BundleKeys.KEY_LETTER_SOUND_SOUND_VALUES_IPA) ?: emptyArray()
+            Timber.i("letterSoundSounds: $letterSoundSounds")
+
+            var letterSoundId: Long? = null
+            if (intent.hasExtra(BundleKeys.KEY_LETTER_SOUND_ID)) {
+                letterSoundId = intent.getLongExtra(BundleKeys.KEY_LETTER_SOUND_ID, 0)
+            }
+            Timber.i("letterSoundId: $letterSoundId")
+
+            LetterSoundLearningEvent().apply {
+                this.androidId = androidId
+                this.packageName = packageName
+                this.time = timestamp
+                this.additionalData = additionalData
+                this.researchExperiment = researchExperiment
+                this.experimentGroup = experimentGroup
+                this.letterSoundLetterTexts = letterSoundLetters
+                this.letterSoundSoundValuesIpa = letterSoundSounds
+                this.letterSoundId = letterSoundId
+            }
+        }
+        AnalyticEventType.STORY_BOOK_LEARNING -> {
+
+            val storyBookTitle: String = intent.getStringExtra(BundleKeys.KEY_STORYBOOK_TITLE)
+                ?: throw IllegalArgumentException("storyBookTitle must be provided")
+            Timber.i("storyBookTitle: \"$storyBookTitle\"")
+
+            val storyBookId = intent.getLongExtra(BundleKeys.KEY_STORYBOOK_ID, 0)
+            Timber.i("storyBookId: $storyBookId")
+
+            StoryBookLearningEvent().apply {
+                this.androidId = androidId
+                this.packageName = packageName
+                this.time = timestamp
+                this.additionalData = additionalData
+                this.learningEventType = learningEventType
+                this.researchExperiment = researchExperiment
+                this.experimentGroup = experimentGroup
+                this.storyBookTitle = storyBookTitle
+                this.storyBookId = storyBookId
+            }
+        }
+
+        AnalyticEventType.WORD_ASSESSMENT -> {
+
+            val masteryScore = intent.getFloatExtra(BundleKeys.KEY_MASTERY_SCORE, 0f)
+            Timber.i("masteryScore: $masteryScore")
+
+            val timeSpentMs = intent.getLongExtra(BundleKeys.KEY_TIME_SPENT_MS, 0)
+            Timber.i("timeSpentMs: $timeSpentMs")
+
+            val wordText = intent.getStringExtra(BundleKeys.KEY_WORD_TEXT) ?: ""
+            Timber.i("wordText: \"$wordText\"")
+
+            var wordId: Long? = null
+            if (intent.hasExtra(BundleKeys.KEY_WORD_ID)) {
+                wordId = intent.getLongExtra(BundleKeys.KEY_WORD_ID, 0)
+            }
+            Timber.i("wordId: $wordId")
+
+            WordAssessmentEvent().apply {
+                this.androidId = androidId
+                this.packageName = packageName
+                this.time = timestamp
+                this.masteryScore = masteryScore
+                this.timeSpentMs = timeSpentMs
+                this.additionalData = additionalData
+                this.researchExperiment = researchExperiment
+                this.experimentGroup = experimentGroup
+                this.wordText = wordText
+                this.wordId = wordId
+            }
+        }
+
+        AnalyticEventType.WORD_LEARNING -> {
+
+            val wordText = intent.getStringExtra(BundleKeys.KEY_WORD_TEXT) ?: ""
+            Timber.i("wordText: \"$wordText\"")
+
+            var wordId: Long? = null
+            if (intent.hasExtra(BundleKeys.KEY_WORD_ID)) {
+                wordId = intent.getLongExtra(BundleKeys.KEY_WORD_ID, 0)
+            }
+            Timber.i("wordId: $wordId")
+
+            WordLearningEvent().apply {
+                this.androidId = androidId
+                this.packageName = packageName
+                this.time = timestamp
+                this.additionalData = additionalData
+                this.learningEventType = learningEventType
+                this.researchExperiment = researchExperiment
+                this.experimentGroup = experimentGroup
+                this.wordText = wordText
+                this.wordId = wordId
+            }
+        }
+
+        AnalyticEventType.VIDEO_LEARNING -> {
+
+            val videoTitle = intent.getStringExtra(BundleKeys.KEY_VIDEO_TITLE) ?: ""
+            Timber.i("videoTitle: \"$videoTitle\"")
+
+            val videoId = intent.getLongExtra(BundleKeys.KEY_VIDEO_ID, 0)
+            Timber.i("videoId: $videoId")
+
+            VideoLearningEvent().apply {
+                this.time = timestamp
+                this.androidId = androidId
+                this.packageName = packageName
+                this.additionalData = additionalData
+                this.learningEventType = learningEventType
+                this.researchExperiment = researchExperiment
+                this.experimentGroup = experimentGroup
+                this.videoTitle = videoTitle
+                this.videoId = videoId
+            }
+        }
+
+        AnalyticEventType.NUMBER_LEARNING -> {
+
+            val numberValue = intent.getIntExtra(BundleKeys.KEY_NUMBER_VALUE, 0)
+            Timber.i("numberValue: \"$numberValue\"")
+
+            val numberSymbol = intent.getStringExtra(BundleKeys.KEY_NUMBER_SYMBOL)
+            Timber.i("numberSymbol: \"$numberSymbol\"")
+
+            val numberId = intent.getLongExtra(BundleKeys.KEY_NUMBER_ID, 0)
+            Timber.i("numberId: $numberId")
+
+            NumberLearningEvent(numberValue).apply {
+                this.time = timestamp
+                this.androidId = androidId
+                this.packageName = packageName
+                this.additionalData = additionalData
+                this.researchExperiment = researchExperiment
+                this.experimentGroup = experimentGroup
+                this.learningEventType = learningEventType
+                this.numberSymbol = numberSymbol
+                this.numberId = numberId
+            }
+        }
     }
 }

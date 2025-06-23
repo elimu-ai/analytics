@@ -1,9 +1,9 @@
 package ai.elimu.analytics.task
 
+import ai.elimu.analytics.db.getAllEvents
 import ai.elimu.analytics.entity.AnalyticEventType
 import ai.elimu.analytics.entity.AssessmentEvent
 import ai.elimu.analytics.entity.LearningEvent
-import ai.elimu.analytics.entity.getAllEvents
 import ai.elimu.analytics.entity.getCSVHeaders
 import ai.elimu.analytics.entity.getUploadCsvFile
 import ai.elimu.analytics.util.VersionHelper.getAppVersionCode
