@@ -10,7 +10,7 @@ import timber.log.Timber
 
 class StoryBookLearningEventReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
-        Timber.i("onReceive StoryBookLearningEventReceiver new")
+        Timber.i("onReceive")
 
         val storyBookLearningEvent = AnalyticEventType.STORY_BOOK_LEARNING
             .createEventFromIntent(context, intent)
