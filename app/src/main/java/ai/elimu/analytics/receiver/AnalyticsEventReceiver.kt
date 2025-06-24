@@ -15,12 +15,16 @@ class AnalyticsEventReceiver : BroadcastReceiver() {
         Timber.i("onReceive")
 
         intent.getStringExtra(BundleKeys.KEY_INTENT_ACTION)?.let { action ->
-            val event = IntentAction.entries.first { it.action == action }
-                .toAnalyticEvent()
+            IntentAction.entries.firstOrNull { it.action == action }?.let { intentAction ->
+                val event = intentAction.toAnalyticEvent()
                 .createEventFromIntent(context, intent)
 
-            // Store in database
-            event.persistEvent(context)
+                // Store in database
+                event.persistEvent(context)
+            } ?: run {
+                Timber.w("Unrecognized intent action: $action")
+            }
+
         }
     }
 }
