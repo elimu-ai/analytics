@@ -37,7 +37,8 @@ object AssessmentEventUtil {
         Log.i(TAG,"reportLetterSoundAssessmentEvent")
 
         val broadcastIntent = Intent()
-        broadcastIntent.setAction("ai.elimu.intent.action.LETTER_SOUND_ASSESSMENT_EVENT")
+        broadcastIntent.setAction(LearningEventUtil.BROADCAST_INTENT_ACTION_ANALYTICS)
+        broadcastIntent.putExtra(BundleKeys.KEY_INTENT_ACTION, IntentAction.LETTER_SOUND_ASSESSMENT.action)
         broadcastIntent.putExtra(BundleKeys.KEY_PACKAGE_NAME, context.packageName)
         broadcastIntent.putExtra(BundleKeys.KEY_LETTER_SOUND_LETTERS,
             letterSoundGson.letters.stream().map(LetterGson::getText).collect(Collectors.joining()))
@@ -72,7 +73,8 @@ object AssessmentEventUtil {
         Log.i(TAG, "reportWordAssessmentEvent")
 
         val broadcastIntent = Intent()
-        broadcastIntent.setAction("ai.elimu.intent.action.WORD_ASSESSMENT_EVENT")
+        broadcastIntent.setAction(LearningEventUtil.BROADCAST_INTENT_ACTION_ANALYTICS)
+        broadcastIntent.putExtra(BundleKeys.KEY_INTENT_ACTION, IntentAction.WORD_ASSESSMENT.action)
         broadcastIntent.putExtra(BundleKeys.KEY_PACKAGE_NAME, context.packageName)
         broadcastIntent.putExtra(BundleKeys.KEY_WORD_ID, wordGson.id)
         broadcastIntent.putExtra(BundleKeys.KEY_WORD_TEXT, wordGson.text)
