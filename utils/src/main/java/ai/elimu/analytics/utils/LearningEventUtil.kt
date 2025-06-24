@@ -19,6 +19,9 @@ import java.util.stream.Collectors
  * in the `:app` module.
  */
 object LearningEventUtil {
+
+    const val BROADCAST_INTENT_ACTION_ANALYTICS = "ai.elimu.intent.action.ANALYTICS_EVENT"
+
     /**
      * @param letterSoundGson The letter-sound correspondence that the student is learning.
      * @param additionalData Any additional data related to the learning event, e.g. `{'is_letter_pressed':true}`
@@ -34,7 +37,8 @@ object LearningEventUtil {
         Log.i(LearningEventUtil::class.java.name, "reportLetterSoundLearningEvent")
 
         val broadcastIntent = Intent()
-        broadcastIntent.setAction("ai.elimu.intent.action.LETTER_SOUND_LEARNING_EVENT")
+        broadcastIntent.setAction(BROADCAST_INTENT_ACTION_ANALYTICS)
+        broadcastIntent.putExtra(BundleKeys.KEY_INTENT_ACTION, IntentAction.LETTER_SOUND_LEARNING.action)
         broadcastIntent.putExtra(BundleKeys.KEY_PACKAGE_NAME, context.packageName)
         additionalData?.let {
             broadcastIntent.putExtra(BundleKeys.KEY_ADDITIONAL_DATA, additionalData.toString())
@@ -75,7 +79,8 @@ object LearningEventUtil {
         Log.i(LearningEventUtil::class.java.name, "reportWordLearningEvent")
 
         val broadcastIntent = Intent()
-        broadcastIntent.setAction("ai.elimu.intent.action.WORD_LEARNING_EVENT")
+        broadcastIntent.setAction(BROADCAST_INTENT_ACTION_ANALYTICS)
+        broadcastIntent.putExtra(BundleKeys.KEY_INTENT_ACTION, IntentAction.WORD_LEARNING.action)
         broadcastIntent.putExtra(BundleKeys.KEY_PACKAGE_NAME, context.packageName)
         additionalData?.let {
             broadcastIntent.putExtra(BundleKeys.KEY_ADDITIONAL_DATA, additionalData.toString())
@@ -106,7 +111,8 @@ object LearningEventUtil {
         Log.i(LearningEventUtil::class.java.name, "reportStoryBookLearningEvent")
 
         val broadcastIntent = Intent()
-        broadcastIntent.setAction("ai.elimu.intent.action.STORYBOOK_LEARNING_EVENT")
+        broadcastIntent.setAction(BROADCAST_INTENT_ACTION_ANALYTICS)
+        broadcastIntent.putExtra(BundleKeys.KEY_INTENT_ACTION, IntentAction.STORYBOOK_LEARNING.action)
         broadcastIntent.putExtra(BundleKeys.KEY_PACKAGE_NAME, context.packageName)
         additionalData?.let {
             broadcastIntent.putExtra(BundleKeys.KEY_ADDITIONAL_DATA, additionalData.toString())
@@ -137,7 +143,8 @@ object LearningEventUtil {
         Log.i(LearningEventUtil::class.java.name, "reportVideoLearningEvent")
 
         val broadcastIntent = Intent()
-        broadcastIntent.setAction("ai.elimu.intent.action.VIDEO_LEARNING_EVENT")
+        broadcastIntent.setAction(BROADCAST_INTENT_ACTION_ANALYTICS)
+        broadcastIntent.putExtra(BundleKeys.KEY_INTENT_ACTION, IntentAction.VIDEO_LEARNING.action)
         broadcastIntent.putExtra(BundleKeys.KEY_PACKAGE_NAME, context.packageName)
         additionalData?.let {
             broadcastIntent.putExtra(BundleKeys.KEY_ADDITIONAL_DATA, additionalData.toString())
@@ -168,7 +175,8 @@ object LearningEventUtil {
         Log.i(LearningEventUtil::class.java.name, "reportNumberLearningEvent")
 
         val broadcastIntent = Intent()
-        broadcastIntent.setAction("ai.elimu.intent.action.NUMBER_LEARNING_EVENT")
+        broadcastIntent.setAction(BROADCAST_INTENT_ACTION_ANALYTICS)
+        broadcastIntent.putExtra(BundleKeys.KEY_INTENT_ACTION, IntentAction.NUMBER_LEARNING.action)
         broadcastIntent.putExtra(BundleKeys.KEY_PACKAGE_NAME, context.packageName)
         additionalData?.let {
             broadcastIntent.putExtra(BundleKeys.KEY_ADDITIONAL_DATA, additionalData.toString())
