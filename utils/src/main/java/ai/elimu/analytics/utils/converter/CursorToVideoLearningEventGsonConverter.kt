@@ -1,7 +1,6 @@
 package ai.elimu.analytics.utils.converter
 
 import ai.elimu.analytics.utils.BundleKeys
-import ai.elimu.model.v2.enums.analytics.LearningEventType
 import ai.elimu.model.v2.gson.analytics.VideoLearningEventGson
 import android.database.Cursor
 import android.util.Log
@@ -57,17 +56,6 @@ object CursorToVideoLearningEventGsonConverter {
         val additionalData = cursor.getString(columnAdditionalData)
         Log.i(TAG, "additionalData: $additionalData")
         videoLearningEventGson.additionalData = additionalData
-
-        val columnNameLearningEventType = bundle.getString(BundleKeys.KEY_LEARNING_EVENT_TYPE)
-        val columnLearningEventType = cursor.getColumnIndex(columnNameLearningEventType)
-        if (columnLearningEventType != -1) {
-            val learningEventTypeAsString = cursor.getString(columnLearningEventType)
-            learningEventTypeAsString?.let {
-                val learningEventType = LearningEventType.valueOf(learningEventTypeAsString)
-                Log.i(TAG, "learningEventType: $learningEventType")
-                videoLearningEventGson.learningEventType = learningEventType
-            }
-        }
 
         val columnNameVideoTitle = bundle.getString(BundleKeys.KEY_VIDEO_TITLE)
         val columnVideoTitle = cursor.getColumnIndex(columnNameVideoTitle)
