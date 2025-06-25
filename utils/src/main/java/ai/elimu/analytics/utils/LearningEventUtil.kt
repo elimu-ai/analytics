@@ -1,5 +1,6 @@
 package ai.elimu.analytics.utils
 
+import ai.elimu.analytics.utils.receiver.ErrorResultReceiver
 import ai.elimu.model.v2.enums.analytics.LearningEventType
 import ai.elimu.model.v2.gson.content.LetterGson
 import ai.elimu.model.v2.gson.content.LetterSoundGson
@@ -8,6 +9,7 @@ import ai.elimu.model.v2.gson.content.SoundGson
 import ai.elimu.model.v2.gson.content.StoryBookGson
 import ai.elimu.model.v2.gson.content.VideoGson
 import ai.elimu.model.v2.gson.content.WordGson
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.util.Log
@@ -59,7 +61,8 @@ object LearningEventUtil {
             letterSoundSoundValuesIpa)
 
         broadcastIntent.setPackage(analyticsApplicationId)
-        context.sendBroadcast(broadcastIntent)
+
+        context.sendOrderedBroadcast(broadcastIntent, null, ErrorResultReceiver(), null, Activity.RESULT_OK, null, null)
     }
 
     /**
@@ -91,7 +94,8 @@ object LearningEventUtil {
             broadcastIntent.putExtra(BundleKeys.KEY_LEARNING_EVENT_TYPE, learningEventType.toString())
         }
         broadcastIntent.setPackage(analyticsApplicationId)
-        context.sendBroadcast(broadcastIntent)
+
+        context.sendOrderedBroadcast(broadcastIntent, null, ErrorResultReceiver(), null, Activity.RESULT_OK, null, null)
     }
 
     /**
@@ -123,7 +127,8 @@ object LearningEventUtil {
             broadcastIntent.putExtra(BundleKeys.KEY_LEARNING_EVENT_TYPE, learningEventType.toString())
         }
         broadcastIntent.setPackage(analyticsApplicationId)
-        context.sendBroadcast(broadcastIntent)
+
+        context.sendOrderedBroadcast(broadcastIntent, null, ErrorResultReceiver(), null, Activity.RESULT_OK, null, null)
     }
 
     /**
@@ -155,7 +160,8 @@ object LearningEventUtil {
             broadcastIntent.putExtra(BundleKeys.KEY_LEARNING_EVENT_TYPE, learningEventType.toString())
         }
         broadcastIntent.setPackage(analyticsApplicationId)
-        context.sendBroadcast(broadcastIntent)
+
+        context.sendOrderedBroadcast(broadcastIntent, null, ErrorResultReceiver(), null, Activity.RESULT_OK, null, null)
     }
 
     /**
@@ -191,6 +197,7 @@ object LearningEventUtil {
             broadcastIntent.putExtra(BundleKeys.KEY_LEARNING_EVENT_TYPE, learningEventType.toString())
         }
         broadcastIntent.setPackage(analyticsApplicationId)
-        context.sendBroadcast(broadcastIntent)
+
+        context.sendOrderedBroadcast(broadcastIntent, null, ErrorResultReceiver(), null, Activity.RESULT_OK, null, null)
     }
 }
