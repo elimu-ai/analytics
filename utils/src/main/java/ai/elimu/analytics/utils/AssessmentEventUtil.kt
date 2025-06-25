@@ -1,16 +1,14 @@
 package ai.elimu.analytics.utils
 
+import ai.elimu.analytics.utils.receiver.ErrorResultReceiver
 import ai.elimu.model.v2.gson.content.LetterGson
 import ai.elimu.model.v2.gson.content.LetterSoundGson
 import ai.elimu.model.v2.gson.content.SoundGson
 import ai.elimu.model.v2.gson.content.WordGson
 import android.app.Activity
-import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import org.json.JSONObject
 import java.util.stream.Collectors
 
@@ -54,19 +52,7 @@ object AssessmentEventUtil {
         }
         broadcastIntent.setPackage(analyticsApplicationId)
 
-        val resultReceiver = object : BroadcastReceiver() {
-            override fun onReceive(context: Context?, intent: Intent?) {
-                Log.i(this::class.simpleName, "onReceive")
-                val results: Bundle = getResultExtras(true)
-                val errorClassName: String? = results.getString("errorClassName")
-                errorClassName?.let {
-                    Log.e(this::class.simpleName, "errorClassName: ${errorClassName}")
-                    Toast.makeText(context, "Error: ${errorClassName}", Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
-
-        context.sendOrderedBroadcast(broadcastIntent, null, resultReceiver, null, Activity.RESULT_OK, null, null)
+        context.sendOrderedBroadcast(broadcastIntent, null, ErrorResultReceiver(), null, Activity.RESULT_OK, null, null)
     }
 
     /**
@@ -100,18 +86,6 @@ object AssessmentEventUtil {
         }
         broadcastIntent.setPackage(analyticsApplicationId)
 
-        val resultReceiver = object : BroadcastReceiver() {
-            override fun onReceive(context: Context?, intent: Intent?) {
-                Log.i(this::class.simpleName, "onReceive")
-                val results: Bundle = getResultExtras(true)
-                val errorClassName: String? = results.getString("errorClassName")
-                errorClassName?.let {
-                    Log.e(this::class.simpleName, "errorClassName: ${errorClassName}")
-                    Toast.makeText(context, "Error: ${errorClassName}", Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
-
-        context.sendOrderedBroadcast(broadcastIntent, null, resultReceiver, null, Activity.RESULT_OK, null, null)
+        context.sendOrderedBroadcast(broadcastIntent, null, ErrorResultReceiver(), null, Activity.RESULT_OK, null, null)
     }
 }
