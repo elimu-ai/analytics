@@ -14,8 +14,8 @@ class WordLearningEventReceiver : BroadcastReceiver() {
         Timber.i("onReceive")
 
         try {
-            val wordLearningEvent = AnalyticEventType.WORD_LEARNING
-                .createEventFromIntent(context, intent)
+            // Convert from Intent to database entity
+            val wordLearningEvent = AnalyticEventType.WORD_LEARNING.createEventFromIntent(context, intent)
 
             // Store in database
             wordLearningEvent.persistEvent(context)

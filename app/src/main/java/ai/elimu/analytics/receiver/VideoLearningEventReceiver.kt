@@ -14,8 +14,8 @@ class VideoLearningEventReceiver : BroadcastReceiver() {
         Timber.i("onReceive")
 
         try {
-            val videoLearningEvent = AnalyticEventType.VIDEO_LEARNING
-                .createEventFromIntent(context, intent)
+            // Convert from Intent to database entity
+            val videoLearningEvent = AnalyticEventType.VIDEO_LEARNING.createEventFromIntent(context, intent)
 
             // Store in database
             videoLearningEvent.persistEvent(context)

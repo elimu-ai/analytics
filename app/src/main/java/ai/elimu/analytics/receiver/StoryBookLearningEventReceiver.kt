@@ -14,8 +14,8 @@ class StoryBookLearningEventReceiver : BroadcastReceiver() {
         Timber.i("onReceive")
 
         try {
-            val storyBookLearningEvent = AnalyticEventType.STORY_BOOK_LEARNING
-                .createEventFromIntent(context, intent)
+            // Convert from Intent to database entity
+            val storyBookLearningEvent = AnalyticEventType.STORY_BOOK_LEARNING.createEventFromIntent(context, intent)
 
             // Store in database
             storyBookLearningEvent.persistEvent(context)

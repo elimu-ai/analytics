@@ -15,8 +15,8 @@ class LetterSoundAssessmentEventReceiver : BroadcastReceiver() {
         Timber.i("onReceive")
 
         try {
-            val letterSoundAssessmentEvent = AnalyticEventType.LETTER_SOUND_ASSESSMENT
-                .createEventFromIntent(context, intent)
+            // Convert from Intent to database entity
+            val letterSoundAssessmentEvent = AnalyticEventType.LETTER_SOUND_ASSESSMENT.createEventFromIntent(context, intent)
 
             // Store in database
             letterSoundAssessmentEvent.persistEvent(context)
