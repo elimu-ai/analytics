@@ -20,8 +20,6 @@ import java.util.stream.Collectors
  */
 object AssessmentEventUtil {
 
-    private const val TAG = "AssessmentEventUtil"
-
     /**
      * @param letterSoundGson The letter-sound correspondence that the student is being assessed for.
      * @param masteryScore A value in the range [0.0, 1.0].
@@ -38,7 +36,7 @@ object AssessmentEventUtil {
         context: Context,
         analyticsApplicationId: String
     ) {
-        Log.i(TAG,"reportLetterSoundAssessmentEvent")
+        Log.i(this::class.simpleName,"reportLetterSoundAssessmentEvent")
 
         val broadcastIntent = Intent()
         broadcastIntent.setAction(LearningEventUtil.BROADCAST_INTENT_ACTION_ANALYTICS)
@@ -58,11 +56,11 @@ object AssessmentEventUtil {
 
         val resultReceiver = object : BroadcastReceiver() {
             override fun onReceive(context: Context?, intent: Intent?) {
-                Log.i(LearningEventUtil::class.simpleName, "onReceive")
+                Log.i(this::class.simpleName, "onReceive")
                 val results: Bundle = getResultExtras(true)
                 val errorClassName: String? = results.getString("errorClassName")
                 errorClassName?.let {
-                    Log.e(LearningEventUtil::class.simpleName, "errorClassName: ${errorClassName}")
+                    Log.e(this::class.simpleName, "errorClassName: ${errorClassName}")
                     Toast.makeText(context, "Error: ${errorClassName}", Toast.LENGTH_SHORT).show()
                 }
             }
@@ -87,7 +85,7 @@ object AssessmentEventUtil {
         context: Context,
         analyticsApplicationId: String?
     ) {
-        Log.i(TAG, "reportWordAssessmentEvent")
+        Log.i(this::class.simpleName, "reportWordAssessmentEvent")
 
         val broadcastIntent = Intent()
         broadcastIntent.setAction(LearningEventUtil.BROADCAST_INTENT_ACTION_ANALYTICS)
@@ -104,11 +102,11 @@ object AssessmentEventUtil {
 
         val resultReceiver = object : BroadcastReceiver() {
             override fun onReceive(context: Context?, intent: Intent?) {
-                Log.i(LearningEventUtil::class.simpleName, "onReceive")
+                Log.i(this::class.simpleName, "onReceive")
                 val results: Bundle = getResultExtras(true)
                 val errorClassName: String? = results.getString("errorClassName")
                 errorClassName?.let {
-                    Log.e(LearningEventUtil::class.simpleName, "errorClassName: ${errorClassName}")
+                    Log.e(this::class.simpleName, "errorClassName: ${errorClassName}")
                     Toast.makeText(context, "Error: ${errorClassName}", Toast.LENGTH_SHORT).show()
                 }
             }
