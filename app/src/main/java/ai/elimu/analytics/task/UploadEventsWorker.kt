@@ -25,13 +25,9 @@ class UploadEventsWorker(context: Context, workerParams: WorkerParameters) :
     override fun doWork(): Result {
         Timber.i("doWork")
 
-        uploadLearningEvents(eventType = AnalyticEventType.LETTER_SOUND_ASSESSMENT)
-        uploadLearningEvents(eventType = AnalyticEventType.LETTER_SOUND_LEARNING)
-        uploadLearningEvents(eventType = AnalyticEventType.WORD_LEARNING)
-        uploadLearningEvents(eventType = AnalyticEventType.WORD_ASSESSMENT)
-        uploadLearningEvents(eventType = AnalyticEventType.NUMBER_LEARNING)
-        uploadLearningEvents(eventType = AnalyticEventType.STORY_BOOK_LEARNING)
-        uploadLearningEvents(eventType = AnalyticEventType.VIDEO_LEARNING)
+        for (eventType in AnalyticEventType.entries) {
+            uploadLearningEvents(eventType = eventType)
+        }
 
         return Result.success()
     }
