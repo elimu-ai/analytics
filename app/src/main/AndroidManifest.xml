@@ -26,48 +26,6 @@
         <activity android:name=".EventListActivity" />
         <activity android:name=".language.SelectLanguageActivity" />
 
-        <receiver android:name=".receiver.LetterSoundAssessmentEventReceiver"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="ai.elimu.intent.action.LETTER_SOUND_ASSESSMENT_EVENT" />
-            </intent-filter>
-        </receiver>
-        <receiver android:name=".receiver.LetterSoundLearningEventReceiver"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="ai.elimu.intent.action.LETTER_SOUND_LEARNING_EVENT" />
-            </intent-filter>
-        </receiver>
-        <receiver android:name=".receiver.WordLearningEventReceiver"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="ai.elimu.intent.action.WORD_LEARNING_EVENT" />
-            </intent-filter>
-        </receiver>
-        <receiver android:name=".receiver.WordAssessmentEventReceiver"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="ai.elimu.intent.action.WORD_ASSESSMENT_EVENT" />
-            </intent-filter>
-        </receiver>
-        <receiver android:name=".receiver.StoryBookLearningEventReceiver"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="ai.elimu.intent.action.STORYBOOK_LEARNING_EVENT" />
-            </intent-filter>
-        </receiver>
-        <receiver android:name=".receiver.VideoLearningEventReceiver"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="ai.elimu.intent.action.VIDEO_LEARNING_EVENT" />
-            </intent-filter>
-        </receiver>
         <receiver android:name=".receiver.BootReceiver"
             android:exported="true">
             <intent-filter>
@@ -75,11 +33,11 @@
             </intent-filter>
         </receiver>
 
-        <receiver android:name=".receiver.NumberLearningEventReceiver"
+        <receiver android:name=".receiver.AnalyticsEventReceiver"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
-                <action android:name="ai.elimu.intent.action.NUMBER_LEARNING_EVENT" />
+                <action android:name="ai.elimu.intent.action.ANALYTICS_EVENT" />
             </intent-filter>
         </receiver>
 

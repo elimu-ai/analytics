@@ -25,6 +25,7 @@ object BundleKeys {
     // LearningEvent
     @Deprecated("Will be replaced by `additionalData`")
     const val KEY_LEARNING_EVENT_TYPE = "learning_event_type"
+    const val KEY_INTENT_ACTION = "intent_action"
 
     // AssessmentEvent
     const val KEY_TIME_SPENT_MS = "time_spent_ms"
