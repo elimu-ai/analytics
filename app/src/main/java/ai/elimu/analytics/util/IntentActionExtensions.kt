@@ -3,7 +3,7 @@ package ai.elimu.analytics.util
 import ai.elimu.analytics.enum.EventType
 import ai.elimu.analytics.utils.IntentAction
 
-fun IntentAction.toEventType(): EventType {
+fun IntentAction.toAnalyticEvent(): EventType {
     return when (this) {
         IntentAction.LETTER_SOUND_ASSESSMENT -> EventType.LETTER_SOUND_ASSESSMENT
         IntentAction.LETTER_SOUND_LEARNING -> EventType.LETTER_SOUND_LEARNING
