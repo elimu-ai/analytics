@@ -2,8 +2,7 @@ package ai.elimu.analytics.receiver
 
 import ai.elimu.analytics.db.persistEvent
 import ai.elimu.analytics.enum.createEventFromIntent
-import ai.elimu.analytics.util.toAnalyticEvent
-import ai.elimu.analytics.utils.BundleKeys
+import ai.elimu.analytics.util.toEventType
 import ai.elimu.analytics.utils.IntentAction
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -20,17 +19,18 @@ class AnalyticsEventReceiver : BroadcastReceiver() {
             Timber.i("bundle.keySet(): ${bundle.keySet().joinToString()}")
         }
 
-        intent.getStringExtra("intent_action")?.let { action ->
-            IntentAction.entries.firstOrNull { it.action == action }?.let { intentAction ->
-                val event = intentAction.toAnalyticEvent()
-                .createEventFromIntent(context, intent)
+        val intentActionType: String? = intent.getStringExtra("intent_action")
+        Timber.i("intentActionType: ${intentActionType}")
+        intentActionType?.let {
+            val intentAction = IntentAction.valueOf(intentActionType)
+            Timber.i("intentAction: ${intentAction}")
 
-                // Store in database
-                event.persistEvent(context)
-            } ?: run {
-                Timber.w("Unrecognized intent action: $action")
-            }
+            // Convert from Intent data to Room entity
+            val eventType = intentAction.toEventType()
+            val event = eventType.createEventFromIntent(context, intent)
 
+            // Store event in database
+            event.persistEvent(context)
         }
     }
 }
