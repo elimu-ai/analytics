@@ -1,5 +1,13 @@
-package ai.elimu.analytics.entity
+package ai.elimu.analytics.enum
 
+import ai.elimu.analytics.entity.BaseEntity
+import ai.elimu.analytics.entity.LetterSoundAssessmentEvent
+import ai.elimu.analytics.entity.LetterSoundLearningEvent
+import ai.elimu.analytics.entity.NumberLearningEvent
+import ai.elimu.analytics.entity.StoryBookLearningEvent
+import ai.elimu.analytics.entity.VideoLearningEvent
+import ai.elimu.analytics.entity.WordAssessmentEvent
+import ai.elimu.analytics.entity.WordLearningEvent
 import ai.elimu.analytics.rest.LetterSoundAssessmentEventService
 import ai.elimu.analytics.rest.LetterSoundLearningEventService
 import ai.elimu.analytics.rest.NumberLearningEventService
@@ -20,32 +28,42 @@ import timber.log.Timber
 import java.io.File
 import java.util.Calendar
 
-enum class AnalyticEventType(val type: String) {
+enum class EventType(val type: String) {
     LETTER_SOUND_ASSESSMENT("letter-sound-assessment-events"),
     LETTER_SOUND_LEARNING("letter-sound-learning-events"),
-    STORY_BOOK_LEARNING("storybook-learning-events"),
+
     WORD_ASSESSMENT("word-assessment-events"),
     WORD_LEARNING("word-learning-events"),
-    VIDEO_LEARNING("video-learning-events"),
-    NUMBER_LEARNING("number-learning-events")
+
+    NUMBER_LEARNING("number-learning-events"),
+    // TODO: number assessment
+
+    STORY_BOOK_LEARNING("storybook-learning-events"),
+
+    VIDEO_LEARNING("video-learning-events")
 }
 
-fun AnalyticEventType.toServiceClass(): Class<out UploadService> {
+fun EventType.toServiceClass(): Class<out UploadService> {
     return when (this) {
-        AnalyticEventType.LETTER_SOUND_ASSESSMENT -> LetterSoundAssessmentEventService::class.java
-        AnalyticEventType.LETTER_SOUND_LEARNING -> LetterSoundLearningEventService::class.java
-        AnalyticEventType.STORY_BOOK_LEARNING -> StoryBookLearningEventService::class.java
-        AnalyticEventType.WORD_ASSESSMENT -> WordAssessmentEventService::class.java
-        AnalyticEventType.WORD_LEARNING -> WordLearningEventService::class.java
-        AnalyticEventType.VIDEO_LEARNING -> VideoLearningEventService::class.java
-        AnalyticEventType.NUMBER_LEARNING -> NumberLearningEventService::class.java
+        EventType.LETTER_SOUND_ASSESSMENT -> LetterSoundAssessmentEventService::class.java
+        EventType.LETTER_SOUND_LEARNING -> LetterSoundLearningEventService::class.java
+
+        EventType.WORD_ASSESSMENT -> WordAssessmentEventService::class.java
+        EventType.WORD_LEARNING -> WordLearningEventService::class.java
+
+        EventType.NUMBER_LEARNING -> NumberLearningEventService::class.java
+        // TODO: number assessment
+
+        EventType.STORY_BOOK_LEARNING -> StoryBookLearningEventService::class.java
+
+        EventType.VIDEO_LEARNING -> VideoLearningEventService::class.java
     }
 }
 
-fun AnalyticEventType.getUploadCsvFile(context: Context,
-                                       androidId: String,
-                                       versionCode: Int,
-                                       date: String): File {
+fun EventType.getUploadCsvFile(context: Context,
+                               androidId: String,
+                               versionCode: Int,
+                               date: String): File {
 
     val csvFileName = androidId + "_" + versionCode + "_${this.type}_" + date + ".csv"
     Timber.i("csvFilename: $csvFileName")
@@ -58,19 +76,25 @@ fun AnalyticEventType.getUploadCsvFile(context: Context,
     return csvFile
 }
 
-fun AnalyticEventType.getCSVHeaders(): Array<String> {
+fun EventType.getCSVHeaders(): Array<String> {
     return when (this) {
-        AnalyticEventType.LETTER_SOUND_ASSESSMENT -> CSVHeaders.LETTER_SOUND_ASSESSMENT
-        AnalyticEventType.LETTER_SOUND_LEARNING -> CSVHeaders.LETTER_SOUND_LEARNING
-        AnalyticEventType.STORY_BOOK_LEARNING -> CSVHeaders.STORYBOOK_LEARNING
-        AnalyticEventType.WORD_ASSESSMENT -> CSVHeaders.WORD_ASSESSMENT
-        AnalyticEventType.WORD_LEARNING -> CSVHeaders.WORD_LEARNING
-        AnalyticEventType.VIDEO_LEARNING -> CSVHeaders.VIDEO_LEARNING
-        AnalyticEventType.NUMBER_LEARNING -> CSVHeaders.NUMBER_LEARNING
+        EventType.LETTER_SOUND_ASSESSMENT -> CSVHeaders.LETTER_SOUND_ASSESSMENT
+        EventType.LETTER_SOUND_LEARNING -> CSVHeaders.LETTER_SOUND_LEARNING
+
+        EventType.WORD_ASSESSMENT -> CSVHeaders.WORD_ASSESSMENT
+        EventType.WORD_LEARNING -> CSVHeaders.WORD_LEARNING
+
+        EventType.NUMBER_LEARNING -> CSVHeaders.NUMBER_LEARNING
+        // TODO: number assessment
+
+        EventType.STORY_BOOK_LEARNING -> CSVHeaders.STORYBOOK_LEARNING
+
+        EventType.VIDEO_LEARNING -> CSVHeaders.VIDEO_LEARNING
     }
 }
 
-fun AnalyticEventType.createEventFromIntent(context: Context, intent: Intent): BaseEntity {
+fun EventType.createEventFromIntent(context: Context, intent: Intent): BaseEntity {
+    Timber.i("createEventFromIntent")
 
     val androidId: String = Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
     Timber.i("androidId: \"${androidId}\"")
@@ -99,8 +123,7 @@ fun AnalyticEventType.createEventFromIntent(context: Context, intent: Intent): B
     Timber.i("researchExperiment: ${researchExperiment} (${experimentGroup})")
 
     return when (this) {
-        AnalyticEventType.LETTER_SOUND_ASSESSMENT -> {
-
+        EventType.LETTER_SOUND_ASSESSMENT -> {
             val masteryScore: Float = intent.getFloatExtra(BundleKeys.KEY_MASTERY_SCORE, 0f)
             Timber.i("masteryScore: ${masteryScore}")
 
@@ -131,8 +154,7 @@ fun AnalyticEventType.createEventFromIntent(context: Context, intent: Intent): B
             }
         }
 
-        AnalyticEventType.LETTER_SOUND_LEARNING -> {
-
+        EventType.LETTER_SOUND_LEARNING -> {
             val letterSoundLetters = intent.getStringArrayExtra(BundleKeys.KEY_LETTER_SOUND_LETTER_TEXTS) ?: emptyArray()
             Timber.i("letterSoundLetters: $letterSoundLetters")
 
@@ -157,30 +179,8 @@ fun AnalyticEventType.createEventFromIntent(context: Context, intent: Intent): B
                 this.letterSoundId = letterSoundId
             }
         }
-        AnalyticEventType.STORY_BOOK_LEARNING -> {
 
-            val storyBookTitle: String = intent.getStringExtra(BundleKeys.KEY_STORYBOOK_TITLE)
-                ?: throw IllegalArgumentException("storyBookTitle must be provided")
-            Timber.i("storyBookTitle: \"$storyBookTitle\"")
-
-            val storyBookId = intent.getLongExtra(BundleKeys.KEY_STORYBOOK_ID, 0)
-            Timber.i("storyBookId: $storyBookId")
-
-            StoryBookLearningEvent().apply {
-                this.androidId = androidId
-                this.packageName = packageName
-                this.time = timestamp
-                this.additionalData = additionalData
-                this.learningEventType = learningEventType
-                this.researchExperiment = researchExperiment
-                this.experimentGroup = experimentGroup
-                this.storyBookTitle = storyBookTitle
-                this.storyBookId = storyBookId
-            }
-        }
-
-        AnalyticEventType.WORD_ASSESSMENT -> {
-
+        EventType.WORD_ASSESSMENT -> {
             val masteryScore = intent.getFloatExtra(BundleKeys.KEY_MASTERY_SCORE, 0f)
             Timber.i("masteryScore: $masteryScore")
 
@@ -210,8 +210,7 @@ fun AnalyticEventType.createEventFromIntent(context: Context, intent: Intent): B
             }
         }
 
-        AnalyticEventType.WORD_LEARNING -> {
-
+        EventType.WORD_LEARNING -> {
             val wordText = intent.getStringExtra(BundleKeys.KEY_WORD_TEXT) ?: ""
             Timber.i("wordText: \"$wordText\"")
 
@@ -234,29 +233,7 @@ fun AnalyticEventType.createEventFromIntent(context: Context, intent: Intent): B
             }
         }
 
-        AnalyticEventType.VIDEO_LEARNING -> {
-
-            val videoTitle = intent.getStringExtra(BundleKeys.KEY_VIDEO_TITLE) ?: ""
-            Timber.i("videoTitle: \"$videoTitle\"")
-
-            val videoId = intent.getLongExtra(BundleKeys.KEY_VIDEO_ID, 0)
-            Timber.i("videoId: $videoId")
-
-            VideoLearningEvent().apply {
-                this.time = timestamp
-                this.androidId = androidId
-                this.packageName = packageName
-                this.additionalData = additionalData
-                this.learningEventType = learningEventType
-                this.researchExperiment = researchExperiment
-                this.experimentGroup = experimentGroup
-                this.videoTitle = videoTitle
-                this.videoId = videoId
-            }
-        }
-
-        AnalyticEventType.NUMBER_LEARNING -> {
-
+        EventType.NUMBER_LEARNING -> {
             val numberValue = intent.getIntExtra(BundleKeys.KEY_NUMBER_VALUE, 0)
             Timber.i("numberValue: \"$numberValue\"")
 
@@ -276,6 +253,47 @@ fun AnalyticEventType.createEventFromIntent(context: Context, intent: Intent): B
                 this.learningEventType = learningEventType
                 this.numberSymbol = numberSymbol
                 this.numberId = numberId
+            }
+        }
+
+        EventType.STORY_BOOK_LEARNING -> {
+            val storyBookTitle: String = intent.getStringExtra(BundleKeys.KEY_STORYBOOK_TITLE)
+                ?: throw IllegalArgumentException("storyBookTitle must be provided")
+            Timber.i("storyBookTitle: \"$storyBookTitle\"")
+
+            val storyBookId = intent.getLongExtra(BundleKeys.KEY_STORYBOOK_ID, 0)
+            Timber.i("storyBookId: $storyBookId")
+
+            StoryBookLearningEvent().apply {
+                this.androidId = androidId
+                this.packageName = packageName
+                this.time = timestamp
+                this.additionalData = additionalData
+                this.learningEventType = learningEventType
+                this.researchExperiment = researchExperiment
+                this.experimentGroup = experimentGroup
+                this.storyBookTitle = storyBookTitle
+                this.storyBookId = storyBookId
+            }
+        }
+
+        EventType.VIDEO_LEARNING -> {
+            val videoTitle = intent.getStringExtra(BundleKeys.KEY_VIDEO_TITLE) ?: ""
+            Timber.i("videoTitle: \"$videoTitle\"")
+
+            val videoId = intent.getLongExtra(BundleKeys.KEY_VIDEO_ID, 0)
+            Timber.i("videoId: $videoId")
+
+            VideoLearningEvent().apply {
+                this.time = timestamp
+                this.androidId = androidId
+                this.packageName = packageName
+                this.additionalData = additionalData
+                this.learningEventType = learningEventType
+                this.researchExperiment = researchExperiment
+                this.experimentGroup = experimentGroup
+                this.videoTitle = videoTitle
+                this.videoId = videoId
             }
         }
     }

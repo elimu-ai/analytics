@@ -2,7 +2,8 @@ package ai.elimu.analytics.utils
 
 /**
  * Defines a set of constant keys used for passing data between the Analytics app
- * and utils module via Bundles.
+ * and utils module via Bundles. This enables the :utils module to known the column names
+ * used in the :app module's database, even if the column was changed between APK versions.
  *
  * ⚠️ **Important:** Do **not rename** or **delete** any of the values in this object.
  * These keys are relied upon by multiple versions of Analytics application that may be using
@@ -25,13 +26,12 @@ object BundleKeys {
     // LearningEvent
     @Deprecated("Will be replaced by `additionalData`")
     const val KEY_LEARNING_EVENT_TYPE = "learning_event_type"
-    const val KEY_INTENT_ACTION = "intent_action"
 
     // AssessmentEvent
     const val KEY_TIME_SPENT_MS = "time_spent_ms"
     const val KEY_MASTERY_SCORE = "mastery_score"
 
-    // LetterSoundAssessmentEvent/LetterSoundLearningEvent
+    // LetterSound AssessmentEvent/LearningEvent
     @Deprecated("Will be replaced by `letterSoundLetters`")
     const val KEY_LETTER_SOUND_LETTER_TEXTS = "letter_sound_letter_texts"
 
@@ -42,20 +42,20 @@ object BundleKeys {
     const val KEY_LETTER_SOUND_SOUNDS = "letter_sound_sounds"
     const val KEY_LETTER_SOUND_ID = "letter_sound_id"
 
-    // WordAssessmentEvent/WordLearningEvent
+    // Word AssessmentEvent/LearningEvent
     const val KEY_WORD_TEXT = "word_text"
     const val KEY_WORD_ID = "word_id"
 
-    // NumberAssessmentEvent/NumberLearningEvent
+    // Number AssessmentEvent/LearningEvent
     const val KEY_NUMBER_VALUE = "number_value"
     const val KEY_NUMBER_SYMBOL = "number_symbol"
     const val KEY_NUMBER_ID = "number_id"
 
-    // StoryBookLearningEvent
+    // StoryBook LearningEvent
     const val KEY_STORYBOOK_TITLE = "storybook_title"
     const val KEY_STORYBOOK_ID = "storybook_id"
 
-    // VideoLearningEvent
+    // Video LearningEvent
     const val KEY_VIDEO_TITLE = "video_title"
     const val KEY_VIDEO_ID = "video_id"
 }

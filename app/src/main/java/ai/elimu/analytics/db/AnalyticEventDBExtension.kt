@@ -1,6 +1,6 @@
 package ai.elimu.analytics.db
 
-import ai.elimu.analytics.entity.AnalyticEventType
+import ai.elimu.analytics.enum.EventType
 import ai.elimu.analytics.entity.BaseEntity
 import ai.elimu.analytics.entity.LetterSoundAssessmentEvent
 import ai.elimu.analytics.entity.LetterSoundLearningEvent
@@ -16,30 +16,30 @@ import androidx.annotation.WorkerThread
  * Load all analytics events of a specific type from database.
  */
 @WorkerThread
-fun AnalyticEventType.getAllEvents(context: Context): List<BaseEntity> {
+fun EventType.getAllEvents(context: Context): List<BaseEntity> {
 
     // Extract events from the database that have not yet been exported to CSV.
     val roomDb = RoomDb.getDatabase(context)
     return when(this) {
-        AnalyticEventType.LETTER_SOUND_ASSESSMENT -> {
+        EventType.LETTER_SOUND_ASSESSMENT -> {
             roomDb.letterSoundAssessmentEventDao().loadAll()
         }
-        AnalyticEventType.LETTER_SOUND_LEARNING -> {
+        EventType.LETTER_SOUND_LEARNING -> {
             roomDb.letterSoundLearningEventDao().loadAllOrderedByTime()
         }
-        AnalyticEventType.STORY_BOOK_LEARNING -> {
+        EventType.STORY_BOOK_LEARNING -> {
             roomDb.storyBookLearningEventDao().loadAll(isDesc = false)
         }
-        AnalyticEventType.WORD_ASSESSMENT -> {
+        EventType.WORD_ASSESSMENT -> {
             roomDb.wordAssessmentEventDao().loadAllOrderedByTimeAsc()
         }
-        AnalyticEventType.WORD_LEARNING -> {
+        EventType.WORD_LEARNING -> {
             roomDb.wordLearningEventDao().loadAllOrderedByTime(isDesc = false)
         }
-        AnalyticEventType.VIDEO_LEARNING -> {
+        EventType.VIDEO_LEARNING -> {
             roomDb.videoLearningEventDao().loadAll(isDesc = false)
         }
-        AnalyticEventType.NUMBER_LEARNING -> {
+        EventType.NUMBER_LEARNING -> {
             roomDb.numberLearningEventDao().loadAllOrderedByTime(isDesc = false)
         }
     }
@@ -59,20 +59,25 @@ fun BaseEntity.persistEvent(context: Context) {
             is LetterSoundLearningEvent -> {
                 roomDb.letterSoundLearningEventDao().insert(this)
             }
-            is StoryBookLearningEvent -> {
-                roomDb.storyBookLearningEventDao().insert(this)
-            }
+
             is WordAssessmentEvent -> {
                 roomDb.wordAssessmentEventDao().insert(this)
             }
             is WordLearningEvent -> {
                 roomDb.wordLearningEventDao().insert(this)
             }
-            is VideoLearningEvent -> {
-                roomDb.videoLearningEventDao().insert(this)
-            }
+
             is NumberLearningEvent -> {
                 roomDb.numberLearningEventDao().insert(this)
+            }
+            // TODO: number assessment
+
+            is StoryBookLearningEvent -> {
+                roomDb.storyBookLearningEventDao().insert(this)
+            }
+
+            is VideoLearningEvent -> {
+                roomDb.videoLearningEventDao().insert(this)
             }
         }
     }

@@ -40,7 +40,7 @@ object AssessmentEventUtil {
 
         val broadcastIntent = Intent()
         broadcastIntent.setAction(LearningEventUtil.BROADCAST_INTENT_ACTION_ANALYTICS)
-        broadcastIntent.putExtra(BundleKeys.KEY_INTENT_ACTION, IntentAction.LETTER_SOUND_ASSESSMENT.action)
+        broadcastIntent.putExtra("intent_action", IntentAction.LETTER_SOUND_ASSESSMENT.action)
         broadcastIntent.putExtra(BundleKeys.KEY_PACKAGE_NAME, context.packageName)
         broadcastIntent.putExtra(BundleKeys.KEY_LETTER_SOUND_LETTERS,
             letterSoundGson.letters.stream().map(LetterGson::getText).collect(Collectors.joining()))
@@ -77,7 +77,7 @@ object AssessmentEventUtil {
 
         val broadcastIntent = Intent()
         broadcastIntent.setAction(LearningEventUtil.BROADCAST_INTENT_ACTION_ANALYTICS)
-        broadcastIntent.putExtra(BundleKeys.KEY_INTENT_ACTION, IntentAction.WORD_ASSESSMENT.action)
+        broadcastIntent.putExtra("intent_action", IntentAction.WORD_ASSESSMENT.action)
         broadcastIntent.putExtra(BundleKeys.KEY_PACKAGE_NAME, context.packageName)
         broadcastIntent.putExtra(BundleKeys.KEY_WORD_ID, wordGson.id)
         broadcastIntent.putExtra(BundleKeys.KEY_WORD_TEXT, wordGson.text)

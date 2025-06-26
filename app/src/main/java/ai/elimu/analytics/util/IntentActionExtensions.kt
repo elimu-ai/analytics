@@ -1,16 +1,21 @@
 package ai.elimu.analytics.util
 
-import ai.elimu.analytics.entity.AnalyticEventType
+import ai.elimu.analytics.enum.EventType
 import ai.elimu.analytics.utils.IntentAction
 
-fun IntentAction.toAnalyticEvent(): AnalyticEventType {
+fun IntentAction.toEventType(): EventType {
     return when (this) {
-        IntentAction.LETTER_SOUND_ASSESSMENT -> AnalyticEventType.LETTER_SOUND_ASSESSMENT
-        IntentAction.LETTER_SOUND_LEARNING -> AnalyticEventType.LETTER_SOUND_LEARNING
-        IntentAction.WORD_ASSESSMENT -> AnalyticEventType.WORD_ASSESSMENT
-        IntentAction.NUMBER_LEARNING -> AnalyticEventType.NUMBER_LEARNING
-        IntentAction.STORYBOOK_LEARNING -> AnalyticEventType.STORY_BOOK_LEARNING
-        IntentAction.VIDEO_LEARNING -> AnalyticEventType.VIDEO_LEARNING
-        IntentAction.WORD_LEARNING -> AnalyticEventType.WORD_LEARNING
+        IntentAction.LETTER_SOUND_ASSESSMENT -> EventType.LETTER_SOUND_ASSESSMENT
+        IntentAction.LETTER_SOUND_LEARNING -> EventType.LETTER_SOUND_LEARNING
+
+        IntentAction.WORD_ASSESSMENT -> EventType.WORD_ASSESSMENT
+        IntentAction.WORD_LEARNING -> EventType.WORD_LEARNING
+
+        IntentAction.NUMBER_LEARNING -> EventType.NUMBER_LEARNING
+        // TODO: number assessment
+
+        IntentAction.STORYBOOK_LEARNING -> EventType.STORY_BOOK_LEARNING
+
+        IntentAction.VIDEO_LEARNING -> EventType.VIDEO_LEARNING
     }
 }
