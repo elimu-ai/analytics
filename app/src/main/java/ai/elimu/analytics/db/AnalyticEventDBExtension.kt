@@ -59,20 +59,25 @@ fun BaseEntity.persistEvent(context: Context) {
             is LetterSoundLearningEvent -> {
                 roomDb.letterSoundLearningEventDao().insert(this)
             }
-            is StoryBookLearningEvent -> {
-                roomDb.storyBookLearningEventDao().insert(this)
-            }
+
             is WordAssessmentEvent -> {
                 roomDb.wordAssessmentEventDao().insert(this)
             }
             is WordLearningEvent -> {
                 roomDb.wordLearningEventDao().insert(this)
             }
-            is VideoLearningEvent -> {
-                roomDb.videoLearningEventDao().insert(this)
-            }
+
             is NumberLearningEvent -> {
                 roomDb.numberLearningEventDao().insert(this)
+            }
+            // TODO: number assessment
+
+            is StoryBookLearningEvent -> {
+                roomDb.storyBookLearningEventDao().insert(this)
+            }
+
+            is VideoLearningEvent -> {
+                roomDb.videoLearningEventDao().insert(this)
             }
         }
     }
