@@ -31,7 +31,7 @@ object BundleKeys {
     const val KEY_TIME_SPENT_MS = "time_spent_ms"
     const val KEY_MASTERY_SCORE = "mastery_score"
 
-    // LetterSoundAssessmentEvent/LetterSoundLearningEvent
+    // LetterSound AssessmentEvent/LearningEvent
     @Deprecated("Will be replaced by `letterSoundLetters`")
     const val KEY_LETTER_SOUND_LETTER_TEXTS = "letter_sound_letter_texts"
 
@@ -42,20 +42,20 @@ object BundleKeys {
     const val KEY_LETTER_SOUND_SOUNDS = "letter_sound_sounds"
     const val KEY_LETTER_SOUND_ID = "letter_sound_id"
 
-    // WordAssessmentEvent/WordLearningEvent
+    // Word AssessmentEvent/LearningEvent
     const val KEY_WORD_TEXT = "word_text"
     const val KEY_WORD_ID = "word_id"
 
-    // NumberAssessmentEvent/NumberLearningEvent
+    // Number AssessmentEvent/LearningEvent
     const val KEY_NUMBER_VALUE = "number_value"
     const val KEY_NUMBER_SYMBOL = "number_symbol"
     const val KEY_NUMBER_ID = "number_id"
 
-    // StoryBookLearningEvent
+    // StoryBook LearningEvent
     const val KEY_STORYBOOK_TITLE = "storybook_title"
     const val KEY_STORYBOOK_ID = "storybook_id"
 
-    // VideoLearningEvent
+    // Video LearningEvent
     const val KEY_VIDEO_TITLE = "video_title"
     const val KEY_VIDEO_ID = "video_id"
 }
