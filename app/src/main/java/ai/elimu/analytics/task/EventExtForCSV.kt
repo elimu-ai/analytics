@@ -1,6 +1,6 @@
 package ai.elimu.analytics.task
 
-import ai.elimu.analytics.enum.AnalyticEventType
+import ai.elimu.analytics.enum.EventType
 import ai.elimu.analytics.entity.BaseEntity
 import ai.elimu.analytics.entity.LetterSoundAssessmentEvent
 import ai.elimu.analytics.entity.LetterSoundLearningEvent
@@ -113,19 +113,19 @@ fun VideoLearningEvent.getCSVFields(): List<Any?> {
     )
 }
 
-fun BaseEntity.getCSVFields(eventType: AnalyticEventType): List<Any?> {
+fun BaseEntity.getCSVFields(eventType: EventType): List<Any?> {
     return when (eventType) {
-        AnalyticEventType.LETTER_SOUND_ASSESSMENT -> (this as LetterSoundAssessmentEvent).getCSVFields()
-        AnalyticEventType.LETTER_SOUND_LEARNING -> (this as LetterSoundLearningEvent).getCSVFields()
+        EventType.LETTER_SOUND_ASSESSMENT -> (this as LetterSoundAssessmentEvent).getCSVFields()
+        EventType.LETTER_SOUND_LEARNING -> (this as LetterSoundLearningEvent).getCSVFields()
 
-        AnalyticEventType.WORD_ASSESSMENT -> (this as WordAssessmentEvent).getCSVFields()
-        AnalyticEventType.WORD_LEARNING -> (this as WordLearningEvent).getCSVFields()
+        EventType.WORD_ASSESSMENT -> (this as WordAssessmentEvent).getCSVFields()
+        EventType.WORD_LEARNING -> (this as WordLearningEvent).getCSVFields()
 
-        AnalyticEventType.NUMBER_LEARNING -> (this as NumberLearningEvent).getCSVFields()
+        EventType.NUMBER_LEARNING -> (this as NumberLearningEvent).getCSVFields()
         // TODO: number assessment
 
-        AnalyticEventType.STORY_BOOK_LEARNING -> (this as StoryBookLearningEvent).getCSVFields()
+        EventType.STORY_BOOK_LEARNING -> (this as StoryBookLearningEvent).getCSVFields()
 
-        AnalyticEventType.VIDEO_LEARNING -> (this as VideoLearningEvent).getCSVFields()
+        EventType.VIDEO_LEARNING -> (this as VideoLearningEvent).getCSVFields()
     }
 }

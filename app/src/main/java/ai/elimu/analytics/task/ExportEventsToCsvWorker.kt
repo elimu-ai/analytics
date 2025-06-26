@@ -1,7 +1,7 @@
 package ai.elimu.analytics.task
 
 import ai.elimu.analytics.db.getAllEvents
-import ai.elimu.analytics.enum.AnalyticEventType
+import ai.elimu.analytics.enum.EventType
 import ai.elimu.analytics.entity.AssessmentEvent
 import ai.elimu.analytics.entity.LearningEvent
 import ai.elimu.analytics.enum.getCSVHeaders
@@ -31,14 +31,14 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
     override fun doWork(): Result {
         Timber.i("doWork")
 
-        for (eventType in AnalyticEventType.entries) {
+        for (eventType in EventType.entries) {
             exportAnalyticsEventsToCsv(eventType = eventType)
         }
 
         return Result.success()
     }
 
-    private fun exportAnalyticsEventsToCsv(eventType: AnalyticEventType) {
+    private fun exportAnalyticsEventsToCsv(eventType: EventType) {
         Timber.i("exportAnalyticsEventsToCsv: ${eventType}")
 
         val events = eventType.getAllEvents(applicationContext)
