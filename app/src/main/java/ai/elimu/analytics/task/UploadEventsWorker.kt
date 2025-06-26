@@ -2,8 +2,8 @@ package ai.elimu.analytics.task
 
 import ai.elimu.analytics.BaseApplication
 import ai.elimu.analytics.BuildConfig
-import ai.elimu.analytics.entity.AnalyticEventType
-import ai.elimu.analytics.entity.toServiceClass
+import ai.elimu.analytics.enum.AnalyticEventType
+import ai.elimu.analytics.enum.toServiceClass
 import ai.elimu.analytics.util.SharedPreferencesHelper
 import ai.elimu.analytics.util.VersionHelper.extractVersionCode
 import android.content.Context

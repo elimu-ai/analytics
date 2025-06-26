@@ -1,7 +1,7 @@
 package ai.elimu.analytics.receiver
 
 import ai.elimu.analytics.db.persistEvent
-import ai.elimu.analytics.entity.createEventFromIntent
+import ai.elimu.analytics.enum.createEventFromIntent
 import ai.elimu.analytics.util.toAnalyticEvent
 import ai.elimu.analytics.utils.BundleKeys
 import ai.elimu.analytics.utils.IntentAction

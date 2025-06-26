@@ -1,11 +1,11 @@
 package ai.elimu.analytics.task
 
 import ai.elimu.analytics.db.getAllEvents
-import ai.elimu.analytics.entity.AnalyticEventType
+import ai.elimu.analytics.enum.AnalyticEventType
 import ai.elimu.analytics.entity.AssessmentEvent
 import ai.elimu.analytics.entity.LearningEvent
-import ai.elimu.analytics.entity.getCSVHeaders
-import ai.elimu.analytics.entity.getUploadCsvFile
+import ai.elimu.analytics.enum.getCSVHeaders
+import ai.elimu.analytics.enum.getUploadCsvFile
 import ai.elimu.analytics.util.VersionHelper.getAppVersionCode
 import android.content.Context
 import androidx.work.Worker
@@ -31,34 +31,20 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
     override fun doWork(): Result {
         Timber.i("doWork")
 
-        // Letter-sounds
-        exportAnalyticsEventsToCsv(eventType = AnalyticEventType.LETTER_SOUND_ASSESSMENT)
-        exportAnalyticsEventsToCsv(eventType = AnalyticEventType.LETTER_SOUND_LEARNING)
-
-        // Words
-        exportAnalyticsEventsToCsv(eventType = AnalyticEventType.WORD_ASSESSMENT)
-        exportAnalyticsEventsToCsv(eventType = AnalyticEventType.WORD_LEARNING)
-
-        // Numbers
-        exportAnalyticsEventsToCsv(eventType = AnalyticEventType.NUMBER_LEARNING)
-
-        // Storybooks
-        exportAnalyticsEventsToCsv(eventType = AnalyticEventType.STORY_BOOK_LEARNING)
-
-        // Videos
-        exportAnalyticsEventsToCsv(eventType = AnalyticEventType.VIDEO_LEARNING)
+        for (eventType in AnalyticEventType.entries) {
+            exportAnalyticsEventsToCsv(eventType = eventType)
+        }
 
         return Result.success()
     }
 
     private fun exportAnalyticsEventsToCsv(eventType: AnalyticEventType) {
-        Timber.i("exportAnalyticsEventsToCsv")
+        Timber.i("exportAnalyticsEventsToCsv: ${eventType}")
 
         val events = eventType.getAllEvents(applicationContext)
         Timber.i("events.size(): %s", events.size)
 
-        val csvFormat = CSVFormat.DEFAULT
-            .withHeader(*eventType.getCSVHeaders())
+        val csvFormat = CSVFormat.DEFAULT.withHeader(*eventType.getCSVHeaders())
         var stringWriter = StringWriter()
         try {
             var csvPrinter = CSVPrinter(stringWriter, csvFormat)
@@ -91,10 +77,11 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
 
                 // Write the content to the CSV file
                 val csvFile = eventType.getUploadCsvFile(
-                    context = applicationContext,
-                    androidId = androidId,
-                    versionCode = versionCode,
-                    date = date)
+                        context = applicationContext,
+                        androidId = androidId,
+                        versionCode = versionCode,
+                        date = date
+                )
                 FileUtils.writeStringToFile(csvFile, csvFileContent, "UTF-8")
             }
         } catch (e: IOException) {

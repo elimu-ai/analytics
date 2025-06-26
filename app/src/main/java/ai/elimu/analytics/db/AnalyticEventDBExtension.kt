@@ -1,6 +1,6 @@
 package ai.elimu.analytics.db
 
-import ai.elimu.analytics.entity.AnalyticEventType
+import ai.elimu.analytics.enum.AnalyticEventType
 import ai.elimu.analytics.entity.BaseEntity
 import ai.elimu.analytics.entity.LetterSoundAssessmentEvent
 import ai.elimu.analytics.entity.LetterSoundLearningEvent
