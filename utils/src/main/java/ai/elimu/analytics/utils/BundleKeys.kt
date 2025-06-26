@@ -2,7 +2,8 @@ package ai.elimu.analytics.utils
 
 /**
  * Defines a set of constant keys used for passing data between the Analytics app
- * and utils module via Bundles.
+ * and utils module via Bundles. This enables the :utils module to known the column names
+ * used in the :app module's database, even if the column was changed between APK versions.
  *
  * ⚠️ **Important:** Do **not rename** or **delete** any of the values in this object.
  * These keys are relied upon by multiple versions of Analytics application that may be using
@@ -25,7 +26,6 @@ object BundleKeys {
     // LearningEvent
     @Deprecated("Will be replaced by `additionalData`")
     const val KEY_LEARNING_EVENT_TYPE = "learning_event_type"
-    const val KEY_INTENT_ACTION = "intent_action"
 
     // AssessmentEvent
     const val KEY_TIME_SPENT_MS = "time_spent_ms"

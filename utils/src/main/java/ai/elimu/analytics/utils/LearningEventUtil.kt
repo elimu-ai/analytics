@@ -37,7 +37,7 @@ object LearningEventUtil {
 
         val broadcastIntent = Intent()
         broadcastIntent.setAction(BROADCAST_INTENT_ACTION_ANALYTICS)
-        broadcastIntent.putExtra(BundleKeys.KEY_INTENT_ACTION, IntentAction.LETTER_SOUND_LEARNING.action)
+        broadcastIntent.putExtra("intent_action", IntentAction.LETTER_SOUND_LEARNING.action)
         broadcastIntent.putExtra(BundleKeys.KEY_PACKAGE_NAME, context.packageName)
         additionalData?.let {
             broadcastIntent.putExtra(BundleKeys.KEY_ADDITIONAL_DATA, additionalData.toString())
@@ -77,7 +77,7 @@ object LearningEventUtil {
 
         val broadcastIntent = Intent()
         broadcastIntent.setAction(BROADCAST_INTENT_ACTION_ANALYTICS)
-        broadcastIntent.putExtra(BundleKeys.KEY_INTENT_ACTION, IntentAction.WORD_LEARNING.action)
+        broadcastIntent.putExtra("intent_action", IntentAction.WORD_LEARNING.action)
         broadcastIntent.putExtra(BundleKeys.KEY_PACKAGE_NAME, context.packageName)
         additionalData?.let {
             broadcastIntent.putExtra(BundleKeys.KEY_ADDITIONAL_DATA, additionalData.toString())
@@ -104,7 +104,7 @@ object LearningEventUtil {
 
         val broadcastIntent = Intent()
         broadcastIntent.setAction(BROADCAST_INTENT_ACTION_ANALYTICS)
-        broadcastIntent.putExtra(BundleKeys.KEY_INTENT_ACTION, IntentAction.STORYBOOK_LEARNING.action)
+        broadcastIntent.putExtra("intent_action", IntentAction.STORYBOOK_LEARNING.action)
         broadcastIntent.putExtra(BundleKeys.KEY_PACKAGE_NAME, context.packageName)
         additionalData?.let {
             broadcastIntent.putExtra(BundleKeys.KEY_ADDITIONAL_DATA, additionalData.toString())
@@ -131,7 +131,7 @@ object LearningEventUtil {
 
         val broadcastIntent = Intent()
         broadcastIntent.setAction(BROADCAST_INTENT_ACTION_ANALYTICS)
-        broadcastIntent.putExtra(BundleKeys.KEY_INTENT_ACTION, IntentAction.VIDEO_LEARNING.action)
+        broadcastIntent.putExtra("intent_action", IntentAction.VIDEO_LEARNING.action)
         broadcastIntent.putExtra(BundleKeys.KEY_PACKAGE_NAME, context.packageName)
         additionalData?.let {
             broadcastIntent.putExtra(BundleKeys.KEY_ADDITIONAL_DATA, additionalData.toString())
@@ -158,7 +158,7 @@ object LearningEventUtil {
 
         val broadcastIntent = Intent()
         broadcastIntent.setAction(BROADCAST_INTENT_ACTION_ANALYTICS)
-        broadcastIntent.putExtra(BundleKeys.KEY_INTENT_ACTION, IntentAction.NUMBER_LEARNING.action)
+        broadcastIntent.putExtra("intent_action", IntentAction.NUMBER_LEARNING.action)
         broadcastIntent.putExtra(BundleKeys.KEY_PACKAGE_NAME, context.packageName)
         additionalData?.let {
             broadcastIntent.putExtra(BundleKeys.KEY_ADDITIONAL_DATA, additionalData.toString())

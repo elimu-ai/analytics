@@ -14,7 +14,9 @@ class AnalyticsEventReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         Timber.i("onReceive")
 
-        intent.getStringExtra(BundleKeys.KEY_INTENT_ACTION)?.let { action ->
+        Timber.i(intent.action)
+
+        intent.getStringExtra("intent_action")?.let { action ->
             IntentAction.entries.firstOrNull { it.action == action }?.let { intentAction ->
                 val event = intentAction.toAnalyticEvent()
                 .createEventFromIntent(context, intent)
