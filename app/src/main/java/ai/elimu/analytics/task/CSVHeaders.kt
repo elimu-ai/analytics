@@ -1,89 +1,91 @@
 package ai.elimu.analytics.task
 
+import ai.elimu.analytics.utils.BundleKeys
+
 object CSVHeaders {
 
     val LETTER_SOUND_ASSESSMENT by lazy { arrayOf(
-        "id",
-        "timestamp",
-        "package_name",
-        "mastery_score",
-        "time_spent_ms",
-        "additional_data",
+        BundleKeys.KEY_ID,
+        BundleKeys.KEY_TIMESTAMP,
+        BundleKeys.KEY_PACKAGE_NAME,
+        BundleKeys.KEY_MASTERY_SCORE,
+        BundleKeys.KEY_TIME_SPENT_MS,
+        BundleKeys.KEY_ADDITIONAL_DATA,
         "research_experiment",
         "experiment_group",
-        "letter_sound_letters",
-        "letter_sound_sounds",
-        "letter_sound_id") }
+        BundleKeys.KEY_LETTER_SOUND_LETTERS,
+        BundleKeys.KEY_LETTER_SOUND_SOUNDS,
+        BundleKeys.KEY_LETTER_SOUND_ID) }
 
     val LETTER_SOUND_LEARNING by lazy { arrayOf(
-        "id",
-        "timestamp",
-        "package_name",
-        "additional_data",
+        BundleKeys.KEY_ID,
+        BundleKeys.KEY_TIMESTAMP,
+        BundleKeys.KEY_PACKAGE_NAME,
+        BundleKeys.KEY_ADDITIONAL_DATA,
         "research_experiment",
         "experiment_group",
-        "letter_sound_letter_texts",
-        "letter_sound_sound_values_ipa",
-        "letter_sound_id") }
+        BundleKeys.KEY_LETTER_SOUND_LETTER_TEXTS,
+        BundleKeys.KEY_LETTER_SOUND_SOUND_VALUES_IPA,
+        BundleKeys.KEY_LETTER_SOUND_ID) }
 
     val WORD_ASSESSMENT by lazy { arrayOf(
-        "id",
-        "timestamp",
-        "package_name",
-        "mastery_score",
-        "time_spent_ms",
-        "additional_data",
+        BundleKeys.KEY_ID,
+        BundleKeys.KEY_TIMESTAMP,
+        BundleKeys.KEY_PACKAGE_NAME,
+        BundleKeys.KEY_MASTERY_SCORE,
+        BundleKeys.KEY_TIME_SPENT_MS,
+        BundleKeys.KEY_ADDITIONAL_DATA,
         "research_experiment",
         "experiment_group",
-        "word_text",
-        "word_id") }
+        BundleKeys.KEY_WORD_TEXT,
+        BundleKeys.KEY_WORD_ID) }
 
     val WORD_LEARNING by lazy { arrayOf(
-        "id",
-        "timestamp",
-        "package_name",
-        "additional_data",
-        "learning_event_type",
+        BundleKeys.KEY_ID,
+        BundleKeys.KEY_TIMESTAMP,
+        BundleKeys.KEY_PACKAGE_NAME,
+        BundleKeys.KEY_ADDITIONAL_DATA,
+        BundleKeys.KEY_LEARNING_EVENT_TYPE,
         "research_experiment",
         "experiment_group",
-        "word_text",
-        "word_id"
+        BundleKeys.KEY_WORD_TEXT,
+        BundleKeys.KEY_WORD_ID
     ) }
 
     val NUMBER_LEARNING by lazy { arrayOf(
-        "id",
-        "timestamp",
-        "package_name",
-        "additional_data",
-        "learning_event_type",
+        BundleKeys.KEY_ID,
+        BundleKeys.KEY_TIMESTAMP,
+        BundleKeys.KEY_PACKAGE_NAME,
+        BundleKeys.KEY_ADDITIONAL_DATA,
+        BundleKeys.KEY_LEARNING_EVENT_TYPE,
         "research_experiment",
         "experiment_group",
-        "number_value",
-        "number_symbol",
-        "number_id"
+        BundleKeys.KEY_NUMBER_VALUE,
+        BundleKeys.KEY_NUMBER_SYMBOL,
+        BundleKeys.KEY_NUMBER_ID
     ) }
 
     val STORYBOOK_LEARNING by lazy { arrayOf(
-        "id",
-        "timestamp",
-        "package_name",
-        "additional_data",
-        "learning_event_type",
+        BundleKeys.KEY_ID,
+        BundleKeys.KEY_TIMESTAMP,
+        BundleKeys.KEY_PACKAGE_NAME,
+        BundleKeys.KEY_ADDITIONAL_DATA,
+        BundleKeys.KEY_LEARNING_EVENT_TYPE,
         "research_experiment",
         "experiment_group",
-        "storybook_title",
-        "storybook_id"
+        BundleKeys.KEY_STORYBOOK_TITLE,
+        BundleKeys.KEY_STORYBOOK_ID
     ) }
 
     val VIDEO_LEARNING by lazy { arrayOf(
-        "id",
-        "timestamp",
-        "package_name",
-        "additional_data",
-        "learning_event_type",
+        BundleKeys.KEY_ID,
+        BundleKeys.KEY_TIMESTAMP,
+        BundleKeys.KEY_PACKAGE_NAME,
+        BundleKeys.KEY_ADDITIONAL_DATA,
+        BundleKeys.KEY_LEARNING_EVENT_TYPE,
         "research_experiment",
         "experiment_group",
-        "video_title",
-        "video_id"
+        BundleKeys.KEY_VIDEO_TITLE,
+        BundleKeys.KEY_VIDEO_ID
     ) }
 }
