@@ -1,6 +1,6 @@
 package ai.elimu.analytics.util
 
-import ai.elimu.analytics.entity.AnalyticEventType
+import ai.elimu.analytics.enum.AnalyticEventType
 import ai.elimu.model.v2.enums.Language
 import android.content.Context
 import android.content.pm.PackageManager

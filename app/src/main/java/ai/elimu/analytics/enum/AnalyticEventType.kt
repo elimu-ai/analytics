@@ -1,5 +1,13 @@
-package ai.elimu.analytics.entity
+package ai.elimu.analytics.enum
 
+import ai.elimu.analytics.entity.BaseEntity
+import ai.elimu.analytics.entity.LetterSoundAssessmentEvent
+import ai.elimu.analytics.entity.LetterSoundLearningEvent
+import ai.elimu.analytics.entity.NumberLearningEvent
+import ai.elimu.analytics.entity.StoryBookLearningEvent
+import ai.elimu.analytics.entity.VideoLearningEvent
+import ai.elimu.analytics.entity.WordAssessmentEvent
+import ai.elimu.analytics.entity.WordLearningEvent
 import ai.elimu.analytics.rest.LetterSoundAssessmentEventService
 import ai.elimu.analytics.rest.LetterSoundLearningEventService
 import ai.elimu.analytics.rest.NumberLearningEventService

@@ -1,6 +1,6 @@
 package ai.elimu.analytics.util
 
-import ai.elimu.analytics.entity.AnalyticEventType
+import ai.elimu.analytics.enum.AnalyticEventType
 import ai.elimu.analytics.utils.IntentAction
 
 fun IntentAction.toAnalyticEvent(): AnalyticEventType {
