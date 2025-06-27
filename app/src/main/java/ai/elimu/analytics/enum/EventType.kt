@@ -35,8 +35,8 @@ enum class EventType(val type: String) {
     WORD_ASSESSMENT("word-assessment-events"),
     WORD_LEARNING("word-learning-events"),
 
-    NUMBER_LEARNING("number-learning-events"),
     // TODO: number assessment
+    NUMBER_LEARNING("number-learning-events"),
 
     STORY_BOOK_LEARNING("storybook-learning-events"),
 
