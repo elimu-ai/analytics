@@ -15,6 +15,7 @@ import java.util.concurrent.Executors;
 
 import ai.elimu.analytics.dao.LetterSoundAssessmentEventDao;
 import ai.elimu.analytics.dao.LetterSoundLearningEventDao;
+import ai.elimu.analytics.dao.NumberAssessmentEventDao;
 import ai.elimu.analytics.dao.NumberLearningEventDao;
 import ai.elimu.analytics.dao.StoryBookLearningEventDao;
 import ai.elimu.analytics.dao.VideoLearningEventDao;
@@ -33,22 +34,31 @@ import timber.log.Timber;
 @Database(version = 19, entities = {
         LetterSoundAssessmentEvent.class,
         LetterSoundLearningEvent.class,
-        WordLearningEvent.class,
+
         WordAssessmentEvent.class,
+        WordLearningEvent.class,
+
         NumberAssessmentEvent.class,
+        NumberLearningEvent.class,
+
         StoryBookLearningEvent.class,
-        VideoLearningEvent.class,
-        NumberLearningEvent.class
+
+        VideoLearningEvent.class
 })
 @TypeConverters({Converters.class})
 public abstract class RoomDb extends RoomDatabase {
     public abstract LetterSoundAssessmentEventDao letterSoundAssessmentEventDao();
     public abstract LetterSoundLearningEventDao letterSoundLearningEventDao();
-    public abstract WordLearningEventDao wordLearningEventDao();
+
     public abstract WordAssessmentEventDao wordAssessmentEventDao();
-    public abstract StoryBookLearningEventDao storyBookLearningEventDao();
-    public abstract VideoLearningEventDao videoLearningEventDao();
+    public abstract WordLearningEventDao wordLearningEventDao();
+
+    public abstract NumberAssessmentEventDao numberAssessmentEventDao();
     public abstract NumberLearningEventDao numberLearningEventDao();
+
+    public abstract StoryBookLearningEventDao storyBookLearningEventDao();
+
+    public abstract VideoLearningEventDao videoLearningEventDao();
 
     private static volatile RoomDb INSTANCE;
 
