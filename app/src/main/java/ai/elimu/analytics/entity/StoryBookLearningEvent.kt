@@ -5,22 +5,11 @@ import androidx.room.Entity
 
 @Entity
 class StoryBookLearningEvent : LearningEvent() {
-    var storyBookTitle: String = ""
+    lateinit var storyBookTitle: String
 
     @JvmField
     var storyBookId: Long = 0L
 
     @Deprecated("Will be replaced by `additionalData`")
     var learningEventType: LearningEventType? = null
-
-    override fun toString(): String {
-        return "id: " + id +
-                ", time: " + time.time +
-                ", androidId: \"" + androidId +
-                "\"" + ", packageName: \"" +
-                packageName + "\"" +
-                ", storyBookTitle: \"" + storyBookTitle + "\"" +
-                ", storyBookId: " + storyBookId +
-                ", learningEventType: \"" + learningEventType + "\""
-    }
 }

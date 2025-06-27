@@ -10,12 +10,12 @@ class LetterSoundAssessmentEvent : AssessmentEvent() {
     /**
      * The sequence of letters. E.g. `sh`.
      */
-    var letterSoundLetters: String = ""
+    lateinit var letterSoundLetters: String
 
     /**
      * The sequence of sounds (IPA values). E.g. `ʃ`.
      */
-    var letterSoundSounds: String = ""
+    lateinit var letterSoundSounds: String
 
     /**
      * This field might not be included, e.g. if the assessment task was done in a

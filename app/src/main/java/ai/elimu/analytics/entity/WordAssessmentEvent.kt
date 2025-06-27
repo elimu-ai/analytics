@@ -8,8 +8,7 @@ class WordAssessmentEvent : AssessmentEvent() {
     @JvmField
     var wordId: Long? = null
 
-    @JvmField
-    var wordText: String = ""
+    lateinit var wordText: String
 
     @JvmField
     var masteryScore: Float = 0f
