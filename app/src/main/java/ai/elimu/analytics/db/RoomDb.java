@@ -365,6 +365,31 @@ public abstract class RoomDb extends RoomDatabase {
             sql = "DELETE FROM `WordLearningEvent` WHERE `packageName` = ''";
             Timber.i("sql: %s", sql);
             database.execSQL(sql);
+
+
+            sql = "DELETE FROM `LetterSoundLearningEvent` WHERE `androidId` = ''";
+            Timber.i("sql: %s", sql);
+            database.execSQL(sql);
+
+            sql = "DELETE FROM `LetterSoundLearningEvent` WHERE `androidId` = ''";
+            Timber.i("sql: %s", sql);
+            database.execSQL(sql);
+
+            sql = "DELETE FROM `NumberLearningEvent` WHERE `androidId` = ''";
+            Timber.i("sql: %s", sql);
+            database.execSQL(sql);
+
+            sql = "DELETE FROM `StoryBookLearningEvent` WHERE `androidId` = ''";
+            Timber.i("sql: %s", sql);
+            database.execSQL(sql);
+
+            sql = "DELETE FROM `VideoLearningEvent` WHERE `androidId` = ''";
+            Timber.i("sql: %s", sql);
+            database.execSQL(sql);
+
+            sql = "DELETE FROM `WordLearningEvent` WHERE `androidId` = ''";
+            Timber.i("sql: %s", sql);
+            database.execSQL(sql);
         }
     };
 }

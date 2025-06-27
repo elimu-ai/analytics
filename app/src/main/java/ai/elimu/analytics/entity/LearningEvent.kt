@@ -10,8 +10,7 @@ import java.util.Calendar
  */
 @Entity
 abstract class LearningEvent : BaseEntity() {
-    @JvmField
-    var androidId: String = ""
+    lateinit var androidId: String
 
     lateinit var packageName: String
 

@@ -7,8 +7,7 @@ import java.util.Calendar
 
 @Entity
 abstract class AssessmentEvent : BaseEntity() {
-    @JvmField
-    var androidId: String = ""
+    lateinit var androidId: String
 
     lateinit var packageName: String
 
