@@ -12,15 +12,4 @@ class StoryBookLearningEvent : LearningEvent() {
 
     @Deprecated("Will be replaced by `additionalData`")
     var learningEventType: LearningEventType? = null
-
-    override fun toString(): String {
-        return "id: " + id +
-                ", time: " + time.time +
-                ", androidId: \"" + androidId +
-                "\"" + ", packageName: \"" +
-                packageName + "\"" +
-                ", storyBookTitle: \"" + storyBookTitle + "\"" +
-                ", storyBookId: " + storyBookId +
-                ", learningEventType: \"" + learningEventType + "\""
-    }
 }
