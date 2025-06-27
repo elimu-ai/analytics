@@ -342,7 +342,13 @@ public abstract class RoomDb extends RoomDatabase {
         public void migrate(@NonNull SupportSQLiteDatabase database) {
             Timber.i("migrate (" + database.getVersion() + " --> 18)");
 
-            String sql = "DELETE FROM `LetterSoundLearningEvent` WHERE `packageName` = ''";
+            // packageName:
+
+            String sql = "DELETE FROM `LetterSoundAssessmentEvent` WHERE `packageName` = ''";
+            Timber.i("sql: %s", sql);
+            database.execSQL(sql);
+
+            sql = "DELETE FROM `LetterSoundLearningEvent` WHERE `packageName` = ''";
             Timber.i("sql: %s", sql);
             database.execSQL(sql);
 
@@ -362,10 +368,19 @@ public abstract class RoomDb extends RoomDatabase {
             Timber.i("sql: %s", sql);
             database.execSQL(sql);
 
+            sql = "DELETE FROM `WordAssessmentEvent` WHERE `packageName` = ''";
+            Timber.i("sql: %s", sql);
+            database.execSQL(sql);
+
             sql = "DELETE FROM `WordLearningEvent` WHERE `packageName` = ''";
             Timber.i("sql: %s", sql);
             database.execSQL(sql);
 
+            // androidId:
+
+            sql = "DELETE FROM `LetterSoundAssessmentEvent` WHERE `androidId` = ''";
+            Timber.i("sql: %s", sql);
+            database.execSQL(sql);
 
             sql = "DELETE FROM `LetterSoundLearningEvent` WHERE `androidId` = ''";
             Timber.i("sql: %s", sql);
@@ -384,6 +399,10 @@ public abstract class RoomDb extends RoomDatabase {
             database.execSQL(sql);
 
             sql = "DELETE FROM `VideoLearningEvent` WHERE `androidId` = ''";
+            Timber.i("sql: %s", sql);
+            database.execSQL(sql);
+
+            sql = "DELETE FROM `WordAssessmentEvent` WHERE `androidId` = ''";
             Timber.i("sql: %s", sql);
             database.execSQL(sql);
 
