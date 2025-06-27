@@ -7,7 +7,7 @@ import androidx.room.Entity
 class VideoLearningEvent : LearningEvent() {
     var videoId: Long? = null
 
-    var videoTitle: String = ""
+    lateinit var videoTitle: String
 
     @Deprecated("Will be replaced by `additionalData`")
     var learningEventType: LearningEventType? = null

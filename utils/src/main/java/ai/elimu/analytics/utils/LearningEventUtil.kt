@@ -26,7 +26,7 @@ object LearningEventUtil {
     /**
      * @param letterSoundGson The letter-sound correspondence that the student is learning.
      * @param additionalData Any additional data related to the learning event, e.g. `{'is_letter_pressed':true}`
-     * @param context Needed to fetch the `packageName` of the application where the learning event occurred.
+     * @param context Needed to fetch the `packageName` of the application where the event occurred.
      * @param analyticsApplicationId The package name of the analytics application that will receive the Intent and store the event.
      */
     fun reportLetterSoundLearningEvent(
@@ -67,7 +67,7 @@ object LearningEventUtil {
     /**
      * @param wordGson The word that the student is learning.
      * @param additionalData Any additional data related to the learning event, e.g. `{'is_word_pressed':true}`
-     * @param context Needed to fetch the `packageName` of the application where the learning event occurred.
+     * @param context Needed to fetch the `packageName` of the application where the event occurred.
      * @param analyticsApplicationId The package name of the analytics application that will receive the Intent and store the event.
      */
     fun reportWordLearningEvent(
@@ -95,7 +95,7 @@ object LearningEventUtil {
     /**
      * @param storyBookGson The storybook that the student is learning from.
      * @param additionalData Any additional data related to the learning event, e.g. `{'time_spent_per_chapter_ms':[7500,12900,34422,5023]}`
-     * @param context Needed to fetch the `packageName` of the application where the learning event occurred.
+     * @param context Needed to fetch the `packageName` of the application where the event occurred.
      * @param analyticsApplicationId The package name of the analytics application that will receive the Intent and store the event.
      */
     fun reportStoryBookLearningEvent(
@@ -123,7 +123,7 @@ object LearningEventUtil {
     /**
      * @param videoGson The video that the student is learning from.
      * @param additionalData Any additional data related to the learning event, e.g. `{'is_video_paused':true}`
-     * @param context Needed to fetch the `packageName` of the application where the learning event occurred.
+     * @param context Needed to fetch the `packageName` of the application where the event occurred.
      * @param analyticsApplicationId The package name of the analytics application that will receive the Intent and store the event.
      */
     fun reportVideoLearningEvent(
@@ -151,7 +151,7 @@ object LearningEventUtil {
     /**
      * @param numberGson The number that the student is learning.
      * @param additionalData Any additional data related to the learning event, e.g. `{'is_number_pressed':true}`
-     * @param context Needed to fetch the `packageName` of the application where the learning event occurred.
+     * @param context Needed to fetch the `packageName` of the application where the event occurred.
      * @param analyticsApplicationId The package name of the analytics application that will receive the Intent and store the event.
      */
     fun reportNumberLearningEvent(

@@ -10,11 +10,9 @@ import java.util.Calendar
  */
 @Entity
 abstract class LearningEvent : BaseEntity() {
-    @JvmField
-    var androidId: String = ""
+    lateinit var androidId: String
 
-    @JvmField
-    var packageName: String = ""
+    lateinit var packageName: String
 
     @JvmField
     var time: Calendar = Calendar.getInstance()
