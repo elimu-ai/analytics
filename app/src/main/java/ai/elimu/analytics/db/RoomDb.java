@@ -29,7 +29,7 @@ import ai.elimu.analytics.entity.WordAssessmentEvent;
 import ai.elimu.analytics.entity.WordLearningEvent;
 import timber.log.Timber;
 
-@Database(version = 17, entities = {LetterSoundAssessmentEvent.class, LetterSoundLearningEvent.class, WordLearningEvent.class, WordAssessmentEvent.class, StoryBookLearningEvent.class, VideoLearningEvent.class, NumberLearningEvent.class})
+@Database(version = 18, entities = {LetterSoundAssessmentEvent.class, LetterSoundLearningEvent.class, WordLearningEvent.class, WordAssessmentEvent.class, StoryBookLearningEvent.class, VideoLearningEvent.class, NumberLearningEvent.class})
 @TypeConverters({Converters.class})
 public abstract class RoomDb extends RoomDatabase {
     public abstract LetterSoundAssessmentEventDao letterSoundAssessmentEventDao();
@@ -71,7 +71,8 @@ public abstract class RoomDb extends RoomDatabase {
                                     MIGRATION_13_14,
                                     MIGRATION_14_15,
                                     MIGRATION_15_16,
-                                    MIGRATION_16_17
+                                    MIGRATION_16_17,
+                                    MIGRATION_17_18
                             )
                             .build();
                 }
@@ -331,6 +332,37 @@ public abstract class RoomDb extends RoomDatabase {
             database.execSQL(sql);
 
             sql = "ALTER TABLE `WordAssessmentEvent` ADD COLUMN `additionalData` TEXT";
+            Timber.i("sql: %s", sql);
+            database.execSQL(sql);
+        }
+    };
+
+    private static final Migration MIGRATION_17_18 = new Migration(17, 18) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            Timber.i("migrate (" + database.getVersion() + " --> 18)");
+
+            String sql = "DELETE FROM `LetterSoundLearningEvent` WHERE `packageName` = ''";
+            Timber.i("sql: %s", sql);
+            database.execSQL(sql);
+
+            sql = "DELETE FROM `LetterSoundLearningEvent` WHERE `packageName` = ''";
+            Timber.i("sql: %s", sql);
+            database.execSQL(sql);
+
+            sql = "DELETE FROM `NumberLearningEvent` WHERE `packageName` = ''";
+            Timber.i("sql: %s", sql);
+            database.execSQL(sql);
+
+            sql = "DELETE FROM `StoryBookLearningEvent` WHERE `packageName` = ''";
+            Timber.i("sql: %s", sql);
+            database.execSQL(sql);
+
+            sql = "DELETE FROM `VideoLearningEvent` WHERE `packageName` = ''";
+            Timber.i("sql: %s", sql);
+            database.execSQL(sql);
+
+            sql = "DELETE FROM `WordLearningEvent` WHERE `packageName` = ''";
             Timber.i("sql: %s", sql);
             database.execSQL(sql);
         }

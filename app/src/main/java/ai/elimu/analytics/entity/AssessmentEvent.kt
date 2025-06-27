@@ -10,8 +10,7 @@ abstract class AssessmentEvent : BaseEntity() {
     @JvmField
     var androidId: String = ""
 
-    @JvmField
-    var packageName: String = ""
+    lateinit var packageName: String
 
     lateinit var time: Calendar
 
