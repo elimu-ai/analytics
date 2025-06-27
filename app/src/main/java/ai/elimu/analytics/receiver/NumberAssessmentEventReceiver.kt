@@ -1,5 +1,7 @@
 package ai.elimu.analytics.receiver
 
+import ai.elimu.analytics.db.RoomDb
+import ai.elimu.analytics.entity.NumberAssessmentEvent
 import ai.elimu.analytics.utils.BundleKeys
 import ai.elimu.analytics.utils.research.ExperimentAssignmentHelper
 import android.content.BroadcastReceiver
@@ -26,19 +28,22 @@ class NumberAssessmentEventReceiver : BroadcastReceiver() {
         val event = NumberAssessmentEvent()
 
         val androidId: String = Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
+        Timber.i("androidId: \"${androidId}\"")
         event.androidId = androidId
 
         val packageName: String = intent.getStringExtra(BundleKeys.KEY_PACKAGE_NAME) ?: ""
+        Timber.i("packageName: \"${packageName}\"")
         if (TextUtils.isEmpty(androidId)) {
             throw IllegalArgumentException("Missing packageName")
         }
         event.packageName = packageName
 
         val timestamp: Calendar = Calendar.getInstance()
-        event.timestamp = timestamp
+        Timber.i("timestamp.time: ${timestamp.time}")
+        event.time = timestamp
 
         val additionalData: String? = intent.getStringExtra(BundleKeys.KEY_ADDITIONAL_DATA)
-        Timber.i("additionalData: \"${additionalData}\"")
+        Timber.i("additionalData: ${additionalData}")
         event.additionalData = additionalData
 
         val researchExperiment = ExperimentAssignmentHelper.CURRENT_EXPERIMENT
@@ -77,6 +82,9 @@ class NumberAssessmentEventReceiver : BroadcastReceiver() {
         }
 
         // Store the event in the database
-        // TODO
+        val roomDb = RoomDb.getDatabase(context)
+        RoomDb.databaseWriteExecutor.execute {
+            roomDb.numberAssessmentEventDao().insert(event)
+        }
     }
 }
