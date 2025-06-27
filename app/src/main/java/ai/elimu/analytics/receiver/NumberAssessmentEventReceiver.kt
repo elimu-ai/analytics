@@ -33,7 +33,7 @@ class NumberAssessmentEventReceiver : BroadcastReceiver() {
 
         val packageName: String = intent.getStringExtra(BundleKeys.KEY_PACKAGE_NAME) ?: ""
         Timber.i("packageName: \"${packageName}\"")
-        if (TextUtils.isEmpty(androidId)) {
+        if (TextUtils.isEmpty(packageName)) {
             throw IllegalArgumentException("Missing packageName")
         }
         event.packageName = packageName
