@@ -14,9 +14,13 @@ class AnalyticsEventReceiver : BroadcastReceiver() {
         Timber.i("onReceive")
 
         Timber.i("intent.action: ${intent.action}")
+
         val bundle = intent.extras
         bundle?.let {
-            Timber.i("bundle.keySet(): ${bundle.keySet().joinToString()}")
+            for (key in bundle.keySet()) {
+                val value = bundle.get(key)
+                Timber.i("${key}: ${value}")
+            }
         }
 
         intent.getStringExtra("intent_action")?.let { action ->
