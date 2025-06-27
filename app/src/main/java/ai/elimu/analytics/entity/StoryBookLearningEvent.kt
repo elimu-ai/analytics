@@ -5,7 +5,7 @@ import androidx.room.Entity
 
 @Entity
 class StoryBookLearningEvent : LearningEvent() {
-    var storyBookTitle: String = ""
+    lateinit var storyBookTitle: String
 
     @JvmField
     var storyBookId: Long = 0L

@@ -342,6 +342,7 @@ public abstract class RoomDb extends RoomDatabase {
         public void migrate(@NonNull SupportSQLiteDatabase database) {
             Timber.i("migrate (" + database.getVersion() + " --> 18)");
 
+
             // packageName:
 
             String sql = "DELETE FROM `LetterSoundAssessmentEvent` WHERE `packageName` = ''";
@@ -376,6 +377,7 @@ public abstract class RoomDb extends RoomDatabase {
             Timber.i("sql: %s", sql);
             database.execSQL(sql);
 
+
             // androidId:
 
             sql = "DELETE FROM `LetterSoundAssessmentEvent` WHERE `androidId` = ''";
@@ -407,6 +409,13 @@ public abstract class RoomDb extends RoomDatabase {
             database.execSQL(sql);
 
             sql = "DELETE FROM `WordLearningEvent` WHERE `androidId` = ''";
+            Timber.i("sql: %s", sql);
+            database.execSQL(sql);
+
+
+            // storyBookTitle
+
+            sql = "DELETE FROM `StoryBookLearningEvent` WHERE `storyBookTitle` = ''";
             Timber.i("sql: %s", sql);
             database.execSQL(sql);
         }
