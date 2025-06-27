@@ -21,7 +21,7 @@ class NumberAssessmentEventReceiver : BroadcastReceiver() {
         bundle?.let {
             for (key in bundle.keySet()) {
                 val value = bundle.get(key)
-                Timber.i("${key}: ${value}")
+                Timber.i("${key}=${value}")
             }
         }
 
