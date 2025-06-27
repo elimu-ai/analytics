@@ -418,6 +418,13 @@ public abstract class RoomDb extends RoomDatabase {
             sql = "DELETE FROM `StoryBookLearningEvent` WHERE `storyBookTitle` = ''";
             Timber.i("sql: %s", sql);
             database.execSQL(sql);
+
+
+            // videoTitle
+
+            sql = "DELETE FROM `VideoLearningEvent` WHERE `videoTitle` = ''";
+            Timber.i("sql: %s", sql);
+            database.execSQL(sql);
         }
     };
 }
