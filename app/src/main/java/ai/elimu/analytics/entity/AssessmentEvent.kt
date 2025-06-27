@@ -5,6 +5,9 @@ import ai.elimu.model.v2.enums.analytics.research.ResearchExperiment
 import androidx.room.Entity
 import java.util.Calendar
 
+/**
+ * Based on https://github.com/elimu-ai/webapp/blob/main/src/main/java/ai/elimu/entity/analytics/AssessmentEvent.java
+ */
 @Entity
 abstract class AssessmentEvent : BaseEntity() {
     lateinit var androidId: String
