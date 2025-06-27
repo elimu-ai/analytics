@@ -22,6 +22,7 @@ import ai.elimu.analytics.dao.WordAssessmentEventDao;
 import ai.elimu.analytics.dao.WordLearningEventDao;
 import ai.elimu.analytics.entity.LetterSoundAssessmentEvent;
 import ai.elimu.analytics.entity.LetterSoundLearningEvent;
+import ai.elimu.analytics.entity.NumberAssessmentEvent;
 import ai.elimu.analytics.entity.NumberLearningEvent;
 import ai.elimu.analytics.entity.StoryBookLearningEvent;
 import ai.elimu.analytics.entity.VideoLearningEvent;
@@ -29,7 +30,16 @@ import ai.elimu.analytics.entity.WordAssessmentEvent;
 import ai.elimu.analytics.entity.WordLearningEvent;
 import timber.log.Timber;
 
-@Database(version = 19, entities = {LetterSoundAssessmentEvent.class, LetterSoundLearningEvent.class, WordLearningEvent.class, WordAssessmentEvent.class, StoryBookLearningEvent.class, VideoLearningEvent.class, NumberLearningEvent.class})
+@Database(version = 19, entities = {
+        LetterSoundAssessmentEvent.class,
+        LetterSoundLearningEvent.class,
+        WordLearningEvent.class,
+        WordAssessmentEvent.class,
+        NumberAssessmentEvent.class,
+        StoryBookLearningEvent.class,
+        VideoLearningEvent.class,
+        NumberLearningEvent.class
+})
 @TypeConverters({Converters.class})
 public abstract class RoomDb extends RoomDatabase {
     public abstract LetterSoundAssessmentEventDao letterSoundAssessmentEventDao();
@@ -72,7 +82,8 @@ public abstract class RoomDb extends RoomDatabase {
                                     MIGRATION_14_15,
                                     MIGRATION_15_16,
                                     MIGRATION_16_17,
-                                    MIGRATION_17_18
+                                    MIGRATION_17_18,
+                                    MIGRATION_18_19
                             )
                             .build();
                 }
@@ -430,6 +441,17 @@ public abstract class RoomDb extends RoomDatabase {
             // wordText
 
             sql = "DELETE FROM `WordAssessmentEvent` WHERE `wordText` = ''";
+            Timber.i("sql: %s", sql);
+            database.execSQL(sql);
+        }
+    };
+
+    private static final Migration MIGRATION_18_19 = new Migration(18, 19) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            Timber.i("migrate (" + database.getVersion() + " --> 19)");
+
+            String sql = "CREATE TABLE IF NOT EXISTS `NumberAssessmentEvent` (`masteryScore` REAL NOT NULL, `timeSpentMs` INTEGER NOT NULL, `numberValue` INTEGER NOT NULL, `numberId` INTEGER, `androidId` TEXT NOT NULL, `packageName` TEXT NOT NULL, `time` INTEGER NOT NULL, `additionalData` TEXT, `researchExperiment` TEXT, `experimentGroup` TEXT, `id` INTEGER PRIMARY KEY AUTOINCREMENT)";
             Timber.i("sql: %s", sql);
             database.execSQL(sql);
         }
