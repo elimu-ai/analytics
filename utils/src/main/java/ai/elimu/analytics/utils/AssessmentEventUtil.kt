@@ -65,11 +65,11 @@ object AssessmentEventUtil {
      */
     fun reportWordAssessmentEvent(
         wordGson: WordGson,
-        masteryScore: Float?,
-        timeSpentMs: Long?,
+        masteryScore: Float,
+        timeSpentMs: Long,
         additionalData: JSONObject? = null,
         context: Context,
-        analyticsApplicationId: String?
+        analyticsApplicationId: String
     ) {
         Log.i(TAG, "reportWordAssessmentEvent")
 
