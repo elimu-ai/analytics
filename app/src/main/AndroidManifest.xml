@@ -40,6 +40,13 @@
                 <action android:name="ai.elimu.intent.action.ANALYTICS_EVENT" />
             </intent-filter>
         </receiver>
+        <receiver android:name=".receiver.NumberAssessmentEventReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="ai.elimu.intent.action.NUMBER_ASSESSMENT_EVENT" />
+            </intent-filter>
+        </receiver>
 
         <provider
             android:name=".provider.LetterSoundAssessmentEventProvider"
