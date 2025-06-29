@@ -12,6 +12,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import android.widget.Toast
 import org.json.JSONObject
 import java.util.stream.Collectors
 
@@ -37,29 +38,34 @@ object LearningEventUtil {
     ) {
         Log.i(this::class.simpleName, "reportLetterSoundLearningEvent")
 
-        val broadcastIntent = Intent()
-        broadcastIntent.setPackage(analyticsApplicationId)
-        broadcastIntent.setAction(BROADCAST_INTENT_ACTION_ANALYTICS)
-        broadcastIntent.putExtra("intent_action", IntentAction.LETTER_SOUND_LEARNING.action)
-        broadcastIntent.putExtra(BundleKeys.KEY_PACKAGE_NAME, context.packageName)
-        additionalData?.let {
-            broadcastIntent.putExtra(BundleKeys.KEY_ADDITIONAL_DATA, additionalData.toString())
+        try {
+            val broadcastIntent = Intent()
+            broadcastIntent.setPackage(analyticsApplicationId)
+            broadcastIntent.setAction(BROADCAST_INTENT_ACTION_ANALYTICS)
+            broadcastIntent.putExtra("intent_action", IntentAction.LETTER_SOUND_LEARNING.action)
+            broadcastIntent.putExtra(BundleKeys.KEY_PACKAGE_NAME, context.packageName)
+            additionalData?.let {
+                broadcastIntent.putExtra(BundleKeys.KEY_ADDITIONAL_DATA, additionalData.toString())
+            }
+
+            broadcastIntent.putExtra(
+                BundleKeys.KEY_LETTER_SOUND_LETTER_TEXTS,
+                letterSoundGson.letters.stream().map { obj: LetterGson -> obj.text }
+                    .collect(Collectors.toList()).toTypedArray()
+            )
+
+            val letterSoundSoundValuesIpa = letterSoundGson.sounds.stream().map {
+                obj: SoundGson -> obj.valueIpa
+            }.collect(Collectors.toList()).toTypedArray()
+            broadcastIntent.putExtra(BundleKeys.KEY_LETTER_SOUND_SOUND_VALUES_IPA, letterSoundSoundValuesIpa)
+
+            broadcastIntent.putExtra(BundleKeys.KEY_LETTER_SOUND_ID, letterSoundGson.id)
+
+            context.sendOrderedBroadcast(broadcastIntent, null, ErrorResultReceiver(), null, Activity.RESULT_OK, null, null)
+        } catch (e: Exception) {
+            Log.e(this::class.simpleName, "Error during Intent preparation", e)
+            Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
         }
-
-        broadcastIntent.putExtra(
-            BundleKeys.KEY_LETTER_SOUND_LETTER_TEXTS,
-            letterSoundGson.letters.stream().map { obj: LetterGson -> obj.text }
-                .collect(Collectors.toList()).toTypedArray()
-        )
-
-        val letterSoundSoundValuesIpa = letterSoundGson.sounds.stream().map {
-            obj: SoundGson -> obj.valueIpa
-        }.collect(Collectors.toList()).toTypedArray()
-        broadcastIntent.putExtra(BundleKeys.KEY_LETTER_SOUND_SOUND_VALUES_IPA, letterSoundSoundValuesIpa)
-
-        broadcastIntent.putExtra(BundleKeys.KEY_LETTER_SOUND_ID, letterSoundGson.id)
-
-        context.sendOrderedBroadcast(broadcastIntent, null, ErrorResultReceiver(), null, Activity.RESULT_OK, null, null)
     }
 
     /**
@@ -76,18 +82,23 @@ object LearningEventUtil {
     ) {
         Log.i(this::class.simpleName, "reportWordLearningEvent")
 
-        val broadcastIntent = Intent()
-        broadcastIntent.setPackage(analyticsApplicationId)
-        broadcastIntent.setAction(BROADCAST_INTENT_ACTION_ANALYTICS)
-        broadcastIntent.putExtra("intent_action", IntentAction.WORD_LEARNING.action)
-        broadcastIntent.putExtra(BundleKeys.KEY_PACKAGE_NAME, context.packageName)
-        additionalData?.let {
-            broadcastIntent.putExtra(BundleKeys.KEY_ADDITIONAL_DATA, additionalData.toString())
-        }
-        broadcastIntent.putExtra(BundleKeys.KEY_WORD_TEXT, wordGson.text)
-        broadcastIntent.putExtra(BundleKeys.KEY_WORD_ID, wordGson.id)
+        try {
+            val broadcastIntent = Intent()
+            broadcastIntent.setPackage(analyticsApplicationId)
+            broadcastIntent.setAction(BROADCAST_INTENT_ACTION_ANALYTICS)
+            broadcastIntent.putExtra("intent_action", IntentAction.WORD_LEARNING.action)
+            broadcastIntent.putExtra(BundleKeys.KEY_PACKAGE_NAME, context.packageName)
+            additionalData?.let {
+                broadcastIntent.putExtra(BundleKeys.KEY_ADDITIONAL_DATA, additionalData.toString())
+            }
+            broadcastIntent.putExtra(BundleKeys.KEY_WORD_TEXT, wordGson.text)
+            broadcastIntent.putExtra(BundleKeys.KEY_WORD_ID, wordGson.id)
 
-        context.sendOrderedBroadcast(broadcastIntent, null, ErrorResultReceiver(), null, Activity.RESULT_OK, null, null)
+            context.sendOrderedBroadcast(broadcastIntent, null, ErrorResultReceiver(), null, Activity.RESULT_OK, null, null)
+        } catch (e: Exception) {
+            Log.e(this::class.simpleName, "Error during Intent preparation", e)
+            Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
+        }
     }
 
     /**
@@ -104,18 +115,23 @@ object LearningEventUtil {
     ) {
         Log.i(this::class.simpleName, "reportStoryBookLearningEvent")
 
-        val broadcastIntent = Intent()
-        broadcastIntent.setPackage(analyticsApplicationId)
-        broadcastIntent.setAction(BROADCAST_INTENT_ACTION_ANALYTICS)
-        broadcastIntent.putExtra("intent_action", IntentAction.STORYBOOK_LEARNING.action)
-        broadcastIntent.putExtra(BundleKeys.KEY_PACKAGE_NAME, context.packageName)
-        additionalData?.let {
-            broadcastIntent.putExtra(BundleKeys.KEY_ADDITIONAL_DATA, additionalData.toString())
-        }
-        broadcastIntent.putExtra(BundleKeys.KEY_STORYBOOK_TITLE, storyBookGson.title)
-        broadcastIntent.putExtra(BundleKeys.KEY_STORYBOOK_ID, storyBookGson.id)
+        try {
+            val broadcastIntent = Intent()
+            broadcastIntent.setPackage(analyticsApplicationId)
+            broadcastIntent.setAction(BROADCAST_INTENT_ACTION_ANALYTICS)
+            broadcastIntent.putExtra("intent_action", IntentAction.STORYBOOK_LEARNING.action)
+            broadcastIntent.putExtra(BundleKeys.KEY_PACKAGE_NAME, context.packageName)
+            additionalData?.let {
+                broadcastIntent.putExtra(BundleKeys.KEY_ADDITIONAL_DATA, additionalData.toString())
+            }
+            broadcastIntent.putExtra(BundleKeys.KEY_STORYBOOK_TITLE, storyBookGson.title)
+            broadcastIntent.putExtra(BundleKeys.KEY_STORYBOOK_ID, storyBookGson.id)
 
-        context.sendOrderedBroadcast(broadcastIntent, null, ErrorResultReceiver(), null, Activity.RESULT_OK, null, null)
+            context.sendOrderedBroadcast(broadcastIntent, null, ErrorResultReceiver(), null, Activity.RESULT_OK, null, null)
+        } catch (e: Exception) {
+            Log.e(this::class.simpleName, "Error during Intent preparation", e)
+            Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
+        }
     }
 
     /**
@@ -132,18 +148,23 @@ object LearningEventUtil {
     ) {
         Log.i(this::class.simpleName, "reportVideoLearningEvent")
 
-        val broadcastIntent = Intent()
-        broadcastIntent.setPackage(analyticsApplicationId)
-        broadcastIntent.setAction(BROADCAST_INTENT_ACTION_ANALYTICS)
-        broadcastIntent.putExtra("intent_action", IntentAction.VIDEO_LEARNING.action)
-        broadcastIntent.putExtra(BundleKeys.KEY_PACKAGE_NAME, context.packageName)
-        additionalData?.let {
-            broadcastIntent.putExtra(BundleKeys.KEY_ADDITIONAL_DATA, additionalData.toString())
-        }
-        broadcastIntent.putExtra(BundleKeys.KEY_VIDEO_TITLE, videoGson.title)
-        broadcastIntent.putExtra(BundleKeys.KEY_VIDEO_ID, videoGson.id)
+        try {
+            val broadcastIntent = Intent()
+            broadcastIntent.setPackage(analyticsApplicationId)
+            broadcastIntent.setAction(BROADCAST_INTENT_ACTION_ANALYTICS)
+            broadcastIntent.putExtra("intent_action", IntentAction.VIDEO_LEARNING.action)
+            broadcastIntent.putExtra(BundleKeys.KEY_PACKAGE_NAME, context.packageName)
+            additionalData?.let {
+                broadcastIntent.putExtra(BundleKeys.KEY_ADDITIONAL_DATA, additionalData.toString())
+            }
+            broadcastIntent.putExtra(BundleKeys.KEY_VIDEO_TITLE, videoGson.title)
+            broadcastIntent.putExtra(BundleKeys.KEY_VIDEO_ID, videoGson.id)
 
-        context.sendOrderedBroadcast(broadcastIntent, null, ErrorResultReceiver(), null, Activity.RESULT_OK, null, null)
+            context.sendOrderedBroadcast(broadcastIntent, null, ErrorResultReceiver(), null, Activity.RESULT_OK, null, null)
+        } catch (e: Exception) {
+            Log.e(this::class.simpleName, "Error during Intent preparation", e)
+            Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
+        }
     }
 
     /**
@@ -160,18 +181,23 @@ object LearningEventUtil {
     ) {
         Log.i(this::class.simpleName, "reportNumberLearningEvent")
 
-        val broadcastIntent = Intent()
-        broadcastIntent.setPackage(analyticsApplicationId)
-        broadcastIntent.setAction(BROADCAST_INTENT_ACTION_ANALYTICS)
-        broadcastIntent.putExtra("intent_action", IntentAction.NUMBER_LEARNING.action)
-        broadcastIntent.putExtra(BundleKeys.KEY_PACKAGE_NAME, context.packageName)
-        additionalData?.let {
-            broadcastIntent.putExtra(BundleKeys.KEY_ADDITIONAL_DATA, additionalData.toString())
-        }
-        broadcastIntent.putExtra(BundleKeys.KEY_NUMBER_VALUE, numberGson.value)
-        broadcastIntent.putExtra(BundleKeys.KEY_NUMBER_SYMBOL, numberGson.symbol)
-        broadcastIntent.putExtra(BundleKeys.KEY_NUMBER_ID, numberGson.id)
+        try {
+            val broadcastIntent = Intent()
+            broadcastIntent.setPackage(analyticsApplicationId)
+            broadcastIntent.setAction(BROADCAST_INTENT_ACTION_ANALYTICS)
+            broadcastIntent.putExtra("intent_action", IntentAction.NUMBER_LEARNING.action)
+            broadcastIntent.putExtra(BundleKeys.KEY_PACKAGE_NAME, context.packageName)
+            additionalData?.let {
+                broadcastIntent.putExtra(BundleKeys.KEY_ADDITIONAL_DATA, additionalData.toString())
+            }
+            broadcastIntent.putExtra(BundleKeys.KEY_NUMBER_VALUE, numberGson.value)
+            broadcastIntent.putExtra(BundleKeys.KEY_NUMBER_SYMBOL, numberGson.symbol)
+            broadcastIntent.putExtra(BundleKeys.KEY_NUMBER_ID, numberGson.id)
 
-        context.sendOrderedBroadcast(broadcastIntent, null, ErrorResultReceiver(), null, Activity.RESULT_OK, null, null)
+            context.sendOrderedBroadcast(broadcastIntent, null, ErrorResultReceiver(), null, Activity.RESULT_OK, null, null)
+        } catch (e: Exception) {
+            Log.e(this::class.simpleName, "Error during Intent preparation", e)
+            Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
+        }
     }
 }
