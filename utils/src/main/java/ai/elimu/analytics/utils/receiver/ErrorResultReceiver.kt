@@ -12,10 +12,10 @@ class ErrorResultReceiver: BroadcastReceiver() {
         Log.i(this::class.simpleName, "onReceive")
 
         val results: Bundle = getResultExtras(true)
-        val errorClassName: String? = results.getString("errorClassName")
-        errorClassName?.let {
-            Log.e(this::class.simpleName, "errorClassName: ${errorClassName}")
-            Toast.makeText(context, "Error: ${errorClassName}", Toast.LENGTH_SHORT).show()
+        val errorMessage: String? = results.getString("errorMessage")
+        Log.e(this::class.simpleName, "errorMessage: ${errorMessage}")
+        errorMessage?.let {
+            Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
         }
     }
 }

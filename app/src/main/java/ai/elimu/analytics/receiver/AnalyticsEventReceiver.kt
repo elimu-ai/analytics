@@ -39,7 +39,8 @@ class AnalyticsEventReceiver : BroadcastReceiver() {
         } catch (e: Exception) {
             Timber.e(e)
             val results: Bundle = getResultExtras(true)
-            results.putString("errorClassName", e::class.simpleName);
+            val errorMessage = e.message ?: e::class.simpleName
+            results.putString("errorMessage", errorMessage)
         }
     }
 }
