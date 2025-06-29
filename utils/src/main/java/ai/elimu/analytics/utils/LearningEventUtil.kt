@@ -59,7 +59,9 @@ object LearningEventUtil {
             }.collect(Collectors.toList()).toTypedArray()
             broadcastIntent.putExtra(BundleKeys.KEY_LETTER_SOUND_SOUND_VALUES_IPA, letterSoundSoundValuesIpa)
 
-            broadcastIntent.putExtra(BundleKeys.KEY_LETTER_SOUND_ID, letterSoundGson.id)
+            letterSoundGson.id?.let {
+                broadcastIntent.putExtra(BundleKeys.KEY_LETTER_SOUND_ID, letterSoundGson.id)
+            }
 
             context.sendOrderedBroadcast(broadcastIntent, null, ErrorResultReceiver(), null, Activity.RESULT_OK, null, null)
         } catch (e: Exception) {
@@ -92,7 +94,9 @@ object LearningEventUtil {
                 broadcastIntent.putExtra(BundleKeys.KEY_ADDITIONAL_DATA, additionalData.toString())
             }
             broadcastIntent.putExtra(BundleKeys.KEY_WORD_TEXT, wordGson.text)
-            broadcastIntent.putExtra(BundleKeys.KEY_WORD_ID, wordGson.id)
+            wordGson.id?.let {
+                broadcastIntent.putExtra(BundleKeys.KEY_WORD_ID, wordGson.id)
+            }
 
             context.sendOrderedBroadcast(broadcastIntent, null, ErrorResultReceiver(), null, Activity.RESULT_OK, null, null)
         } catch (e: Exception) {
@@ -125,7 +129,9 @@ object LearningEventUtil {
                 broadcastIntent.putExtra(BundleKeys.KEY_ADDITIONAL_DATA, additionalData.toString())
             }
             broadcastIntent.putExtra(BundleKeys.KEY_STORYBOOK_TITLE, storyBookGson.title)
-            broadcastIntent.putExtra(BundleKeys.KEY_STORYBOOK_ID, storyBookGson.id)
+            storyBookGson.id?.let {
+                broadcastIntent.putExtra(BundleKeys.KEY_STORYBOOK_ID, storyBookGson.id)
+            }
 
             context.sendOrderedBroadcast(broadcastIntent, null, ErrorResultReceiver(), null, Activity.RESULT_OK, null, null)
         } catch (e: Exception) {
@@ -158,7 +164,9 @@ object LearningEventUtil {
                 broadcastIntent.putExtra(BundleKeys.KEY_ADDITIONAL_DATA, additionalData.toString())
             }
             broadcastIntent.putExtra(BundleKeys.KEY_VIDEO_TITLE, videoGson.title)
-            broadcastIntent.putExtra(BundleKeys.KEY_VIDEO_ID, videoGson.id)
+            videoGson.id?.let {
+                broadcastIntent.putExtra(BundleKeys.KEY_VIDEO_ID, videoGson.id)
+            }
 
             context.sendOrderedBroadcast(broadcastIntent, null, ErrorResultReceiver(), null, Activity.RESULT_OK, null, null)
         } catch (e: Exception) {
@@ -191,8 +199,12 @@ object LearningEventUtil {
                 broadcastIntent.putExtra(BundleKeys.KEY_ADDITIONAL_DATA, additionalData.toString())
             }
             broadcastIntent.putExtra(BundleKeys.KEY_NUMBER_VALUE, numberGson.value)
-            broadcastIntent.putExtra(BundleKeys.KEY_NUMBER_SYMBOL, numberGson.symbol)
-            broadcastIntent.putExtra(BundleKeys.KEY_NUMBER_ID, numberGson.id)
+            numberGson.symbol?.let {
+                broadcastIntent.putExtra(BundleKeys.KEY_NUMBER_SYMBOL, numberGson.symbol)
+            }
+            numberGson.id?.let {
+                broadcastIntent.putExtra(BundleKeys.KEY_NUMBER_ID, numberGson.id)
+            }
 
             context.sendOrderedBroadcast(broadcastIntent, null, ErrorResultReceiver(), null, Activity.RESULT_OK, null, null)
         } catch (e: Exception) {

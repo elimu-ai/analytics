@@ -54,7 +54,9 @@ object AssessmentEventUtil {
                 letterSoundGson.letters.stream().map(LetterGson::getText).collect(Collectors.joining()))
             broadcastIntent.putExtra(BundleKeys.KEY_LETTER_SOUND_SOUNDS,
                 letterSoundGson.sounds.stream().map(SoundGson::getValueIpa).collect(Collectors.joining()))
-            broadcastIntent.putExtra(BundleKeys.KEY_LETTER_SOUND_ID, letterSoundGson.id)
+            letterSoundGson.id?.let {
+                broadcastIntent.putExtra(BundleKeys.KEY_LETTER_SOUND_ID, letterSoundGson.id)
+            }
 
             context.sendOrderedBroadcast(broadcastIntent, null, ErrorResultReceiver(), null, Activity.RESULT_OK, null, null)
         } catch (e: Exception) {
@@ -93,7 +95,9 @@ object AssessmentEventUtil {
                 broadcastIntent.putExtra(BundleKeys.KEY_ADDITIONAL_DATA, additionalData.toString())
             }
             broadcastIntent.putExtra(BundleKeys.KEY_WORD_TEXT, wordGson.text)
-            broadcastIntent.putExtra(BundleKeys.KEY_WORD_ID, wordGson.id)
+            wordGson.id?.let {
+                broadcastIntent.putExtra(BundleKeys.KEY_WORD_ID, wordGson.id)
+            }
 
             context.sendOrderedBroadcast(broadcastIntent, null, ErrorResultReceiver(), null, Activity.RESULT_OK, null, null)
         } catch (e: Exception) {
@@ -131,7 +135,9 @@ object AssessmentEventUtil {
                 broadcastIntent.putExtra(BundleKeys.KEY_ADDITIONAL_DATA, additionalData.toString())
             }
             broadcastIntent.putExtra(BundleKeys.KEY_NUMBER_VALUE, numberGson.value)
-            broadcastIntent.putExtra(BundleKeys.KEY_NUMBER_ID, numberGson.id)
+            numberGson.id?.let {
+                broadcastIntent.putExtra(BundleKeys.KEY_NUMBER_ID, numberGson.id)
+            }
 
             context.sendOrderedBroadcast(broadcastIntent, null, ErrorResultReceiver(), null, Activity.RESULT_OK, null, null)
         } catch (e: Exception) {

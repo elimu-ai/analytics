@@ -13,8 +13,8 @@ class ErrorResultReceiver: BroadcastReceiver() {
 
         val results: Bundle = getResultExtras(true)
         val errorMessage: String? = results.getString("errorMessage")
-        Log.e(this::class.simpleName, "errorMessage: ${errorMessage}")
         errorMessage?.let {
+            Log.e(this::class.simpleName, "errorMessage: ${errorMessage}")
             Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
         }
     }
