@@ -42,16 +42,16 @@ object AssessmentEventUtil {
         broadcastIntent.setAction(LearningEventUtil.BROADCAST_INTENT_ACTION_ANALYTICS)
         broadcastIntent.putExtra("intent_action", IntentAction.LETTER_SOUND_ASSESSMENT.action)
         broadcastIntent.putExtra(BundleKeys.KEY_PACKAGE_NAME, context.packageName)
-        broadcastIntent.putExtra(BundleKeys.KEY_LETTER_SOUND_LETTERS,
-            letterSoundGson.letters.stream().map(LetterGson::getText).collect(Collectors.joining()))
-        broadcastIntent.putExtra(BundleKeys.KEY_LETTER_SOUND_SOUNDS,
-            letterSoundGson.sounds.stream().map(SoundGson::getValueIpa).collect(Collectors.joining()))
-        broadcastIntent.putExtra(BundleKeys.KEY_LETTER_SOUND_ID, letterSoundGson.id)
         broadcastIntent.putExtra(BundleKeys.KEY_MASTERY_SCORE, masteryScore)
         broadcastIntent.putExtra(BundleKeys.KEY_TIME_SPENT_MS, timeSpentMs)
         additionalData?.let {
             broadcastIntent.putExtra(BundleKeys.KEY_ADDITIONAL_DATA, additionalData.toString())
         }
+        broadcastIntent.putExtra(BundleKeys.KEY_LETTER_SOUND_LETTERS,
+            letterSoundGson.letters.stream().map(LetterGson::getText).collect(Collectors.joining()))
+        broadcastIntent.putExtra(BundleKeys.KEY_LETTER_SOUND_SOUNDS,
+            letterSoundGson.sounds.stream().map(SoundGson::getValueIpa).collect(Collectors.joining()))
+        broadcastIntent.putExtra(BundleKeys.KEY_LETTER_SOUND_ID, letterSoundGson.id)
 
         context.sendOrderedBroadcast(broadcastIntent, null, ErrorResultReceiver(), null, Activity.RESULT_OK, null, null)
     }
@@ -79,13 +79,13 @@ object AssessmentEventUtil {
         broadcastIntent.setAction(LearningEventUtil.BROADCAST_INTENT_ACTION_ANALYTICS)
         broadcastIntent.putExtra("intent_action", IntentAction.WORD_ASSESSMENT.action)
         broadcastIntent.putExtra(BundleKeys.KEY_PACKAGE_NAME, context.packageName)
-        broadcastIntent.putExtra(BundleKeys.KEY_WORD_ID, wordGson.id)
-        broadcastIntent.putExtra(BundleKeys.KEY_WORD_TEXT, wordGson.text)
         broadcastIntent.putExtra(BundleKeys.KEY_MASTERY_SCORE, masteryScore)
         broadcastIntent.putExtra(BundleKeys.KEY_TIME_SPENT_MS, timeSpentMs)
         additionalData?.let {
             broadcastIntent.putExtra(BundleKeys.KEY_ADDITIONAL_DATA, additionalData.toString())
         }
+        broadcastIntent.putExtra(BundleKeys.KEY_WORD_TEXT, wordGson.text)
+        broadcastIntent.putExtra(BundleKeys.KEY_WORD_ID, wordGson.id)
 
         context.sendOrderedBroadcast(broadcastIntent, null, ErrorResultReceiver(), null, Activity.RESULT_OK, null, null)
     }
