@@ -14,16 +14,16 @@ class AnalyticsEventReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         Timber.i("onReceive")
 
-        try {
-            Timber.i("intent.action: ${intent.action}")
-            val bundle = intent.extras
-            bundle?.let {
-                for (key in bundle.keySet()) {
-                    val value = bundle.get(key)
-                    Timber.i("${key}=${value}")
-                }
+        Timber.i("intent.action: ${intent.action}")
+        val bundle = intent.extras
+        bundle?.let {
+            for (key in bundle.keySet()) {
+                val value = bundle.get(key)
+                Timber.i("${key}=${value}")
             }
+        }
 
+        try {
             intent.getStringExtra("intent_action")?.let { action ->
                 IntentAction.entries.firstOrNull { it.action == action }?.let { intentAction ->
                     val event = intentAction.toEventType()
