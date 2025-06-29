@@ -35,7 +35,7 @@ object LearningEventUtil {
         context: Context,
         analyticsApplicationId: String?
     ) {
-        Log.i(LearningEventUtil::class.java.name, "reportLetterSoundLearningEvent")
+        Log.i(this::class.simpleName, "reportLetterSoundLearningEvent")
 
         val broadcastIntent = Intent()
         broadcastIntent.setAction(BROADCAST_INTENT_ACTION_ANALYTICS)
@@ -76,7 +76,7 @@ object LearningEventUtil {
         context: Context,
         analyticsApplicationId: String?
     ) {
-        Log.i(LearningEventUtil::class.java.name, "reportWordLearningEvent")
+        Log.i(this::class.simpleName, "reportWordLearningEvent")
 
         val broadcastIntent = Intent()
         broadcastIntent.setAction(BROADCAST_INTENT_ACTION_ANALYTICS)
@@ -104,7 +104,7 @@ object LearningEventUtil {
         context: Context,
         analyticsApplicationId: String?
     ) {
-        Log.i(LearningEventUtil::class.java.name, "reportStoryBookLearningEvent")
+        Log.i(this::class.simpleName, "reportStoryBookLearningEvent")
 
         val broadcastIntent = Intent()
         broadcastIntent.setAction(BROADCAST_INTENT_ACTION_ANALYTICS)
@@ -132,7 +132,7 @@ object LearningEventUtil {
         context: Context,
         analyticsApplicationId: String?
     ) {
-        Log.i(LearningEventUtil::class.java.name, "reportVideoLearningEvent")
+        Log.i(this::class.simpleName, "reportVideoLearningEvent")
 
         val broadcastIntent = Intent()
         broadcastIntent.setAction(BROADCAST_INTENT_ACTION_ANALYTICS)
@@ -160,7 +160,7 @@ object LearningEventUtil {
         context: Context,
         analyticsApplicationId: String?
     ) {
-        Log.i(LearningEventUtil::class.java.name, "reportNumberLearningEvent")
+        Log.i(this::class.simpleName, "reportNumberLearningEvent")
 
         val broadcastIntent = Intent()
         broadcastIntent.setAction(BROADCAST_INTENT_ACTION_ANALYTICS)

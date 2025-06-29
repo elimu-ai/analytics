@@ -19,8 +19,6 @@ import java.util.stream.Collectors
  */
 object AssessmentEventUtil {
 
-    private const val TAG = "AssessmentEventUtil"
-
     /**
      * @param letterSoundGson The letter-sound correspondence that the student is being assessed for.
      * @param masteryScore A value in the range [0.0, 1.0].
@@ -37,9 +35,10 @@ object AssessmentEventUtil {
         context: Context,
         analyticsApplicationId: String
     ) {
-        Log.i(TAG,"reportLetterSoundAssessmentEvent")
+        Log.i(this::class.simpleName,"reportLetterSoundAssessmentEvent")
 
         val broadcastIntent = Intent()
+        broadcastIntent.setPackage(analyticsApplicationId)
         broadcastIntent.setAction(LearningEventUtil.BROADCAST_INTENT_ACTION_ANALYTICS)
         broadcastIntent.putExtra("intent_action", IntentAction.LETTER_SOUND_ASSESSMENT.action)
         broadcastIntent.putExtra(BundleKeys.KEY_PACKAGE_NAME, context.packageName)
@@ -53,7 +52,6 @@ object AssessmentEventUtil {
         additionalData?.let {
             broadcastIntent.putExtra(BundleKeys.KEY_ADDITIONAL_DATA, additionalData.toString())
         }
-        broadcastIntent.setPackage(analyticsApplicationId)
 
         context.sendOrderedBroadcast(broadcastIntent, null, ErrorResultReceiver(), null, Activity.RESULT_OK, null, null)
     }
@@ -74,9 +72,10 @@ object AssessmentEventUtil {
         context: Context,
         analyticsApplicationId: String
     ) {
-        Log.i(TAG, "reportWordAssessmentEvent")
+        Log.i(this::class.simpleName, "reportWordAssessmentEvent")
 
         val broadcastIntent = Intent()
+        broadcastIntent.setPackage(analyticsApplicationId)
         broadcastIntent.setAction(LearningEventUtil.BROADCAST_INTENT_ACTION_ANALYTICS)
         broadcastIntent.putExtra("intent_action", IntentAction.WORD_ASSESSMENT.action)
         broadcastIntent.putExtra(BundleKeys.KEY_PACKAGE_NAME, context.packageName)
@@ -87,7 +86,6 @@ object AssessmentEventUtil {
         additionalData?.let {
             broadcastIntent.putExtra(BundleKeys.KEY_ADDITIONAL_DATA, additionalData.toString())
         }
-        broadcastIntent.setPackage(analyticsApplicationId)
 
         context.sendOrderedBroadcast(broadcastIntent, null, ErrorResultReceiver(), null, Activity.RESULT_OK, null, null)
     }
@@ -108,7 +106,7 @@ object AssessmentEventUtil {
         context: Context,
         analyticsApplicationId: String
     ) {
-        Log.i(TAG, "reportNumberAssessmentEvent")
+        Log.i(this::class.simpleName, "reportNumberAssessmentEvent")
 
         val broadcastIntent = Intent()
         broadcastIntent.setPackage(analyticsApplicationId)
@@ -122,6 +120,6 @@ object AssessmentEventUtil {
         broadcastIntent.putExtra(BundleKeys.KEY_NUMBER_VALUE, numberGson.value)
         broadcastIntent.putExtra(BundleKeys.KEY_NUMBER_ID, numberGson.id)
 
-        context.sendBroadcast(broadcastIntent)
+        context.sendOrderedBroadcast(broadcastIntent, null, ErrorResultReceiver(), null, Activity.RESULT_OK, null, null)
     }
 }
