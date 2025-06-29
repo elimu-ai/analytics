@@ -1,13 +1,17 @@
 package ai.elimu.analytics.utils
 
+import ai.elimu.analytics.utils.receiver.ErrorResultReceiver
 import ai.elimu.model.v2.gson.content.LetterGson
 import ai.elimu.model.v2.gson.content.LetterSoundGson
 import ai.elimu.model.v2.gson.content.NumberGson
 import ai.elimu.model.v2.gson.content.SoundGson
 import ai.elimu.model.v2.gson.content.WordGson
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import org.json.JSONObject
 import java.util.stream.Collectors
 
@@ -16,8 +20,6 @@ import java.util.stream.Collectors
  * in the `:app` module.
  */
 object AssessmentEventUtil {
-
-    private const val TAG = "AssessmentEventUtil"
 
     /**
      * @param letterSoundGson The letter-sound correspondence that the student is being assessed for.
@@ -35,24 +37,32 @@ object AssessmentEventUtil {
         context: Context,
         analyticsApplicationId: String
     ) {
-        Log.i(TAG,"reportLetterSoundAssessmentEvent")
+        Log.i(this::class.simpleName,"reportLetterSoundAssessmentEvent")
 
-        val broadcastIntent = Intent()
-        broadcastIntent.setAction(LearningEventUtil.BROADCAST_INTENT_ACTION_ANALYTICS)
-        broadcastIntent.putExtra("intent_action", IntentAction.LETTER_SOUND_ASSESSMENT.action)
-        broadcastIntent.putExtra(BundleKeys.KEY_PACKAGE_NAME, context.packageName)
-        broadcastIntent.putExtra(BundleKeys.KEY_LETTER_SOUND_LETTERS,
-            letterSoundGson.letters.stream().map(LetterGson::getText).collect(Collectors.joining()))
-        broadcastIntent.putExtra(BundleKeys.KEY_LETTER_SOUND_SOUNDS,
-            letterSoundGson.sounds.stream().map(SoundGson::getValueIpa).collect(Collectors.joining()))
-        broadcastIntent.putExtra(BundleKeys.KEY_LETTER_SOUND_ID, letterSoundGson.id)
-        broadcastIntent.putExtra(BundleKeys.KEY_MASTERY_SCORE, masteryScore)
-        broadcastIntent.putExtra(BundleKeys.KEY_TIME_SPENT_MS, timeSpentMs)
-        additionalData?.let {
-            broadcastIntent.putExtra(BundleKeys.KEY_ADDITIONAL_DATA, additionalData.toString())
+        try {
+            val broadcastIntent = Intent()
+            broadcastIntent.setPackage(analyticsApplicationId)
+            broadcastIntent.setAction(LearningEventUtil.BROADCAST_INTENT_ACTION_ANALYTICS)
+            broadcastIntent.putExtra("intent_action", IntentAction.LETTER_SOUND_ASSESSMENT.action)
+            broadcastIntent.putExtra(BundleKeys.KEY_PACKAGE_NAME, context.packageName)
+            broadcastIntent.putExtra(BundleKeys.KEY_MASTERY_SCORE, masteryScore)
+            broadcastIntent.putExtra(BundleKeys.KEY_TIME_SPENT_MS, timeSpentMs)
+            additionalData?.let {
+                broadcastIntent.putExtra(BundleKeys.KEY_ADDITIONAL_DATA, additionalData.toString())
+            }
+            broadcastIntent.putExtra(BundleKeys.KEY_LETTER_SOUND_LETTERS,
+                letterSoundGson.letters.stream().map(LetterGson::getText).collect(Collectors.joining()))
+            broadcastIntent.putExtra(BundleKeys.KEY_LETTER_SOUND_SOUNDS,
+                letterSoundGson.sounds.stream().map(SoundGson::getValueIpa).collect(Collectors.joining()))
+            letterSoundGson.id?.let {
+                broadcastIntent.putExtra(BundleKeys.KEY_LETTER_SOUND_ID, letterSoundGson.id)
+            }
+
+            context.sendOrderedBroadcast(broadcastIntent, null, ErrorResultReceiver(), null, Activity.RESULT_OK, null, null)
+        } catch (e: Exception) {
+            Log.e(this::class.simpleName, "Error during Intent preparation", e)
+            Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
         }
-        broadcastIntent.setPackage(analyticsApplicationId)
-        context.sendBroadcast(broadcastIntent)
     }
 
     /**
@@ -71,21 +81,29 @@ object AssessmentEventUtil {
         context: Context,
         analyticsApplicationId: String
     ) {
-        Log.i(TAG, "reportWordAssessmentEvent")
+        Log.i(this::class.simpleName, "reportWordAssessmentEvent")
 
-        val broadcastIntent = Intent()
-        broadcastIntent.setAction(LearningEventUtil.BROADCAST_INTENT_ACTION_ANALYTICS)
-        broadcastIntent.putExtra("intent_action", IntentAction.WORD_ASSESSMENT.action)
-        broadcastIntent.putExtra(BundleKeys.KEY_PACKAGE_NAME, context.packageName)
-        broadcastIntent.putExtra(BundleKeys.KEY_WORD_ID, wordGson.id)
-        broadcastIntent.putExtra(BundleKeys.KEY_WORD_TEXT, wordGson.text)
-        broadcastIntent.putExtra(BundleKeys.KEY_MASTERY_SCORE, masteryScore)
-        broadcastIntent.putExtra(BundleKeys.KEY_TIME_SPENT_MS, timeSpentMs)
-        additionalData?.let {
-            broadcastIntent.putExtra(BundleKeys.KEY_ADDITIONAL_DATA, additionalData.toString())
+        try {
+            val broadcastIntent = Intent()
+            broadcastIntent.setPackage(analyticsApplicationId)
+            broadcastIntent.setAction(LearningEventUtil.BROADCAST_INTENT_ACTION_ANALYTICS)
+            broadcastIntent.putExtra("intent_action", IntentAction.WORD_ASSESSMENT.action)
+            broadcastIntent.putExtra(BundleKeys.KEY_PACKAGE_NAME, context.packageName)
+            broadcastIntent.putExtra(BundleKeys.KEY_MASTERY_SCORE, masteryScore)
+            broadcastIntent.putExtra(BundleKeys.KEY_TIME_SPENT_MS, timeSpentMs)
+            additionalData?.let {
+                broadcastIntent.putExtra(BundleKeys.KEY_ADDITIONAL_DATA, additionalData.toString())
+            }
+            broadcastIntent.putExtra(BundleKeys.KEY_WORD_TEXT, wordGson.text)
+            wordGson.id?.let {
+                broadcastIntent.putExtra(BundleKeys.KEY_WORD_ID, wordGson.id)
+            }
+
+            context.sendOrderedBroadcast(broadcastIntent, null, ErrorResultReceiver(), null, Activity.RESULT_OK, null, null)
+        } catch (e: Exception) {
+            Log.e(this::class.simpleName, "Error during Intent preparation", e)
+            Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
         }
-        broadcastIntent.setPackage(analyticsApplicationId)
-        context.sendBroadcast(broadcastIntent)
     }
 
     /**
@@ -104,20 +122,27 @@ object AssessmentEventUtil {
         context: Context,
         analyticsApplicationId: String
     ) {
-        Log.i(TAG, "reportNumberAssessmentEvent")
+        Log.i(this::class.simpleName, "reportNumberAssessmentEvent")
 
-        val broadcastIntent = Intent()
-        broadcastIntent.setPackage(analyticsApplicationId)
-        broadcastIntent.setAction("ai.elimu.intent.action.NUMBER_ASSESSMENT_EVENT")
-        broadcastIntent.putExtra(BundleKeys.KEY_PACKAGE_NAME, context.packageName)
-        broadcastIntent.putExtra(BundleKeys.KEY_MASTERY_SCORE, masteryScore)
-        broadcastIntent.putExtra(BundleKeys.KEY_TIME_SPENT_MS, timeSpentMs)
-        additionalData?.let {
-            broadcastIntent.putExtra(BundleKeys.KEY_ADDITIONAL_DATA, additionalData.toString())
+        try {
+            val broadcastIntent = Intent()
+            broadcastIntent.setPackage(analyticsApplicationId)
+            broadcastIntent.setAction("ai.elimu.intent.action.NUMBER_ASSESSMENT_EVENT")
+            broadcastIntent.putExtra(BundleKeys.KEY_PACKAGE_NAME, context.packageName)
+            broadcastIntent.putExtra(BundleKeys.KEY_MASTERY_SCORE, masteryScore)
+            broadcastIntent.putExtra(BundleKeys.KEY_TIME_SPENT_MS, timeSpentMs)
+            additionalData?.let {
+                broadcastIntent.putExtra(BundleKeys.KEY_ADDITIONAL_DATA, additionalData.toString())
+            }
+            broadcastIntent.putExtra(BundleKeys.KEY_NUMBER_VALUE, numberGson.value)
+            numberGson.id?.let {
+                broadcastIntent.putExtra(BundleKeys.KEY_NUMBER_ID, numberGson.id)
+            }
+
+            context.sendOrderedBroadcast(broadcastIntent, null, ErrorResultReceiver(), null, Activity.RESULT_OK, null, null)
+        } catch (e: Exception) {
+            Log.e(this::class.simpleName, "Error during Intent preparation", e)
+            Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
         }
-        broadcastIntent.putExtra(BundleKeys.KEY_NUMBER_VALUE, numberGson.value)
-        broadcastIntent.putExtra(BundleKeys.KEY_NUMBER_ID, numberGson.id)
-
-        context.sendBroadcast(broadcastIntent)
     }
 }

@@ -7,6 +7,7 @@ import ai.elimu.analytics.utils.research.ExperimentAssignmentHelper
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.os.Bundle
 import android.provider.Settings
 import android.text.TextUtils
 import timber.log.Timber
@@ -25,66 +26,63 @@ class NumberAssessmentEventReceiver : BroadcastReceiver() {
             }
         }
 
-        val event = NumberAssessmentEvent()
+        try {
+            val event = NumberAssessmentEvent()
 
-        val androidId: String = Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
-        Timber.i("androidId: \"${androidId}\"")
-        event.androidId = androidId
+            val androidId: String = Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
+            event.androidId = androidId
 
-        val packageName: String = intent.getStringExtra(BundleKeys.KEY_PACKAGE_NAME) ?: ""
-        Timber.i("packageName: \"${packageName}\"")
-        if (TextUtils.isEmpty(packageName)) {
-            throw IllegalArgumentException("Missing packageName")
-        }
-        event.packageName = packageName
+            val packageName: String = intent.getStringExtra(BundleKeys.KEY_PACKAGE_NAME) ?: ""
+            if (TextUtils.isEmpty(packageName)) {
+                throw IllegalArgumentException("Missing packageName")
+            }
+            event.packageName = packageName
 
-        val timestamp: Calendar = Calendar.getInstance()
-        Timber.i("timestamp.time: ${timestamp.time}")
-        event.time = timestamp
+            val timestamp: Calendar = Calendar.getInstance()
+            event.time = timestamp
 
-        val additionalData: String? = intent.getStringExtra(BundleKeys.KEY_ADDITIONAL_DATA)
-        Timber.i("additionalData: ${additionalData}")
-        event.additionalData = additionalData
+            val researchExperiment = ExperimentAssignmentHelper.CURRENT_EXPERIMENT
+            event.researchExperiment = researchExperiment
 
-        val researchExperiment = ExperimentAssignmentHelper.CURRENT_EXPERIMENT
-        Timber.i("researchExperiment: ${researchExperiment}")
-        event.researchExperiment = researchExperiment
+            val experimentGroup = ExperimentAssignmentHelper.getExperimentGroup(context)
+            event.experimentGroup = experimentGroup
 
-        val experimentGroup = ExperimentAssignmentHelper.getExperimentGroup(context)
-        Timber.i("experimentGroup: ${experimentGroup}")
-        event.experimentGroup = experimentGroup
+            val additionalData: String? = intent.getStringExtra(BundleKeys.KEY_ADDITIONAL_DATA)
+            event.additionalData = additionalData
 
-        val masteryScore: Float = intent.getFloatExtra(BundleKeys.KEY_MASTERY_SCORE, -1f)
-        Timber.i("masteryScore: ${masteryScore}")
-        if ((masteryScore < 0) || (masteryScore > 1)) {
-            throw IllegalArgumentException("Invalid masteryScore. Must be in the range [0.0, 1.0]")
-        }
-        event.masteryScore = masteryScore
+            val masteryScore: Float = intent.getFloatExtra(BundleKeys.KEY_MASTERY_SCORE, -1f)
+            if ((masteryScore < 0) || (masteryScore > 1)) {
+                throw IllegalArgumentException("Invalid masteryScore. Must be in the range [0.0, 1.0]")
+            }
+            event.masteryScore = masteryScore
 
-        val timeSpentMs: Long = intent.getLongExtra(BundleKeys.KEY_TIME_SPENT_MS, 0)
-        Timber.i("timeSpentMs: ${timeSpentMs}")
-        if (timeSpentMs <= 0) {
-            throw IllegalArgumentException("Invalid timeSpentMs. Must be larger than 0")
-        }
-        event.timeSpentMs = timeSpentMs
+            val timeSpentMs: Long = intent.getLongExtra(BundleKeys.KEY_TIME_SPENT_MS, 0)
+            if (timeSpentMs <= 0) {
+                throw IllegalArgumentException("Invalid timeSpentMs. Must be larger than 0")
+            }
+            event.timeSpentMs = timeSpentMs
 
-        val numberValue: Int = intent.getIntExtra(BundleKeys.KEY_NUMBER_VALUE, Int.MIN_VALUE)
-        Timber.i("numberValue: ${numberValue}")
-        if (numberValue == Int.MIN_VALUE) {
-            throw IllegalArgumentException("Missing numberValue")
-        }
-        event.numberValue = numberValue
+            val numberValue: Int = intent.getIntExtra(BundleKeys.KEY_NUMBER_VALUE, Int.MIN_VALUE)
+            if (numberValue == Int.MIN_VALUE) {
+                throw IllegalArgumentException("Missing numberValue")
+            }
+            event.numberValue = numberValue
 
-        val numberId: Long = intent.getLongExtra(BundleKeys.KEY_NUMBER_ID, 0)
-        Timber.i("numberId: ${numberId}")
-        if (numberId > 0) {
-            event.numberId = numberId
-        }
+            val numberId: Long = intent.getLongExtra(BundleKeys.KEY_NUMBER_ID, 0)
+            if (numberId > 0) {
+                event.numberId = numberId
+            }
 
-        // Store the event in the database
-        val roomDb = RoomDb.getDatabase(context)
-        RoomDb.databaseWriteExecutor.execute {
-            roomDb.numberAssessmentEventDao().insert(event)
+            // Store the event in the database
+            val roomDb = RoomDb.getDatabase(context)
+            RoomDb.databaseWriteExecutor.execute {
+                roomDb.numberAssessmentEventDao().insert(event)
+            }
+        } catch (e: Exception) {
+            Timber.e(e)
+            val results: Bundle = getResultExtras(true)
+            val errorMessage = e.message ?: e::class.simpleName
+            results.putString("errorMessage", errorMessage)
         }
     }
 }
