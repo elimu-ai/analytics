@@ -41,14 +41,14 @@ class NumberAssessmentEventReceiver : BroadcastReceiver() {
             val timestamp: Calendar = Calendar.getInstance()
             event.time = timestamp
 
-            val additionalData: String? = intent.getStringExtra(BundleKeys.KEY_ADDITIONAL_DATA)
-            event.additionalData = additionalData
-
             val researchExperiment = ExperimentAssignmentHelper.CURRENT_EXPERIMENT
             event.researchExperiment = researchExperiment
 
             val experimentGroup = ExperimentAssignmentHelper.getExperimentGroup(context)
             event.experimentGroup = experimentGroup
+
+            val additionalData: String? = intent.getStringExtra(BundleKeys.KEY_ADDITIONAL_DATA)
+            event.additionalData = additionalData
 
             val masteryScore: Float = intent.getFloatExtra(BundleKeys.KEY_MASTERY_SCORE, -1f)
             if ((masteryScore < 0) || (masteryScore > 1)) {
