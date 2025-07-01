@@ -10,6 +10,7 @@ import android.content.UriMatcher
 import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import timber.log.Timber
 import androidx.core.net.toUri
 
@@ -54,19 +55,7 @@ class WordAssessmentEventProvider : ContentProvider() {
                 val cursor = wordAssessmentEventDao.loadAllOrderedByTimeDesc()
                 Timber.i("cursor: $cursor")
                 cursor.setNotificationUri(context.contentResolver, uri)
-                val bundle = Bundle().apply {
-                    putInt("version_code", BuildConfig.VERSION_CODE)
-                    putString(BundleKeys.KEY_ID, WordAssessmentEvent::id.name)
-                    putString(BundleKeys.KEY_ANDROID_ID, WordAssessmentEvent::androidId.name)
-                    putString(BundleKeys.KEY_PACKAGE_NAME, WordAssessmentEvent::packageName.name)
-                    putString(BundleKeys.KEY_TIMESTAMP, WordAssessmentEvent::time.name)
-                    putString(BundleKeys.KEY_MASTERY_SCORE, WordAssessmentEvent::masteryScore.name)
-                    putString(BundleKeys.KEY_TIME_SPENT_MS, WordAssessmentEvent::timeSpentMs.name)
-                    putString(BundleKeys.KEY_ADDITIONAL_DATA, WordAssessmentEvent::additionalData.name)
-                    putString(BundleKeys.KEY_WORD_TEXT, WordAssessmentEvent::wordText.name)
-                    putString(BundleKeys.KEY_WORD_ID, WordAssessmentEvent::wordId.name)
-                }
-                cursor.extras = bundle
+                cursor.extras = prepareBundle()
                 return cursor
             }
             CODE_EVENTS_BY_WORD_ID -> {
@@ -83,25 +72,33 @@ class WordAssessmentEventProvider : ContentProvider() {
                 val cursor = wordAssessmentEventDao.loadAllOrderedByTimeDesc(wordId)
                 Timber.i("cursor: $cursor")
                 cursor.setNotificationUri(context.contentResolver, uri)
-                val bundle = Bundle().apply {
-                    putInt("version_code", BuildConfig.VERSION_CODE)
-                    putString(BundleKeys.KEY_ID, WordAssessmentEvent::id.name)
-                    putString(BundleKeys.KEY_ANDROID_ID, WordAssessmentEvent::androidId.name)
-                    putString(BundleKeys.KEY_PACKAGE_NAME, WordAssessmentEvent::packageName.name)
-                    putString(BundleKeys.KEY_TIMESTAMP, WordAssessmentEvent::time.name)
-                    putString(BundleKeys.KEY_MASTERY_SCORE, WordAssessmentEvent::masteryScore.name)
-                    putString(BundleKeys.KEY_TIME_SPENT_MS, WordAssessmentEvent::timeSpentMs.name)
-                    putString(BundleKeys.KEY_ADDITIONAL_DATA, WordAssessmentEvent::additionalData.name)
-                    putString(BundleKeys.KEY_WORD_TEXT, WordAssessmentEvent::wordText.name)
-                    putString(BundleKeys.KEY_WORD_ID, WordAssessmentEvent::wordId.name)
-                }
-                cursor.extras = bundle
+                cursor.extras = prepareBundle()
                 return cursor
             }
             else -> {
                 throw IllegalArgumentException("Unknown URI: $uri")
             }
         }
+    }
+
+    /**
+     * Prepare database column names needed by the Cursor-to-Gson converter in the `:utils` module.
+     */
+    private fun prepareBundle(): Bundle {
+        Log.i(this::class.simpleName, "prepareBundle")
+        val bundle = Bundle().apply {
+            putInt("version_code", BuildConfig.VERSION_CODE)
+            putString(BundleKeys.KEY_ID, WordAssessmentEvent::id.name)
+            putString(BundleKeys.KEY_ANDROID_ID, WordAssessmentEvent::androidId.name)
+            putString(BundleKeys.KEY_PACKAGE_NAME, WordAssessmentEvent::packageName.name)
+            putString(BundleKeys.KEY_TIMESTAMP, WordAssessmentEvent::time.name)
+            putString(BundleKeys.KEY_MASTERY_SCORE, WordAssessmentEvent::masteryScore.name)
+            putString(BundleKeys.KEY_TIME_SPENT_MS, WordAssessmentEvent::timeSpentMs.name)
+            putString(BundleKeys.KEY_ADDITIONAL_DATA, WordAssessmentEvent::additionalData.name)
+            putString(BundleKeys.KEY_WORD_TEXT, WordAssessmentEvent::wordText.name)
+            putString(BundleKeys.KEY_WORD_ID, WordAssessmentEvent::wordId.name)
+        }
+        return bundle
     }
 
     override fun getType(uri: Uri): String? {
