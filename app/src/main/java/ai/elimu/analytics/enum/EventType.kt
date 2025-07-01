@@ -240,8 +240,11 @@ fun EventType.createEventFromIntent(context: Context, intent: Intent): BaseEntit
             val numberSymbol = intent.getStringExtra(BundleKeys.KEY_NUMBER_SYMBOL)
             Timber.i("numberSymbol: \"$numberSymbol\"")
 
-            val numberId = intent.getLongExtra(BundleKeys.KEY_NUMBER_ID, 0)
-            Timber.i("numberId: $numberId")
+            val numberId = if (intent.hasExtra(BundleKeys.KEY_NUMBER_ID)) {
+                intent.getLongExtra(BundleKeys.KEY_NUMBER_ID, 0)
+            } else null
+
+            Timber.i("numberId: $numberId. hasKey NUMBER_ID: ${intent.hasExtra(BundleKeys.KEY_NUMBER_ID)}")
 
             NumberLearningEvent(numberValue).apply {
                 this.time = timestamp
