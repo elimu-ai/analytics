@@ -10,6 +10,7 @@ import android.content.UriMatcher
 import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import timber.log.Timber
 import androidx.core.net.toUri
 
@@ -53,23 +54,31 @@ class NumberLearningEventProvider : ContentProvider() {
             val cursor = numberLearningEventDao.loadAllOrderedByTime()
             Timber.i("cursor: $cursor")
             cursor.setNotificationUri(context.contentResolver, uri)
-            val bundle = Bundle().apply {
-                putInt("version_code", BuildConfig.VERSION_CODE)
-                putString(BundleKeys.KEY_ID, NumberLearningEvent::id.name)
-                putString(BundleKeys.KEY_ANDROID_ID, NumberLearningEvent::androidId.name)
-                putString(BundleKeys.KEY_PACKAGE_NAME, NumberLearningEvent::packageName.name)
-                putString(BundleKeys.KEY_TIMESTAMP, NumberLearningEvent::time.name)
-                putString(BundleKeys.KEY_LEARNING_EVENT_TYPE, NumberLearningEvent::learningEventType.name)
-                putString(BundleKeys.KEY_ADDITIONAL_DATA, NumberLearningEvent::additionalData.name)
-                putString(BundleKeys.KEY_NUMBER_VALUE, NumberLearningEvent::numberValue.name)
-                putString(BundleKeys.KEY_NUMBER_SYMBOL, NumberLearningEvent::numberSymbol.name)
-                putString(BundleKeys.KEY_NUMBER_ID, NumberLearningEvent::numberId.name)
-            }
-            cursor.extras = bundle
+            cursor.extras = prepareBundle()
             return cursor
         } else {
             throw IllegalArgumentException("Unknown URI: $uri")
         }
+    }
+
+    /**
+     * Prepare database column names needed by the Cursor-to-Gson converter in the `:utils` module.
+     */
+    private fun prepareBundle(): Bundle {
+        Log.i(this::class.simpleName, "prepareBundle")
+        val bundle = Bundle().apply {
+            putInt("version_code", BuildConfig.VERSION_CODE)
+            putString(BundleKeys.KEY_ID, NumberLearningEvent::id.name)
+            putString(BundleKeys.KEY_ANDROID_ID, NumberLearningEvent::androidId.name)
+            putString(BundleKeys.KEY_PACKAGE_NAME, NumberLearningEvent::packageName.name)
+            putString(BundleKeys.KEY_TIMESTAMP, NumberLearningEvent::time.name)
+            putString(BundleKeys.KEY_LEARNING_EVENT_TYPE, NumberLearningEvent::learningEventType.name)
+            putString(BundleKeys.KEY_ADDITIONAL_DATA, NumberLearningEvent::additionalData.name)
+            putString(BundleKeys.KEY_NUMBER_VALUE, NumberLearningEvent::numberValue.name)
+            putString(BundleKeys.KEY_NUMBER_SYMBOL, NumberLearningEvent::numberSymbol.name)
+            putString(BundleKeys.KEY_NUMBER_ID, NumberLearningEvent::numberId.name)
+        }
+        return bundle
     }
 
     override fun getType(uri: Uri): String? {

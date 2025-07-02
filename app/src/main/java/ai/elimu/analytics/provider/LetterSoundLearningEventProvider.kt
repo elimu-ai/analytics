@@ -2,12 +2,16 @@ package ai.elimu.analytics.provider
 
 import ai.elimu.analytics.BuildConfig
 import ai.elimu.analytics.db.RoomDb
+import ai.elimu.analytics.entity.LetterSoundLearningEvent
+import ai.elimu.analytics.entity.WordLearningEvent
+import ai.elimu.analytics.utils.BundleKeys
 import android.content.ContentProvider
 import android.content.ContentValues
 import android.content.UriMatcher
 import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import timber.log.Timber
 import androidx.core.net.toUri
 
@@ -51,14 +55,31 @@ class LetterSoundLearningEventProvider : ContentProvider() {
             val cursor = letterSoundLearningEventDao.loadAllOrderedByTimeCursor()
             Timber.i("cursor: $cursor")
             cursor.setNotificationUri(context.contentResolver, uri)
-            val bundle = Bundle().apply {
-                putInt("version_code", BuildConfig.VERSION_CODE)
-            }
-            cursor.extras = bundle
+            cursor.extras = prepareBundle()
             return cursor
         } else {
             throw IllegalArgumentException("Unknown URI: $uri")
         }
+    }
+
+    /**
+     * Prepare database column names needed by the Cursor-to-Gson converter in the `:utils` module.
+     */
+    private fun prepareBundle(): Bundle {
+        Log.i(this::class.simpleName, "prepareBundle")
+        val bundle = Bundle().apply {
+            putInt("version_code", BuildConfig.VERSION_CODE)
+            putString(BundleKeys.KEY_ID, WordLearningEvent::id.name)
+            putString(BundleKeys.KEY_ANDROID_ID, WordLearningEvent::androidId.name)
+            putString(BundleKeys.KEY_PACKAGE_NAME, WordLearningEvent::packageName.name)
+            putString(BundleKeys.KEY_TIMESTAMP, WordLearningEvent::time.name)
+            putString(BundleKeys.KEY_LEARNING_EVENT_TYPE, WordLearningEvent::learningEventType.name)
+            putString(BundleKeys.KEY_ADDITIONAL_DATA, WordLearningEvent::additionalData.name)
+            putString(BundleKeys.KEY_LETTER_SOUND_LETTERS, LetterSoundLearningEvent::letterSoundLetterTexts.name)
+            putString(BundleKeys.KEY_LETTER_SOUND_SOUNDS, LetterSoundLearningEvent::letterSoundSoundValuesIpa.name)
+            putString(BundleKeys.KEY_LETTER_SOUND_ID, LetterSoundLearningEvent::letterSoundId.name)
+        }
+        return bundle
     }
 
     override fun getType(uri: Uri): String? {

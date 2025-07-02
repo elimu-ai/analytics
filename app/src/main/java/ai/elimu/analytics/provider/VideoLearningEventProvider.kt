@@ -10,6 +10,7 @@ import android.content.UriMatcher
 import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import timber.log.Timber
 import androidx.core.net.toUri
 
@@ -53,22 +54,30 @@ class VideoLearningEventProvider : ContentProvider() {
             val cursor = videoLearningEventDao.loadAllToCursor()
             Timber.i("cursor: $cursor")
             cursor.setNotificationUri(context.contentResolver, uri)
-            val bundle = Bundle().apply {
-                putInt("version_code", BuildConfig.VERSION_CODE)
-                putString(BundleKeys.KEY_ID, VideoLearningEvent::id.name)
-                putString(BundleKeys.KEY_ANDROID_ID, VideoLearningEvent::androidId.name)
-                putString(BundleKeys.KEY_PACKAGE_NAME, VideoLearningEvent::packageName.name)
-                putString(BundleKeys.KEY_TIMESTAMP, VideoLearningEvent::time.name)
-                putString(BundleKeys.KEY_LEARNING_EVENT_TYPE, VideoLearningEvent::learningEventType.name)
-                putString(BundleKeys.KEY_ADDITIONAL_DATA, VideoLearningEvent::additionalData.name)
-                putString(BundleKeys.KEY_VIDEO_TITLE, VideoLearningEvent::videoTitle.name)
-                putString(BundleKeys.KEY_VIDEO_ID, VideoLearningEvent::videoId.name)
-            }
-            cursor.extras = bundle
+            cursor.extras = prepareBundle()
             return cursor
         } else {
             throw IllegalArgumentException("Unknown URI: $uri")
         }
+    }
+
+    /**
+     * Prepare database column names needed by the Cursor-to-Gson converter in the `:utils` module.
+     */
+    private fun prepareBundle(): Bundle {
+        Log.i(this::class.simpleName, "prepareBundle")
+        val bundle = Bundle().apply {
+            putInt("version_code", BuildConfig.VERSION_CODE)
+            putString(BundleKeys.KEY_ID, VideoLearningEvent::id.name)
+            putString(BundleKeys.KEY_ANDROID_ID, VideoLearningEvent::androidId.name)
+            putString(BundleKeys.KEY_PACKAGE_NAME, VideoLearningEvent::packageName.name)
+            putString(BundleKeys.KEY_TIMESTAMP, VideoLearningEvent::time.name)
+            putString(BundleKeys.KEY_LEARNING_EVENT_TYPE, VideoLearningEvent::learningEventType.name)
+            putString(BundleKeys.KEY_ADDITIONAL_DATA, VideoLearningEvent::additionalData.name)
+            putString(BundleKeys.KEY_VIDEO_TITLE, VideoLearningEvent::videoTitle.name)
+            putString(BundleKeys.KEY_VIDEO_ID, VideoLearningEvent::videoId.name)
+        }
+        return bundle
     }
 
     override fun getType(uri: Uri): String? {
