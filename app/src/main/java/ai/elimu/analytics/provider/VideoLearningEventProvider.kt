@@ -10,7 +10,6 @@ import android.content.UriMatcher
 import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import timber.log.Timber
 import androidx.core.net.toUri
 
@@ -34,10 +33,6 @@ class VideoLearningEventProvider : ContentProvider() {
         Timber.i("query")
 
         Timber.i("uri: $uri")
-        Timber.i("projection: $projection")
-        Timber.i("selection: $selection")
-        Timber.i("selectionArgs: $selectionArgs")
-        Timber.i("sortOrder: $sortOrder")
 
         val context = context
         Timber.i("context: $context")
@@ -65,7 +60,7 @@ class VideoLearningEventProvider : ContentProvider() {
      * Prepare database column names needed by the Cursor-to-Gson converter in the `:utils` module.
      */
     private fun prepareBundle(): Bundle {
-        Log.i(this::class.simpleName, "prepareBundle")
+        Timber.i("prepareBundle")
         val bundle = Bundle().apply {
             putInt("version_code", BuildConfig.VERSION_CODE)
             putString(BundleKeys.KEY_ID, VideoLearningEvent::id.name)

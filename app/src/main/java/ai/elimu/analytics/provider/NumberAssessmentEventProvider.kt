@@ -2,7 +2,7 @@ package ai.elimu.analytics.provider
 
 import ai.elimu.analytics.BuildConfig
 import ai.elimu.analytics.db.RoomDb
-import ai.elimu.analytics.entity.WordLearningEvent
+import ai.elimu.analytics.entity.NumberAssessmentEvent
 import ai.elimu.analytics.utils.BundleKeys
 import android.content.ContentProvider
 import android.content.ContentValues
@@ -13,7 +13,19 @@ import android.os.Bundle
 import timber.log.Timber
 import androidx.core.net.toUri
 
-class WordLearningEventProvider : ContentProvider() {
+class NumberAssessmentEventProvider : ContentProvider() {
+    companion object {
+        private const val AUTHORITY = BuildConfig.APPLICATION_ID + ".provider.number_assessment_event_provider"
+        private const val TABLE = "events"
+        private const val CODE_EVENTS = 1
+
+        private val MATCHER = UriMatcher(UriMatcher.NO_MATCH)
+
+        init {
+            MATCHER.addURI(AUTHORITY, TABLE, CODE_EVENTS)
+        }
+    }
+
     override fun onCreate(): Boolean {
         Timber.i("onCreate")
 
@@ -23,13 +35,7 @@ class WordLearningEventProvider : ContentProvider() {
         return true
     }
 
-    override fun query(
-        uri: Uri,
-        projection: Array<String>?,
-        selection: String?,
-        selectionArgs: Array<String>?,
-        sortOrder: String?
-    ): Cursor? {
+    override fun query(uri: Uri, projection: Array<String>?, selection: String?, selectionArgs: Array<String>?, sortOrder: String?): Cursor? {
         Timber.i("query")
 
         Timber.i("uri: $uri")
@@ -45,8 +51,8 @@ class WordLearningEventProvider : ContentProvider() {
         if (code == CODE_EVENTS) {
             // Get the Room Cursor
             val roomDb = RoomDb.getDatabase(context)
-            val wordLearningEventDao = roomDb.wordLearningEventDao()
-            val cursor = wordLearningEventDao.loadAllOrderedByTime()
+            val numberAssessmentEventDao = roomDb.numberAssessmentEventDao()
+            val cursor = numberAssessmentEventDao.loadAllOrderedByTimestampCursor(isDesc = true)
             Timber.i("cursor: $cursor")
             cursor.setNotificationUri(context.contentResolver, uri)
             cursor.extras = prepareBundle()
@@ -63,14 +69,15 @@ class WordLearningEventProvider : ContentProvider() {
         Timber.i("prepareBundle")
         val bundle = Bundle().apply {
             putInt("version_code", BuildConfig.VERSION_CODE)
-            putString(BundleKeys.KEY_ID, WordLearningEvent::id.name)
-            putString(BundleKeys.KEY_ANDROID_ID, WordLearningEvent::androidId.name)
-            putString(BundleKeys.KEY_PACKAGE_NAME, WordLearningEvent::packageName.name)
-            putString(BundleKeys.KEY_TIMESTAMP, WordLearningEvent::time.name)
-            putString(BundleKeys.KEY_LEARNING_EVENT_TYPE, WordLearningEvent::learningEventType.name)
-            putString(BundleKeys.KEY_ADDITIONAL_DATA, WordLearningEvent::additionalData.name)
-            putString(BundleKeys.KEY_WORD_TEXT, WordLearningEvent::wordText.name)
-            putString(BundleKeys.KEY_WORD_ID, WordLearningEvent::wordId.name)
+            putString(BundleKeys.KEY_ID, NumberAssessmentEvent::id.name)
+            putString(BundleKeys.KEY_ANDROID_ID, NumberAssessmentEvent::androidId.name)
+            putString(BundleKeys.KEY_PACKAGE_NAME, NumberAssessmentEvent::packageName.name)
+            putString(BundleKeys.KEY_TIMESTAMP, NumberAssessmentEvent::time.name)
+            putString(BundleKeys.KEY_MASTERY_SCORE, NumberAssessmentEvent::masteryScore.name)
+            putString(BundleKeys.KEY_TIME_SPENT_MS, NumberAssessmentEvent::timeSpentMs.name)
+            putString(BundleKeys.KEY_ADDITIONAL_DATA, NumberAssessmentEvent::additionalData.name)
+            putString(BundleKeys.KEY_NUMBER_VALUE, NumberAssessmentEvent::numberValue.name)
+            putString(BundleKeys.KEY_NUMBER_ID, NumberAssessmentEvent::numberId.name)
         }
         return bundle
     }
@@ -93,27 +100,9 @@ class WordLearningEventProvider : ContentProvider() {
         throw UnsupportedOperationException("Not yet implemented")
     }
 
-    override fun update(
-        uri: Uri,
-        values: ContentValues?,
-        selection: String?,
-        selectionArgs: Array<String>?
-    ): Int {
+    override fun update(uri: Uri, values: ContentValues?, selection: String?, selectionArgs: Array<String>?): Int {
         Timber.i("update")
 
         throw UnsupportedOperationException("Not yet implemented")
-    }
-
-    companion object {
-        private const val AUTHORITY =
-            BuildConfig.APPLICATION_ID + ".provider.word_learning_event_provider"
-        private const val TABLE = "events"
-        private const val CODE_EVENTS = 1
-
-        private val MATCHER = UriMatcher(UriMatcher.NO_MATCH)
-
-        init {
-            MATCHER.addURI(AUTHORITY, TABLE, CODE_EVENTS)
-        }
     }
 }

@@ -7,7 +7,6 @@ import ai.elimu.analytics.enum.toServiceClass
 import ai.elimu.analytics.rest.NumberAssessmentEventService
 import ai.elimu.analytics.util.SharedPreferencesHelper
 import ai.elimu.analytics.util.VersionHelper.extractVersionCode
-import ai.elimu.model.v2.enums.Language
 import android.content.Context
 import androidx.work.Worker
 import androidx.work.WorkerParameters
