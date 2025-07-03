@@ -116,7 +116,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
             // Prepare the CSV file path
             val languageDir = File(applicationContext.filesDir, "lang-${SharedPreferencesHelper.getLanguage(applicationContext)}")
             val eventsDir = File(languageDir, "number-assessment-events")
-            val csvFile = File(eventsDir, "${event.androidId}_${BuildConfig.VERSION_CODE}_number-assessment-events_${date}")
+            val csvFile = File(eventsDir, "${event.androidId}_${BuildConfig.VERSION_CODE}_number-assessment-events_${date}.csv")
 
             if (date != dateOfPreviousEvent) {
                 // Reset file content, and prepare the headers for a new CSV file
