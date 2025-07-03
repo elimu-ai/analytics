@@ -1,11 +1,13 @@
 package ai.elimu.analytics.utils
 
 import ai.elimu.analytics.utils.converter.CursorToLetterSoundAssessmentEventGsonConverter
+import ai.elimu.analytics.utils.converter.CursorToNumberAssessmentEventGsonConverter
 import ai.elimu.analytics.utils.converter.CursorToNumberLearningEventGsonConverter
 import ai.elimu.analytics.utils.converter.CursorToVideoLearningEventGsonConverter
 import ai.elimu.analytics.utils.converter.CursorToWordAssessmentEventGsonConverter
 import ai.elimu.analytics.utils.converter.CursorToWordLearningEventGsonConverter
 import ai.elimu.model.v2.gson.analytics.LetterSoundAssessmentEventGson
+import ai.elimu.model.v2.gson.analytics.NumberAssessmentEventGson
 import ai.elimu.model.v2.gson.analytics.NumberLearningEventGson
 import ai.elimu.model.v2.gson.analytics.VideoLearningEventGson
 import ai.elimu.model.v2.gson.analytics.WordAssessmentEventGson
@@ -377,6 +379,44 @@ object EventProviderUtil {
         )
 
         return videoLearningEventGSONs
+    }
+
+    fun getNumberAssessmentEventGsons(context: Context, analyticsApplicationId: String): List<NumberAssessmentEventGson> {
+        Log.i(TAG, "getNumberAssessmentEventGsons")
+
+        val numberAssessmentEventGsons: MutableList<NumberAssessmentEventGson> = ArrayList()
+
+        val numberAssessmentEventsUri = "content://$analyticsApplicationId.provider.number_assessment_event_provider/events".toUri()
+        Log.i(TAG, "numberAssessmentEventsUri: $numberAssessmentEventsUri")
+        val numberAssessmentEventsCursor = context.contentResolver.query(numberAssessmentEventsUri, null, null, null, null)
+        Log.i(TAG, "numberAssessmentEventsCursor: $numberAssessmentEventsCursor")
+        if (numberAssessmentEventsCursor == null) {
+            Log.e(TAG, "numberAssessmentEventsCursor == null")
+            Toast.makeText(context, "numberAssessmentEventsCursor == null", Toast.LENGTH_LONG).show()
+        } else {
+            Log.i(TAG, "numberAssessmentEventsCursor.getCount(): " + numberAssessmentEventsCursor.count)
+            if (numberAssessmentEventsCursor.count == 0) {
+                Log.e(TAG, "numberAssessmentEventsCursor.getCount() == 0")
+            } else {
+                var isLast = false
+                while (!isLast) {
+                    numberAssessmentEventsCursor.moveToNext()
+
+                    // Convert from Room to Gson
+                    val numberAssessmentEventGson = CursorToNumberAssessmentEventGsonConverter.getGson(numberAssessmentEventsCursor)
+
+                    numberAssessmentEventGsons.add(numberAssessmentEventGson)
+
+                    isLast = numberAssessmentEventsCursor.isLast
+                }
+
+                numberAssessmentEventsCursor.close()
+                Log.i(TAG, "numberAssessmentEventsCursor.isClosed(): " + numberAssessmentEventsCursor.isClosed)
+            }
+        }
+        Log.i(TAG, "numberAssessmentEventGsons.size(): " + numberAssessmentEventGsons.size)
+
+        return numberAssessmentEventGsons
     }
 
     fun getNumberLearningEventGSONs(

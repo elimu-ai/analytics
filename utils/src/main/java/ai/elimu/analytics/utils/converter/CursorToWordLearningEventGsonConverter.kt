@@ -52,10 +52,12 @@ object CursorToWordLearningEventGsonConverter {
         wordLearningEventGson.timestamp = timestamp
 
         val columnNameAdditionalData = bundle.getString(BundleKeys.KEY_ADDITIONAL_DATA)
-        val columnAdditionalData = cursor.getColumnIndexOrThrow(columnNameAdditionalData)
-        val additionalData = cursor.getString(columnAdditionalData)
-        Log.i(TAG, "additionalData: " + additionalData)
-        wordLearningEventGson.additionalData = additionalData
+        val columnAdditionalData: Int = cursor.getColumnIndex(columnNameAdditionalData)
+        if (columnAdditionalData != -1) {
+            val additionalData = cursor.getString(columnAdditionalData)
+            Log.i(TAG, "additionalData: " + additionalData)
+            wordLearningEventGson.additionalData = additionalData
+        }
 
         val columnNameWordText = bundle.getString(BundleKeys.KEY_WORD_TEXT)
         val columnWordText = cursor.getColumnIndex(columnNameWordText)
