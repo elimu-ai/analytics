@@ -384,7 +384,7 @@ object EventProviderUtil {
     fun getNumberAssessmentEventGsons(context: Context, analyticsApplicationId: String): List<NumberAssessmentEventGson> {
         Log.i(TAG, "getNumberAssessmentEventGsons")
 
-        val numberAssessmentEventGsons: List<NumberAssessmentEventGson> = ArrayList()
+        val numberAssessmentEventGsons: MutableList<NumberAssessmentEventGson> = ArrayList()
 
         val numberAssessmentEventsUri = "content://$analyticsApplicationId.provider.number_assessment_event_provider/events".toUri()
         Log.i(TAG, "numberAssessmentEventsUri: $numberAssessmentEventsUri")
