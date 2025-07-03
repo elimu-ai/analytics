@@ -49,9 +49,11 @@ object CursorToNumberLearningEventGsonConverter {
 
         val columnNameAdditionalData = bundle.getString(BundleKeys.KEY_ADDITIONAL_DATA)
         val columnAdditionalData: Int = cursor.getColumnIndex(columnNameAdditionalData)
-        val additionalData = cursor.getString(columnAdditionalData)
-        Log.i(TAG, "additionalData: $additionalData")
-        numberLearningEventGson.additionalData = additionalData
+        if (columnAdditionalData != -1) {
+            val additionalData = cursor.getString(columnAdditionalData)
+            Log.i(TAG, "additionalData: $additionalData")
+            numberLearningEventGson.additionalData = additionalData
+        }
 
         val columnNameNumberValue = bundle.getString(BundleKeys.KEY_NUMBER_VALUE)
         val columnNumberValue = cursor.getColumnIndex(columnNameNumberValue)

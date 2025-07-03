@@ -53,9 +53,11 @@ object CursorToVideoLearningEventGsonConverter {
 
         val columnNameAdditionalData = bundle.getString(BundleKeys.KEY_ADDITIONAL_DATA)
         val columnAdditionalData: Int = cursor.getColumnIndex(columnNameAdditionalData)
-        val additionalData = cursor.getString(columnAdditionalData)
-        Log.i(TAG, "additionalData: $additionalData")
-        videoLearningEventGson.additionalData = additionalData
+        if (columnAdditionalData != -1) {
+            val additionalData = cursor.getString(columnAdditionalData)
+            Log.i(TAG, "additionalData: $additionalData")
+            videoLearningEventGson.additionalData = additionalData
+        }
 
         val columnNameVideoTitle = bundle.getString(BundleKeys.KEY_VIDEO_TITLE)
         val columnVideoTitle = cursor.getColumnIndex(columnNameVideoTitle)
