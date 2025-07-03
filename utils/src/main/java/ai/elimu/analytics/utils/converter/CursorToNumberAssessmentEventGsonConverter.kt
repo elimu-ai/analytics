@@ -61,7 +61,8 @@ object CursorToNumberAssessmentEventGsonConverter {
         Log.i(this::class.simpleName, "timeSpentMs: ${timeSpentMs}")
         numberAssessmentEventGson.timeSpentMs = timeSpentMs
 
-        val columnAdditionalData: Int = cursor.getColumnIndex(BundleKeys.KEY_ADDITIONAL_DATA)
+        val columnNameAdditionalData = bundle.getString(BundleKeys.KEY_ADDITIONAL_DATA)
+        val columnAdditionalData: Int = cursor.getColumnIndex(columnNameAdditionalData)
         if (columnAdditionalData != -1) {
             val additionalData: String = cursor.getString(columnAdditionalData)
             Log.i(this::class.simpleName, "additionalData: ${additionalData}")
