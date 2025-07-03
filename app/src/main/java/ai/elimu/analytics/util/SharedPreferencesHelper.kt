@@ -21,7 +21,6 @@ object SharedPreferencesHelper {
 
     @JvmStatic
     fun getAppVersionCode(context: Context): Int {
-        Timber.i("getAppVersionCode")
         val sharedPreferences = context.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE)
         return sharedPreferences.getInt(PREF_APP_VERSION_CODE, 0)
     }
@@ -36,7 +35,6 @@ object SharedPreferencesHelper {
 
     @JvmStatic
     fun getLanguage(context: Context): Language? {
-        Timber.i("getLanguage")
         val sharedPreferences = context.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE)
         val languageAsString = sharedPreferences.getString(PREF_LANGUAGE, null)
         return if (TextUtils.isEmpty(languageAsString)) {
