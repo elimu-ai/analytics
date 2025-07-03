@@ -17,8 +17,6 @@ object VersionHelper {
      */
     @JvmStatic
     fun getAppVersionCode(context: Context): Int {
-        Timber.i("getAppVersionCode")
-
         try {
             val packageInfo = context.packageManager.getPackageInfo(context.packageName, 0)
             return packageInfo.versionCode
