@@ -66,7 +66,6 @@ fun EventType.getUploadCsvFile(context: Context,
                                date: String): File {
 
     val csvFileName = androidId + "_" + versionCode + "_${this.type}_" + date + ".csv"
-    Timber.i("csvFilename: $csvFileName")
 
     val filesDir = context.filesDir
     val language = SharedPreferencesHelper.getLanguage(context)
