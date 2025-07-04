@@ -23,15 +23,4 @@ class LetterSoundAssessmentEvent : AssessmentEvent() {
      * In this case, the `letterSoundId` will be `null`.
      */
     var letterSoundId: Long? = null
-
-    /**
-     * A value in the range [0.0, 1.0].
-     */
-    var masteryScore: Float = 0f
-
-    /**
-     * The number of milliseconds passed between the student opening the assessment task
-     * and submitting a response. E.g. `15000`.
-     */
-    var timeSpentMs: Long = 0L
 }
