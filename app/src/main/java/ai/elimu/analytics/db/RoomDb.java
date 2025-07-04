@@ -504,12 +504,12 @@ public abstract class RoomDb extends RoomDatabase {
             database.execSQL("ALTER TABLE NumberLearningEvent_tmp RENAME TO NumberLearningEvent");
 
             database.execSQL("CREATE TABLE IF NOT EXISTS `StoryBookLearningEvent_tmp` (`storyBookTitle` TEXT NOT NULL, `storyBookId` INTEGER NOT NULL, `learningEventType` TEXT, `androidId` TEXT NOT NULL, `packageName` TEXT NOT NULL, `timestamp` INTEGER NOT NULL, `additionalData` TEXT, `researchExperiment` TEXT, `experimentGroup` TEXT, `id` INTEGER PRIMARY KEY AUTOINCREMENT)");
-            database.execSQL("INSERT INTO StoryBookLearningEvent_tmp(storyBookTitle, storyBookId, storyBookSymbol, learningEventType, androidId, packageName, timestamp, additionalData, researchExperiment, experimentGroup, id) SELECT storyBookTitle, storyBookId, storyBookSymbol, learningEventType, androidId, packageName, time, additionalData, researchExperiment, experimentGroup, id FROM StoryBookLearningEvent");
+            database.execSQL("INSERT INTO StoryBookLearningEvent_tmp(storyBookTitle, storyBookId, learningEventType, androidId, packageName, timestamp, additionalData, researchExperiment, experimentGroup, id) SELECT storyBookTitle, storyBookId, learningEventType, androidId, packageName, time, additionalData, researchExperiment, experimentGroup, id FROM StoryBookLearningEvent");
             database.execSQL("DROP TABLE StoryBookLearningEvent");
             database.execSQL("ALTER TABLE StoryBookLearningEvent_tmp RENAME TO StoryBookLearningEvent");
 
             database.execSQL("CREATE TABLE IF NOT EXISTS `VideoLearningEvent_tmp` (`videoTitle` TEXT NOT NULL, `videoId` INTEGER NOT NULL, `learningEventType` TEXT, `androidId` TEXT NOT NULL, `packageName` TEXT NOT NULL, `timestamp` INTEGER NOT NULL, `additionalData` TEXT, `researchExperiment` TEXT, `experimentGroup` TEXT, `id` INTEGER PRIMARY KEY AUTOINCREMENT)");
-            database.execSQL("INSERT INTO VideoLearningEvent_tmp(videoTitle, videoId, videoSymbol, learningEventType, androidId, packageName, timestamp, additionalData, researchExperiment, experimentGroup, id) SELECT videoTitle, videoId, videoSymbol, learningEventType, androidId, packageName, time, additionalData, researchExperiment, experimentGroup, id FROM VideoLearningEvent");
+            database.execSQL("INSERT INTO VideoLearningEvent_tmp(videoTitle, videoId, learningEventType, androidId, packageName, timestamp, additionalData, researchExperiment, experimentGroup, id) SELECT videoTitle, videoId, learningEventType, androidId, packageName, time, additionalData, researchExperiment, experimentGroup, id FROM VideoLearningEvent");
             database.execSQL("DROP TABLE VideoLearningEvent");
             database.execSQL("ALTER TABLE VideoLearningEvent_tmp RENAME TO VideoLearningEvent");
         }
