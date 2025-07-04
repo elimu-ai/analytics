@@ -66,7 +66,7 @@ class NumberLearningEventProvider : ContentProvider() {
             putString(BundleKeys.KEY_ID, NumberLearningEvent::id.name)
             putString(BundleKeys.KEY_ANDROID_ID, NumberLearningEvent::androidId.name)
             putString(BundleKeys.KEY_PACKAGE_NAME, NumberLearningEvent::packageName.name)
-            putString(BundleKeys.KEY_TIMESTAMP, NumberLearningEvent::time.name)
+            putString(BundleKeys.KEY_TIMESTAMP, NumberLearningEvent::timestamp.name)
             putString(BundleKeys.KEY_LEARNING_EVENT_TYPE, NumberLearningEvent::learningEventType.name)
             putString(BundleKeys.KEY_ADDITIONAL_DATA, NumberLearningEvent::additionalData.name)
             putString(BundleKeys.KEY_NUMBER_VALUE, NumberLearningEvent::numberValue.name)

@@ -66,7 +66,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                     eventDateFormat.format(event.time.time)
                 } else {
                     androidId = (event as LearningEvent).androidId
-                    eventDateFormat.format(event.time.time)
+                    eventDateFormat.format(event.timestamp.time)
                 }
                 if (date != dateOfPreviousEvent) {
                     // Reset file content

@@ -169,7 +169,7 @@ fun EventType.createEventFromIntent(context: Context, intent: Intent): BaseEntit
             LetterSoundLearningEvent().apply {
                 this.androidId = androidId
                 this.packageName = packageName
-                this.time = timestamp
+                this.timestamp = timestamp
                 this.additionalData = additionalData
                 this.researchExperiment = researchExperiment
                 this.experimentGroup = experimentGroup
@@ -222,7 +222,7 @@ fun EventType.createEventFromIntent(context: Context, intent: Intent): BaseEntit
             WordLearningEvent().apply {
                 this.androidId = androidId
                 this.packageName = packageName
-                this.time = timestamp
+                this.timestamp = timestamp
                 this.additionalData = additionalData
                 this.learningEventType = learningEventType
                 this.researchExperiment = researchExperiment
@@ -246,7 +246,7 @@ fun EventType.createEventFromIntent(context: Context, intent: Intent): BaseEntit
             Timber.i("numberId: $numberId. hasKey NUMBER_ID: ${intent.hasExtra(BundleKeys.KEY_NUMBER_ID)}")
 
             NumberLearningEvent(numberValue).apply {
-                this.time = timestamp
+                this.timestamp = timestamp
                 this.androidId = androidId
                 this.packageName = packageName
                 this.additionalData = additionalData
@@ -269,7 +269,7 @@ fun EventType.createEventFromIntent(context: Context, intent: Intent): BaseEntit
             StoryBookLearningEvent().apply {
                 this.androidId = androidId
                 this.packageName = packageName
-                this.time = timestamp
+                this.timestamp = timestamp
                 this.additionalData = additionalData
                 this.learningEventType = learningEventType
                 this.researchExperiment = researchExperiment
@@ -287,7 +287,7 @@ fun EventType.createEventFromIntent(context: Context, intent: Intent): BaseEntit
             Timber.i("videoId: $videoId")
 
             VideoLearningEvent().apply {
-                this.time = timestamp
+                this.timestamp = timestamp
                 this.androidId = androidId
                 this.packageName = packageName
                 this.additionalData = additionalData
