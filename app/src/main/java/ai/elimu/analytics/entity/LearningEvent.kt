@@ -15,7 +15,7 @@ abstract class LearningEvent : BaseEntity() {
     lateinit var packageName: String
 
     @JvmField
-    var time: Calendar = Calendar.getInstance()
+    var timestamp: Calendar = Calendar.getInstance()
 
     /**
      * Any additional data should be stored in the format of a JSON object.

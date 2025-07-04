@@ -28,7 +28,7 @@ fun LetterSoundAssessmentEvent.getCSVFields(): List<Any?> {
 fun LetterSoundLearningEvent.getCSVFields(): List<Any?> {
     return listOf(
         this.id,
-        this.time.timeInMillis / 1_000,
+        this.timestamp.timeInMillis / 1_000,
         this.packageName,
         this.additionalData,
         this.researchExperiment?.ordinal,
@@ -57,7 +57,7 @@ fun WordAssessmentEvent.getCSVFields(): List<Any?> {
 fun WordLearningEvent.getCSVFields(): List<Any?> {
     return listOf(
         this.id,
-        this.time.timeInMillis / 1_000,
+        this.timestamp.timeInMillis / 1_000,
         this.packageName,
         this.additionalData,
         this.learningEventType,
@@ -71,7 +71,7 @@ fun WordLearningEvent.getCSVFields(): List<Any?> {
 fun NumberLearningEvent.getCSVFields(): List<Any?> {
     return listOf(
         this.id,
-        this.time.timeInMillis / 1_000,
+        this.timestamp.timeInMillis / 1_000,
         this.packageName,
         this.additionalData,
         this.learningEventType,
@@ -88,7 +88,7 @@ fun NumberLearningEvent.getCSVFields(): List<Any?> {
 fun StoryBookLearningEvent.getCSVFields(): List<Any?> {
     return listOf(
         this.id,
-        this.time.timeInMillis / 1_000,
+        this.timestamp.timeInMillis / 1_000,
         this.packageName,
         this.additionalData,
         this.learningEventType,
@@ -102,7 +102,7 @@ fun StoryBookLearningEvent.getCSVFields(): List<Any?> {
 fun VideoLearningEvent.getCSVFields(): List<Any?> {
     return listOf(
         this.id,
-        this.time.timeInMillis / 1_000,
+        this.timestamp.timeInMillis / 1_000,
         this.packageName,
         this.additionalData,
         this.learningEventType,

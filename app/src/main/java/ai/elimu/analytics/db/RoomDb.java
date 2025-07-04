@@ -31,7 +31,7 @@ import ai.elimu.analytics.entity.WordAssessmentEvent;
 import ai.elimu.analytics.entity.WordLearningEvent;
 import timber.log.Timber;
 
-@Database(version = 20, entities = {
+@Database(version = 21, entities = {
         LetterSoundAssessmentEvent.class,
         LetterSoundLearningEvent.class,
 
@@ -94,7 +94,8 @@ public abstract class RoomDb extends RoomDatabase {
                                     MIGRATION_16_17,
                                     MIGRATION_17_18,
                                     MIGRATION_18_19,
-                                    MIGRATION_19_20
+                                    MIGRATION_19_20,
+                                    MIGRATION_20_21
                             )
                             .build();
                 }
@@ -476,6 +477,41 @@ public abstract class RoomDb extends RoomDatabase {
             String sql = "UPDATE `NumberAssessmentEvent` SET `numberId` = NULL WHERE `numberId` = 0";
             Timber.i("sql: %s", sql);
             database.execSQL(sql);
+        }
+    };
+
+    /**
+     * Rename [LearningEvent] columns from "time" to "timestamp"
+     */
+    private static final Migration MIGRATION_20_21 = new Migration(20, 21) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            Timber.i("migrate (" + database.getVersion() + " --> 21)");
+
+            database.execSQL("CREATE TABLE IF NOT EXISTS `LetterSoundLearningEvent_tmp` (`letterSoundId` INTEGER, `letterSoundLetterTexts` TEXT NOT NULL, `letterSoundSoundValuesIpa` TEXT NOT NULL, `androidId` TEXT NOT NULL, `packageName` TEXT NOT NULL, `timestamp` INTEGER NOT NULL, `additionalData` TEXT, `researchExperiment` TEXT, `experimentGroup` TEXT, `id` INTEGER PRIMARY KEY AUTOINCREMENT)");
+            database.execSQL("INSERT INTO LetterSoundLearningEvent_tmp(letterSoundId, letterSoundLetterTexts, letterSoundSoundValuesIpa, androidId, packageName, timestamp, additionalData, researchExperiment, experimentGroup, id) SELECT letterSoundId, letterSoundLetterTexts, letterSoundSoundValuesIpa, androidId, packageName, time, additionalData, researchExperiment, experimentGroup, id FROM LetterSoundLearningEvent");
+            database.execSQL("DROP TABLE LetterSoundLearningEvent");
+            database.execSQL("ALTER TABLE LetterSoundLearningEvent_tmp RENAME TO LetterSoundLearningEvent");
+
+            database.execSQL("CREATE TABLE IF NOT EXISTS `WordLearningEvent_tmp` (`wordId` INTEGER, `wordText` TEXT NOT NULL, `learningEventType` TEXT, `androidId` TEXT NOT NULL, `packageName` TEXT NOT NULL, `timestamp` INTEGER NOT NULL, `additionalData` TEXT, `researchExperiment` TEXT, `experimentGroup` TEXT, `id` INTEGER PRIMARY KEY AUTOINCREMENT)");
+            database.execSQL("INSERT INTO WordLearningEvent_tmp(wordId, wordText, learningEventType, androidId, packageName, timestamp, additionalData, researchExperiment, experimentGroup, id) SELECT wordId, wordText, learningEventType, androidId, packageName, time, additionalData, researchExperiment, experimentGroup, id FROM WordLearningEvent");
+            database.execSQL("DROP TABLE WordLearningEvent");
+            database.execSQL("ALTER TABLE WordLearningEvent_tmp RENAME TO WordLearningEvent");
+
+            database.execSQL("CREATE TABLE IF NOT EXISTS `NumberLearningEvent_tmp` (`numberValue` INTEGER NOT NULL, `numberId` INTEGER, `numberSymbol` TEXT, `learningEventType` TEXT, `androidId` TEXT NOT NULL, `packageName` TEXT NOT NULL, `timestamp` INTEGER NOT NULL, `additionalData` TEXT, `researchExperiment` TEXT, `experimentGroup` TEXT, `id` INTEGER PRIMARY KEY AUTOINCREMENT)");
+            database.execSQL("INSERT INTO NumberLearningEvent_tmp(numberValue, numberId, numberSymbol, learningEventType, androidId, packageName, timestamp, additionalData, researchExperiment, experimentGroup, id) SELECT numberValue, numberId, numberSymbol, learningEventType, androidId, packageName, time, additionalData, researchExperiment, experimentGroup, id FROM NumberLearningEvent");
+            database.execSQL("DROP TABLE NumberLearningEvent");
+            database.execSQL("ALTER TABLE NumberLearningEvent_tmp RENAME TO NumberLearningEvent");
+
+            database.execSQL("CREATE TABLE IF NOT EXISTS `StoryBookLearningEvent_tmp` (`storyBookTitle` TEXT NOT NULL, `storyBookId` INTEGER NOT NULL, `learningEventType` TEXT, `androidId` TEXT NOT NULL, `packageName` TEXT NOT NULL, `timestamp` INTEGER NOT NULL, `additionalData` TEXT, `researchExperiment` TEXT, `experimentGroup` TEXT, `id` INTEGER PRIMARY KEY AUTOINCREMENT)");
+            database.execSQL("INSERT INTO StoryBookLearningEvent_tmp(storyBookTitle, storyBookId, learningEventType, androidId, packageName, timestamp, additionalData, researchExperiment, experimentGroup, id) SELECT storyBookTitle, storyBookId, learningEventType, androidId, packageName, time, additionalData, researchExperiment, experimentGroup, id FROM StoryBookLearningEvent");
+            database.execSQL("DROP TABLE StoryBookLearningEvent");
+            database.execSQL("ALTER TABLE StoryBookLearningEvent_tmp RENAME TO StoryBookLearningEvent");
+
+            database.execSQL("CREATE TABLE IF NOT EXISTS `VideoLearningEvent_tmp` (`videoId` INTEGER, `videoTitle` TEXT NOT NULL, `learningEventType` TEXT, `androidId` TEXT NOT NULL, `packageName` TEXT NOT NULL, `timestamp` INTEGER NOT NULL, `additionalData` TEXT, `researchExperiment` TEXT, `experimentGroup` TEXT, `id` INTEGER PRIMARY KEY AUTOINCREMENT)");
+            database.execSQL("INSERT INTO VideoLearningEvent_tmp(videoId, videoTitle, learningEventType, androidId, packageName, timestamp, additionalData, researchExperiment, experimentGroup, id) SELECT videoId, videoTitle, learningEventType, androidId, packageName, time, additionalData, researchExperiment, experimentGroup, id FROM VideoLearningEvent");
+            database.execSQL("DROP TABLE VideoLearningEvent");
+            database.execSQL("ALTER TABLE VideoLearningEvent_tmp RENAME TO VideoLearningEvent");
         }
     };
 }

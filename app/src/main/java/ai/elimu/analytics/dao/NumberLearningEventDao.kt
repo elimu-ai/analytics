@@ -12,11 +12,12 @@ interface NumberLearningEventDao {
     fun insert(numberLearningEvent: NumberLearningEvent)
 
     @Query("SELECT * FROM NumberLearningEvent ORDER BY " +
-            "CASE WHEN :isDesc = 1 THEN time END DESC," +
-            "CASE WHEN :isDesc = 0 THEN time END ASC")
+            "CASE WHEN :isDesc = 1 THEN timestamp END DESC," +
+            "CASE WHEN :isDesc = 0 THEN timestamp END ASC"
+    )
     fun loadAllOrderedByTime(isDesc: Boolean = true): List<NumberLearningEvent>
 
-    @Query("SELECT * FROM NumberLearningEvent ORDER BY time")
+    @Query("SELECT * FROM NumberLearningEvent ORDER BY timestamp")
     fun loadAllOrderedByTime(): Cursor
 
     @Query("SELECT COUNT(*) FROM NumberLearningEvent")

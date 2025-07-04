@@ -16,12 +16,12 @@ interface VideoLearningEventDao {
 
     @Query(
         "SELECT * FROM VideoLearningEvent ORDER BY " +
-                "CASE WHEN :isDesc = 1 THEN time END DESC," +
-                "CASE WHEN :isDesc = 0 THEN time END ASC"
+                "CASE WHEN :isDesc = 1 THEN timestamp END DESC," +
+                "CASE WHEN :isDesc = 0 THEN timestamp END ASC"
     )
     fun loadAll(isDesc: Boolean = true): List<VideoLearningEvent>
 
-    @Query("SELECT * FROM VideoLearningEvent ORDER BY time")
+    @Query("SELECT * FROM VideoLearningEvent ORDER BY timestamp")
     fun loadAllToCursor(): Cursor
 
     @Query("SELECT COUNT(*) FROM VideoLearningEvent")
