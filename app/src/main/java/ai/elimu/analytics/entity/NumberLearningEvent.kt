@@ -3,6 +3,9 @@ package ai.elimu.analytics.entity
 import ai.elimu.model.v2.enums.analytics.LearningEventType
 import androidx.room.Entity
 
+/**
+ * Based on https://github.com/elimu-ai/webapp/blob/main/src/main/java/ai/elimu/entity/analytics/NumberLearningEvent.java
+ */
 @Entity
 class NumberLearningEvent (val numberValue: Int) : LearningEvent() {
     // TODO: numberValue
