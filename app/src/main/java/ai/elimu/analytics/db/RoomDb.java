@@ -31,7 +31,7 @@ import ai.elimu.analytics.entity.WordAssessmentEvent;
 import ai.elimu.analytics.entity.WordLearningEvent;
 import timber.log.Timber;
 
-@Database(version = 21, entities = {
+@Database(version = 22, entities = {
         LetterSoundAssessmentEvent.class,
         LetterSoundLearningEvent.class,
 
