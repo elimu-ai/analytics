@@ -93,7 +93,8 @@ public abstract class RoomDb extends RoomDatabase {
                                     MIGRATION_15_16,
                                     MIGRATION_16_17,
                                     MIGRATION_17_18,
-                                    MIGRATION_18_19
+                                    MIGRATION_18_19,
+                                    MIGRATION_19_20
                             )
                             .build();
                 }
@@ -462,6 +463,17 @@ public abstract class RoomDb extends RoomDatabase {
             Timber.i("migrate (" + database.getVersion() + " --> 19)");
 
             String sql = "CREATE TABLE IF NOT EXISTS `NumberAssessmentEvent` (`masteryScore` REAL NOT NULL, `timeSpentMs` INTEGER NOT NULL, `numberValue` INTEGER NOT NULL, `numberId` INTEGER, `androidId` TEXT NOT NULL, `packageName` TEXT NOT NULL, `time` INTEGER NOT NULL, `additionalData` TEXT, `researchExperiment` TEXT, `experimentGroup` TEXT, `id` INTEGER PRIMARY KEY AUTOINCREMENT)";
+            Timber.i("sql: %s", sql);
+            database.execSQL(sql);
+        }
+    };
+
+    private static final Migration MIGRATION_19_20 = new Migration(19, 20) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            Timber.i("migrate (" + database.getVersion() + " --> 20)");
+
+            String sql = "UPDATE `NumberAssessmentEvent` SET `numberId` = NULL WHERE `numberId` = 0";
             Timber.i("sql: %s", sql);
             database.execSQL(sql);
         }
