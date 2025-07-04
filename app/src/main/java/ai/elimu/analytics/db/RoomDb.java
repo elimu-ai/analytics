@@ -95,7 +95,8 @@ public abstract class RoomDb extends RoomDatabase {
                                     MIGRATION_17_18,
                                     MIGRATION_18_19,
                                     MIGRATION_19_20,
-                                    MIGRATION_20_21
+                                    MIGRATION_20_21,
+                                    MIGRATION_21_22
                             )
                             .build();
                 }
@@ -512,6 +513,21 @@ public abstract class RoomDb extends RoomDatabase {
             database.execSQL("INSERT INTO VideoLearningEvent_tmp(videoId, videoTitle, learningEventType, androidId, packageName, timestamp, additionalData, researchExperiment, experimentGroup, id) SELECT videoId, videoTitle, learningEventType, androidId, packageName, time, additionalData, researchExperiment, experimentGroup, id FROM VideoLearningEvent");
             database.execSQL("DROP TABLE VideoLearningEvent");
             database.execSQL("ALTER TABLE VideoLearningEvent_tmp RENAME TO VideoLearningEvent");
+        }
+    };
+
+    /**
+     * Change from `storyBookId INTEGER NOT NULL` to `storyBookId INTEGER`
+     */
+    private static final Migration MIGRATION_21_22 = new Migration(21, 22) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            Timber.i("migrate (" + database.getVersion() + " --> 22)");
+
+            database.execSQL("CREATE TABLE IF NOT EXISTS `StoryBookLearningEvent_tmp` (`storyBookTitle` TEXT NOT NULL, `storyBookId` INTEGER, `learningEventType` TEXT, `androidId` TEXT NOT NULL, `packageName` TEXT NOT NULL, `timestamp` INTEGER NOT NULL, `additionalData` TEXT, `researchExperiment` TEXT, `experimentGroup` TEXT, `id` INTEGER PRIMARY KEY AUTOINCREMENT)");
+            database.execSQL("INSERT INTO StoryBookLearningEvent_tmp(storyBookTitle, storyBookId, learningEventType, androidId, packageName, timestamp, additionalData, researchExperiment, experimentGroup, id) SELECT storyBookTitle, storyBookId, learningEventType, androidId, packageName, timestamp, additionalData, researchExperiment, experimentGroup, id FROM StoryBookLearningEvent");
+            database.execSQL("DROP TABLE StoryBookLearningEvent");
+            database.execSQL("ALTER TABLE StoryBookLearningEvent_tmp RENAME TO StoryBookLearningEvent");
         }
     };
 }

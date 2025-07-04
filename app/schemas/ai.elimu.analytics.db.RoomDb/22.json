@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 22,
-    "identityHash": "7590e1363cca43a93a97661ffe894cae",
+    "identityHash": "b1815e36c0eca51f60251a0aebf7f0d4",
     "entities": [
       {
         "tableName": "LetterSoundAssessmentEvent",
@@ -435,7 +435,7 @@
       },
       {
         "tableName": "StoryBookLearningEvent",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`storyBookTitle` TEXT NOT NULL, `storyBookId` INTEGER NOT NULL, `learningEventType` TEXT, `androidId` TEXT NOT NULL, `packageName` TEXT NOT NULL, `timestamp` INTEGER NOT NULL, `additionalData` TEXT, `researchExperiment` TEXT, `experimentGroup` TEXT, `id` INTEGER PRIMARY KEY AUTOINCREMENT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`storyBookTitle` TEXT NOT NULL, `storyBookId` INTEGER, `learningEventType` TEXT, `androidId` TEXT NOT NULL, `packageName` TEXT NOT NULL, `timestamp` INTEGER NOT NULL, `additionalData` TEXT, `researchExperiment` TEXT, `experimentGroup` TEXT, `id` INTEGER PRIMARY KEY AUTOINCREMENT)",
         "fields": [
           {
             "fieldPath": "storyBookTitle",
@@ -446,8 +446,7 @@
           {
             "fieldPath": "storyBookId",
             "columnName": "storyBookId",
-            "affinity": "INTEGER",
-            "notNull": true
+            "affinity": "INTEGER"
           },
           {
             "fieldPath": "learningEventType",
@@ -569,7 +568,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '7590e1363cca43a93a97661ffe894cae')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'b1815e36c0eca51f60251a0aebf7f0d4')"
     ]
   }
 }

@@ -265,6 +265,11 @@ fun EventType.createEventFromIntent(context: Context, intent: Intent): BaseEntit
 
             val storyBookId = intent.getLongExtra(BundleKeys.KEY_STORYBOOK_ID, 0)
             Timber.i("storyBookId: $storyBookId")
+            if (storyBookId > 0) {
+                StoryBookLearningEvent().apply {
+                    this.storyBookId = storyBookId
+                }
+            }
 
             StoryBookLearningEvent().apply {
                 this.androidId = androidId
@@ -275,7 +280,6 @@ fun EventType.createEventFromIntent(context: Context, intent: Intent): BaseEntit
                 this.researchExperiment = researchExperiment
                 this.experimentGroup = experimentGroup
                 this.storyBookTitle = storyBookTitle
-                this.storyBookId = storyBookId
             }
         }
 
