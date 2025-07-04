@@ -19,7 +19,7 @@ abstract class AssessmentEvent : BaseEntity() {
     /**
      * A value in the range [0.0, 1.0].
      */
-    var masteryScore: Float = 0f
+    var masteryScore: Float = -1f
 
     /**
      * The number of milliseconds passed between the student opening the assessment task
