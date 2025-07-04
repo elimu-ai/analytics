@@ -7,7 +7,6 @@ import androidx.room.Entity
 class StoryBookLearningEvent : LearningEvent() {
     lateinit var storyBookTitle: String
 
-    @JvmField
     var storyBookId: Long = 0L
 
     @Deprecated("Will be replaced by `additionalData`")

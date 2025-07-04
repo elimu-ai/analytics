@@ -5,7 +5,6 @@ import androidx.room.PrimaryKey
 
 @Entity
 abstract class BaseEntity {
-    @JvmField
     @PrimaryKey(autoGenerate = true)
     var id: Long? = null
 }

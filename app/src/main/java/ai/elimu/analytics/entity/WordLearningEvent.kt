@@ -5,10 +5,9 @@ import androidx.room.Entity
 
 @Entity
 class WordLearningEvent : LearningEvent() {
-    @JvmField
-    var wordId: Long? = null
-
     lateinit var wordText: String
+
+    var wordId: Long? = null
 
     @Deprecated("Will be replaced by `additionalData`")
     var learningEventType: LearningEventType? = null

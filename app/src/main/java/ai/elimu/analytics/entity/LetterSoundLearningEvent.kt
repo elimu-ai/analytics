@@ -4,12 +4,9 @@ import androidx.room.Entity
 
 @Entity
 class LetterSoundLearningEvent : LearningEvent() {
-    @JvmField
     var letterSoundId: Long? = null
 
-    @JvmField
-    var letterSoundLetterTexts: Array<String> = arrayOf()
+    lateinit var letterSoundLetterTexts: Array<String>
 
-    @JvmField
-    var letterSoundSoundValuesIpa: Array<String> = arrayOf()
+    lateinit var letterSoundSoundValuesIpa: Array<String>
 }
