@@ -12,6 +12,10 @@ class NumberLearningEvent (val numberValue: Int) : LearningEvent() {
 
     var numberSymbol: String? = null
 
+    /**
+     * This field might not be included, e.g. if the event occurred in a 3rd-party app that did not
+     * load the content from the elimu.ai Content Provider. In that case, this field will be {@code null}.
+     */
     var numberId: Long? = null
 
     @Deprecated("Will be replaced by `additionalData`")
