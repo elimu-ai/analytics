@@ -10,5 +10,5 @@ class NumberAssessmentEvent : AssessmentEvent() {
 
     var numberValue: Int = Int.MIN_VALUE
 
-    var numberId: Long? = 0
+    var numberId: Long? = null
 }
