@@ -132,8 +132,14 @@ fun EventType.createEventFromIntent(context: Context, intent: Intent): BaseEntit
             val letterSoundLetters: String = intent.getStringExtra(BundleKeys.KEY_LETTER_SOUND_LETTERS) ?: ""
             Timber.i("letterSoundLetters: \"${letterSoundLetters}\"")
 
+            val letterSoundLettersStringArrayList: ArrayList<String> = intent.getStringArrayListExtra("letter_sound_letters_array_list") ?: arrayListOf()
+            Timber.i("letterSoundLettersStringArrayList: ${letterSoundLettersStringArrayList}")
+
             val letterSoundSounds: String = intent.getStringExtra(BundleKeys.KEY_LETTER_SOUND_SOUNDS) ?: ""
             Timber.i("letterSoundSounds: \"${letterSoundSounds}\"")
+
+            val letterSoundSoundsStringArrayList: ArrayList<String> = intent.getStringArrayListExtra("letter_sound_sounds_array_list") ?: arrayListOf()
+            Timber.i("letterSoundSoundsStringArrayList: ${letterSoundSoundsStringArrayList}")
 
             val letterSoundId: Long = intent.getLongExtra(BundleKeys.KEY_LETTER_SOUND_ID, 0)
             Timber.i("letterSoundId: ${letterSoundId}")
@@ -157,8 +163,14 @@ fun EventType.createEventFromIntent(context: Context, intent: Intent): BaseEntit
             val letterSoundLetters = intent.getStringArrayExtra(BundleKeys.KEY_LETTER_SOUND_LETTER_TEXTS) ?: emptyArray()
             Timber.i("letterSoundLetters: $letterSoundLetters")
 
+            val letterSoundLettersStringArrayList: ArrayList<String> = intent.getStringArrayListExtra("letter_sound_letters_array_list") ?: arrayListOf()
+            Timber.i("letterSoundLettersStringArrayList: ${letterSoundLettersStringArrayList}")
+
             val letterSoundSounds = intent.getStringArrayExtra(BundleKeys.KEY_LETTER_SOUND_SOUND_VALUES_IPA) ?: emptyArray()
             Timber.i("letterSoundSounds: $letterSoundSounds")
+
+            val letterSoundSoundsStringArrayList: ArrayList<String> = intent.getStringArrayListExtra("letter_sound_sounds_array_list") ?: arrayListOf()
+            Timber.i("letterSoundSoundsStringArrayList: ${letterSoundSoundsStringArrayList}")
 
             var letterSoundId: Long? = null
             if (intent.hasExtra(BundleKeys.KEY_LETTER_SOUND_ID)) {
