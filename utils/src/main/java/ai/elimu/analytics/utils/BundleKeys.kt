@@ -23,10 +23,6 @@ object BundleKeys {
     const val KEY_TIMESTAMP = "timestamp"
     const val KEY_ADDITIONAL_DATA = "additional_data"
 
-    // LearningEvent
-    @Deprecated("Will be replaced by `additionalData`")
-    const val KEY_LEARNING_EVENT_TYPE = "learning_event_type"
-
     // AssessmentEvent
     const val KEY_TIME_SPENT_MS = "time_spent_ms"
     const val KEY_MASTERY_SCORE = "mastery_score"

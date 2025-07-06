@@ -67,7 +67,6 @@ class VideoLearningEventProvider : ContentProvider() {
             putString(BundleKeys.KEY_ANDROID_ID, VideoLearningEvent::androidId.name)
             putString(BundleKeys.KEY_PACKAGE_NAME, VideoLearningEvent::packageName.name)
             putString(BundleKeys.KEY_TIMESTAMP, VideoLearningEvent::timestamp.name)
-            putString(BundleKeys.KEY_LEARNING_EVENT_TYPE, VideoLearningEvent::learningEventType.name)
             putString(BundleKeys.KEY_ADDITIONAL_DATA, VideoLearningEvent::additionalData.name)
             putString(BundleKeys.KEY_VIDEO_TITLE, VideoLearningEvent::videoTitle.name)
             putString(BundleKeys.KEY_VIDEO_ID, VideoLearningEvent::videoId.name)

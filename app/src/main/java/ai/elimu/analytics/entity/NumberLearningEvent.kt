@@ -1,6 +1,5 @@
 package ai.elimu.analytics.entity
 
-import ai.elimu.model.v2.enums.analytics.LearningEventType
 import androidx.room.Entity
 
 /**
@@ -17,7 +16,4 @@ class NumberLearningEvent (val numberValue: Int) : LearningEvent() {
      * load the content from the elimu.ai Content Provider. In that case, this field will be {@code null}.
      */
     var numberId: Long? = null
-
-    @Deprecated("Will be replaced by `additionalData`")
-    var learningEventType: LearningEventType? = null
 }

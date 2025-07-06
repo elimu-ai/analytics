@@ -1,6 +1,5 @@
 package ai.elimu.analytics.entity
 
-import ai.elimu.model.v2.enums.analytics.LearningEventType
 import androidx.room.Entity
 
 /**
@@ -15,7 +14,4 @@ class WordLearningEvent : LearningEvent() {
      * not load the content from the elimu.ai Content Provider. In that case, this field will be {@code null}.
      */
     var wordId: Long? = null
-
-    @Deprecated("Will be replaced by `additionalData`")
-    var learningEventType: LearningEventType? = null
 }
