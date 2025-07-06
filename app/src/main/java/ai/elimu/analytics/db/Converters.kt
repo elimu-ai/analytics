@@ -1,7 +1,5 @@
 package ai.elimu.analytics.db
 
-import ai.elimu.model.v2.enums.analytics.LearningEventType
-import android.text.TextUtils
 import androidx.room.TypeConverter
 import java.util.Calendar
 
@@ -22,24 +20,6 @@ object Converters {
     fun toLong(calendar: Calendar): Long {
         return calendar.getTimeInMillis()
     }
-
-
-    @JvmStatic
-    @TypeConverter
-    fun fromString(value: String?): LearningEventType? {
-        var learningEventType: LearningEventType? = null
-        if (!TextUtils.isEmpty(value)) {
-            learningEventType = LearningEventType.valueOf(value!!)
-        }
-        return learningEventType
-    }
-
-    @JvmStatic
-    @TypeConverter
-    fun toString(learningEventType: LearningEventType?): String? {
-        return learningEventType?.toString()
-    }
-
 
     @JvmStatic
     @TypeConverter
