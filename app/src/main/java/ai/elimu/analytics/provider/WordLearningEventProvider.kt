@@ -67,7 +67,6 @@ class WordLearningEventProvider : ContentProvider() {
             putString(BundleKeys.KEY_ANDROID_ID, WordLearningEvent::androidId.name)
             putString(BundleKeys.KEY_PACKAGE_NAME, WordLearningEvent::packageName.name)
             putString(BundleKeys.KEY_TIMESTAMP, WordLearningEvent::timestamp.name)
-            putString(BundleKeys.KEY_LEARNING_EVENT_TYPE, WordLearningEvent::learningEventType.name)
             putString(BundleKeys.KEY_ADDITIONAL_DATA, WordLearningEvent::additionalData.name)
             putString(BundleKeys.KEY_WORD_TEXT, WordLearningEvent::wordText.name)
             putString(BundleKeys.KEY_WORD_ID, WordLearningEvent::wordId.name)
