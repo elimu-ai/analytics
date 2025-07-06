@@ -68,7 +68,6 @@ class LetterSoundLearningEventProvider : ContentProvider() {
             putString(BundleKeys.KEY_ANDROID_ID, WordLearningEvent::androidId.name)
             putString(BundleKeys.KEY_PACKAGE_NAME, WordLearningEvent::packageName.name)
             putString(BundleKeys.KEY_TIMESTAMP, WordLearningEvent::timestamp.name)
-            putString(BundleKeys.KEY_LEARNING_EVENT_TYPE, WordLearningEvent::learningEventType.name)
             putString(BundleKeys.KEY_ADDITIONAL_DATA, WordLearningEvent::additionalData.name)
             putString(BundleKeys.KEY_LETTER_SOUND_LETTERS, LetterSoundLearningEvent::letterSoundLetterTexts.name)
             putString(BundleKeys.KEY_LETTER_SOUND_SOUNDS, LetterSoundLearningEvent::letterSoundSoundValuesIpa.name)

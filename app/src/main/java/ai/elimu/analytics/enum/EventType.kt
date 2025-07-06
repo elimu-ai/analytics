@@ -20,7 +20,6 @@ import ai.elimu.analytics.task.CSVHeaders
 import ai.elimu.analytics.util.SharedPreferencesHelper
 import ai.elimu.analytics.utils.BundleKeys
 import ai.elimu.analytics.utils.research.ExperimentAssignmentHelper
-import ai.elimu.model.v2.enums.analytics.LearningEventType
 import android.content.Context
 import android.content.Intent
 import android.provider.Settings
@@ -106,16 +105,6 @@ fun EventType.createEventFromIntent(context: Context, intent: Intent): BaseEntit
 
     val additionalData: String? = intent.getStringExtra(BundleKeys.KEY_ADDITIONAL_DATA)
     Timber.i("additionalData: \"${additionalData}\"")
-
-    val learningEventTypeAsString = intent.getStringExtra(BundleKeys.KEY_LEARNING_EVENT_TYPE)
-    Timber.i("learningEventTypeAsString: \"$learningEventTypeAsString\"")
-    val learningEventType = runCatching {
-        learningEventTypeAsString?.let {
-            LearningEventType.valueOf(it)
-        }
-    }.getOrNull()
-
-    Timber.i("learningEventType: $learningEventType")
 
     val researchExperiment = ExperimentAssignmentHelper.CURRENT_EXPERIMENT
     val experimentGroup = ExperimentAssignmentHelper.getExperimentGroup(context)
@@ -224,7 +213,6 @@ fun EventType.createEventFromIntent(context: Context, intent: Intent): BaseEntit
                 this.packageName = packageName
                 this.timestamp = timestamp
                 this.additionalData = additionalData
-                this.learningEventType = learningEventType
                 this.researchExperiment = researchExperiment
                 this.experimentGroup = experimentGroup
                 this.wordText = wordText
@@ -252,7 +240,6 @@ fun EventType.createEventFromIntent(context: Context, intent: Intent): BaseEntit
                 this.additionalData = additionalData
                 this.researchExperiment = researchExperiment
                 this.experimentGroup = experimentGroup
-                this.learningEventType = learningEventType
                 this.numberSymbol = numberSymbol
                 this.numberId = numberId
             }
@@ -276,7 +263,6 @@ fun EventType.createEventFromIntent(context: Context, intent: Intent): BaseEntit
                 this.packageName = packageName
                 this.timestamp = timestamp
                 this.additionalData = additionalData
-                this.learningEventType = learningEventType
                 this.researchExperiment = researchExperiment
                 this.experimentGroup = experimentGroup
                 this.storyBookTitle = storyBookTitle
@@ -295,7 +281,6 @@ fun EventType.createEventFromIntent(context: Context, intent: Intent): BaseEntit
                 this.androidId = androidId
                 this.packageName = packageName
                 this.additionalData = additionalData
-                this.learningEventType = learningEventType
                 this.researchExperiment = researchExperiment
                 this.experimentGroup = experimentGroup
                 this.videoTitle = videoTitle
