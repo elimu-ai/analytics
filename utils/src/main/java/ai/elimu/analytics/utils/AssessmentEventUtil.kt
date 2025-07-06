@@ -9,7 +9,6 @@ import ai.elimu.model.v2.gson.content.WordGson
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import org.json.JSONObject
@@ -52,8 +51,20 @@ object AssessmentEventUtil {
             }
             broadcastIntent.putExtra(BundleKeys.KEY_LETTER_SOUND_LETTERS,
                 letterSoundGson.letters.stream().map(LetterGson::getText).collect(Collectors.joining()))
+
+            val letterSoundLettersStringArrayList: ArrayList<String> = ArrayList(
+                letterSoundGson.letters.map { it.text }
+            )
+            broadcastIntent.putStringArrayListExtra("letter_sound_letters_array_list", letterSoundLettersStringArrayList)
+
             broadcastIntent.putExtra(BundleKeys.KEY_LETTER_SOUND_SOUNDS,
                 letterSoundGson.sounds.stream().map(SoundGson::getValueIpa).collect(Collectors.joining()))
+
+            val letterSoundSoundsStringArrayList: ArrayList<String> = ArrayList(
+                letterSoundGson.sounds.map { it.valueIpa }
+            )
+            broadcastIntent.putStringArrayListExtra("letter_sound_sounds_array_list", letterSoundSoundsStringArrayList)
+
             letterSoundGson.id?.let {
                 broadcastIntent.putExtra(BundleKeys.KEY_LETTER_SOUND_ID, letterSoundGson.id)
             }
