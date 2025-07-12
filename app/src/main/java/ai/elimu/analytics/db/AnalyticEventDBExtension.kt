@@ -70,7 +70,6 @@ fun BaseEntity.persistEvent(context: Context) {
             is NumberLearningEvent -> {
                 roomDb.numberLearningEventDao().insert(this)
             }
-            // TODO: number assessment
 
             is StoryBookLearningEvent -> {
                 roomDb.storyBookLearningEventDao().insert(this)

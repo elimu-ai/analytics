@@ -7,7 +7,6 @@ enum class IntentAction(val action: String) {
     WORD_ASSESSMENT("ai.elimu.intent.action.WORD_ASSESSMENT_EVENT"),
     WORD_LEARNING("ai.elimu.intent.action.WORD_LEARNING_EVENT"),
 
-    // TODO: number assessment
     NUMBER_LEARNING("ai.elimu.intent.action.NUMBER_LEARNING_EVENT"),
 
     STORYBOOK_LEARNING("ai.elimu.intent.action.STORYBOOK_LEARNING_EVENT"),

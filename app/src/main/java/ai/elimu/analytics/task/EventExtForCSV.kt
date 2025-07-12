@@ -83,8 +83,6 @@ fun NumberLearningEvent.getCSVFields(): List<Any?> {
     )
 }
 
-// TODO: number assessment
-
 fun StoryBookLearningEvent.getCSVFields(): List<Any?> {
     return listOf(
         this.id,
@@ -122,7 +120,6 @@ fun BaseEntity.getCSVFields(eventType: EventType): List<Any?> {
         EventType.WORD_LEARNING -> (this as WordLearningEvent).getCSVFields()
 
         EventType.NUMBER_LEARNING -> (this as NumberLearningEvent).getCSVFields()
-        // TODO: number assessment
 
         EventType.STORY_BOOK_LEARNING -> (this as StoryBookLearningEvent).getCSVFields()
 
