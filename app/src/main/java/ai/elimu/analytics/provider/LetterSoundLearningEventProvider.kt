@@ -47,7 +47,7 @@ class LetterSoundLearningEventProvider : ContentProvider() {
             // Get the Room Cursor
             val roomDb = RoomDb.getDatabase(context)
             val letterSoundLearningEventDao = roomDb.letterSoundLearningEventDao()
-            val cursor = letterSoundLearningEventDao.loadAllOrderedByTimeCursor()
+            val cursor = letterSoundLearningEventDao.loadAllOrderedByTimestampDesc()
             Timber.i("cursor: $cursor")
             cursor.setNotificationUri(context.contentResolver, uri)
             cursor.extras = prepareBundle()
