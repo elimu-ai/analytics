@@ -6,6 +6,7 @@ import ai.elimu.analytics.utils.converter.CursorToNumberLearningEventGsonConvert
 import ai.elimu.analytics.utils.converter.CursorToVideoLearningEventGsonConverter
 import ai.elimu.analytics.utils.converter.CursorToWordAssessmentEventGsonConverter
 import ai.elimu.analytics.utils.converter.CursorToWordLearningEventGsonConverter
+import ai.elimu.analytics.utils.enum.SortOrder
 import ai.elimu.model.v2.gson.analytics.LetterSoundAssessmentEventGson
 import ai.elimu.model.v2.gson.analytics.NumberAssessmentEventGson
 import ai.elimu.model.v2.gson.analytics.NumberLearningEventGson
@@ -23,6 +24,7 @@ object EventProviderUtil {
     private const val TAG = "EventProviderUtil"
 
     fun getLetterSoundAssessmentEventGsons(
+        sortOrder: SortOrder? = SortOrder.DESC,
         context: Context,
         analyticsApplicationId: String
     ): List<LetterSoundAssessmentEventGson> {
@@ -63,10 +65,8 @@ object EventProviderUtil {
         return letterSoundAssessmentEventGsons
     }
 
-    /**
-     * Ordered by timestamp in descending order.
-     */
     fun getWordLearningEventGsons(
+        sortOrder: SortOrder? = SortOrder.DESC,
         context: Context,
         analyticsApplicationId: String
     ): List<WordLearningEventGson> {
@@ -131,6 +131,7 @@ object EventProviderUtil {
     }
 
     fun getIdsOfWordsInWordLearningEvents(
+        sortOrder: SortOrder? = SortOrder.DESC,
         context: Context,
         analyticsApplicationId: String
     ): Set<Long> {
@@ -192,6 +193,7 @@ object EventProviderUtil {
     }
 
     fun getWordAssessmentEventGsons(
+        sortOrder: SortOrder? = SortOrder.DESC,
         context: Context,
         analyticsApplicationId: String
     ): List<WordAssessmentEventGson> {
@@ -256,6 +258,7 @@ object EventProviderUtil {
     }
 
     fun getWordAssessmentEventGsonsByWord(
+        sortOrder: SortOrder? = SortOrder.DESC,
         wordGson: WordGson,
         context: Context,
         analyticsApplicationId: String
@@ -321,6 +324,7 @@ object EventProviderUtil {
     }
 
     fun getVideoLearningEventGSONs(
+        sortOrder: SortOrder? = SortOrder.DESC,
         context: Context,
         analyticsApplicationId: String
     ): List<VideoLearningEventGson> {
@@ -384,7 +388,11 @@ object EventProviderUtil {
         return videoLearningEventGSONs
     }
 
-    fun getNumberAssessmentEventGsons(context: Context, analyticsApplicationId: String): List<NumberAssessmentEventGson> {
+    fun getNumberAssessmentEventGsons(
+        sortOrder: SortOrder? = SortOrder.DESC,
+        context: Context,
+        analyticsApplicationId: String
+    ): List<NumberAssessmentEventGson> {
         Log.i(TAG, "getNumberAssessmentEventGsons")
 
         val numberAssessmentEventGsons: MutableList<NumberAssessmentEventGson> = ArrayList()
@@ -423,6 +431,7 @@ object EventProviderUtil {
     }
 
     fun getNumberLearningEventGSONs(
+        sortOrder: SortOrder? = SortOrder.DESC,
         context: Context,
         analyticsApplicationId: String
     ): List<NumberLearningEventGson> {
