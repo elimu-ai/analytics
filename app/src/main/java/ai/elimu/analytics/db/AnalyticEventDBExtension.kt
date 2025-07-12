@@ -28,7 +28,7 @@ fun EventType.getAllEvents(context: Context): List<BaseEntity> {
             roomDb.letterSoundLearningEventDao().loadAllOrderedByTimestampAsc()
         }
         EventType.STORY_BOOK_LEARNING -> {
-            roomDb.storyBookLearningEventDao().loadAll(isDesc = false)
+            roomDb.storyBookLearningEventDao().loadAllOrderedByTimestampAsc()
         }
         EventType.WORD_ASSESSMENT -> {
             roomDb.wordAssessmentEventDao().loadAllOrderedByTimeAsc()
