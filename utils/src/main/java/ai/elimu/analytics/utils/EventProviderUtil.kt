@@ -63,6 +63,9 @@ object EventProviderUtil {
         return letterSoundAssessmentEventGsons
     }
 
+    /**
+     * Ordered by timestamp in descending order.
+     */
     fun getWordLearningEventGsons(
         context: Context,
         analyticsApplicationId: String
