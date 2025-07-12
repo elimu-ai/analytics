@@ -46,7 +46,7 @@ class NumberLearningEventProvider : ContentProvider() {
             // Get the Room Cursor
             val roomDb = RoomDb.getDatabase(context)
             val numberLearningEventDao = roomDb.numberLearningEventDao()
-            val cursor = numberLearningEventDao.loadAllOrderedByTime()
+            val cursor = numberLearningEventDao.loadAllOrderedByTimestampDesc()
             Timber.i("cursor: $cursor")
             cursor.setNotificationUri(context.contentResolver, uri)
             cursor.extras = prepareBundle()

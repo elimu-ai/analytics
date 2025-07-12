@@ -40,7 +40,7 @@ fun EventType.getAllEvents(context: Context): List<BaseEntity> {
             roomDb.videoLearningEventDao().loadAllOrderedByTimestampAsc()
         }
         EventType.NUMBER_LEARNING -> {
-            roomDb.numberLearningEventDao().loadAllOrderedByTime(isDesc = false)
+            roomDb.numberLearningEventDao().loadAllOrderedByTimestampAsc()
         }
     }
 }
