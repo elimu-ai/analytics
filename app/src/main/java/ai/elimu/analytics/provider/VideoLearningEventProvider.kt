@@ -46,7 +46,7 @@ class VideoLearningEventProvider : ContentProvider() {
             // Get the Room Cursor
             val roomDb = RoomDb.getDatabase(context)
             val videoLearningEventDao = roomDb.videoLearningEventDao()
-            val cursor = videoLearningEventDao.loadAllToCursor()
+            val cursor = videoLearningEventDao.loadAllOrderedByTimestampDesc()
             Timber.i("cursor: $cursor")
             cursor.setNotificationUri(context.contentResolver, uri)
             cursor.extras = prepareBundle()

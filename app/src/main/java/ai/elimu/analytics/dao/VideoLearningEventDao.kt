@@ -14,15 +14,11 @@ interface VideoLearningEventDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(videoLearningEvent: VideoLearningEvent)
 
-    @Query(
-        "SELECT * FROM VideoLearningEvent ORDER BY " +
-                "CASE WHEN :isDesc = 1 THEN timestamp END DESC," +
-                "CASE WHEN :isDesc = 0 THEN timestamp END ASC"
-    )
-    fun loadAll(isDesc: Boolean = true): List<VideoLearningEvent>
+    @Query("SELECT * FROM VideoLearningEvent ORDER BY timestamp ASC")
+    fun loadAllOrderedByTimestampAsc(): List<VideoLearningEvent>
 
-    @Query("SELECT * FROM VideoLearningEvent ORDER BY timestamp")
-    fun loadAllToCursor(): Cursor
+    @Query("SELECT * FROM VideoLearningEvent ORDER BY timestamp DESC")
+    fun loadAllOrderedByTimestampDesc(): Cursor
 
     @Query("SELECT COUNT(*) FROM VideoLearningEvent")
     fun getCount(): Int
