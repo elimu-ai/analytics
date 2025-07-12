@@ -61,7 +61,7 @@ class LetterSoundAssessmentEventProvider : ContentProvider() {
                 // Get the Room Cursor
                 val roomDb = RoomDb.getDatabase(context)
                 val letterSoundAssessmentEventDao = roomDb.letterSoundAssessmentEventDao()
-                val cursor = letterSoundAssessmentEventDao.loadAllCursor()
+                val cursor = letterSoundAssessmentEventDao.loadAllOrderedByTimestampDesc()
                 Timber.i("cursor: ${cursor}")
                 cursor.setNotificationUri(context.contentResolver, uri)
                 cursor.extras = prepareBundle()
@@ -78,7 +78,7 @@ class LetterSoundAssessmentEventProvider : ContentProvider() {
                 // Get the Room Cursor
                 val roomDb = RoomDb.getDatabase(context)
                 val letterSoundAssessmentEventDao = roomDb.letterSoundAssessmentEventDao()
-                val cursor = letterSoundAssessmentEventDao.loadAllCursor(letterSoundId)
+                val cursor = letterSoundAssessmentEventDao.loadAllOrderedByTimestampDesc(letterSoundId)
                 Timber.i("cursor: ${cursor}")
                 cursor.setNotificationUri(context.contentResolver, uri)
                 cursor.extras = prepareBundle()

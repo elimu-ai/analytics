@@ -22,7 +22,7 @@ fun EventType.getAllEvents(context: Context): List<BaseEntity> {
     val roomDb = RoomDb.getDatabase(context)
     return when(this) {
         EventType.LETTER_SOUND_ASSESSMENT -> {
-            roomDb.letterSoundAssessmentEventDao().loadAll()
+            roomDb.letterSoundAssessmentEventDao().loadAllOrderedByTimestampAsc()
         }
         EventType.LETTER_SOUND_LEARNING -> {
             roomDb.letterSoundLearningEventDao().loadAllOrderedByTime()
