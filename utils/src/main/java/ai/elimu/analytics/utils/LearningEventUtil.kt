@@ -54,10 +54,20 @@ object LearningEventUtil {
                     .collect(Collectors.toList()).toTypedArray()
             )
 
+            val letterSoundLettersStringArrayList: ArrayList<String> = ArrayList(
+                letterSoundGson.letters.map { it.text }
+            )
+            broadcastIntent.putStringArrayListExtra("letter_sound_letters_array_list", letterSoundLettersStringArrayList)
+
             val letterSoundSoundValuesIpa = letterSoundGson.sounds.stream().map {
                 obj: SoundGson -> obj.valueIpa
             }.collect(Collectors.toList()).toTypedArray()
             broadcastIntent.putExtra(BundleKeys.KEY_LETTER_SOUND_SOUND_VALUES_IPA, letterSoundSoundValuesIpa)
+
+            val letterSoundSoundsStringArrayList: ArrayList<String> = ArrayList(
+                letterSoundGson.sounds.map { it.valueIpa }
+            )
+            broadcastIntent.putStringArrayListExtra("letter_sound_sounds_array_list", letterSoundSoundsStringArrayList)
 
             letterSoundGson.id?.let {
                 broadcastIntent.putExtra(BundleKeys.KEY_LETTER_SOUND_ID, letterSoundGson.id)
