@@ -47,7 +47,7 @@ class WordAssessmentEventProvider : ContentProvider() {
                 // Get the Room Cursor
                 val roomDb = RoomDb.getDatabase(context)
                 val wordAssessmentEventDao = roomDb.wordAssessmentEventDao()
-                val cursor = wordAssessmentEventDao.loadAllOrderedByTimeDesc()
+                val cursor = wordAssessmentEventDao.loadAllOrderedByTimestampDesc()
                 Timber.i("cursor: $cursor")
                 cursor.setNotificationUri(context.contentResolver, uri)
                 cursor.extras = prepareBundle()
@@ -64,7 +64,7 @@ class WordAssessmentEventProvider : ContentProvider() {
                 // Get the Room Cursor
                 val roomDb = RoomDb.getDatabase(context)
                 val wordAssessmentEventDao = roomDb.wordAssessmentEventDao()
-                val cursor = wordAssessmentEventDao.loadAllOrderedByTimeDesc(wordId)
+                val cursor = wordAssessmentEventDao.loadAllOrderedByTimestampDesc(wordId)
                 Timber.i("cursor: $cursor")
                 cursor.setNotificationUri(context.contentResolver, uri)
                 cursor.extras = prepareBundle()

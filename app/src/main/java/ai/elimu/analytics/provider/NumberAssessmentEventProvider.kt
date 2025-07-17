@@ -52,7 +52,7 @@ class NumberAssessmentEventProvider : ContentProvider() {
             // Get the Room Cursor
             val roomDb = RoomDb.getDatabase(context)
             val numberAssessmentEventDao = roomDb.numberAssessmentEventDao()
-            val cursor = numberAssessmentEventDao.loadAllOrderedByTimestampCursor(isDesc = true)
+            val cursor = numberAssessmentEventDao.loadAllOrderedByTimestampDesc()
             Timber.i("cursor: $cursor")
             cursor.setNotificationUri(context.contentResolver, uri)
             cursor.extras = prepareBundle()

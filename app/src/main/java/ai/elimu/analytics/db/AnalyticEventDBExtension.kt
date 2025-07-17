@@ -22,25 +22,25 @@ fun EventType.getAllEvents(context: Context): List<BaseEntity> {
     val roomDb = RoomDb.getDatabase(context)
     return when(this) {
         EventType.LETTER_SOUND_ASSESSMENT -> {
-            roomDb.letterSoundAssessmentEventDao().loadAll()
+            roomDb.letterSoundAssessmentEventDao().loadAllOrderedByTimestampAsc()
         }
         EventType.LETTER_SOUND_LEARNING -> {
-            roomDb.letterSoundLearningEventDao().loadAllOrderedByTime()
+            roomDb.letterSoundLearningEventDao().loadAllOrderedByTimestampAsc()
         }
         EventType.STORY_BOOK_LEARNING -> {
-            roomDb.storyBookLearningEventDao().loadAll(isDesc = false)
+            roomDb.storyBookLearningEventDao().loadAllOrderedByTimestampAsc()
         }
         EventType.WORD_ASSESSMENT -> {
-            roomDb.wordAssessmentEventDao().loadAllOrderedByTimeAsc()
+            roomDb.wordAssessmentEventDao().loadAllOrderedByTimestampAsc()
         }
         EventType.WORD_LEARNING -> {
-            roomDb.wordLearningEventDao().loadAllOrderedByTime(isDesc = false)
+            roomDb.wordLearningEventDao().loadAllOrderedByTimestampAsc()
         }
         EventType.VIDEO_LEARNING -> {
-            roomDb.videoLearningEventDao().loadAll(isDesc = false)
+            roomDb.videoLearningEventDao().loadAllOrderedByTimestampAsc()
         }
         EventType.NUMBER_LEARNING -> {
-            roomDb.numberLearningEventDao().loadAllOrderedByTime(isDesc = false)
+            roomDb.numberLearningEventDao().loadAllOrderedByTimestampAsc()
         }
     }
 }
@@ -70,7 +70,6 @@ fun BaseEntity.persistEvent(context: Context) {
             is NumberLearningEvent -> {
                 roomDb.numberLearningEventDao().insert(this)
             }
-            // TODO: number assessment
 
             is StoryBookLearningEvent -> {
                 roomDb.storyBookLearningEventDao().insert(this)

@@ -100,7 +100,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
         // Read all the events from the database
         val roomDb = RoomDb.getDatabase(applicationContext)
         val numberAssessmentEventDao = roomDb.numberAssessmentEventDao()
-        val events = numberAssessmentEventDao.loadAllOrderedByTimestamp(isAsc = true)
+        val events = numberAssessmentEventDao.loadAllOrderedByTimestampAsc()
         Timber.i("events.size: ${events.size}")
 
         // Generate one CSV file per day of events, e.g:

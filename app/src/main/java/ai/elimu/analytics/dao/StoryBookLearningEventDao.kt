@@ -10,11 +10,8 @@ interface StoryBookLearningEventDao {
     @Insert
     fun insert(storyBookLearningEvent: StoryBookLearningEvent)
 
-    @Query("SELECT * FROM StoryBookLearningEvent ORDER BY " +
-            "CASE WHEN :isDesc = 1 THEN timestamp END DESC," +
-            "CASE WHEN :isDesc = 0 THEN timestamp END ASC"
-    )
-    fun loadAll(isDesc: Boolean = true): List<StoryBookLearningEvent>
+    @Query("SELECT * FROM StoryBookLearningEvent ORDER BY timestamp ASC")
+    fun loadAllOrderedByTimestampAsc(): List<StoryBookLearningEvent>
 
     @Query("SELECT COUNT(*) FROM StoryBookLearningEvent")
     fun getCount(): Int

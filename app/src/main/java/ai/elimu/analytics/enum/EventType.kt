@@ -34,7 +34,6 @@ enum class EventType(val type: String) {
     WORD_ASSESSMENT("word-assessment-events"),
     WORD_LEARNING("word-learning-events"),
 
-    // TODO: number assessment
     NUMBER_LEARNING("number-learning-events"),
 
     STORY_BOOK_LEARNING("storybook-learning-events"),
@@ -51,7 +50,6 @@ fun EventType.toServiceClass(): Class<out UploadService> {
         EventType.WORD_LEARNING -> WordLearningEventService::class.java
 
         EventType.NUMBER_LEARNING -> NumberLearningEventService::class.java
-        // TODO: number assessment
 
         EventType.STORY_BOOK_LEARNING -> StoryBookLearningEventService::class.java
 
@@ -83,7 +81,6 @@ fun EventType.getCSVHeaders(): Array<String> {
         EventType.WORD_LEARNING -> CSVHeaders.WORD_LEARNING
 
         EventType.NUMBER_LEARNING -> CSVHeaders.NUMBER_LEARNING
-        // TODO: number assessment
 
         EventType.STORY_BOOK_LEARNING -> CSVHeaders.STORYBOOK_LEARNING
 

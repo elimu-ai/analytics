@@ -12,7 +12,6 @@ fun IntentAction.toEventType(): EventType {
         IntentAction.WORD_LEARNING -> EventType.WORD_LEARNING
 
         IntentAction.NUMBER_LEARNING -> EventType.NUMBER_LEARNING
-        // TODO: number assessment
 
         IntentAction.STORYBOOK_LEARNING -> EventType.STORY_BOOK_LEARNING
 
