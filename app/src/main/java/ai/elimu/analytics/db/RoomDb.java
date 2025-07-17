@@ -3,6 +3,7 @@ package ai.elimu.analytics.db;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
+import androidx.room.AutoMigration;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
@@ -21,6 +22,7 @@ import ai.elimu.analytics.dao.StoryBookLearningEventDao;
 import ai.elimu.analytics.dao.VideoLearningEventDao;
 import ai.elimu.analytics.dao.WordAssessmentEventDao;
 import ai.elimu.analytics.dao.WordLearningEventDao;
+import ai.elimu.analytics.db.migration.AutoMigrationSpecFrom22To23;
 import ai.elimu.analytics.entity.LetterSoundAssessmentEvent;
 import ai.elimu.analytics.entity.LetterSoundLearningEvent;
 import ai.elimu.analytics.entity.NumberAssessmentEvent;
@@ -31,7 +33,7 @@ import ai.elimu.analytics.entity.WordAssessmentEvent;
 import ai.elimu.analytics.entity.WordLearningEvent;
 import timber.log.Timber;
 
-@Database(version = 22, entities = {
+@Database(version = 23, entities = {
         LetterSoundAssessmentEvent.class,
         LetterSoundLearningEvent.class,
 
@@ -44,7 +46,7 @@ import timber.log.Timber;
         StoryBookLearningEvent.class,
 
         VideoLearningEvent.class
-})
+}, autoMigrations = {@AutoMigration(from = 22, to = 23, spec = AutoMigrationSpecFrom22To23.class)})
 @TypeConverters({Converters.class})
 public abstract class RoomDb extends RoomDatabase {
     public abstract LetterSoundAssessmentEventDao letterSoundAssessmentEventDao();
