@@ -68,7 +68,7 @@ object CursorToLetterSoundAssessmentEventGsonConverter {
         val columnNameAdditionalData = bundle.getString(BundleKeys.KEY_ADDITIONAL_DATA)
         val columnAdditionalData: Int = cursor.getColumnIndex(columnNameAdditionalData)
         if (columnAdditionalData != -1) {
-            val additionalData: String = cursor.getString(columnAdditionalData)
+            val additionalData: String? = cursor.getString(columnAdditionalData)
             Log.i(TAG, "additionalData: \"${additionalData}\"")
             letterSoundAssessmentEventGson.additionalData = additionalData
         }
