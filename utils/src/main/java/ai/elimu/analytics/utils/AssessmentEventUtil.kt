@@ -86,8 +86,7 @@ object AssessmentEventUtil {
         try {
             val broadcastIntent = Intent()
             broadcastIntent.setPackage(analyticsApplicationId)
-            broadcastIntent.setAction(LearningEventUtil.BROADCAST_INTENT_ACTION_ANALYTICS)
-            broadcastIntent.putExtra("intent_action", IntentAction.WORD_ASSESSMENT.action)
+            broadcastIntent.setAction("ai.elimu.intent.action.WORD_ASSESSMENT_EVENT")
             broadcastIntent.putExtra(BundleKeys.KEY_PACKAGE_NAME, context.packageName)
             broadcastIntent.putExtra(BundleKeys.KEY_MASTERY_SCORE, masteryScore)
             broadcastIntent.putExtra(BundleKeys.KEY_TIME_SPENT_MS, timeSpentMs)

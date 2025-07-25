@@ -1,7 +1,7 @@
 package ai.elimu.analytics.receiver
 
 import ai.elimu.analytics.db.RoomDb
-import ai.elimu.analytics.entity.WordLearningEvent
+import ai.elimu.analytics.entity.WordAssessmentEvent
 import ai.elimu.analytics.utils.BundleKeys
 import ai.elimu.analytics.utils.research.ExperimentAssignmentHelper
 import android.content.BroadcastReceiver
@@ -13,7 +13,7 @@ import android.text.TextUtils
 import timber.log.Timber
 import java.util.Calendar
 
-class WordLearningEventReceiver : BroadcastReceiver() {
+class WordAssessmentEventReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
         Timber.i("onReceive")
@@ -27,7 +27,7 @@ class WordLearningEventReceiver : BroadcastReceiver() {
         }
 
         try {
-            val event = WordLearningEvent()
+            val event = WordAssessmentEvent()
 
             val androidId: String = Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
             event.androidId = androidId
@@ -39,7 +39,7 @@ class WordLearningEventReceiver : BroadcastReceiver() {
             event.packageName = packageName
 
             val timestamp: Calendar = Calendar.getInstance()
-            event.timestamp = timestamp
+            event.time = timestamp
 
             val researchExperiment = ExperimentAssignmentHelper.CURRENT_EXPERIMENT
             event.researchExperiment = researchExperiment
@@ -49,6 +49,18 @@ class WordLearningEventReceiver : BroadcastReceiver() {
 
             val additionalData: String? = intent.getStringExtra(BundleKeys.KEY_ADDITIONAL_DATA)
             event.additionalData = additionalData
+
+            val masteryScore: Float = intent.getFloatExtra(BundleKeys.KEY_MASTERY_SCORE, -1f)
+            if ((masteryScore < 0) || (masteryScore > 1)) {
+                throw IllegalArgumentException("Invalid masteryScore. Must be in the range [0.0, 1.0]")
+            }
+            event.masteryScore = masteryScore
+
+            val timeSpentMs: Long = intent.getLongExtra(BundleKeys.KEY_TIME_SPENT_MS, 0)
+            if (timeSpentMs <= 0) {
+                throw IllegalArgumentException("Invalid timeSpentMs. Must be larger than 0")
+            }
+            event.timeSpentMs = timeSpentMs
 
             val wordText: String = intent.getStringExtra(BundleKeys.KEY_WORD_TEXT) ?: ""
             if (TextUtils.isEmpty(wordText)) {
@@ -64,7 +76,7 @@ class WordLearningEventReceiver : BroadcastReceiver() {
             // Store the event in the database
             val roomDb = RoomDb.getDatabase(context)
             RoomDb.databaseWriteExecutor.execute {
-                roomDb.wordLearningEventDao().insert(event)
+                roomDb.wordAssessmentEventDao().insert(event)
             }
         } catch (e: Exception) {
             Timber.e(e)
