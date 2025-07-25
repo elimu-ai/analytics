@@ -14,8 +14,8 @@ android {
     defaultConfig {
         minSdkVersion 26
         targetSdkVersion 35
-        versionCode 4000037
-        versionName "4.0.37"
+        versionCode 4000038
+        versionName "4.0.38-SNAPSHOT"
     }
 
     buildTypes {
