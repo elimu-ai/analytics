@@ -87,8 +87,7 @@ object LearningEventUtil {
         try {
             val broadcastIntent = Intent()
             broadcastIntent.setPackage(analyticsApplicationId)
-            broadcastIntent.setAction(BROADCAST_INTENT_ACTION_ANALYTICS)
-            broadcastIntent.putExtra("intent_action", IntentAction.WORD_LEARNING.action)
+            broadcastIntent.setAction("ai.elimu.intent.action.WORD_LEARNING_EVENT")
             broadcastIntent.putExtra(BundleKeys.KEY_PACKAGE_NAME, context.packageName)
             additionalData?.let {
                 broadcastIntent.putExtra(BundleKeys.KEY_ADDITIONAL_DATA, additionalData.toString())
