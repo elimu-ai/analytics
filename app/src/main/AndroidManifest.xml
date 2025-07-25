@@ -46,6 +46,13 @@
                 <action android:name="ai.elimu.intent.action.LETTER_SOUND_LEARNING_EVENT" />
             </intent-filter>
         </receiver>
+        <receiver android:name=".receiver.LetterSoundAssessmentEventReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="ai.elimu.intent.action.LETTER_SOUND_ASSESSMENT_EVENT" />
+            </intent-filter>
+        </receiver>
         <receiver android:name=".receiver.WordLearningEventReceiver"
             android:enabled="true"
             android:exported="true">

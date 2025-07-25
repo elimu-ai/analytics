@@ -47,16 +47,15 @@ object LearningEventUtil {
                 broadcastIntent.putExtra(BundleKeys.KEY_ADDITIONAL_DATA, additionalData.toString())
             }
 
-            broadcastIntent.putExtra(
-                BundleKeys.KEY_LETTER_SOUND_LETTER_TEXTS,
-                letterSoundGson.letters.stream().map { obj: LetterGson -> obj.text }
-                    .collect(Collectors.toList()).toTypedArray()
+            val letterSoundLetters: ArrayList<String> = ArrayList(
+                letterSoundGson.letters.map { it.text }
             )
+            broadcastIntent.putStringArrayListExtra(BundleKeys.KEY_LETTER_SOUND_LETTERS, letterSoundLetters)
 
-            val letterSoundSoundValuesIpa = letterSoundGson.sounds.stream().map {
-                obj: SoundGson -> obj.valueIpa
-            }.collect(Collectors.toList()).toTypedArray()
-            broadcastIntent.putExtra(BundleKeys.KEY_LETTER_SOUND_SOUND_VALUES_IPA, letterSoundSoundValuesIpa)
+            val letterSoundSounds: ArrayList<String> = ArrayList(
+                letterSoundGson.sounds.map { it.valueIpa }
+            )
+            broadcastIntent.putStringArrayListExtra(BundleKeys.KEY_LETTER_SOUND_SOUNDS, letterSoundSounds)
 
             letterSoundGson.id?.let {
                 broadcastIntent.putExtra(BundleKeys.KEY_LETTER_SOUND_ID, letterSoundGson.id)
