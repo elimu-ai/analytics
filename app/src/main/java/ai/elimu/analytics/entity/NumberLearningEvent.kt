@@ -6,8 +6,8 @@ import androidx.room.Entity
  * Based on https://github.com/elimu-ai/webapp/blob/main/src/main/java/ai/elimu/entity/analytics/NumberLearningEvent.java
  */
 @Entity
-class NumberLearningEvent (val numberValue: Int) : LearningEvent() {
-    // TODO: numberValue
+class NumberLearningEvent : LearningEvent() {
+    var numberValue: Int = Int.MIN_VALUE
 
     var numberSymbol: String? = null
 

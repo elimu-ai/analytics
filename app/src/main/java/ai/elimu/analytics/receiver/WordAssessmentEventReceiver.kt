@@ -1,7 +1,7 @@
 package ai.elimu.analytics.receiver
 
 import ai.elimu.analytics.db.RoomDb
-import ai.elimu.analytics.entity.NumberAssessmentEvent
+import ai.elimu.analytics.entity.WordAssessmentEvent
 import ai.elimu.analytics.utils.BundleKeys
 import ai.elimu.analytics.utils.research.ExperimentAssignmentHelper
 import android.content.BroadcastReceiver
@@ -13,7 +13,7 @@ import android.text.TextUtils
 import timber.log.Timber
 import java.util.Calendar
 
-class NumberAssessmentEventReceiver : BroadcastReceiver() {
+class WordAssessmentEventReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
         Timber.i("onReceive")
@@ -27,7 +27,7 @@ class NumberAssessmentEventReceiver : BroadcastReceiver() {
         }
 
         try {
-            val event = NumberAssessmentEvent()
+            val event = WordAssessmentEvent()
 
             val androidId: String = Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
             event.androidId = androidId
@@ -62,23 +62,21 @@ class NumberAssessmentEventReceiver : BroadcastReceiver() {
             }
             event.timeSpentMs = timeSpentMs
 
-            val numberValue: Int = intent.getIntExtra(BundleKeys.KEY_NUMBER_VALUE, Int.MIN_VALUE)
-            if (numberValue == Int.MIN_VALUE) {
-                throw IllegalArgumentException("Missing numberValue")
+            val wordText: String = intent.getStringExtra(BundleKeys.KEY_WORD_TEXT) ?: ""
+            if (TextUtils.isEmpty(wordText)) {
+                throw IllegalArgumentException("Missing wordText")
             }
-            event.numberValue = numberValue
+            event.wordText = wordText
 
-            // TODO: numberSymbol
-
-            val numberId: Long = intent.getLongExtra(BundleKeys.KEY_NUMBER_ID, 0)
-            if (numberId > 0) {
-                event.numberId = numberId
+            val wordId: Long = intent.getLongExtra(BundleKeys.KEY_WORD_ID, 0)
+            if (wordId > 0) {
+                event.wordId = wordId
             }
 
             // Store the event in the database
             val roomDb = RoomDb.getDatabase(context)
             RoomDb.databaseWriteExecutor.execute {
-                roomDb.numberAssessmentEventDao().insert(event)
+                roomDb.wordAssessmentEventDao().insert(event)
             }
         } catch (e: Exception) {
             Timber.e(e)

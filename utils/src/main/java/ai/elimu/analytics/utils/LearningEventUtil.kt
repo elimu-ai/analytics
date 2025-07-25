@@ -41,23 +41,21 @@ object LearningEventUtil {
         try {
             val broadcastIntent = Intent()
             broadcastIntent.setPackage(analyticsApplicationId)
-            broadcastIntent.setAction(BROADCAST_INTENT_ACTION_ANALYTICS)
-            broadcastIntent.putExtra("intent_action", IntentAction.LETTER_SOUND_LEARNING.action)
+            broadcastIntent.setAction("ai.elimu.intent.action.LETTER_SOUND_LEARNING_EVENT")
             broadcastIntent.putExtra(BundleKeys.KEY_PACKAGE_NAME, context.packageName)
             additionalData?.let {
                 broadcastIntent.putExtra(BundleKeys.KEY_ADDITIONAL_DATA, additionalData.toString())
             }
 
-            broadcastIntent.putExtra(
-                BundleKeys.KEY_LETTER_SOUND_LETTER_TEXTS,
-                letterSoundGson.letters.stream().map { obj: LetterGson -> obj.text }
-                    .collect(Collectors.toList()).toTypedArray()
+            val letterSoundLetters: ArrayList<String> = ArrayList(
+                letterSoundGson.letters.map { it.text }
             )
+            broadcastIntent.putStringArrayListExtra(BundleKeys.KEY_LETTER_SOUND_LETTERS, letterSoundLetters)
 
-            val letterSoundSoundValuesIpa = letterSoundGson.sounds.stream().map {
-                obj: SoundGson -> obj.valueIpa
-            }.collect(Collectors.toList()).toTypedArray()
-            broadcastIntent.putExtra(BundleKeys.KEY_LETTER_SOUND_SOUND_VALUES_IPA, letterSoundSoundValuesIpa)
+            val letterSoundSounds: ArrayList<String> = ArrayList(
+                letterSoundGson.sounds.map { it.valueIpa }
+            )
+            broadcastIntent.putStringArrayListExtra(BundleKeys.KEY_LETTER_SOUND_SOUNDS, letterSoundSounds)
 
             letterSoundGson.id?.let {
                 broadcastIntent.putExtra(BundleKeys.KEY_LETTER_SOUND_ID, letterSoundGson.id)
@@ -87,8 +85,7 @@ object LearningEventUtil {
         try {
             val broadcastIntent = Intent()
             broadcastIntent.setPackage(analyticsApplicationId)
-            broadcastIntent.setAction(BROADCAST_INTENT_ACTION_ANALYTICS)
-            broadcastIntent.putExtra("intent_action", IntentAction.WORD_LEARNING.action)
+            broadcastIntent.setAction("ai.elimu.intent.action.WORD_LEARNING_EVENT")
             broadcastIntent.putExtra(BundleKeys.KEY_PACKAGE_NAME, context.packageName)
             additionalData?.let {
                 broadcastIntent.putExtra(BundleKeys.KEY_ADDITIONAL_DATA, additionalData.toString())
@@ -122,8 +119,7 @@ object LearningEventUtil {
         try {
             val broadcastIntent = Intent()
             broadcastIntent.setPackage(analyticsApplicationId)
-            broadcastIntent.setAction(BROADCAST_INTENT_ACTION_ANALYTICS)
-            broadcastIntent.putExtra("intent_action", IntentAction.STORYBOOK_LEARNING.action)
+            broadcastIntent.setAction("ai.elimu.intent.action.STORYBOOK_LEARNING_EVENT")
             broadcastIntent.putExtra(BundleKeys.KEY_PACKAGE_NAME, context.packageName)
             additionalData?.let {
                 broadcastIntent.putExtra(BundleKeys.KEY_ADDITIONAL_DATA, additionalData.toString())
@@ -157,8 +153,7 @@ object LearningEventUtil {
         try {
             val broadcastIntent = Intent()
             broadcastIntent.setPackage(analyticsApplicationId)
-            broadcastIntent.setAction(BROADCAST_INTENT_ACTION_ANALYTICS)
-            broadcastIntent.putExtra("intent_action", IntentAction.VIDEO_LEARNING.action)
+            broadcastIntent.setAction("ai.elimu.intent.action.VIDEO_LEARNING_EVENT")
             broadcastIntent.putExtra(BundleKeys.KEY_PACKAGE_NAME, context.packageName)
             additionalData?.let {
                 broadcastIntent.putExtra(BundleKeys.KEY_ADDITIONAL_DATA, additionalData.toString())
@@ -192,8 +187,7 @@ object LearningEventUtil {
         try {
             val broadcastIntent = Intent()
             broadcastIntent.setPackage(analyticsApplicationId)
-            broadcastIntent.setAction(BROADCAST_INTENT_ACTION_ANALYTICS)
-            broadcastIntent.putExtra("intent_action", IntentAction.NUMBER_LEARNING.action)
+            broadcastIntent.setAction("ai.elimu.intent.action.NUMBER_LEARNING_EVENT")
             broadcastIntent.putExtra(BundleKeys.KEY_PACKAGE_NAME, context.packageName)
             additionalData?.let {
                 broadcastIntent.putExtra(BundleKeys.KEY_ADDITIONAL_DATA, additionalData.toString())

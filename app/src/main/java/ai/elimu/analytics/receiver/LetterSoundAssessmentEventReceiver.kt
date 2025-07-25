@@ -1,7 +1,7 @@
 package ai.elimu.analytics.receiver
 
 import ai.elimu.analytics.db.RoomDb
-import ai.elimu.analytics.entity.NumberAssessmentEvent
+import ai.elimu.analytics.entity.LetterSoundAssessmentEvent
 import ai.elimu.analytics.utils.BundleKeys
 import ai.elimu.analytics.utils.research.ExperimentAssignmentHelper
 import android.content.BroadcastReceiver
@@ -13,7 +13,7 @@ import android.text.TextUtils
 import timber.log.Timber
 import java.util.Calendar
 
-class NumberAssessmentEventReceiver : BroadcastReceiver() {
+class LetterSoundAssessmentEventReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
         Timber.i("onReceive")
@@ -27,7 +27,7 @@ class NumberAssessmentEventReceiver : BroadcastReceiver() {
         }
 
         try {
-            val event = NumberAssessmentEvent()
+            val event = LetterSoundAssessmentEvent()
 
             val androidId: String = Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
             event.androidId = androidId
@@ -62,23 +62,29 @@ class NumberAssessmentEventReceiver : BroadcastReceiver() {
             }
             event.timeSpentMs = timeSpentMs
 
-            val numberValue: Int = intent.getIntExtra(BundleKeys.KEY_NUMBER_VALUE, Int.MIN_VALUE)
-            if (numberValue == Int.MIN_VALUE) {
-                throw IllegalArgumentException("Missing numberValue")
+            val letterSoundLetters: ArrayList<String> = intent.getStringArrayListExtra(BundleKeys.KEY_LETTER_SOUND_LETTERS) ?: arrayListOf()
+            Timber.i("letterSoundLetters: ${letterSoundLetters}")
+            if (letterSoundLetters.isEmpty()) {
+                throw IllegalArgumentException("Missing letterSoundLetters")
             }
-            event.numberValue = numberValue
+            // TODO: event.letterSoundLetters = letterSoundLetters
 
-            // TODO: numberSymbol
+            val letterSoundSounds: ArrayList<String> = intent.getStringArrayListExtra(BundleKeys.KEY_LETTER_SOUND_SOUNDS) ?: arrayListOf()
+            Timber.i("letterSoundSounds: ${letterSoundSounds}")
+            if (letterSoundSounds.isEmpty()) {
+                throw IllegalArgumentException("Missing letterSoundSounds")
+            }
+            // TODO: event.letterSoundSounds = letterSoundSounds
 
-            val numberId: Long = intent.getLongExtra(BundleKeys.KEY_NUMBER_ID, 0)
-            if (numberId > 0) {
-                event.numberId = numberId
+            val letterSoundId: Long = intent.getLongExtra(BundleKeys.KEY_LETTER_SOUND_ID, 0)
+            if (letterSoundId > 0) {
+                event.letterSoundId = letterSoundId
             }
 
             // Store the event in the database
             val roomDb = RoomDb.getDatabase(context)
             RoomDb.databaseWriteExecutor.execute {
-                roomDb.numberAssessmentEventDao().insert(event)
+                roomDb.letterSoundAssessmentEventDao().insert(event)
             }
         } catch (e: Exception) {
             Timber.e(e)
