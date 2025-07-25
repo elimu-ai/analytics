@@ -230,13 +230,14 @@ fun EventType.createEventFromIntent(context: Context, intent: Intent): BaseEntit
 
             Timber.i("numberId: $numberId. hasKey NUMBER_ID: ${intent.hasExtra(BundleKeys.KEY_NUMBER_ID)}")
 
-            NumberLearningEvent(numberValue).apply {
+            NumberLearningEvent().apply {
                 this.timestamp = timestamp
                 this.androidId = androidId
                 this.packageName = packageName
                 this.additionalData = additionalData
                 this.researchExperiment = researchExperiment
                 this.experimentGroup = experimentGroup
+                this.numberValue = numberValue
                 this.numberSymbol = numberSymbol
                 this.numberId = numberId
             }
