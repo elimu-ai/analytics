@@ -51,18 +51,16 @@ class LetterSoundLearningEventReceiver : BroadcastReceiver() {
             event.additionalData = additionalData
 
             val letterSoundLetters: ArrayList<String> = intent.getStringArrayListExtra(BundleKeys.KEY_LETTER_SOUND_LETTERS) ?: arrayListOf()
-            Timber.i("letterSoundLetters: ${letterSoundLetters}")
             if (letterSoundLetters.isEmpty()) {
                 throw IllegalArgumentException("Missing letterSoundLetters")
             }
-            // TODO: event.letterSoundLetters = letterSoundLetters
+            event.letterSoundLetters = letterSoundLetters
 
             val letterSoundSounds: ArrayList<String> = intent.getStringArrayListExtra(BundleKeys.KEY_LETTER_SOUND_SOUNDS) ?: arrayListOf()
-            Timber.i("letterSoundSounds: ${letterSoundSounds}")
             if (letterSoundSounds.isEmpty()) {
                 throw IllegalArgumentException("Missing letterSoundSounds")
             }
-            // TODO: event.letterSoundSounds = letterSoundSounds
+            event.letterSoundSounds = letterSoundSounds
 
             val letterSoundId: Long = intent.getLongExtra(BundleKeys.KEY_LETTER_SOUND_ID, 0)
             if (letterSoundId > 0) {

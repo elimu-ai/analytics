@@ -23,6 +23,7 @@ import ai.elimu.analytics.dao.VideoLearningEventDao;
 import ai.elimu.analytics.dao.WordAssessmentEventDao;
 import ai.elimu.analytics.dao.WordLearningEventDao;
 import ai.elimu.analytics.db.migration.AutoMigrationSpecFrom22To23;
+import ai.elimu.analytics.db.util.StringListConverter;
 import ai.elimu.analytics.entity.LetterSoundAssessmentEvent;
 import ai.elimu.analytics.entity.LetterSoundLearningEvent;
 import ai.elimu.analytics.entity.NumberAssessmentEvent;
@@ -33,7 +34,7 @@ import ai.elimu.analytics.entity.WordAssessmentEvent;
 import ai.elimu.analytics.entity.WordLearningEvent;
 import timber.log.Timber;
 
-@Database(version = 23, entities = {
+@Database(version = 24, entities = {
         LetterSoundAssessmentEvent.class,
         LetterSoundLearningEvent.class,
 
@@ -47,7 +48,7 @@ import timber.log.Timber;
 
         VideoLearningEvent.class
 }, autoMigrations = {@AutoMigration(from = 22, to = 23, spec = AutoMigrationSpecFrom22To23.class)})
-@TypeConverters({Converters.class})
+@TypeConverters({Converters.class, StringListConverter.class})
 public abstract class RoomDb extends RoomDatabase {
     public abstract LetterSoundAssessmentEventDao letterSoundAssessmentEventDao();
     public abstract LetterSoundLearningEventDao letterSoundLearningEventDao();
@@ -98,7 +99,8 @@ public abstract class RoomDb extends RoomDatabase {
                                     MIGRATION_18_19,
                                     MIGRATION_19_20,
                                     MIGRATION_20_21,
-                                    MIGRATION_21_22
+                                    MIGRATION_21_22,
+                                    MIGRATION_23_24
                             )
                             .build();
                 }
@@ -530,6 +532,26 @@ public abstract class RoomDb extends RoomDatabase {
             database.execSQL("INSERT INTO StoryBookLearningEvent_tmp(storyBookTitle, storyBookId, learningEventType, androidId, packageName, timestamp, additionalData, researchExperiment, experimentGroup, id) SELECT storyBookTitle, storyBookId, learningEventType, androidId, packageName, timestamp, additionalData, researchExperiment, experimentGroup, id FROM StoryBookLearningEvent");
             database.execSQL("DROP TABLE StoryBookLearningEvent");
             database.execSQL("ALTER TABLE StoryBookLearningEvent_tmp RENAME TO StoryBookLearningEvent");
+        }
+    };
+
+    /**
+     * Add two new columns to LetterSoundLearningEvent:
+     *  - letterSoundLetters
+     *  - letterSoundSounds
+     */
+    private static final Migration MIGRATION_23_24 = new Migration(23, 24) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            Timber.i("migrate (" + database.getVersion() + " --> 24)");
+
+            String sql = "ALTER TABLE `LetterSoundLearningEvent` ADD COLUMN `letterSoundLetters` TEXT NOT NULL";
+            Timber.i("sql: %s", sql);
+            database.execSQL(sql);
+
+            sql = "ALTER TABLE `LetterSoundLearningEvent` ADD COLUMN `letterSoundSounds` TEXT NOT NULL";
+            Timber.i("sql: %s", sql);
+            database.execSQL(sql);
         }
     };
 }

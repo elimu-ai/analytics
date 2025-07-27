@@ -69,8 +69,8 @@ class LetterSoundLearningEventProvider : ContentProvider() {
             putString(BundleKeys.KEY_PACKAGE_NAME, WordLearningEvent::packageName.name)
             putString(BundleKeys.KEY_TIMESTAMP, WordLearningEvent::timestamp.name)
             putString(BundleKeys.KEY_ADDITIONAL_DATA, WordLearningEvent::additionalData.name)
-            putString(BundleKeys.KEY_LETTER_SOUND_LETTERS, LetterSoundLearningEvent::letterSoundLetterTexts.name)
-            putString(BundleKeys.KEY_LETTER_SOUND_SOUNDS, LetterSoundLearningEvent::letterSoundSoundValuesIpa.name)
+            putString(BundleKeys.KEY_LETTER_SOUND_LETTERS, LetterSoundLearningEvent::letterSoundLetters.name)
+            putString(BundleKeys.KEY_LETTER_SOUND_SOUNDS, LetterSoundLearningEvent::letterSoundSounds.name)
             putString(BundleKeys.KEY_LETTER_SOUND_ID, LetterSoundLearningEvent::letterSoundId.name)
         }
         return bundle

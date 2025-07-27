@@ -7,9 +7,21 @@ import androidx.room.Entity
  */
 @Entity
 class LetterSoundLearningEvent : LearningEvent() {
+    @Deprecated("Will be replaced by `letterSoundLetters`")
     lateinit var letterSoundLetterTexts: Array<String>
 
+    @Deprecated("Will be replaced by `letterSoundSounds`")
     lateinit var letterSoundSoundValuesIpa: Array<String>
+
+    /**
+     * The sequence of letters. E.g. `["s","h"]`.
+     */
+    lateinit var letterSoundLetters: List<String>
+
+    /**
+     *  The sequence of sounds (IPA values). E.g. `["ʃ"]`.
+     */
+    lateinit var letterSoundSounds: List<String>
 
     /**
      * This field might not be included, e.g. if the event occurred in a 3rd-party app that did not
