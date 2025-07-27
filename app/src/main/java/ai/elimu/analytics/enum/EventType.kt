@@ -115,10 +115,10 @@ fun EventType.createEventFromIntent(context: Context, intent: Intent): BaseEntit
             val timeSpentMs: Long = intent.getLongExtra(BundleKeys.KEY_TIME_SPENT_MS, 0)
             Timber.i("timeSpentMs: ${timeSpentMs}")
 
-            val letterSoundLetters: String = intent.getStringExtra(BundleKeys.KEY_LETTER_SOUND_LETTERS) ?: ""
+            val letterSoundLetters: List<String> = intent.getStringArrayListExtra(BundleKeys.KEY_LETTER_SOUND_LETTERS) ?: emptyList()
             Timber.i("letterSoundLetters: \"${letterSoundLetters}\"")
 
-            val letterSoundSounds: String = intent.getStringExtra(BundleKeys.KEY_LETTER_SOUND_SOUNDS) ?: ""
+            val letterSoundSounds: List<String> = intent.getStringArrayListExtra(BundleKeys.KEY_LETTER_SOUND_SOUNDS) ?: emptyList()
             Timber.i("letterSoundSounds: \"${letterSoundSounds}\"")
 
             val letterSoundId: Long = intent.getLongExtra(BundleKeys.KEY_LETTER_SOUND_ID, 0)

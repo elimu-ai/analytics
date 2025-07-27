@@ -8,14 +8,14 @@ import androidx.room.Entity
 @Entity
 class LetterSoundAssessmentEvent : AssessmentEvent() {
     /**
-     * The sequence of letters. E.g. `sh`.
+     * The sequence of letters. E.g. `["s","h"]`.
      */
-    lateinit var letterSoundLetters: String
+    lateinit var letterSoundLetters: List<String>
 
     /**
-     * The sequence of sounds (IPA values). E.g. `ʃ`.
+     * The sequence of sounds (IPA values). E.g. `["ʃ"]`.
      */
-    lateinit var letterSoundSounds: String
+    lateinit var letterSoundSounds: List<String>
 
     /**
      * This field might not be included, e.g. if the event occurred in a 3rd-party app that did not
