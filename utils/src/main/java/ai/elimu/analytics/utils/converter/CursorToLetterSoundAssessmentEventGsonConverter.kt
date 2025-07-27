@@ -76,16 +76,22 @@ object CursorToLetterSoundAssessmentEventGsonConverter {
         val columnNameLetterSoundLetters = bundle.getString(BundleKeys.KEY_LETTER_SOUND_LETTERS)
         val columnLetterSoundLetters: Int = cursor.getColumnIndex(columnNameLetterSoundLetters)
         if (columnLetterSoundLetters != -1) {
-            val letterSoundLetters: String = cursor.getString(columnLetterSoundLetters)
-            Log.i(TAG, "letterSoundLetters: \"${letterSoundLetters}\"")
+            // Convert from String to List<String> (see StringListConverter.kt)
+            val letterSoundLettersAsString: String = cursor.getString(columnLetterSoundLetters)
+            Log.i(this::class.simpleName, "letterSoundLettersAsString: \"${letterSoundLettersAsString}\"")
+            val letterSoundLetters: List<String> = letterSoundLettersAsString.split(",")
+            Log.i(this::class.simpleName, "letterSoundLetters: ${letterSoundLetters}")
             letterSoundAssessmentEventGson.letterSoundLetters = letterSoundLetters
         }
 
         val columnNameLetterSoundSounds = bundle.getString(BundleKeys.KEY_LETTER_SOUND_SOUNDS)
         val columnLetterSoundSounds: Int = cursor.getColumnIndex(columnNameLetterSoundSounds)
         if (columnLetterSoundSounds != -1) {
-            val letterSoundSounds: String = cursor.getString(columnLetterSoundSounds)
-            Log.i(TAG, "letterSoundSounds: \"${letterSoundSounds}\"")
+            // Convert from String to List<String> (see StringListConverter.kt)
+            val letterSoundSoundsAsString: String = cursor.getString(columnLetterSoundSounds)
+            Log.i(this::class.simpleName, "letterSoundSounds: \"${letterSoundSoundsAsString}\"")
+            val letterSoundSounds: List<String> = letterSoundSoundsAsString.split(",")
+            Log.i(this::class.simpleName, "letterSoundSounds: ${letterSoundSounds}")
             letterSoundAssessmentEventGson.letterSoundSounds = letterSoundSounds
         }
 
