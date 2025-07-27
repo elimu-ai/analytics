@@ -23,6 +23,7 @@ import ai.elimu.analytics.dao.VideoLearningEventDao;
 import ai.elimu.analytics.dao.WordAssessmentEventDao;
 import ai.elimu.analytics.dao.WordLearningEventDao;
 import ai.elimu.analytics.db.migration.AutoMigrationSpecFrom22To23;
+import ai.elimu.analytics.db.util.StringListConverter;
 import ai.elimu.analytics.entity.LetterSoundAssessmentEvent;
 import ai.elimu.analytics.entity.LetterSoundLearningEvent;
 import ai.elimu.analytics.entity.NumberAssessmentEvent;
@@ -47,7 +48,7 @@ import timber.log.Timber;
 
         VideoLearningEvent.class
 }, autoMigrations = {@AutoMigration(from = 22, to = 23, spec = AutoMigrationSpecFrom22To23.class)})
-@TypeConverters({Converters.class})
+@TypeConverters({Converters.class, StringListConverter.class})
 public abstract class RoomDb extends RoomDatabase {
     public abstract LetterSoundAssessmentEventDao letterSoundAssessmentEventDao();
     public abstract LetterSoundLearningEventDao letterSoundLearningEventDao();
