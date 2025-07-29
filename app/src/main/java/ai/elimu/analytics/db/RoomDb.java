@@ -573,10 +573,6 @@ public abstract class RoomDb extends RoomDatabase {
             String sql = "ALTER TABLE `NumberAssessmentEvent` ADD COLUMN `numberSymbol` TEXT";
             Timber.i("sql: %s", sql);
             database.execSQL(sql);
-
-            sql = "ALTER TABLE `NumberAssessmentEvent` ADD COLUMN `numberSymbol` TEXT";
-            Timber.i("sql: %s", sql);
-            database.execSQL(sql);
         }
     };
 }
