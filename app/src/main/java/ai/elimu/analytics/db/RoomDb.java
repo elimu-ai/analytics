@@ -35,7 +35,7 @@ import ai.elimu.analytics.entity.WordAssessmentEvent;
 import ai.elimu.analytics.entity.WordLearningEvent;
 import timber.log.Timber;
 
-@Database(version = 24, entities = {
+@Database(version = 25, entities = {
         LetterSoundAssessmentEvent.class,
         LetterSoundLearningEvent.class,
 
@@ -101,7 +101,8 @@ public abstract class RoomDb extends RoomDatabase {
                                     MIGRATION_19_20,
                                     MIGRATION_20_21,
                                     MIGRATION_21_22,
-                                    MIGRATION_23_24
+                                    MIGRATION_23_24,
+                                    MIGRATION_24_25
                             )
                             .build();
                 }
@@ -555,6 +556,21 @@ public abstract class RoomDb extends RoomDatabase {
             database.execSQL(sql);
 
             sql = "ALTER TABLE `LetterSoundLearningEvent` ADD COLUMN `letterSoundSounds` TEXT NOT NULL";
+            Timber.i("sql: %s", sql);
+            database.execSQL(sql);
+        }
+    };
+
+    /**
+     * Add a new columns to NumberAssessmentEvent:
+     *  - numberSymbol
+     */
+    private static final Migration MIGRATION_24_25 = new Migration(24, 25) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            Timber.i("migrate (" + database.getVersion() + " --> 25)");
+
+            String sql = "ALTER TABLE `NumberAssessmentEvent` ADD COLUMN `numberSymbol` TEXT";
             Timber.i("sql: %s", sql);
             database.execSQL(sql);
         }

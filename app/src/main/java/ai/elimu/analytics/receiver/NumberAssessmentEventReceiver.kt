@@ -68,7 +68,8 @@ class NumberAssessmentEventReceiver : BroadcastReceiver() {
             }
             event.numberValue = numberValue
 
-            // TODO: numberSymbol
+            val numberSymbol: String? = intent.getStringExtra(BundleKeys.KEY_NUMBER_SYMBOL)
+            event.numberSymbol = numberSymbol
 
             val numberId: Long = intent.getLongExtra(BundleKeys.KEY_NUMBER_ID, 0)
             if (numberId > 0) {

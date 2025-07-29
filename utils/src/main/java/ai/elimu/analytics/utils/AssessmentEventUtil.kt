@@ -136,6 +136,9 @@ object AssessmentEventUtil {
                 broadcastIntent.putExtra(BundleKeys.KEY_ADDITIONAL_DATA, additionalData.toString())
             }
             broadcastIntent.putExtra(BundleKeys.KEY_NUMBER_VALUE, numberGson.value)
+            numberGson.symbol?.let {
+                broadcastIntent.putExtra(BundleKeys.KEY_NUMBER_SYMBOL, numberGson.symbol)
+            }
             numberGson.id?.let {
                 broadcastIntent.putExtra(BundleKeys.KEY_NUMBER_ID, numberGson.id)
             }
