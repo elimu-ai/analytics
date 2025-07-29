@@ -1,4 +1,4 @@
-package ai.elimu.analytics.db.util
+package ai.elimu.analytics.db.converter
 
 import androidx.room.TypeConverter
 
