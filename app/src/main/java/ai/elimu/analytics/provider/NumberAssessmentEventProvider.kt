@@ -77,6 +77,7 @@ class NumberAssessmentEventProvider : ContentProvider() {
             putString(BundleKeys.KEY_TIME_SPENT_MS, NumberAssessmentEvent::timeSpentMs.name)
             putString(BundleKeys.KEY_ADDITIONAL_DATA, NumberAssessmentEvent::additionalData.name)
             putString(BundleKeys.KEY_NUMBER_VALUE, NumberAssessmentEvent::numberValue.name)
+            putString(BundleKeys.KEY_NUMBER_SYMBOL, NumberAssessmentEvent::numberSymbol.name)
             putString(BundleKeys.KEY_NUMBER_ID, NumberAssessmentEvent::numberId.name)
         }
         return bundle

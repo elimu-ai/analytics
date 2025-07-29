@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 25,
-    "identityHash": "b0adaf49bc73b3130150b7f090d67518",
+    "identityHash": "fcd66dec09413ed5dcaf6a4d62e11f94",
     "entities": [
       {
         "tableName": "LetterSoundAssessmentEvent",
@@ -298,13 +298,18 @@
       },
       {
         "tableName": "NumberAssessmentEvent",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`numberValue` INTEGER NOT NULL, `numberId` INTEGER, `androidId` TEXT NOT NULL, `packageName` TEXT NOT NULL, `time` INTEGER NOT NULL, `masteryScore` REAL NOT NULL, `timeSpentMs` INTEGER NOT NULL, `additionalData` TEXT, `researchExperiment` TEXT, `experimentGroup` TEXT, `id` INTEGER PRIMARY KEY AUTOINCREMENT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`numberValue` INTEGER NOT NULL, `numberSymbol` TEXT, `numberId` INTEGER, `androidId` TEXT NOT NULL, `packageName` TEXT NOT NULL, `time` INTEGER NOT NULL, `masteryScore` REAL NOT NULL, `timeSpentMs` INTEGER NOT NULL, `additionalData` TEXT, `researchExperiment` TEXT, `experimentGroup` TEXT, `id` INTEGER PRIMARY KEY AUTOINCREMENT)",
         "fields": [
           {
             "fieldPath": "numberValue",
             "columnName": "numberValue",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "numberSymbol",
+            "columnName": "numberSymbol",
+            "affinity": "TEXT"
           },
           {
             "fieldPath": "numberId",
@@ -560,7 +565,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'b0adaf49bc73b3130150b7f090d67518')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'fcd66dec09413ed5dcaf6a4d62e11f94')"
     ]
   }
 }

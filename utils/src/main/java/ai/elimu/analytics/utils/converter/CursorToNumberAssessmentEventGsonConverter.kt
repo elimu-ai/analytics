@@ -70,11 +70,19 @@ object CursorToNumberAssessmentEventGsonConverter {
         }
 
         val columnNameNumberValue = bundle.getString(BundleKeys.KEY_NUMBER_VALUE)
-        val columnNumberValue = cursor.getColumnIndex(columnNameNumberValue)
+        val columnNumberValue = cursor.getColumnIndexOrThrow(columnNameNumberValue)
         if (columnNumberValue != -1) {
             val numberValue: Int = cursor.getInt(columnNumberValue)
             Log.i(this::class.simpleName, "numberValue: ${numberValue}")
             numberAssessmentEventGson.numberValue = numberValue
+        }
+
+        val columnNameNumberSymbol = bundle.getString(BundleKeys.KEY_NUMBER_SYMBOL)
+        val columnNumberSymbol = cursor.getColumnIndex(columnNameNumberSymbol)
+        if (columnNumberSymbol != -1) {
+            val numberSymbol: String = cursor.getString(columnNumberSymbol)
+            Log.i(this::class.simpleName, "numberSymbol: ${numberSymbol}")
+            numberAssessmentEventGson.symbol = numberSymbol
         }
 
         val columnNameNumberId = bundle.getString(BundleKeys.KEY_NUMBER_ID)
