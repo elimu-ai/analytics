@@ -82,7 +82,7 @@ object CursorToNumberAssessmentEventGsonConverter {
         if (columnNumberSymbol != -1) {
             val numberSymbol: String = cursor.getString(columnNumberSymbol)
             Log.i(this::class.simpleName, "numberSymbol: ${numberSymbol}")
-            numberAssessmentEventGson.symbol = numberSymbol
+            numberAssessmentEventGson.numberSymbol = numberSymbol
         }
 
         val columnNameNumberId = bundle.getString(BundleKeys.KEY_NUMBER_ID)
