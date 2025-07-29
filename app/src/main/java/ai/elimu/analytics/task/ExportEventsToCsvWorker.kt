@@ -283,6 +283,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                     "research_experiment",
                     "experiment_group",
                     "number_value",
+                    "number_symbol",
                     "number_id"
                 ).get())
             }
@@ -296,6 +297,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                 event.researchExperiment?.ordinal,
                 event.experimentGroup?.ordinal,
                 event.numberValue,
+                event.numberSymbol,
                 event.numberId
             )
             csvPrinter?.flush()
