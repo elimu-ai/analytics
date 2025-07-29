@@ -1,4 +1,4 @@
-package ai.elimu.analytics.db
+package ai.elimu.analytics.db.converter
 
 import androidx.room.TypeConverter
 import java.util.Calendar
