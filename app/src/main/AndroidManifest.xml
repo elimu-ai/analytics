@@ -32,13 +32,6 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-        <receiver android:name=".receiver.AnalyticsEventReceiver"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="ai.elimu.intent.action.ANALYTICS_EVENT" />
-            </intent-filter>
-        </receiver>
         <receiver android:name=".receiver.LetterSoundLearningEventReceiver"
             android:enabled="true"
             android:exported="true">

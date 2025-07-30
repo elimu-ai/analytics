@@ -2,14 +2,7 @@ package ai.elimu.analytics.task
 
 import ai.elimu.analytics.BuildConfig
 import ai.elimu.analytics.db.RoomDb
-import ai.elimu.analytics.db.getAllEvents
-import ai.elimu.analytics.enum.EventType
-import ai.elimu.analytics.entity.AssessmentEvent
-import ai.elimu.analytics.entity.LearningEvent
-import ai.elimu.analytics.enum.getCSVHeaders
-import ai.elimu.analytics.enum.getUploadCsvFile
 import ai.elimu.analytics.util.SharedPreferencesHelper
-import ai.elimu.analytics.util.VersionHelper.getAppVersionCode
 import android.content.Context
 import androidx.work.Worker
 import androidx.work.WorkerParameters
@@ -18,7 +11,6 @@ import org.apache.commons.csv.CSVPrinter
 import org.apache.commons.io.FileUtils
 import timber.log.Timber
 import java.io.File
-import java.io.IOException
 import java.io.StringWriter
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -62,57 +54,6 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
         exportVideoLearningEvents()
 
         return Result.success()
-    }
-
-    private fun exportAnalyticsEventsToCsv(eventType: EventType) {
-        Timber.i("exportAnalyticsEventsToCsv: ${eventType}")
-
-        val events = eventType.getAllEvents(applicationContext)
-        Timber.i("events.size(): %s", events.size)
-
-        val csvFormat = CSVFormat.DEFAULT.withHeader(*eventType.getCSVHeaders())
-        var stringWriter = StringWriter()
-        try {
-            var csvPrinter = CSVPrinter(stringWriter, csvFormat)
-
-            // Generate one CSV file per day of events
-            var dateOfPreviousEvent: String? = null
-            for (event in events) {
-                val versionCode = getAppVersionCode(
-                    applicationContext
-                )
-                var androidId: String
-                val date = if (event is AssessmentEvent) {
-                    androidId = event.androidId
-                    eventDateFormat.format(event.timestamp.time)
-                } else {
-                    androidId = (event as LearningEvent).androidId
-                    eventDateFormat.format(event.timestamp.time)
-                }
-                if (date != dateOfPreviousEvent) {
-                    // Reset file content
-                    stringWriter = StringWriter()
-                    csvPrinter = CSVPrinter(stringWriter, csvFormat)
-                }
-                dateOfPreviousEvent = date
-
-                csvPrinter.printRecord(event.getCSVFields(eventType))
-                csvPrinter.flush()
-
-                val csvFileContent = stringWriter.toString()
-
-                // Write the content to the CSV file
-                val csvFile = eventType.getUploadCsvFile(
-                        context = applicationContext,
-                        androidId = androidId,
-                        versionCode = versionCode,
-                        date = date
-                )
-                FileUtils.writeStringToFile(csvFile, csvFileContent, "UTF-8")
-            }
-        } catch (e: IOException) {
-            Timber.e(e)
-        }
     }
 
     private fun exportLetterSoundLearningEvents() {
