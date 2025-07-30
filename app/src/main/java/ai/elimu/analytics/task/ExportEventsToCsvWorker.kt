@@ -84,7 +84,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
                 var androidId: String
                 val date = if (event is AssessmentEvent) {
                     androidId = event.androidId
-                    eventDateFormat.format(event.time.time)
+                    eventDateFormat.format(event.timestamp.time)
                 } else {
                     androidId = (event as LearningEvent).androidId
                     eventDateFormat.format(event.timestamp.time)
@@ -195,7 +195,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
         var dateOfPreviousEvent: String? = null
         for (event in events) {
             // Get the event's date in ISO format, e.g. "2025-07-27"
-            val date: String = eventDateFormat.format(event.time.time)
+            val date: String = eventDateFormat.format(event.timestamp.time)
 
             // Prepare the CSV file path
             val languageDir = File(applicationContext.filesDir, "lang-${SharedPreferencesHelper.getLanguage(applicationContext)}")
@@ -222,7 +222,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
             }
             csvPrinter?.printRecord(
                 event.id,
-                event.time.timeInMillis / 1_000,
+                event.timestamp.timeInMillis / 1_000,
                 event.packageName,
                 event.masteryScore,
                 event.timeSpentMs,
@@ -262,7 +262,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
         var dateOfPreviousEvent: String? = null
         for (event in events) {
             // Get the event's date in ISO format, e.g. "2025-06-29"
-            val date: String = eventDateFormat.format(event.time.time)
+            val date: String = eventDateFormat.format(event.timestamp.time)
 
             // Prepare the CSV file path
             val languageDir = File(applicationContext.filesDir, "lang-${SharedPreferencesHelper.getLanguage(applicationContext)}")
@@ -289,7 +289,7 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
             }
             csvPrinter?.printRecord(
                 event.id,
-                event.time.timeInMillis / 1_000,
+                event.timestamp.timeInMillis / 1_000,
                 event.packageName,
                 event.masteryScore,
                 event.timeSpentMs,

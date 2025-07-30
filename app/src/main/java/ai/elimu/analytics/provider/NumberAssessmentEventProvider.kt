@@ -72,7 +72,7 @@ class NumberAssessmentEventProvider : ContentProvider() {
             putString(BundleKeys.KEY_ID, NumberAssessmentEvent::id.name)
             putString(BundleKeys.KEY_ANDROID_ID, NumberAssessmentEvent::androidId.name)
             putString(BundleKeys.KEY_PACKAGE_NAME, NumberAssessmentEvent::packageName.name)
-            putString(BundleKeys.KEY_TIMESTAMP, NumberAssessmentEvent::time.name)
+            putString(BundleKeys.KEY_TIMESTAMP, NumberAssessmentEvent::timestamp.name)
             putString(BundleKeys.KEY_MASTERY_SCORE, NumberAssessmentEvent::masteryScore.name)
             putString(BundleKeys.KEY_TIME_SPENT_MS, NumberAssessmentEvent::timeSpentMs.name)
             putString(BundleKeys.KEY_ADDITIONAL_DATA, NumberAssessmentEvent::additionalData.name)

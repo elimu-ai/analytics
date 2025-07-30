@@ -39,7 +39,7 @@ class LetterSoundAssessmentEventReceiver : BroadcastReceiver() {
             event.packageName = packageName
 
             val timestamp: Calendar = Calendar.getInstance()
-            event.time = timestamp
+            event.timestamp = timestamp
 
             val researchExperiment = ExperimentAssignmentHelper.CURRENT_EXPERIMENT
             event.researchExperiment = researchExperiment

@@ -11,13 +11,13 @@ interface LetterSoundAssessmentEventDao {
     @Insert
     fun insert(letterSoundAssessmentEvent: LetterSoundAssessmentEvent)
 
-    @Query("SELECT * FROM LetterSoundAssessmentEvent ORDER BY time ASC")
+    @Query("SELECT * FROM LetterSoundAssessmentEvent ORDER BY timestamp ASC")
     fun loadAllOrderedByTimestampAsc(): List<LetterSoundAssessmentEvent>
 
-    @Query("SELECT * FROM LetterSoundAssessmentEvent ORDER BY time DESC")
+    @Query("SELECT * FROM LetterSoundAssessmentEvent ORDER BY timestamp DESC")
     fun loadAllOrderedByTimestampDesc(): Cursor
 
-    @Query("SELECT * FROM LetterSoundAssessmentEvent WHERE letterSoundId = :letterSoundId ORDER BY time DESC")
+    @Query("SELECT * FROM LetterSoundAssessmentEvent WHERE letterSoundId = :letterSoundId ORDER BY timestamp DESC")
     fun loadAllOrderedByTimestampDesc(letterSoundId: Long): Cursor
 
     @Query("SELECT COUNT(*) FROM LetterSoundAssessmentEvent")

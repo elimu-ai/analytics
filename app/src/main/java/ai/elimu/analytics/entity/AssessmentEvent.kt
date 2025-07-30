@@ -14,7 +14,7 @@ abstract class AssessmentEvent : BaseEntity() {
 
     lateinit var packageName: String
 
-    lateinit var time: Calendar
+    lateinit var timestamp: Calendar
 
     /**
      * A value in the range [0.0, 1.0].
