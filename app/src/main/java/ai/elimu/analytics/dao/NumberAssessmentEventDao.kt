@@ -11,10 +11,10 @@ interface NumberAssessmentEventDao {
     @Insert
     fun insert(numberAssessmentEvent: NumberAssessmentEvent)
 
-    @Query("SELECT * FROM NumberAssessmentEvent ORDER BY time ASC")
+    @Query("SELECT * FROM NumberAssessmentEvent ORDER BY timestamp ASC")
     fun loadAllOrderedByTimestampAsc(): List<NumberAssessmentEvent>
 
-    @Query("SELECT * FROM NumberAssessmentEvent ORDER BY time DESC")
+    @Query("SELECT * FROM NumberAssessmentEvent ORDER BY timestamp DESC")
     fun loadAllOrderedByTimestampDesc(): Cursor
 
     @Query("SELECT COUNT(*) FROM NumberAssessmentEvent")

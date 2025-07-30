@@ -35,7 +35,7 @@ import ai.elimu.analytics.entity.WordAssessmentEvent;
 import ai.elimu.analytics.entity.WordLearningEvent;
 import timber.log.Timber;
 
-@Database(version = 25, entities = {
+@Database(version = 26, entities = {
         LetterSoundAssessmentEvent.class,
         LetterSoundLearningEvent.class,
 
@@ -102,7 +102,8 @@ public abstract class RoomDb extends RoomDatabase {
                                     MIGRATION_20_21,
                                     MIGRATION_21_22,
                                     MIGRATION_23_24,
-                                    MIGRATION_24_25
+                                    MIGRATION_24_25,
+                                    MIGRATION_25_26
                             )
                             .build();
                 }
@@ -573,6 +574,31 @@ public abstract class RoomDb extends RoomDatabase {
             String sql = "ALTER TABLE `NumberAssessmentEvent` ADD COLUMN `numberSymbol` TEXT";
             Timber.i("sql: %s", sql);
             database.execSQL(sql);
+        }
+    };
+
+    /**
+     * Rename [AssessmentEvent] columns from "time" to "timestamp"
+     */
+    private static final Migration MIGRATION_25_26 = new Migration(25, 26) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            Timber.i("migrate (" + database.getVersion() + " --> 26)");
+
+            database.execSQL("CREATE TABLE IF NOT EXISTS `LetterSoundAssessmentEvent_tmp` (`letterSoundLetters` TEXT NOT NULL, `letterSoundSounds` TEXT NOT NULL, `letterSoundId` INTEGER, `androidId` TEXT NOT NULL, `packageName` TEXT NOT NULL, `timestamp` INTEGER NOT NULL, `masteryScore` REAL NOT NULL, `timeSpentMs` INTEGER NOT NULL, `additionalData` TEXT, `researchExperiment` TEXT, `experimentGroup` TEXT, `id` INTEGER PRIMARY KEY AUTOINCREMENT)");
+            database.execSQL("INSERT INTO LetterSoundAssessmentEvent_tmp(letterSoundLetters, letterSoundSounds, letterSoundId, androidId, packageName, timestamp, masteryScore, timeSpentMs, additionalData, researchExperiment, experimentGroup, id) SELECT letterSoundLetters, letterSoundSounds, letterSoundId, androidId, packageName, time, masteryScore, timeSpentMs, additionalData, researchExperiment, experimentGroup, id FROM LetterSoundAssessmentEvent");
+            database.execSQL("DROP TABLE LetterSoundAssessmentEvent");
+            database.execSQL("ALTER TABLE LetterSoundAssessmentEvent_tmp RENAME TO LetterSoundAssessmentEvent");
+
+            database.execSQL("CREATE TABLE IF NOT EXISTS `WordAssessmentEvent_tmp` (`wordText` TEXT NOT NULL, `wordId` INTEGER, `androidId` TEXT NOT NULL, `packageName` TEXT NOT NULL, `timestamp` INTEGER NOT NULL, `masteryScore` REAL NOT NULL, `timeSpentMs` INTEGER NOT NULL, `additionalData` TEXT, `researchExperiment` TEXT, `experimentGroup` TEXT, `id` INTEGER PRIMARY KEY AUTOINCREMENT)");
+            database.execSQL("INSERT INTO WordAssessmentEvent_tmp(wordText, wordId, androidId, packageName, timestamp, masteryScore, timeSpentMs, additionalData, researchExperiment, experimentGroup, id) SELECT wordText, wordId, androidId, packageName, time, masteryScore, timeSpentMs, additionalData, researchExperiment, experimentGroup, id FROM WordAssessmentEvent");
+            database.execSQL("DROP TABLE WordAssessmentEvent");
+            database.execSQL("ALTER TABLE WordAssessmentEvent_tmp RENAME TO WordAssessmentEvent");
+
+            database.execSQL("CREATE TABLE IF NOT EXISTS `NumberAssessmentEvent_tmp` (`numberValue` INTEGER NOT NULL, `numberSymbol` TEXT, `numberId` INTEGER, `androidId` TEXT NOT NULL, `packageName` TEXT NOT NULL, `timestamp` INTEGER NOT NULL, `masteryScore` REAL NOT NULL, `timeSpentMs` INTEGER NOT NULL, `additionalData` TEXT, `researchExperiment` TEXT, `experimentGroup` TEXT, `id` INTEGER PRIMARY KEY AUTOINCREMENT)");
+            database.execSQL("INSERT INTO NumberAssessmentEvent_tmp(numberValue, numberSymbol, numberId, androidId, packageName, timestamp, masteryScore, timeSpentMs, additionalData, researchExperiment, experimentGroup, id) SELECT numberValue, numberSymbol, numberId, androidId, packageName, time, masteryScore, timeSpentMs, additionalData, researchExperiment, experimentGroup, id FROM NumberAssessmentEvent");
+            database.execSQL("DROP TABLE NumberAssessmentEvent");
+            database.execSQL("ALTER TABLE NumberAssessmentEvent_tmp RENAME TO NumberAssessmentEvent");
         }
     };
 }

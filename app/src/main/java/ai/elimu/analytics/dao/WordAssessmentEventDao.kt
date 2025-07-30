@@ -11,13 +11,13 @@ interface WordAssessmentEventDao {
     @Insert
     fun insert(wordAssessmentEvent: WordAssessmentEvent)
 
-    @Query("SELECT * FROM WordAssessmentEvent ORDER BY time ASC")
+    @Query("SELECT * FROM WordAssessmentEvent ORDER BY timestamp ASC")
     fun loadAllOrderedByTimestampAsc(): List<WordAssessmentEvent>
 
-    @Query("SELECT * FROM WordAssessmentEvent ORDER BY time DESC")
+    @Query("SELECT * FROM WordAssessmentEvent ORDER BY timestamp DESC")
     fun loadAllOrderedByTimestampDesc(): Cursor
 
-    @Query("SELECT * FROM WordAssessmentEvent WHERE wordId = :wordId ORDER BY time DESC")
+    @Query("SELECT * FROM WordAssessmentEvent WHERE wordId = :wordId ORDER BY timestamp DESC")
     fun loadAllOrderedByTimestampDesc(wordId: Long?): Cursor
 
     @Query("SELECT COUNT(*) FROM WordAssessmentEvent")

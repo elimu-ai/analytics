@@ -127,7 +127,7 @@ fun EventType.createEventFromIntent(context: Context, intent: Intent): BaseEntit
             LetterSoundAssessmentEvent().apply {
                 this.androidId = androidId
                 this.packageName = packageName
-                this.time = timestamp
+                this.timestamp = timestamp
                 this.masteryScore = masteryScore
                 this.timeSpentMs = timeSpentMs
                 this.additionalData = additionalData
@@ -184,7 +184,7 @@ fun EventType.createEventFromIntent(context: Context, intent: Intent): BaseEntit
             WordAssessmentEvent().apply {
                 this.androidId = androidId
                 this.packageName = packageName
-                this.time = timestamp
+                this.timestamp = timestamp
                 this.masteryScore = masteryScore
                 this.timeSpentMs = timeSpentMs
                 this.additionalData = additionalData

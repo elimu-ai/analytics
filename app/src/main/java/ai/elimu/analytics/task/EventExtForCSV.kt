@@ -13,7 +13,7 @@ import ai.elimu.analytics.entity.WordLearningEvent
 fun LetterSoundAssessmentEvent.getCSVFields(): List<Any?> {
     return listOf(
         this.id,
-        this.time.timeInMillis / 1_000,
+        this.timestamp.timeInMillis / 1_000,
         this.packageName,
         this.masteryScore,
         this.timeSpentMs,
@@ -42,7 +42,7 @@ fun LetterSoundLearningEvent.getCSVFields(): List<Any?> {
 fun WordAssessmentEvent.getCSVFields(): List<Any?> {
     return listOf(
         this.id,
-        this.time.timeInMillis / 1_000,
+        this.timestamp.timeInMillis / 1_000,
         this.packageName,
         this.masteryScore,
         this.timeSpentMs,

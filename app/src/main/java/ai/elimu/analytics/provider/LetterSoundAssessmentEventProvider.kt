@@ -100,7 +100,7 @@ class LetterSoundAssessmentEventProvider : ContentProvider() {
             putString(BundleKeys.KEY_ID, LetterSoundAssessmentEvent::id.name)
             putString(BundleKeys.KEY_ANDROID_ID, LetterSoundAssessmentEvent::androidId.name)
             putString(BundleKeys.KEY_PACKAGE_NAME, LetterSoundAssessmentEvent::packageName.name)
-            putString(BundleKeys.KEY_TIMESTAMP, LetterSoundAssessmentEvent::time.name)
+            putString(BundleKeys.KEY_TIMESTAMP, LetterSoundAssessmentEvent::timestamp.name)
             putString(BundleKeys.KEY_MASTERY_SCORE, LetterSoundAssessmentEvent::masteryScore.name)
             putString(BundleKeys.KEY_TIME_SPENT_MS, LetterSoundAssessmentEvent::timeSpentMs.name)
             putString(BundleKeys.KEY_ADDITIONAL_DATA, LetterSoundAssessmentEvent::additionalData.name)

@@ -86,7 +86,7 @@ class WordAssessmentEventProvider : ContentProvider() {
             putString(BundleKeys.KEY_ID, WordAssessmentEvent::id.name)
             putString(BundleKeys.KEY_ANDROID_ID, WordAssessmentEvent::androidId.name)
             putString(BundleKeys.KEY_PACKAGE_NAME, WordAssessmentEvent::packageName.name)
-            putString(BundleKeys.KEY_TIMESTAMP, WordAssessmentEvent::time.name)
+            putString(BundleKeys.KEY_TIMESTAMP, WordAssessmentEvent::timestamp.name)
             putString(BundleKeys.KEY_MASTERY_SCORE, WordAssessmentEvent::masteryScore.name)
             putString(BundleKeys.KEY_TIME_SPENT_MS, WordAssessmentEvent::timeSpentMs.name)
             putString(BundleKeys.KEY_ADDITIONAL_DATA, WordAssessmentEvent::additionalData.name)
