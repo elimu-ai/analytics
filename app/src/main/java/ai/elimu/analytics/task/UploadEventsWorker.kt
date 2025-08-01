@@ -312,7 +312,7 @@ class UploadEventsWorker(context: Context, workerParams: WorkerParameters) :
         Timber.i("uploadStoryBookLearningEvents")
 
         val languageDir = File(applicationContext.filesDir, "lang-${SharedPreferencesHelper.getLanguage(applicationContext)}")
-        val eventsDir = File(languageDir, "storyBook-learning-events")
+        val eventsDir = File(languageDir, "storybook-learning-events")
         Timber.i("eventsDir.exists(): ${eventsDir.exists()}")
         for (csvFile in eventsDir.listFiles() ?: emptyArray()) {
             Timber.i("csvFile: ${csvFile}")
