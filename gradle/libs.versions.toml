@@ -14,7 +14,7 @@ recyclerView = "1.4.0"
 room = "2.7.2"
 androidXJunit = "1.2.1"
 androidXEspresso = "3.6.1"
-coreKtx = "1.16.0"
+coreKtx = "1.17.0"
 workRuntime = "2.10.3"
 agp = "8.8.2"
 
