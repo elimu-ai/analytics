@@ -95,7 +95,7 @@ object AssessmentEventUtil {
             additionalData?.let {
                 broadcastIntent.putExtra(BundleKeys.KEY_ADDITIONAL_DATA, additionalData.toString())
             }
-            broadcastIntent.putExtra(BundleKeys.KEY_WORD_TEXT, wordGson.text)
+            broadcastIntent.putExtra(BundleKeys.KEY_WORD_TEXT, wordGson.toString())
             wordGson.id?.let {
                 broadcastIntent.putExtra(BundleKeys.KEY_WORD_ID, wordGson.id)
             }
