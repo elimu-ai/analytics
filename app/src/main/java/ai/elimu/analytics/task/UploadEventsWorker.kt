@@ -25,6 +25,7 @@ import java.io.File
  */
 class UploadEventsWorker(context: Context, workerParams: WorkerParameters) :
     Worker(context, workerParams) {
+
     override fun doWork(): Result {
         Timber.i("doWork")
 
