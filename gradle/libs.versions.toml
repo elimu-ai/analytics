@@ -1,5 +1,5 @@
 [versions]
-elimuModel = "model-2.0.135"
+elimuModel = "model-2.0.139"
 material = "1.12.0"
 retrofit = "2.11.0"
 junit = "4.13.2"
@@ -14,9 +14,9 @@ recyclerView = "1.4.0"
 room = "2.8.4"
 androidXJunit = "1.3.0"
 androidXEspresso = "3.6.1"
-coreKtx = "1.16.0"
+coreKtx = "1.18.0"
 workRuntime = "2.10.5"
-agp = "8.8.2"
+agp = "8.9.1"
 
 [libraries]
 elimu-model = { group = "ai.elimu", name = "model", version.ref = "elimuModel" }
