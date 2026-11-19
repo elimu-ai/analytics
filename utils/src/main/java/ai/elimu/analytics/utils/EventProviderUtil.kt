@@ -12,6 +12,7 @@ import ai.elimu.model.v2.gson.analytics.NumberLearningEventGson
 import ai.elimu.model.v2.gson.analytics.VideoLearningEventGson
 import ai.elimu.model.v2.gson.analytics.WordAssessmentEventGson
 import ai.elimu.model.v2.gson.analytics.WordLearningEventGson
+import ai.elimu.model.v2.gson.content.LetterSoundGson
 import ai.elimu.model.v2.gson.content.WordGson
 import android.content.Context
 import android.util.Log
@@ -28,6 +29,44 @@ object EventProviderUtil {
         val letterSoundAssessmentEventGsons: MutableList<LetterSoundAssessmentEventGson> = ArrayList()
 
         val letterSoundAssessmentEventsUri = "content://${analyticsApplicationId}.provider.letter_sound_assessment_event_provider/events".toUri()
+        Log.i(TAG, "letterSoundAssessmentEventsUri: ${letterSoundAssessmentEventsUri}")
+        val letterSoundAssessmentEventsCursor = context.contentResolver.query(letterSoundAssessmentEventsUri, null, null, null, null)
+        Log.i(TAG, "letterSoundAssessmentEventsCursor: ${letterSoundAssessmentEventsCursor}")
+        if (letterSoundAssessmentEventsCursor == null) {
+            Log.e(TAG, "letterSoundAssessmentEventsCursor == null")
+            Toast.makeText(context, "letterSoundAssessmentEventsCursor == null", Toast.LENGTH_LONG).show()
+        } else {
+            Log.i(TAG, "letterSoundAssessmentEventsCursor.count: " + letterSoundAssessmentEventsCursor.count)
+            if (letterSoundAssessmentEventsCursor.count == 0) {
+                Log.e(TAG, "letterSoundAssessmentEventsCursor.count == 0")
+            } else {
+                var isLast: Boolean = false
+                while (!isLast) {
+                    letterSoundAssessmentEventsCursor.moveToNext()
+
+                    // Convert from Room to Gson
+                    val letterSoundAssessmentEventGson = CursorToLetterSoundAssessmentEventGsonConverter.getLetterSoundAssessmentEventGson(letterSoundAssessmentEventsCursor)
+
+                    letterSoundAssessmentEventGsons.add(letterSoundAssessmentEventGson)
+
+                    isLast = letterSoundAssessmentEventsCursor.isLast
+                }
+
+                letterSoundAssessmentEventsCursor.close()
+                Log.i(TAG, "letterSoundAssessmentEventsCursor.isClosed: " + letterSoundAssessmentEventsCursor.isClosed)
+            }
+        }
+        Log.i(TAG, "letterSoundAssessmentEventGsons.size: " + letterSoundAssessmentEventGsons.size)
+
+        return letterSoundAssessmentEventGsons
+    }
+
+    fun getLetterSoundAssessmentEventGsonsByLetterSound(letterSoundGson: LetterSoundGson, context: Context, analyticsApplicationId: String): List<LetterSoundAssessmentEventGson> {
+        Log.i(TAG, "getLetterSoundAssessmentEventGsonsByLetterSound")
+
+        val letterSoundAssessmentEventGsons: MutableList<LetterSoundAssessmentEventGson> = ArrayList()
+
+        val letterSoundAssessmentEventsUri = ("content://${analyticsApplicationId}.provider.letter_sound_assessment_event_provider/events/by-letter-sound-id/" + letterSoundGson.id).toUri()
         Log.i(TAG, "letterSoundAssessmentEventsUri: ${letterSoundAssessmentEventsUri}")
         val letterSoundAssessmentEventsCursor = context.contentResolver.query(letterSoundAssessmentEventsUri, null, null, null, null)
         Log.i(TAG, "letterSoundAssessmentEventsCursor: ${letterSoundAssessmentEventsCursor}")
