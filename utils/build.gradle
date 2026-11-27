@@ -15,7 +15,7 @@ android {
         minSdkVersion 29
         targetSdkVersion 36
         versionCode 4002001
-        versionName "4.2.1-SNAPSHOT"
+        versionName "4.2.1"
     }
 
     buildTypes {
