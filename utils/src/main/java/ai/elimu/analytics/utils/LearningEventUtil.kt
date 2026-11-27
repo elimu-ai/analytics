@@ -47,7 +47,7 @@ object LearningEventUtil {
             additionalData?.let {
                 broadcastIntent.putExtra(BundleKeys.KEY_ADDITIONAL_DATA, additionalData.toString())
             }
-            broadcastIntent.putExtra(BundleKeys.KEY_LITERACY_SKILL, literacySkill)
+            broadcastIntent.putExtra(BundleKeys.KEY_LITERACY_SKILL, literacySkill.name)
 
             context.sendOrderedBroadcast(broadcastIntent, null, ErrorResultReceiver(), null, Activity.RESULT_OK, null, null)
         } catch (e: Exception) {
