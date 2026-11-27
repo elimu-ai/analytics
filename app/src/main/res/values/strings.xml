@@ -5,6 +5,7 @@
     <string name="database_no_events">The database does not contain any events.</string>
     <string name="android_id_label">Android ID: </string>
     <string name="research_experiment">Research experiment: ...</string>
+    <string name="event_label_literacy_learning">📚 Literacy learning events: %d</string>
     <string name="event_label_letter_sound_assessment">🎼 Letter-sound assessment events: %d</string>
     <string name="event_label_letter_sound_learning">🎼 Letter-sound learning events: %d</string>
     <string name="event_label_word_assessment">🔤 Word assessment events: %d</string>

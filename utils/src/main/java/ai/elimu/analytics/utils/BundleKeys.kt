@@ -27,6 +27,9 @@ object BundleKeys {
     const val KEY_TIME_SPENT_MS = "time_spent_ms"
     const val KEY_MASTERY_SCORE = "mastery_score"
 
+    // LiteracyLearningEvent
+    const val KEY_LITERACY_SKILL = "literacy_skill"
+
     // LetterSound AssessmentEvent/LearningEvent
     @Deprecated("Will be replaced by `letterSoundLetters`")
     const val KEY_LETTER_SOUND_LETTER_TEXTS = "letter_sound_letter_texts"
