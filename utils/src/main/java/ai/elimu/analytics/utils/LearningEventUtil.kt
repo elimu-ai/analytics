@@ -1,6 +1,7 @@
 package ai.elimu.analytics.utils
 
 import ai.elimu.analytics.utils.receiver.ErrorResultReceiver
+import ai.elimu.model.v2.enums.content.LiteracySkill
 import ai.elimu.model.v2.gson.content.LetterGson
 import ai.elimu.model.v2.gson.content.LetterSoundGson
 import ai.elimu.model.v2.gson.content.NumberGson
@@ -23,6 +24,37 @@ import java.util.stream.Collectors
 object LearningEventUtil {
 
     const val BROADCAST_INTENT_ACTION_ANALYTICS = "ai.elimu.intent.action.ANALYTICS_EVENT"
+
+    /**
+     * @param literacySkill The literacy skill that the student is learning.
+     * @param additionalData Any additional data related to the learning event, e.g. `{'is_word_pressed':true}`
+     * @param context Needed to fetch the `packageName` of the application where the event occurred.
+     * @param analyticsApplicationId The package name of the analytics application that will receive the Intent and store the event.
+     */
+    fun reportLiteracyLearningEvent(
+        literacySkill: LiteracySkill,
+        additionalData: JSONObject? = null,
+        context: Context,
+        analyticsApplicationId: String
+    ) {
+        Log.i(this::class.simpleName, "reportLiteracyLearningEvent")
+
+        try {
+            val broadcastIntent = Intent()
+            broadcastIntent.setPackage(analyticsApplicationId)
+            broadcastIntent.setAction("ai.elimu.intent.action.LITERACY_LEARNING_EVENT")
+            broadcastIntent.putExtra(BundleKeys.KEY_PACKAGE_NAME, context.packageName)
+            additionalData?.let {
+                broadcastIntent.putExtra(BundleKeys.KEY_ADDITIONAL_DATA, additionalData.toString())
+            }
+            broadcastIntent.putExtra(BundleKeys.KEY_LITERACY_SKILL, literacySkill)
+
+            context.sendOrderedBroadcast(broadcastIntent, null, ErrorResultReceiver(), null, Activity.RESULT_OK, null, null)
+        } catch (e: Exception) {
+            Log.e(this::class.simpleName, "Error during Intent preparation", e)
+            Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
+        }
+    }
 
     /**
      * @param letterSoundGson The letter-sound correspondence that the student is learning.

@@ -40,6 +40,8 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
     override fun doWork(): Result {
         Timber.i("doWork")
 
+        exportLiteracyLearningEvents()
+
         exportLetterSoundLearningEvents()
         exportLetterSoundAssessmentEvents()
 
@@ -54,6 +56,65 @@ class ExportEventsToCsvWorker(context: Context, workerParams: WorkerParameters) 
         exportVideoLearningEvents()
 
         return Result.success()
+    }
+
+    private fun exportLiteracyLearningEvents() {
+        Timber.i("exportLiteracyLearningEvents")
+
+        // Read all the events from the database
+        val roomDb = RoomDb.getDatabase(applicationContext)
+        val literacyLearningEventDao = roomDb.literacyLearningEventDao()
+        val events = literacyLearningEventDao.loadAllOrderedByTimestampAsc()
+        Timber.i("events.size: ${events.size}")
+
+        // Generate one CSV file per day of events, e.g:
+        //   lang-THA/literacy-learning-events/5b7c682a12ecbe2e_4000021_literacy-learning-events_2025-06-29.csv
+        //   lang-THA/literacy-learning-events/5b7c682a12ecbe2e_4000021_literacy-learning-events_2025-06-30.csv
+        var stringWriter: StringWriter? = null
+        var csvPrinter: CSVPrinter? = null
+        var dateOfPreviousEvent: String? = null
+        for (event in events) {
+            // Get the event's date in ISO format, e.g. "2025-06-29"
+            val date: String = eventDateFormat.format(event.timestamp.time)
+
+            // Prepare the CSV file path
+            val languageDir = File(applicationContext.filesDir, "lang-${SharedPreferencesHelper.getLanguage(applicationContext)}")
+            val eventsDir = File(languageDir, "literacy-learning-events")
+            val csvFile = File(eventsDir, "${event.androidId}_${BuildConfig.VERSION_CODE}_literacy-learning-events_${date}.csv")
+
+            if (date != dateOfPreviousEvent) {
+                // Reset file content, and prepare the headers for a new CSV file
+                Timber.i("csvFile: ${csvFile}")
+                stringWriter = StringWriter()
+                csvPrinter = CSVPrinter(stringWriter, CSVFormat.DEFAULT.builder().setHeader(
+                    "id",
+                    "timestamp",
+                    "package_name",
+                    "additional_data",
+                    "research_experiment",
+                    "experiment_group",
+                    "literacy_skill"
+                ).get())
+            }
+            csvPrinter?.printRecord(
+                event.id,
+                event.timestamp.timeInMillis / 1_000,
+                event.packageName,
+                event.additionalData,
+                event.researchExperiment?.ordinal,
+                event.experimentGroup?.ordinal,
+                event.literacySkill.ordinal
+            )
+            csvPrinter?.flush()
+
+            // Write the content to the CSV file
+            val csvFileContent = stringWriter.toString()
+            FileUtils.writeStringToFile(csvFile, csvFileContent, "UTF-8")
+
+            dateOfPreviousEvent = date
+        }
+
+        Timber.i("exportLiteracyLearningEvents complete!")
     }
 
     private fun exportLetterSoundLearningEvents() {
