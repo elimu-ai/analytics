@@ -51,7 +51,10 @@ class LiteracyLearningEventReceiver : BroadcastReceiver() {
             val additionalData: String? = intent.getStringExtra(BundleKeys.KEY_ADDITIONAL_DATA)
             event.additionalData = additionalData
 
-            val literacySkillName: String = intent.getStringExtra(BundleKeys.KEY_LITERACY_SKILL)!!
+            val literacySkillName: String = intent.getStringExtra(BundleKeys.KEY_LITERACY_SKILL) ?: ""
+            if (TextUtils.isEmpty(literacySkillName)) {
+                throw IllegalArgumentException("Missing literacySkill")
+            }
             val literacySkill: LiteracySkill = LiteracySkill.valueOf(literacySkillName)
             event.literacySkill = literacySkill
 
