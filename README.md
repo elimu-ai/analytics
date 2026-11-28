@@ -26,6 +26,7 @@ The various types of _assessment events_ are handled by the Android receivers at
 
 An _assessment event_ is an event that involves testing of whether or not the student is able to master a concept. For example; A word is sounded out, and the student is asked select the corresponding written text amongst a list of alternatives (multiple choice).
 
+  * `LiteracyAssessmentEvent` (any literacy skill)
   * `WordAssessmentEvent`
   * `LetterSoundAssessmentEvent` (letter-sound correspondence)
 
