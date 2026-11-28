@@ -71,6 +71,10 @@ class EventListActivity : AppCompatActivity() {
             try {
                 val eventTypeCounts = listOf(
                     EventListAdapter.EventTypeCount(
+                        getString(R.string.event_label_literacy_assessment,
+                            roomDb.literacyAssessmentEventDao().getCount())
+                    ),
+                    EventListAdapter.EventTypeCount(
                         getString(R.string.event_label_literacy_learning,
                             roomDb.literacyLearningEventDao().getCount())
                     ),
