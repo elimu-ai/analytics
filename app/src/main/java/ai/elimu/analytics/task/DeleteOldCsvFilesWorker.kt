@@ -14,6 +14,7 @@ class DeleteOldCsvFilesWorker(context: Context, workerParams: WorkerParameters) 
     Worker(context, workerParams) {
 
     companion object {
+        private const val DIR_LITERACY_ASSESSMENT_EVENTS = "literacy-assessment-events"
         private const val DIR_LITERACY_LEARNING_EVENTS = "literacy-learning-events"
         private const val DIR_LETTER_SOUND_LEARNING_EVENTS = "letter-sound-learning-events"
         private const val DIR_LETTER_SOUND_ASSESSMENT_EVENTS = "letter-sound-assessment-events"
@@ -30,6 +31,7 @@ class DeleteOldCsvFilesWorker(context: Context, workerParams: WorkerParameters) 
 
         val eventSubDirs = listOf(
             DIR_LITERACY_LEARNING_EVENTS,
+            DIR_LITERACY_ASSESSMENT_EVENTS,
             DIR_LETTER_SOUND_LEARNING_EVENTS,
             DIR_LETTER_SOUND_ASSESSMENT_EVENTS,
             DIR_WORD_LEARNING_EVENTS,
