@@ -104,6 +104,11 @@
         </receiver>
 
         <provider
+            android:name=".provider.LiteracyAssessmentEventProvider"
+            android:authorities="${applicationId}.provider.literacy_assessment_event_provider"
+            android:enabled="true"
+            android:exported="true" />
+        <provider
             android:name=".provider.LetterSoundAssessmentEventProvider"
             android:authorities="${applicationId}.provider.letter_sound_assessment_event_provider"
             android:enabled="true"
