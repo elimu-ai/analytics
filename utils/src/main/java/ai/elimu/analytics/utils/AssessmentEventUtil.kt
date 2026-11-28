@@ -1,6 +1,7 @@
 package ai.elimu.analytics.utils
 
 import ai.elimu.analytics.utils.receiver.ErrorResultReceiver
+import ai.elimu.model.v2.enums.content.LiteracySkill
 import ai.elimu.model.v2.gson.content.LetterSoundGson
 import ai.elimu.model.v2.gson.content.NumberGson
 import ai.elimu.model.v2.gson.content.WordGson
@@ -16,6 +17,45 @@ import org.json.JSONObject
  * in the `:app` module.
  */
 object AssessmentEventUtil {
+
+    /**
+     * Reports an assessment of any type of literacy skill.
+     *
+     * @param literacySkill The literacy skill that the student is being assessed for.
+     * @param masteryScore A value in the range [0.0, 1.0].
+     * @param timeSpentMs The number of milliseconds passed between the student opening the assessment task and submitting a response. E.g. `15000`.
+     * @param additionalData Any additional data related to the assessment event, e.g. `{'word_ids_presented':[1,2,3],'word_id_selected':[2]}`
+     * @param context Needed to fetch the `packageName` of the application where the event occurred.
+     * @param analyticsApplicationId The package name of the analytics application that will receive the Intent and store the event.
+     */
+    fun reportLiteracyAssessmentEvent(
+        literacySkill: LiteracySkill,
+        masteryScore: Float,
+        timeSpentMs: Long,
+        additionalData: JSONObject? = null,
+        context: Context,
+        analyticsApplicationId: String
+    ) {
+        Log.i(this::class.simpleName, "reportLiteracyAssessmentEvent")
+
+        try {
+            val broadcastIntent = Intent()
+            broadcastIntent.setPackage(analyticsApplicationId)
+            broadcastIntent.setAction("ai.elimu.intent.action.LITERACY_ASSESSMENT_EVENT")
+            broadcastIntent.putExtra(BundleKeys.KEY_PACKAGE_NAME, context.packageName)
+            broadcastIntent.putExtra(BundleKeys.KEY_MASTERY_SCORE, masteryScore)
+            broadcastIntent.putExtra(BundleKeys.KEY_TIME_SPENT_MS, timeSpentMs)
+            additionalData?.let {
+                broadcastIntent.putExtra(BundleKeys.KEY_ADDITIONAL_DATA, additionalData.toString())
+            }
+            broadcastIntent.putExtra(BundleKeys.KEY_LITERACY_SKILL, literacySkill.name)
+
+            context.sendOrderedBroadcast(broadcastIntent, null, ErrorResultReceiver(), null, Activity.RESULT_OK, null, null)
+        } catch (e: Exception) {
+            Log.e(this::class.simpleName, "Error during Intent preparation", e)
+            Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
+        }
+    }
 
     /**
      * @param letterSoundGson The letter-sound correspondence that the student is being assessed for.
