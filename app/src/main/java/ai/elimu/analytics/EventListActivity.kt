@@ -75,6 +75,10 @@ class EventListActivity : AppCompatActivity() {
                             roomDb.literacyLearningEventDao().getCount())
                     ),
                     EventListAdapter.EventTypeCount(
+                        getString(R.string.event_label_literacy_assessment,
+                            roomDb.literacyAssessmentEventDao().getCount())
+                    ),
+                    EventListAdapter.EventTypeCount(
                         getString(R.string.event_label_letter_sound_assessment,
                             roomDb.letterSoundAssessmentEventDao().getCount())
                     ),
